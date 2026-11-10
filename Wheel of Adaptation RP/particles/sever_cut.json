@@ -21,8 +21,8 @@
       },
       "minecraft:particle_initial_speed": 0,
       "minecraft:particle_initial_spin": {
-        "rotation": "math.random(-22, 22)",
-        "rotation_rate": "(v.spin ? v.spin : 1.0) * 70"
+        "rotation": "math.random(-12, 12)",
+        "rotation_rate": 0
       },
       "minecraft:particle_appearance_billboard": {
         "size": [

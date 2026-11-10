@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 64
+        "num_particles": 36
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 0.05
@@ -39,8 +39,8 @@
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.30 * (v.scale ? v.scale : 1.0) * (1 - (v.particle_age / v.particle_lifetime) * 0.6)",
-          "2.15 * (v.scale ? v.scale : 1.0) * (0.4 + 0.85 * math.sqrt(v.particle_age / v.particle_lifetime))"
+          "0.18 * (v.scale ? v.scale : 1.0) * (1 - (v.particle_age / v.particle_lifetime) * 0.6)",
+          "1.85 * (v.scale ? v.scale : 1.0) * (0.4 + 0.85 * math.sqrt(v.particle_age / v.particle_lifetime))"
         ],
         "facing_camera_mode": "rotate_y",
         "uv": {

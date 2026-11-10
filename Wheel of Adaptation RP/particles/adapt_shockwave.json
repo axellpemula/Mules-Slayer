@@ -22,8 +22,8 @@
       "minecraft:particle_initial_speed": 0,
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "(0.55 + 7.4 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
-          "(0.55 + 7.4 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
+          "(0.50 + 4.6 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
+          "(0.50 + 4.6 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
         ],
         "facing_camera_mode": "emitter_transform_xz",
         "uv": {

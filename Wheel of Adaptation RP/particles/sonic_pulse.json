@@ -25,7 +25,7 @@
           "(0.45 + 2.25 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
           "(0.45 + 2.25 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
         ],
-        "facing_camera_mode": "lookat_xyz",
+        "facing_camera_mode": "emitter_transform_xz",
         "uv": {
           "texture_width": 1,
           "texture_height": 1,
