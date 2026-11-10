@@ -14,13 +14,13 @@
       "bones": {
         "rightArm": {
           "rotation": [
-            -15,
-            0,
-            0
+            "-15.0 + math.sin(q.life_time * 110) * 1.15",
+            "math.cos(q.life_time * 85) * 0.75",
+            "math.sin(q.life_time * 110) * 0.65"
           ],
           "position": [
             -3,
-            5,
+            "5.0 + math.sin(q.life_time * 110) * 0.18",
             -2
           ]
         }
@@ -32,51 +32,51 @@
       "bones": {
         "aura_0": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 360) * 0.72",
-            "(math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 360) * 0.72"
+            "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         },
         "aura_1": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 360 + 180) * 0.72",
-            "(math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 360 + 180) * 0.72"
+            "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         },
         "aura_2": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 360) * 0.72",
-            "(math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 360) * 0.72"
+            "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         },
         "aura_3": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 360 + 180) * 0.72",
-            "(math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 360 + 180) * 0.72"
+            "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         },
         "aura_4": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 360) * 0.72",
-            "(math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 360) * 0.72"
+            "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 360) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         },
         "aura_5": {
           "position": [
-            "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 360 + 180) * 0.72",
-            "(math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 7.4",
-            "math.cos((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 360 + 180) * 0.72"
+            "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))",
+            "(math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 7.8",
+            "math.cos((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 360 + 180) * (0.76 + 0.14 * math.sin(q.life_time * 160))"
           ],
-          "scale": "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 180) * 1.45"
+          "scale": "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 180) * (1.48 + 0.24 * math.sin(q.life_time * 220)) * (1 + q.is_sneaking * 0.26)"
         }
       }
     }

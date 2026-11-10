@@ -20,7 +20,7 @@
     },
     "animation.xvoid.wheel.idle_fx": {
       "loop": true,
-      "animation_length": 1.0,
+      "animation_length": 0.75,
       "particle_effects": {
         "0.0": {
           "effect": "idle_mote",

@@ -26,8 +26,8 @@
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "(1.6 + 2.6 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
-          "(1.6 + 2.6 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
+          "(1.55 + 2.75 * math.sin((v.particle_age / v.particle_lifetime) * 90)) * (v.scale ? v.scale : 1.0)",
+          "(1.55 + 2.75 * math.sin((v.particle_age / v.particle_lifetime) * 90)) * (v.scale ? v.scale : 1.0)"
         ],
         "facing_camera_mode": "emitter_transform_xz",
         "uv": {
@@ -48,7 +48,7 @@
           "1.0 + ((v.tint ? v.r : 1.0) - 1.0) * math.min(1, (v.particle_age / v.particle_lifetime) * 1.8)",
           "0.96 + ((v.tint ? v.g : 0.82) - 0.96) * math.min(1, (v.particle_age / v.particle_lifetime) * 1.8)",
           "0.78 + ((v.tint ? v.b : 0.26) - 0.78) * math.min(1, (v.particle_age / v.particle_lifetime) * 1.8)",
-          "math.min(1, (v.particle_age / v.particle_lifetime) * 6.0) * (1.0 - (v.particle_age / v.particle_lifetime) * (v.particle_age / v.particle_lifetime))"
+          "(math.min(1, (v.particle_age / v.particle_lifetime) * 5.0) * math.cos((v.particle_age / v.particle_lifetime) * 90))"
         ]
       }
     }
