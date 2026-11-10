@@ -135,7 +135,7 @@
   "emblem_glow": {
     "type": "image",
     "texture": "textures/ui/xvoid/hud_emblem_glow",
-    "size": [ 44, 44 ],
+    "size": [ 42, 42 ],
     "bilinear": true,
     "alpha": "@xvoid_hud.anim_glow_pulse",
     "layer": 1,
@@ -155,7 +155,7 @@
   "emblem_idle": {
     "type": "image",
     "texture": "textures/ui/xvoid/hud_emblem",
-    "size": [ 34, 34 ],
+    "size": [ 32, 32 ],
     "bilinear": false,
     "layer": 2,
     "bindings": [
@@ -174,7 +174,7 @@
   "emblem_spin": {
     "type": "image",
     "texture": "textures/ui/xvoid/hud_emblem_spin",
-    "size": [ 34, 34 ],
+    "size": [ 32, 32 ],
     "uv": "@xvoid_hud.anim_spin_0",
     "uv_size": [ 64, 64 ],
     "bilinear": false,
@@ -195,7 +195,7 @@
   "emblem_spin_fast": {
     "type": "image",
     "texture": "textures/ui/xvoid/hud_emblem_spin",
-    "size": [ 34, 34 ],
+    "size": [ 32, 32 ],
     "uv": "@xvoid_hud.anim_fast_0",
     "uv_size": [ 64, 64 ],
     "bilinear": false,
@@ -215,7 +215,7 @@
 
   "emblem_box": {
     "type": "panel",
-    "size": [ 40, 50 ],
+    "size": [ 36, 48 ],
     "controls": [
       { "glow@xvoid_hud.emblem_glow": {} },
       { "idle@xvoid_hud.emblem_idle": {} },
@@ -226,13 +226,13 @@
 
   "rule_box": {
     "type": "panel",
-    "size": [ 1, 50 ],
+    "size": [ 1, 48 ],
     "controls": [
       {
         "rule": {
           "type": "image",
           "texture": "textures/ui/xvoid/hud_rule",
-          "size": [ 1, 44 ],
+          "size": [ 1, 40 ],
           "alpha": 0.85
         }
       }
@@ -245,7 +245,7 @@
     "color": [ 1, 1, 1 ],
     "shadow": true,
     "localize": false,
-    "font_scale_factor": 0.85,
+    "font_scale_factor": 0.82,
     "line_padding": 1,
     "text_alignment": "left",
     "size": [ "default", "default" ],
@@ -264,7 +264,7 @@
     "color": [ 0.9, 0.9, 0.94 ],
     "shadow": true,
     "localize": false,
-    "font_scale_factor": 0.8,
+    "font_scale_factor": 0.78,
     "line_padding": 1,
     "text_alignment": "left",
     "size": [ "default", "default" ],
@@ -282,11 +282,11 @@
     "orientation": "vertical",
     "size": [ "100%c", "100%c" ],
     "controls": [
-      { "top_pad": { "type": "panel", "size": [ 1, 3 ] } },
+      { "top_pad": { "type": "panel", "size": [ 1, 4 ] } },
       { "title@xvoid_hud.title_label": {} },
       { "mid_pad": { "type": "panel", "size": [ 1, 2 ] } },
       { "subtitle@xvoid_hud.subtitle_label": {} },
-      { "bot_pad": { "type": "panel", "size": [ 1, 3 ] } }
+      { "bot_pad": { "type": "panel", "size": [ 1, 4 ] } }
     ]
   },
 
@@ -296,32 +296,39 @@
     "size": [ "100%c", "100%c" ],
     "layer": 2,
     "controls": [
-      { "left_pad": { "type": "panel", "size": [ 4, 1 ] } },
+      { "left_pad": { "type": "panel", "size": [ 5, 1 ] } },
       { "emblem@xvoid_hud.emblem_box": {} },
       { "gap_a": { "type": "panel", "size": [ 4, 1 ] } },
       { "rule@xvoid_hud.rule_box": {} },
-      { "gap_b": { "type": "panel", "size": [ 6, 1 ] } },
+      { "gap_b": { "type": "panel", "size": [ 5, 1 ] } },
       { "text@xvoid_hud.text_col": {} },
-      { "right_pad": { "type": "panel", "size": [ 6, 1 ] } }
+      { "right_pad": { "type": "panel", "size": [ 7, 1 ] } }
     ]
   },
 
-  "card": {
+  "bg": {
     "type": "image",
     "texture": "textures/ui/White",
     "color": [ 0.05, 0.05, 0.08 ],
-    "alpha": 0.64,
-    "size": [ "100%c + 6px", "100%c + 6px" ],
+    "alpha": 0.62,
+    "layer": 1,
+    "size": [ "100%sm", "100%sm" ]
+  },
+
+  "card": {
+    "type": "panel",
+    "size": [ "100%c", "100%c" ],
     "controls": [
-      { "content@xvoid_hud.content": {} }
+      { "content@xvoid_hud.content": {} },
+      { "bg@xvoid_hud.bg": {} }
     ]
   },
 
   "root": {
     "type": "panel",
-    "anchor_from": "bottom_right",
-    "anchor_to": "bottom_right",
-    "offset": [ -8, -8 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 8, -8 ],
     "size": [ "100%c", "100%c" ],
     "layer": 5,
     "controls": [

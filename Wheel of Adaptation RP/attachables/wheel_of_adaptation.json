@@ -16,15 +16,22 @@
       },
       "animations": {
         "hide_first_person": "animation.xvoid.wheel.hide_first_person",
-        "idle": "animation.mahoraga_wheel.idle"
+        "idle": "animation.mahoraga_wheel.idle",
+        "idle_fx": "animation.xvoid.wheel.idle_fx"
       },
       "scripts": {
         "animate": [
           "idle",
           {
+            "idle_fx": "!c.is_first_person"
+          },
+          {
             "hide_first_person": "c.is_first_person"
           }
         ]
+      },
+      "particle_effects": {
+        "idle_mote": "xvoid:wheel_idle_mote"
       },
       "render_controllers": [
         "controller.render.item_default"

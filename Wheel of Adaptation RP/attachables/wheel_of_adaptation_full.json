@@ -43,7 +43,9 @@
             "hide_first_person": "c.is_first_person"
           },
           "adapt_full",
-          "glow_fx"
+          {
+            "glow_fx": "!c.is_first_person"
+          }
         ]
       },
       "render_controllers": [
