@@ -15,10 +15,22 @@ woa.toast.adapted=TERADAPTASI
 woa.toast.cured=Disembuhkan
 woa.toast.forgotten=Terlupakan
 woa.toast.starving=Terlalu lapar · roda tidak mau berputar
+woa.evo.supercharge=Bermuatan Petir
+woa.evo.counter=Tolakan Adaptif
+woa.sword.pierce=Tembusan Adaptif
+woa.sword.primed=Resonansi Pedang Siap
+woa.sword.fire=Tebasan Bara
+woa.sword.storm=Tebasan Badai
+woa.sword.venom=Tebasan Racun
+woa.sword.frost=Tebasan Beku
+woa.sword.pure=Tebasan Adaptif
 woa.lore.soulbound=Terikat jiwa
 
 woa.effect.fatal_poison=Racun Mematikan
 woa.effect.wither=Efek Wither
+woa.effect.bad_omen=Pertanda Buruk
+woa.effect.raid_omen=Pertanda Penyerbuan
+woa.effect.trial_omen=Pertanda Ujian
 
 woa.env.fire=Api
 woa.env.soul_fire=Api Jiwa

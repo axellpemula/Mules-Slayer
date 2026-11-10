@@ -14,14 +14,14 @@
         "rotation": false
       },
       "minecraft:emitter_rate_steady": {
-        "spawn_rate": "v.emitter_age > 1.25 && v.emitter_age < 4.1 ? 15 : 0",
-        "max_particles": 30
+        "spawn_rate": "v.emitter_age > 0.08 && v.emitter_age < 4.3 ? 24 : 0",
+        "max_particles": 48
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 4.4
       },
       "minecraft:emitter_shape_disc": {
-        "radius": 0.6,
+        "radius": 0.72,
         "plane_normal": "y",
         "surface_only": true,
         "direction": [
@@ -31,21 +31,21 @@
         ]
       },
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": "math.random(0.8, 1.2)"
+        "max_lifetime": "math.random(0.65, 1.15)"
       },
-      "minecraft:particle_initial_speed": "math.random(0.2, 0.45)",
+      "minecraft:particle_initial_speed": "math.random(0.25, 0.65)",
       "minecraft:particle_motion_dynamic": {
         "linear_acceleration": [
           0,
-          0.3,
+          0.45,
           0
         ],
-        "linear_drag_coefficient": 0.8
+        "linear_drag_coefficient": 0.9
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.07 * (1 - v.particle_age / v.particle_lifetime)",
-          "0.07 * (1 - v.particle_age / v.particle_lifetime)"
+          "0.09 * (1 - (v.particle_age / v.particle_lifetime) * 0.85)",
+          "0.09 * (1 - (v.particle_age / v.particle_lifetime) * 0.85)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -67,20 +67,20 @@
           "gradient": {
             "0.00": [
               1.0,
-              0.88,
-              0.4,
+              0.96,
+              0.72,
               1.0
             ],
-            "0.60": [
+            "0.50": [
               1.0,
-              0.7,
-              0.2,
-              0.9
+              0.82,
+              0.28,
+              0.95
             ],
             "1.00": [
               1.0,
-              0.55,
-              0.1,
+              0.58,
+              0.12,
               0.0
             ]
           }

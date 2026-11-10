@@ -15,10 +15,22 @@ woa.toast.adapted=ADAPTED
 woa.toast.cured=Cured
 woa.toast.forgotten=Forgotten
 woa.toast.starving=Too hungry · the wheel won't turn
+woa.evo.supercharge=Supercharged
+woa.evo.counter=Adaptive Repulse
+woa.sword.pierce=Adaptive Breakthrough
+woa.sword.primed=Sword Resonance Ready
+woa.sword.fire=Infernal Slash
+woa.sword.storm=Storm Slash
+woa.sword.venom=Decay Slash
+woa.sword.frost=Glacial Slash
+woa.sword.pure=Adaptive Slash
 woa.lore.soulbound=Soulbound
 
 woa.effect.fatal_poison=Fatal Poison
 woa.effect.wither=Wither Effect
+woa.effect.bad_omen=Bad Omen
+woa.effect.raid_omen=Raid Omen
+woa.effect.trial_omen=Trial Omen
 
 woa.env.fire=Fire
 woa.env.soul_fire=Soul Fire

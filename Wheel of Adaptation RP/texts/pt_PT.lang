@@ -15,10 +15,22 @@ woa.toast.adapted=ADAPTADO
 woa.toast.cured=Curado
 woa.toast.forgotten=Esquecido
 woa.toast.starving=Fome demais · a roda não gira
+woa.evo.supercharge=Sobrecarregado
+woa.evo.counter=Repulsão Adaptativa
+woa.sword.pierce=Ruptura Adaptativa
+woa.sword.primed=Ressonância da Espada Pronta
+woa.sword.fire=Corte Infernal
+woa.sword.storm=Corte Tempestuoso
+woa.sword.venom=Corte Corrosivo
+woa.sword.frost=Corte Glacial
+woa.sword.pure=Corte Adaptativo
 woa.lore.soulbound=Vinculado à alma
 
 woa.effect.fatal_poison=Veneno Fatal
 woa.effect.wither=Efeito Wither
+woa.effect.bad_omen=Mau Presságio
+woa.effect.raid_omen=Presságio de Invasão
+woa.effect.trial_omen=Presságio de Prova
 
 woa.env.fire=Fogo
 woa.env.soul_fire=Fogo das Almas

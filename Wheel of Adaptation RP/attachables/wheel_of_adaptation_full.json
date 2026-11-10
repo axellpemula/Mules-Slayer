@@ -35,7 +35,7 @@
       "scripts": {
         "pre_animation": [
           "v.glow_time = (v.glow_time ?? 0) + q.delta_time;",
-          "v.glow = v.glow_time < 1.875 ? v.glow_time / 1.875 * 0.75 : (v.glow_time < 2.05 ? 1 : (v.glow_time < 3.9 ? 0.9 : math.max(0, 0.9 * (4.4 - v.glow_time) / 0.5)));"
+          "v.glow = v.glow_time < 1.80 ? math.min(0.88, (v.glow_time / 1.80) * 0.68 + 0.20 * math.abs(math.sin((v.glow_time - 0.04) * 360))) : (v.glow_time < 3.90 ? 1.0 : math.max(0, (4.4 - v.glow_time) / 0.5));"
         ],
         "animate": [
           "idle",
