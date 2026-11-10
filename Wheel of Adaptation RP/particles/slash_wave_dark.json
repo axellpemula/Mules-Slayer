@@ -21,13 +21,13 @@
       },
       "minecraft:particle_initial_speed": 0,
       "minecraft:particle_initial_spin": {
-        "rotation": "math.random(-25, 25)",
-        "rotation_rate": "(v.spin ? v.spin : 1.0) * 165"
+        "rotation": 0,
+        "rotation_rate": 0
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "(0.72 + 1.18 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
-          "(0.72 + 1.18 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
+          "(0.62 + 1.00 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)",
+          "(0.62 + 1.00 * math.sqrt(v.particle_age / v.particle_lifetime)) * (v.scale ? v.scale : 1.0)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
