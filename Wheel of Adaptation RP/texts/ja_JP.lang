@@ -15,10 +15,22 @@ woa.toast.adapted=適応
 woa.toast.cured=浄化
 woa.toast.forgotten=忘却
 woa.toast.starving=空腹 · 法陣が回らない
+woa.evo.supercharge=雷電過負荷
+woa.evo.counter=適応反発
+woa.sword.pierce=適応貫通
+woa.sword.primed=退魔剣共鳴完了
+woa.sword.fire=業火斬撃
+woa.sword.storm=雷嵐斬撃
+woa.sword.venom=侵蝕斬撃
+woa.sword.frost=氷界斬撃
+woa.sword.pure=適応斬撃
 woa.lore.soulbound=魂縛
 
 woa.effect.fatal_poison=致死毒
 woa.effect.wither=衰弱
+woa.effect.bad_omen=不吉な予感
+woa.effect.raid_omen=襲撃の予感
+woa.effect.trial_omen=試練の予感
 
 woa.env.fire=火
 woa.env.soul_fire=ソウルファイア

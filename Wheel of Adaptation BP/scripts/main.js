@@ -1,4 +1,4 @@
-import { EquipmentSlot as ft, system as de, world as I } from "@minecraft/server";
+import { EquipmentSlot as ft, MolangVariableMap as mv, system as de, world as I } from "@minecraft/server";
 function ut(...e) {
     return e;
 }
@@ -51,6 +51,13 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         pillar: "xvoid:adapt_pillar",
         seal: "xvoid:adapt_seal",
         shockwave: "xvoid:adapt_shockwave",
+        flash: "xvoid:adapt_flash",
+        burst: "xvoid:adapt_burst",
+        ray: "xvoid:ray_spark",
+        halo: "xvoid:adapt_halo",
+        orb: "xvoid:adapt_orb",
+        deflect: "xvoid:adapt_deflect",
+        beamCore: "xvoid:adapt_beam_core",
     },
     U = {
         stab: "animation.extermination_sword.stab",
@@ -73,6 +80,7 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         quickHitValue: 1.5,
         attackPrefixes: ["mob:", "proj:", "weapon:"],
         hitsPerSpin: { mob: 3, proj: 3, env: 4, effect: 2, weapon: 3 },
+        nonDotSpinTicks: 60,
         hitsPerKey: { "env:sonic_boom": 2 },
         fullClickTick: 38,
         fullBuildTicks: [13, 25, 36],
@@ -232,8 +240,8 @@ function s(e) {
 function R(e, t) {
     return Hn.runTimeout(() => s(t), e);
 }
-function h(e, t, n) {
-    s(() => e.spawnParticle(t, n));
+function h(e, t, n, i) {
+    s(() => (i ? e.spawnParticle(t, n, i) : e.spawnParticle(t, n)));
 }
 function T(e, t, n, i = 1, r = 1) {
     s(() => e.playSound(t, n, { pitch: i, volume: r }));
@@ -249,24 +257,680 @@ function Y(e) {
     let t = e.getHeadLocation();
     return { x: t.x, y: t.y + m.heightAboveEyes, z: t.z };
 }
-function ye(e, t = b.spin) {
-    let n = Y(e);
-    T(e.dimension, t, n), h(e.dimension, p.spin, n);
+var woaGold = { r: 1.0, g: 0.84, b: 0.28 },
+    woaWhiteGold = { r: 1.0, g: 0.94, b: 0.68 },
+    woaHealColor = { r: 0.55, g: 1.0, b: 0.68 },
+    woaDotAt = new Map(),
+    woaExposeAt = new Map();
+function woaLowFx() {
+    return !!(s(() => pa("lowFx")) ?? !1);
 }
-function jn(e, t, n = !0) {
-    let i = Y(e);
-    n && T(e.dimension, b.adapted, i), h(e.dimension, p.charge, i);
-    for (let r of m.fullBuildTicks)
-        R(r, () => {
+function woaTheme(e) {
+    if (!e) return woaGold;
+    let t = e.indexOf(":"),
+        n = t >= 0 ? e.slice(0, t) : "",
+        i = t >= 0 ? e.slice(t + 1) : e;
+    if (n === "env") {
+        if (i === "soul_fire" || i === "soul_campfire") return { r: 0.25, g: 0.88, b: 1.0 };
+        if (
+            i === "fire" ||
+            i === "burning" ||
+            i === "campfire" ||
+            i === "lava" ||
+            i === "magma" ||
+            i === "sulfur_cube_magma" ||
+            i === "temperature"
+        )
+            return { r: 1.0, g: 0.42, b: 0.1 };
+        if (i === "end_crystal_explosion" || i === "wither_birth_explosion" || i === "wither_skull_explosion")
+            return { r: 0.9, g: 0.28, b: 0.96 };
+        if (i.includes("explosion") || i.startsWith("firework") || i === "elytra_firework")
+            return { r: 1.0, g: 0.3, b: 0.14 };
+        if (i === "lightning") return { r: 0.35, g: 0.85, b: 1.0 };
+        if (i === "drowning") return { r: 0.22, g: 0.76, b: 1.0 };
+        if (i === "freezing") return { r: 0.65, g: 0.95, b: 1.0 };
+        if (i === "sonic_boom") return { r: 0.1, g: 0.88, b: 0.88 };
+        if (i === "wither") return { r: 0.66, g: 0.22, b: 0.95 };
+        if (i === "magic") return { r: 0.78, g: 0.36, b: 1.0 };
+        if (i === "guardian_spikes" || i === "elder_guardian_spikes") return { r: 0.24, g: 0.86, b: 0.86 };
+        if (i === "thorns" || i === "contact" || i === "cactus" || i === "sweet_berry_bush")
+            return { r: 0.44, g: 0.94, b: 0.4 };
+        return { r: 0.88, g: 0.93, b: 1.0 };
+    }
+    if (n === "effect") {
+        if (i === "poison" || i === "fatal_poison" || i === "oozing" || i === "infested")
+            return { r: 0.34, g: 0.96, b: 0.28 };
+        if (i === "wither") return { r: 0.66, g: 0.22, b: 0.95 };
+        if (i === "wind_charged") return { r: 0.72, g: 0.95, b: 1.0 };
+        if (i === "bad_omen") return { r: 0.72, g: 0.34, b: 0.42 };
+        if (i === "raid_omen") return { r: 1.0, g: 0.28, b: 0.3 };
+        if (i === "trial_omen") return { r: 0.22, g: 0.9, b: 0.8 };
+        if (i === "darkness" || i === "blindness") return { r: 0.36, g: 0.54, b: 0.96 };
+        if (i === "slowness" || i === "mining_fatigue") return { r: 0.56, g: 0.76, b: 0.96 };
+        if (i === "levitation") return { r: 0.96, g: 0.78, b: 1.0 };
+        return { r: 0.78, g: 0.36, b: 1.0 };
+    }
+    if (n === "proj") {
+        if (i.includes("fireball")) return i.includes("dragon") ? { r: 0.92, g: 0.3, b: 0.96 } : { r: 1.0, g: 0.4, b: 0.1 };
+        if (i.includes("wither_skull")) return { r: 0.68, g: 0.24, b: 0.96 };
+        if (i.includes("trident")) return { r: 0.25, g: 0.82, b: 1.0 };
+        if (i.includes("snowball")) return { r: 0.68, g: 0.95, b: 1.0 };
+        if (i.includes("wind_charge")) return { r: 0.72, g: 0.95, b: 1.0 };
+        if (i.includes("potion")) return { r: 0.78, g: 0.36, b: 1.0 };
+        if (i.includes("shulker")) return { r: 0.88, g: 0.42, b: 1.0 };
+        return { r: 0.94, g: 0.94, b: 0.84 };
+    }
+    if (n === "weapon") {
+        if (i === "mace") return { r: 0.46, g: 0.86, b: 1.0 };
+        if (i === "trident") return { r: 0.25, g: 0.82, b: 1.0 };
+        return { r: 0.92, g: 0.96, b: 1.0 };
+    }
+    if (n === "mob") {
+        if (i === "minecraft:warden") return { r: 0.1, g: 0.88, b: 0.88 };
+        if (i === "minecraft:wither" || i === "minecraft:wither_skeleton") return { r: 0.66, g: 0.22, b: 0.95 };
+        if (i === "minecraft:ender_dragon" || i === "minecraft:enderman" || i === "minecraft:shulker")
+            return { r: 0.88, g: 0.34, b: 1.0 };
+        if (i === "minecraft:blaze" || i === "minecraft:magma_cube" || i === "minecraft:ghast")
+            return { r: 1.0, g: 0.42, b: 0.1 };
+        if (i === "minecraft:creeper") return { r: 0.45, g: 0.96, b: 0.35 };
+        if (i === "minecraft:breeze" || i === "minecraft:phantom") return { r: 0.68, g: 0.92, b: 1.0 };
+        if (i === "minecraft:guardian" || i === "minecraft:elder_guardian" || i === "minecraft:drowned")
+            return { r: 0.24, g: 0.8, b: 1.0 };
+        if (i === "minecraft:witch" || i === "minecraft:evocation_illager") return { r: 0.78, g: 0.36, b: 1.0 };
+        if (i === "minecraft:slime" || i === "minecraft:cave_spider" || i === "minecraft:bogged")
+            return { r: 0.36, g: 0.95, b: 0.3 };
+        if (i === "minecraft:stray") return { r: 0.64, g: 0.94, b: 1.0 };
+        if (i === "minecraft:player") return { r: 1.0, g: 0.36, b: 0.36 };
+        return woaWhiteGold;
+    }
+    return woaGold;
+}
+function woaVm(e = woaGold, t = 1, n = 1) {
+    let i = new mv();
+    return (
+        i.setFloat("variable.tint", 1),
+        i.setFloat("variable.r", e.r),
+        i.setFloat("variable.g", e.g),
+        i.setFloat("variable.b", e.b),
+        t !== 1 && i.setFloat("variable.scale", t),
+        n !== 1 && i.setFloat("variable.spin", n),
+        i
+    );
+}
+function woaShake(e, t, n, i = "rotational") {
+    if (woaLowFx() || !e?.isValid) return;
+    let r = String(e.name ?? "").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    r && s(() => e.dimension.runCommand(`camerashake add "${r}" ${t} ${n} ${i}`));
+}
+function woaHoriz(e) {
+    let t = s(() => e.getViewDirection()) ?? { x: 0, y: 0, z: 1 },
+        n = ht({ x: t.x, y: 0, z: t.z });
+    return n.x === 0 && n.z === 0 && (n = { x: 0, y: 0, z: 1 }), { f: n, r: { x: -n.z, y: 0, z: n.x } };
+}
+function woaPerip(e, t, n, i = 1, r = 0.75, a = 0.88, o = -0.16) {
+    if (!e.isValid) return;
+    let c = e.getHeadLocation(),
+        { f: g, r: _ } = woaHoriz(e),
+        x = woaVm(n, i),
+        $ = { x: c.x + g.x * r, y: c.y + o, z: c.z + g.z * r };
+    h(e.dimension, t, { x: $.x + _.x * a, y: $.y, z: $.z + _.z * a }, x),
+        h(e.dimension, t, { x: $.x - _.x * a, y: $.y, z: $.z - _.z * a }, x);
+}
+function woaRing(e, t, n, i, r = 1, a = woaGold, o = 1, c = 0) {
+    let g = (Math.PI * 2) / i,
+        _ = woaVm(a, o);
+    for (let x = 0; x < i; x++) {
+        let $ = c + x * g;
+        h(e, t, { x: n.x + Math.cos($) * r, y: n.y, z: n.z + Math.sin($) * r }, _);
+    }
+}
+function woaEquipFx(e) {
+    if (!e?.isValid) return;
+    let t = e.dimension,
+        n = ge(e, 0.05),
+        i = D(e),
+        r = Y(e);
+    h(t, p.seal, n, woaVm(woaGold, 0.9, 1)),
+        h(t, p.halo, i, woaVm(woaGold, 0.95)),
+        h(t, p.halo, r, woaVm(woaWhiteGold, 0.85)),
+        h(t, p.flash, r, woaVm(woaGold, 0.75)),
+        woaPerip(e, p.orb, woaGold, 0.9),
+        woaLowFx() || woaRing(t, p.orb, i, 6, 1.05, woaGold, 0.85, 0.4);
+}
+function woaExposeFx(e, t, n = 0.5) {
+    if (!e?.isValid) return;
+    let i = Hn.currentTick,
+        r = woaExposeAt.get(e.id) ?? -20;
+    if (i - r < 8) return;
+    woaExposeAt.set(e.id, i);
+    let a = e.dimension,
+        o = woaTheme(t),
+        c = Y(e),
+        g = 0.68 + 0.35 * Math.min(1, n);
+    h(a, p.charge, c, woaVm(o, g)),
+        woaPerip(e, p.ray, o, 0.65 + 0.25 * n, 0.82, 0.85, -0.15),
+        !woaLowFx() && n >= 0.65 && (h(a, p.charge, D(e), woaVm(woaGold, 0.75)), woaPerip(e, p.orb, woaGold, 0.8));
+}
+function woaSpinFx(e, t, n) {
+    if (!e?.isValid) return;
+    let i = woaTheme(n),
+        r = woaLowFx(),
+        a = (o, c, g = 0.95, _ = 0.9) => {
             if (!e.isValid) return;
-            let a = Y(e);
-            h(e.dimension, p.spin, a), h(e.dimension, p.charge, a);
-        });
-    t && R(m.fullClickTick, t);
+            let x = e.dimension,
+                $ = Y(e),
+                M = D(e);
+            h(x, p.ray, { x: $.x + Math.cos(o) * g, y: $.y, z: $.z + Math.sin(o) * g }, woaVm(c, _)),
+                r ||
+                    h(
+                        x,
+                        p.orb,
+                        { x: M.x + Math.cos(o + Math.PI) * (g + 0.15), y: M.y + 0.15, z: M.z + Math.sin(o + Math.PI) * (g + 0.15) },
+                        woaVm(c, _ * 0.9)
+                    );
+        };
+    if (t === "fast") {
+        let o = e.dimension,
+            c = Y(e);
+        h(o, p.spin, c, woaVm(woaGold, 1.0)),
+            h(o, p.halo, c, woaVm(i, 0.95)),
+            h(o, p.flash, c, woaVm(i, 0.72)),
+            woaPerip(e, p.orb, i, 0.95),
+            r ||
+                ([3, 6, 9].forEach((g, _) =>
+                    R(g, () => {
+                        a(_ * 1.45, _ % 2 ? woaGold : i, 0.95, 0.85),
+                            e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.72, 0.78, 0.86, -0.12 + _ * 0.08);
+                    })
+                ),
+                R(12, () => {
+                    if (!e.isValid) return;
+                    let g = e.dimension,
+                        _ = Y(e);
+                    h(g, p.flash, _, woaVm(woaGold, 0.82)),
+                        h(g, p.halo, _, woaVm(woaGold, 1.05)),
+                        h(g, p.spin, _, woaVm(i, 0.9)),
+                        woaShake(e, 0.07, 0.12);
+                }));
+        return;
+    }
+    if (t === "first") {
+        let o = e.dimension,
+            c = ge(e, 0.05),
+            g = Y(e);
+        h(o, p.seal, c, woaVm(woaGold, 0.9, 1)),
+            h(o, p.spin, g, woaVm(woaGold, 0.9)),
+            woaPerip(e, p.orb, woaGold, 0.95),
+            r ||
+                ([6, 13, 19, 26, 32, 38].forEach((_, x) =>
+                    R(_, () => {
+                        if (!e.isValid) return;
+                        let $ = e.dimension,
+                            M = Y(e),
+                            ue = 0.65 + x * 0.08;
+                        h($, p.charge, M, woaVm(x % 2 ? woaGold : i, ue)),
+                            woaRing($, p.ray, M, 4, 0.88, i, 0.72, x * 0.45),
+                            woaPerip(e, p.orb, i, 0.85, 0.8, 0.88, -0.18),
+                            (x === 3 || x === 5) && (h($, p.halo, M, woaVm(i, 0.82 + x * 0.06)), woaShake(e, 0.05, 0.1));
+                    })
+                ),
+                R(41, () => {
+                    if (!e.isValid) return;
+                    let _ = e.dimension,
+                        x = Y(e),
+                        $ = D(e);
+                    h(_, p.flash, x, woaVm(woaGold, 1.15)),
+                        h(_, p.shockwave, x, woaVm(i, 0.65)),
+                        h(_, p.burst, x, woaVm(i, 0.72)),
+                        h(_, p.halo, $, woaVm(woaGold, 1.05)),
+                        woaPerip(e, p.ray, woaGold, 0.95),
+                        woaShake(e, 0.14, 0.25);
+                }),
+                [46, 51, 56, 61, 66, 71].forEach((_, x) =>
+                    R(_, () => {
+                        a(x * 1.1, x % 2 ? woaGold : i, 1.05, 0.95),
+                            e.isValid && woaPerip(e, p.orb, x % 2 ? i : woaGold, 0.9);
+                    })
+                ),
+                R(78, () => {
+                    if (!e.isValid) return;
+                    let _ = e.dimension,
+                        x = Y(e);
+                    h(_, p.flash, x, woaVm(woaGold, 0.92)),
+                        h(_, p.halo, x, woaVm(woaGold, 1.15)),
+                        h(_, p.seal, ge(e, 0.05), woaVm(i, 0.95, -1.2));
+                }));
+        return;
+    }
+    let o = e.dimension,
+        c = Y(e);
+    h(o, p.spin, c, woaVm(woaGold, 1.0)),
+        h(o, p.halo, c, woaVm(i, 0.92)),
+        woaPerip(e, p.orb, i, 0.9),
+        r ||
+            ([6, 10, 14, 18, 22].forEach((g, _) =>
+                R(g, () => {
+                    a(_ * 1.15, _ % 2 ? woaGold : i, 0.95, 0.88),
+                        e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.72, 0.8, 0.88, -0.14 + _ * 0.06);
+                })
+            ),
+            R(17, () => {
+                if (!e.isValid) return;
+                let g = e.dimension,
+                    _ = Y(e);
+                h(g, p.flash, _, woaVm(i, 0.78)), h(g, p.spin, _, woaVm(i, 0.95));
+            }),
+            R(26, () => {
+                if (!e.isValid) return;
+                let g = e.dimension,
+                    _ = Y(e);
+                h(g, p.flash, _, woaVm(woaGold, 0.88)),
+                    h(g, p.halo, _, woaVm(woaGold, 1.08)),
+                    h(g, p.spin, _, woaVm(woaGold, 1.0)),
+                    woaShake(e, 0.08, 0.15);
+            }));
 }
-function Gn(e) {
-    let t = Y(e);
-    T(e.dimension, b.nullify, t), h(e.dimension, p.spin, t);
+function woaFullFx(e, t) {
+    if (!e?.isValid) return;
+    let n = woaTheme(t),
+        i = woaLowFx(),
+        r = e.dimension,
+        a = Y(e);
+    h(r, p.charge, a, woaVm(n, 1.05)),
+        h(r, p.halo, ge(e, 0.05), woaVm(n, 0.95)),
+        woaPerip(e, p.orb, n, 1.0),
+        !i &&
+            ([11, 21, 31].forEach((o, c) =>
+                R(o, () => {
+                    if (!e.isValid) return;
+                    let g = e.dimension,
+                        _ = Y(e),
+                        x = D(e),
+                        $ = 0.85 + c * 0.22;
+                    h(g, p.charge, _, woaVm(c % 2 ? woaGold : n, $)),
+                        h(g, p.halo, _, woaVm(n, 0.8 + c * 0.25)),
+                        h(g, p.spin, _, woaVm(woaGold, 0.9 + c * 0.15)),
+                        woaRing(g, p.orb, x, 6, 1.15, c % 2 ? woaGold : n, 0.95, c * 0.6),
+                        woaPerip(e, p.ray, woaGold, 0.85 + c * 0.1),
+                        woaShake(e, 0.06 + c * 0.03, 0.14);
+                })
+            ),
+            R(m.fullClickTick, () => {
+                if (!e.isValid) return;
+                let o = e.dimension,
+                    c = ge(e, 0.05),
+                    g = D(e),
+                    _ = Y(e);
+                h(o, p.seal, c, woaVm(woaGold, 1.38, 1)),
+                    h(o, p.seal, { x: c.x, y: c.y + 0.03, z: c.z }, woaVm(n, 1.05, -1.4)),
+                    h(o, p.shockwave, c, woaVm(woaGold, 1.2)),
+                    h(o, p.shockwave, { x: c.x, y: c.y + 0.02, z: c.z }, woaVm(n, 1.48)),
+                    h(o, p.beamCore, c, woaVm(woaGold, 1.1)),
+                    h(o, p.pillar, c, woaVm(woaGold, 1.15)),
+                    h(o, p.pillar, c, woaVm(n, 1.0)),
+                    h(o, p.flash, _, woaVm(woaGold, 1.55)),
+                    h(o, p.flash, g, woaVm(n, 0.95)),
+                    h(o, p.burst, _, woaVm(n, 1.05)),
+                    h(o, p.burst, g, woaVm(woaGold, 0.95)),
+                    woaRing(o, p.ray, _, 8, 1.15, woaGold, 1.15, 0),
+                    woaPerip(e, p.orb, woaGold, 1.25, 0.85, 0.95, -0.1),
+                    woaShake(e, 0.25, 0.45);
+            }),
+            [42, 46, 50, 54, 58, 62, 66, 70, 74].forEach((o, c) =>
+                R(o, () => {
+                    if (!e.isValid) return;
+                    let g = e.dimension,
+                        _ = e.location,
+                        x = c * 0.95,
+                        $ = _.y + 0.35 + c * 0.26,
+                        M = 1.12 - c * 0.03;
+                    h(g, p.ray, { x: _.x + Math.cos(x) * M, y: $, z: _.z + Math.sin(x) * M }, woaVm(woaGold, 0.95)),
+                        h(
+                            g,
+                            p.orb,
+                            { x: _.x + Math.cos(x + Math.PI) * M, y: $, z: _.z + Math.sin(x + Math.PI) * M },
+                            woaVm(n, 1.0)
+                        ),
+                        c % 2 === 0 && h(g, p.halo, Y(e), woaVm(c % 4 ? woaGold : n, 0.95));
+                })
+            ));
+}
+function woaNullFx(e, t, n = !1) {
+    if (!e?.isValid) return;
+    let i = woaTheme(t),
+        r = e.dimension;
+    if (n) {
+        if (woaLowFx()) return;
+        let a = Hn.currentTick;
+        if (a - (woaDotAt.get(e.id) ?? -20) < m.nullifyFlashInterval) return;
+        woaDotAt.set(e.id, a), woaRing(r, p.orb, D(e), 4, 0.85, i, 0.72, (a % 10) * 0.5);
+        return;
+    }
+    let a = Y(e),
+        o = e.getHeadLocation(),
+        { f: c } = woaHoriz(e),
+        g = { x: o.x + c.x * 0.92, y: o.y - 0.26, z: o.z + c.z * 0.92 };
+    h(r, p.spin, a, woaVm(woaGold, 0.92)),
+        h(r, p.flash, a, woaVm(i, 0.72)),
+        h(r, p.halo, a, woaVm(woaGold, 0.88)),
+        h(r, p.deflect, g, woaVm(i, 0.92)),
+        woaPerip(e, p.ray, i, 0.82, 0.82, 0.72, -0.2),
+        woaLowFx() || (h(r, p.deflect, g, woaVm(woaGold, 0.65)), woaShake(e, 0.05, 0.1));
+}
+var woaDeflected = new Map(),
+    woaLastVel = new Map(),
+    woaPassiveProjs = new Set([
+        "minecraft:ender_pearl",
+        "minecraft:fishing_hook",
+        "minecraft:xp_bottle",
+        "minecraft:eye_of_ender_signal",
+    ]),
+    woaFireBlocks = new Set([
+        "minecraft:fire",
+        "minecraft:soul_fire",
+        "minecraft:lava",
+        "minecraft:flowing_lava",
+        "minecraft:magma",
+        "minecraft:campfire",
+        "minecraft:soul_campfire",
+    ]);
+function woaIsAdapted(e, t) {
+    let n = e.map.get(t);
+    return !!n && n.s >= n.n;
+}
+function woaIsAnyAdapted(e, t) {
+    return t.some((n) => woaIsAdapted(e, n));
+}
+function woaHasRangedAdapt(e) {
+    for (let [t, n] of e.map) if (n.s >= n.n && (t.startsWith("proj:") || t.startsWith("mob:"))) return !0;
+    return !1;
+}
+function woaProjAdaptedKey(e, t, n) {
+    if (!t || woaPassiveProjs.has(t)) return;
+    let i = `proj:${t}`;
+    if (woaIsAdapted(e, i)) return i;
+    let r = oe(n);
+    if (r && r !== "minecraft:player" && woaIsAdapted(e, `mob:${r}`)) return `mob:${r}`;
+}
+function woaIsPoiseCause(e) {
+    return (
+        e === qe.entityExplosion ||
+        e === qe.blockExplosion ||
+        e === qe.sonicBoom ||
+        e === qe.ramAttack ||
+        e === qe.projectile
+    );
+}
+function woaDeflectProjectile(e, t, n, i, r, a) {
+    if (!e?.isValid || !i?.isValid || woaDeflected.has(i.id)) return !1;
+    let o = oe(i);
+    if (!o || woaPassiveProjs.has(o)) return !1;
+    let c = s(() => i.getComponent("minecraft:projectile")),
+        g = a ?? s(() => c?.owner),
+        _ = woaProjAdaptedKey(t, o, g);
+    if (!_) return !1;
+    woaDeflected.set(i.id, n + 60);
+    let x = D(e),
+        $ = s(() => i.location) ?? x,
+        M = s(() => i.getVelocity()) ?? r ?? { x: 0, y: 0, z: 0 },
+        ue =
+            g?.isValid && g.id !== e.id
+                ? ht(Bn(D(g), $))
+                : Math.hypot(M.x, M.y, M.z) > 0.05
+                  ? ht({ x: -M.x, y: -M.y * 0.4 + 0.12, z: -M.z })
+                  : ht(Bn($, x));
+    Math.hypot(ue.x, ue.y, ue.z) < 0.01 && (ue = ht(e.getViewDirection()));
+    let ze = Math.max(1.05, Math.min(2.8, Math.hypot(M.x, M.y, M.z) * 1.25)),
+        j = E(x, C(ht(Bn($, x)), 1.05)),
+        qn = e.dimension,
+        Ie = woaTheme(_);
+    if (
+        (h(qn, p.deflect, j, woaVm(Ie, 1.0)),
+        h(qn, p.flash, j, woaVm(woaGold, 0.72)),
+        woaLowFx() || h(qn, p.ray, j, woaVm(Ie, 0.85)),
+        n - t.lastFlash >= 8 &&
+            ((t.lastFlash = n),
+            T(qn, b.nullify, Y(e), 1.08, 0.9),
+            Ze(e.id, n) || te(e, "react"),
+            woaShake(e, 0.04, 0.08)),
+        o === "minecraft:thrown_trident")
+    )
+        s(() => i.clearVelocity()), s(() => i.applyImpulse(C(ue, Math.min(1.6, ze * 0.75))));
+    else if (o === "minecraft:shulker_bullet")
+        s(() => i.remove()), h(qn, p.burst, j, woaVm(Ie, 0.7));
+    else {
+        let je0 = s(() => qn.spawnEntity(o, E(x, C(ue, 1.5)))),
+            je1 = je0 ? s(() => je0.getComponent("minecraft:projectile")) : void 0;
+        je0 && je1
+            ? (woaDeflected.set(je0.id, n + 200),
+              s(() => (je1.owner = e)),
+              s(() => je1.shoot(C(ue, ze))),
+              s(() => i.remove()))
+            : (je0 && s(() => je0.remove()),
+              s(() => i.clearVelocity()),
+              s(() => i.applyImpulse(C(ue, Math.min(2.0, ze)))));
+    }
+    return !0;
+}
+function woaScanProjectiles(e, t, n) {
+    if (n % 100 === 0 && woaDeflected.size)
+        for (let [a, o] of woaDeflected) o <= n && woaDeflected.delete(a);
+    if (!woaHasRangedAdapt(t)) return;
+    let i = D(e),
+        r =
+            s(() =>
+                e.dimension.getEntities({
+                    location: i,
+                    maxDistance: 2.8,
+                    excludeTypes: ["minecraft:player", "minecraft:item", "minecraft:xp_orb"],
+                })
+            ) ?? [];
+    for (let a of r) {
+        if (!a.isValid || woaDeflected.has(a.id)) continue;
+        let o = oe(a);
+        if (!o || woaPassiveProjs.has(o)) continue;
+        let c = s(() => a.getComponent("minecraft:projectile"));
+        if (!c && o !== "minecraft:shulker_bullet") continue;
+        let g = s(() => c?.owner);
+        if (g?.id === e.id) continue;
+        let _ = woaProjAdaptedKey(t, o, g);
+        if (!_) continue;
+        let x = s(() => a.getVelocity()) ?? { x: 0, y: 0, z: 0 };
+        if (Math.hypot(x.x, x.y, x.z) < 0.08) continue;
+        let $ = Bn(i, a.location);
+        Rn(x, $) <= 0 || woaDeflectProjectile(e, t, n, a, x, g);
+    }
+}
+function woaFallSlam(e, t, n) {
+    if (!e?.isValid) return;
+    let i = e.dimension,
+        r = e.location,
+        a = ge(e, 0.05),
+        o = woaTheme(t),
+        c = Math.min(8.0, 3.5 + n * 0.25),
+        g = Math.min(18, 4 + n * 0.65),
+        _ = Math.min(1.6, 0.85 + n * 0.04);
+    T(i, b.adapted, a, 0.75, 1.0),
+        T(i, b.nullify, a, 0.7, 1.0),
+        h(i, p.shockwave, a, woaVm(woaGold, _ * 1.15)),
+        h(i, p.shockwave, a, woaVm(o, _ * 0.95)),
+        h(i, p.halo, a, woaVm(woaGold, _)),
+        h(i, p.burst, D(e), woaVm(o, _ * 0.85)),
+        woaLowFx() || (h(i, p.seal, a, woaVm(woaGold, _, 1)), woaRing(i, p.ray, a, 8, 1.4, o, 0.95, 0)),
+        woaShake(e, Math.min(0.32, 0.12 + n * 0.012), 0.3);
+    let x =
+        s(() =>
+            i.getEntities({
+                location: r,
+                maxDistance: c,
+                excludeFamilies: ["inanimate"],
+                excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:player"],
+            })
+        ) ?? [];
+    for (let $ of x) {
+        if (!$.isValid || !$.getComponent("minecraft:health") || Da($)) continue;
+        let M = $.location,
+            ue = M.x - r.x,
+            ze = M.z - r.z,
+            j = Math.hypot(ue, ze) || 1;
+        s(() => $.applyDamage(g, { cause: qe.magic, damagingEntity: e })),
+            s(() => $.applyKnockback({ x: (ue / j) * 1.35, z: (ze / j) * 1.35 }, Math.min(0.85, 0.45 + n * 0.02))),
+            h($.dimension, p.ray, D($), woaVm(woaGold, 0.8));
+    }
+}
+function woaLightningCharge(e) {
+    if (!e?.isValid) return;
+    let t = e.dimension,
+        n = ge(e, 0.05),
+        i = Y(e),
+        r = { r: 0.35, g: 0.88, b: 1.0 };
+    s(() => e.extinguishFire(!1)),
+        s(() => ie(e, 8)),
+        s(() => e.addEffect("speed", 160, { amplifier: 1, showParticles: !1 })),
+        s(() => e.addEffect("strength", 160, { amplifier: 0, showParticles: !1 })),
+        s(() => e.addEffect("resistance", 160, { amplifier: 0, showParticles: !1 })),
+        T(t, b.adapted, i, 1.25, 0.95),
+        Z(e, w.evoSupercharge),
+        h(t, p.pillar, n, woaVm(r, 1.05)),
+        h(t, p.beamCore, n, woaVm(woaGold, 0.95)),
+        h(t, p.halo, i, woaVm(r, 1.1)),
+        h(t, p.flash, i, woaVm(r, 1.25)),
+        woaRing(t, p.ray, D(e), 8, 1.25, r, 1.1, 0),
+        woaShake(e, 0.18, 0.3);
+}
+function woaCounterShockwave(e, t, n) {
+    if (!e?.isValid) return;
+    let i = e.dimension,
+        r = e.location,
+        a = D(e),
+        o = ge(e, 0.05),
+        c = woaTheme(t);
+    T(i, b.nullify, Y(e), 0.78, 1.0),
+        Z(e, w.evoCounter),
+        h(i, p.shockwave, o, woaVm(woaGold, 1.05)),
+        h(i, p.halo, a, woaVm(c, 1.0)),
+        h(i, p.burst, a, woaVm(woaGold, 0.85)),
+        woaRing(i, p.ray, a, 8, 1.15, c, 0.95, 0),
+        woaShake(e, 0.12, 0.22);
+    let g =
+            s(() =>
+                i.getEntities({
+                    location: r,
+                    maxDistance: 4.8,
+                    excludeFamilies: ["inanimate"],
+                    excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:player"],
+                })
+            ) ?? [],
+        _ = new Set();
+    for (let x of g) {
+        if (!x.isValid || !x.getComponent("minecraft:health") || Da(x)) continue;
+        _.add(x.id);
+        let $ = x.location,
+            M = $.x - r.x,
+            ue = $.z - r.z,
+            ze = Math.hypot(M, ue) || 1;
+        s(() => x.applyDamage(6, { cause: qe.magic, damagingEntity: e })),
+            s(() => x.applyKnockback({ x: (M / ze) * 1.4, z: (ue / ze) * 1.4 }, 0.42)),
+            h(x.dimension, p.ray, D(x), woaVm(c, 0.85));
+    }
+    if (n?.isValid && n.id !== e.id && !_.has(n.id) && !Da(n) && n.getComponent("minecraft:health")) {
+        let $ = n.location,
+            M = $.x - r.x,
+            ue = $.z - r.z,
+            ze = Math.hypot(M, ue) || 1;
+        ze <= 5.5 &&
+            (s(() => n.applyDamage(6, { cause: qe.magic, damagingEntity: e })),
+            s(() => n.applyKnockback({ x: (M / ze) * 1.4, z: (ue / ze) * 1.4 }, 0.42)),
+            h(n.dimension, p.ray, D(n), woaVm(c, 0.85)));
+    }
+}
+function woaTrackCounter(e, t, n, i, r) {
+    if (!i?.isValid || i.id === e.id) return;
+    (t.counterHits = (t.counterHits ?? []).filter((a) => r - a <= 80)), t.counterHits.push(r);
+    t.counterHits.length >= 3 &&
+        r - (t.lastCounter ?? -100) >= 100 &&
+        ((t.counterHits = []), (t.lastCounter = r), Hn.run(() => woaCounterShockwave(e, n, i)));
+}
+function woaEnvEvolution(e, t, n) {
+    if (n % 10 !== 0) return;
+    let i = e.dimension,
+        r = e.location,
+        a = Math.floor(r.x),
+        o = Math.floor(r.y),
+        c = Math.floor(r.z);
+    if (woaIsAdapted(t, "env:drowning") && s(() => e.isInWater)) {
+        s(() => e.addEffect("water_breathing", 60, { amplifier: 0, showParticles: !1 })),
+            s(() => e.addEffect("conduit_power", 60, { amplifier: 0, showParticles: !1 })),
+            n % 30 === 0 && h(i, p.orb, D(e), woaVm({ r: 0.22, g: 0.76, b: 1.0 }, 0.6));
+    }
+    let g = woaIsAdapted(t, "env:lava"),
+        _ =
+            g ||
+            woaIsAnyAdapted(t, [
+                "env:fire",
+                "env:soul_fire",
+                "env:burning",
+                "env:magma",
+                "env:campfire",
+                "env:soul_campfire",
+                "env:sulfur_cube_magma",
+            ]);
+    if (_) {
+        let x = s(() => i.getBlock({ x: a, y: o, z: c })?.typeId),
+            $ = s(() => i.getBlock({ x: a, y: o - 1, z: c })?.typeId),
+            M = (x && woaFireBlocks.has(x)) || ($ && woaFireBlocks.has($)),
+            ue = !!s(() => e.getComponent("minecraft:onfire"));
+        (M || ue) &&
+            (s(() => e.extinguishFire(!1)),
+            s(() => e.addEffect("fire_resistance", 60, { amplifier: 0, showParticles: !1 })),
+            M &&
+                n % 20 === 0 &&
+                nt(e) > 0 &&
+                (s(() => ie(e, 1)),
+                h(i, p.regen, ge(e, 0.1), woaVm(g ? { r: 1.0, g: 0.42, b: 0.1 } : woaHealColor, 0.7))));
+    }
+    if (woaIsAdapted(t, "env:freezing")) {
+        let x = s(() => i.getBlock({ x: a, y: o, z: c })),
+            $ = s(() => i.getBlock({ x: a, y: o + 1, z: c })),
+            M = x?.typeId === "minecraft:powder_snow",
+            ue = $?.typeId === "minecraft:powder_snow";
+        if (M || ue) {
+            s(() => e.addEffect("speed", 60, { amplifier: 0, showParticles: !1 }));
+            let ze = s(() => e.getGameMode());
+            ze !== Cn.Adventure &&
+                ze !== Cn.Spectator &&
+                (M && s(() => x.setType("minecraft:air")),
+                ue && s(() => $.setType("minecraft:air")),
+                h(i, p.orb, D(e), woaVm({ r: 0.65, g: 0.95, b: 1.0 }, 0.75)));
+        }
+    }
+}
+function woaUndyingFx(e, t) {
+    if (!e?.isValid) return;
+    let n = e.dimension,
+        i = woaTheme(t),
+        r = ge(e, 0.05),
+        a = Y(e);
+    h(n, p.seal, r, woaVm(woaGold, 1.18, 1)),
+        h(n, p.shockwave, r, woaVm(woaGold, 1.05)),
+        h(n, p.beamCore, r, woaVm(woaGold, 0.95)),
+        h(n, p.pillar, r, woaVm(woaGold, 1.0)),
+        h(n, p.flash, a, woaVm(woaGold, 1.35)),
+        h(n, p.burst, D(e), woaVm(i, 0.95)),
+        woaPerip(e, p.orb, woaGold, 1.15),
+        woaShake(e, 0.22, 0.35);
+}
+function ye(e, t = b.spin, n = "spin", i) {
+    let r = Y(e);
+    T(e.dimension, t, r), woaSpinFx(e, n, i);
+}
+function jn(e, t, n = !0, i) {
+    let r = Y(e);
+    n && T(e.dimension, b.adapted, r), woaFullFx(e, i), t && R(m.fullClickTick, t);
+}
+function Gn(e, t) {
+    let n = Y(e);
+    T(e.dimension, b.nullify, n), woaNullFx(e, t, !1);
 }
 import { system as Un } from "@minecraft/server";
 import "@minecraft/server";
@@ -430,6 +1094,9 @@ var ri = new Set([
         oozing: "potion.oozing",
         weaving: "potion.weaving",
         wind_charged: "potion.windCharged",
+        bad_omen: "woa.effect.bad_omen",
+        raid_omen: "woa.effect.raid_omen",
+        trial_omen: "woa.effect.trial_omen",
     },
     w = {
         hudTitle: d("woa.hud.title"),
@@ -446,6 +1113,11 @@ var ri = new Set([
         cure: k(`${u.sword} \xA7f`, d("woa.toast.cured")),
         forgotten: (e, t) => k(`${u.wheel} \xA77`, d("woa.toast.forgotten"), ` \xA78\xB7 ${e} \xA7f`, t),
         starving: k(`${u.heartDim} \xA77`, d("woa.toast.starving")),
+        evoSupercharge: k(`${u.lightning} \xA7b`, d("woa.evo.supercharge")),
+        evoCounter: k(`${u.shield} \xA76`, d("woa.evo.counter")),
+        swordPierce: k(`${u.sword} \xA7e`, d("woa.sword.pierce")),
+        swordPrimed: k(`${u.sparkle} \xA76`, d("woa.sword.primed")),
+        swordSlash: (e, t) => k(t ? `${u.sparkle} \xA76\xA7l` : `${u.sword} \xA7f`, d(`woa.sword.${e}`)),
         soulbound: k("\xA78", d("woa.lore.soulbound")),
         env: (e) => d(`woa.env.${e}`),
         weapon: (e) => d(`woa.weapon.${e}`),
@@ -701,21 +1373,24 @@ var bi = [
         "minecraft:llama_spit": l.light,
     },
     Mi = {
-        poison: l.arcane,
-        fatal_poison: l.arcane,
-        wither: l.arcane,
-        slowness: l.arcane,
-        weakness: l.arcane,
-        mining_fatigue: l.arcane,
-        blindness: l.arcane,
-        darkness: l.arcane,
-        nausea: l.arcane,
-        hunger: l.arcane,
-        levitation: l.arcane,
-        infested: l.arcane,
-        oozing: l.arcane,
-        weaving: l.arcane,
-        wind_charged: l.arcane,
+        poison: l.light,
+        fatal_poison: l.light,
+        wither: l.light,
+        slowness: l.light,
+        weakness: l.light,
+        mining_fatigue: l.light,
+        blindness: l.light,
+        darkness: l.light,
+        nausea: l.light,
+        hunger: l.light,
+        levitation: l.light,
+        infested: l.light,
+        oozing: l.light,
+        weaving: l.light,
+        wind_charged: l.light,
+        bad_omen: l.light,
+        raid_omen: l.light,
+        trial_omen: l.light,
     },
     Ti = l.light,
     zi = l.heavy,
@@ -1049,6 +1724,10 @@ function Kt() {
         newWheel: !0,
         firstSpin: void 0,
         lastTurn: void 0,
+        lastSlam: -40,
+        lastLightning: -40,
+        lastCounter: -100,
+        counterHits: [],
     };
 }
 function H(e) {
@@ -1065,8 +1744,13 @@ function Qi(e) {
         try {
             let i = JSON.parse(n),
                 r = (i.v ?? 1) < Ft;
-            for (let [a, o] of Object.entries(i.m ?? {}))
-                (r && ci.includes(a)) || t.map.set(a, { s: o[0], n: o[1], used: o[2] ?? 0 });
+            for (let [a, o] of Object.entries(i.m ?? {})) {
+                if (r && ci.includes(a)) continue;
+                let g = a.startsWith("effect:") ? _e(a.slice(7)) : void 0,
+                    x = g ? g.spins : o[1],
+                    c = Math.min(o[0], x);
+                t.map.set(a, { s: c, n: x, used: o[2] ?? 0 });
+            }
             t.spin = (i.p ?? 0) % m.handles;
         } catch {
             t.map.clear();
@@ -1143,6 +1827,10 @@ var nr = [
     ee("fall", "fly_into_wall"),
     ee("contact", "cactus", "sweet_berry_bush"),
     ee("thorns", "guardian_spikes", "elder_guardian_spikes"),
+    ["effect:poison", "effect:fatal_poison"],
+    ["effect:wither", "env:wither"],
+    ["effect:blindness", "effect:darkness"],
+    ["effect:bad_omen", "effect:raid_omen", "effect:trial_omen"],
 ];
 function ir(e) {
     return e.startsWith("env:explosion_") || e.startsWith("env:firework_") ? Lt("explosion") : e;
@@ -1339,12 +2027,42 @@ function Ar(e) {
     Ae.delete(e);
 }
 var Qe = new Map();
+var woaDotEffects = new Set(["poison", "fatal_poison", "wither"]);
+function isNonDotEffect(e) {
+    return e.startsWith("effect:") && !woaDotEffects.has(e.slice(7));
+}
 function Xe(e, t) {
     let n = e.map.get(t.key);
     return n || ((n = { s: 0, n: t.spins, used: 0 }), e.map.set(t.key, n)), n;
 }
 function et(e) {
+    if (isNonDotEffect(e)) return m.nonDotSpinTicks;
     return m.hitsPerKey[e] ?? m.hitsPerSpin[e.slice(0, e.indexOf(":"))] ?? m.hitsPerSpin.mob ?? 3;
+}
+function woaTickEffects(e, t, n) {
+    let i = s(() => e.getEffects());
+    if (!i?.length) return;
+    for (let r of i) {
+        let a = s(() => r.typeId),
+            o = a ? _e(a) : void 0;
+        if (!o) continue;
+        let c = t.map.get(o.key);
+        if (c && c.s >= c.n) {
+            or(e.id, a) || (s(() => e.removeEffect(a)), woaNullFx(e, o.key, !0));
+            continue;
+        }
+        if (!isNonDotEffect(o.key)) continue;
+        c = c || Xe(t, o);
+        let g = t.pending.get(o.key);
+        g || ((g = { weight: 2, taken: 0, last: n, hits: 0, lastHit: n }), t.pending.set(o.key, g)), (g.last = n);
+        if (t.firstSpin) continue;
+        (g.hits = Math.min(m.nonDotSpinTicks, g.hits + 1)),
+            (g.lastHit = n),
+            g.hits > 0 &&
+                g.hits < m.nonDotSpinTicks &&
+                g.hits % 20 === 0 &&
+                woaExposeFx(e, o.key, g.hits / m.nonDotSpinTicks);
+    }
 }
 function nn(e, t, n, i, r) {
     let a = e.pending.get(t);
@@ -1357,7 +2075,9 @@ function nn(e, t, n, i, r) {
     ) {
         let o = tt(t) && r - a.lastHit <= m.quickHitWindow;
         (a.hits += o ? m.quickHitValue : 1), (a.lastHit = r), tt(t);
+        return !0;
     }
+    return !1;
 }
 function tt(e) {
     return m.attackPrefixes.some((t) => e.startsWith(t));
@@ -1389,32 +2109,42 @@ function zr(e, t) {
     }
 }
 function Ir(e, t, n, i) {
-    (i.used = Date.now()), zr(t, n), Tr(e, t, n), Mr(e, n), jn(e, () => Z(e, Ki(n)), !0), R(J.fxDelay, () => Dr(e));
+    (i.used = Date.now()),
+        zr(t, n),
+        Tr(e, t, n),
+        Mr(e, n),
+        jn(e, () => Z(e, Ki(n)), !0, n),
+        R(J.fxDelay, () => Dr(e, n));
 }
-function Dr(e) {
+function Dr(e, t) {
     if (!e.isValid) return;
-    let t = e.dimension,
-        n = D(e),
-        i = Y(e);
-    h(t, p.pillar, n), h(t, p.seal, i), h(t, p.shockwave, n), T(t, b.adapted, i, 0.85, 1.3);
-    let r =
+    let n = e.dimension,
+        i = D(e),
+        r = Y(e),
+        a = ge(e, 0.05),
+        o = woaTheme(t);
+    h(n, p.pillar, a, woaVm(o, 0.9)),
+        h(n, p.shockwave, a, woaVm(o, 0.95)),
+        h(n, p.burst, i, woaVm(o, 0.85)),
+        T(n, b.adapted, r, 0.85, 1.3);
+    let c =
         s(() =>
-            t.getEntities({
-                location: n,
+            n.getEntities({
+                location: i,
                 maxDistance: J.radius,
                 excludeFamilies: ["inanimate"],
                 excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:player"],
             })
         ) ?? [];
-    for (let a of r) {
-        if (!a.isValid || !a.getComponent("minecraft:health")) continue;
-        let o = a.location,
-            c = o.x - n.x,
-            g = o.z - n.z,
-            _ = Math.hypot(c, g) || 1;
-        s(() => a.applyDamage(J.damage, { cause: y.magic, damagingEntity: e })),
-            s(() => a.applyKnockback({ x: (c / _) * J.knockback, z: (g / _) * J.knockback }, J.knockbackUp)),
-            h(a.dimension, p.positive, D(a));
+    for (let g of c) {
+        if (!g.isValid || !g.getComponent("minecraft:health")) continue;
+        let _ = g.location,
+            x = _.x - i.x,
+            $ = _.z - i.z,
+            M = Math.hypot(x, $) || 1;
+        s(() => g.applyDamage(J.damage, { cause: y.magic, damagingEntity: e })),
+            s(() => g.applyKnockback({ x: (x / M) * J.knockback, z: ($ / M) * J.knockback }, J.knockbackUp)),
+            h(g.dimension, p.positive, D(g));
     }
 }
 function $r(e) {
@@ -1436,7 +2166,11 @@ function nt(e) {
 }
 function Pr(e, t, n) {
     let i = nt(e) * qr(X(t), n);
-    i < 0.5 || (s(() => ie(e, i)), T(e.dimension, b.heal, e.location), h(e.dimension, p.rise, ge(e)));
+    i < 0.5 ||
+        (s(() => ie(e, i)),
+        T(e.dimension, b.heal, e.location),
+        h(e.dimension, p.rise, ge(e)),
+        h(e.dimension, p.regen, ge(e, 0.08), woaVm(woaHealColor, n ? 1.05 : 0.72)));
 }
 function Or(e) {
     return Ln.find((t) => e >= t.minLevel);
@@ -1483,12 +2217,14 @@ function Br(e, t, n, i) {
         (t.lastSpin = i + m.firstLock - m.spinInterval),
             (t.firstSpin = { key: n, at: i + m.firstLock }),
             te(e, "first"),
-            ye(e, b.first);
+            ye(e, b.first, "first", n);
         return;
     }
     (t.lastSpin = i),
         (t.lastTurn = { key: n, at: i }),
-        r === "fast" ? (te(e, "fast"), ye(e, b.fast)) : r === "adapting" && (te(e, "spin"), ye(e)),
+        r === "fast"
+            ? (te(e, "fast"), ye(e, b.fast, "fast", n))
+            : r === "adapting" && (te(e, "spin"), ye(e, b.spin, "spin", n)),
         rn(e, t, n, i);
 }
 function Rr(e, t, n) {
@@ -1522,11 +2258,18 @@ function Ur(e, t, n, i, r) {
             e.isValid &&
                 (s(() => e.getComponent("minecraft:health")?.setCurrentValue(1)),
                 te(e, "spin"),
-                ye(e),
+                ye(e, b.spin, "spin", n),
+                woaUndyingFx(e, n),
                 T(e.dimension, b.undying, Y(e)));
         }),
         R(S.healDelay, () => {
-            !e.isValid || !H(e.id) || (ie(e, nt(e)), h(e.dimension, p.rise, ge(e)));
+            !e.isValid ||
+                !H(e.id) ||
+                (ie(e, nt(e)),
+                h(e.dimension, p.rise, ge(e)),
+                h(e.dimension, p.regen, ge(e, 0.08), woaVm(woaHealColor, 1.15)),
+                h(e.dimension, p.halo, Y(e), woaVm(woaGold, 1.1)),
+                h(e.dimension, p.positive, D(e)));
         });
 }
 function Jr(e) {
@@ -1542,8 +2285,8 @@ function Nr(e, t, n) {
                 if (e.isValid) for (let r of i) s(() => e.removeEffect(r.typeId));
             });
 }
-function Yr(e) {
-    e.isValid && (Gn(e), Ze(e.id, N.currentTick) || te(e, "react"));
+function Yr(e, t) {
+    e.isValid && (Gn(e, t), Ze(e.id, N.currentTick) || te(e, "react"));
 }
 function Zr(e, t) {
     let n = N.currentTick,
@@ -1566,24 +2309,46 @@ function Zr(e, t) {
                       t,
                       s(() => t.getVelocity())
                   ),
-                  `${r.key}`)
-                : (e.cancel = !0),
-            !Fi(r.key) && n - i.lastFlash >= m.nullifyFlashInterval && ((i.lastFlash = n), N.run(() => Yr(t)));
+                  woaTrackCounter(t, i, r.key, s(() => e.damageSource.damagingEntity), n))
+                : ((e.cancel = !0),
+                  woaIsPoiseCause(a) &&
+                      pr(
+                          t,
+                          s(() => t.getVelocity())
+                      ));
+        if (a === y.lightning && n - (i.lastLightning ?? -40) >= 20) {
+            (i.lastLightning = n), N.run(() => woaLightningCharge(t));
+            return;
+        }
+        if ((a === y.fall || a === y.flyIntoWall) && o >= 3 && n - (i.lastSlam ?? -40) >= 20) {
+            (i.lastSlam = n), N.run(() => woaFallSlam(t, r.key, o));
+            return;
+        }
+        !Fi(r.key) && n - i.lastFlash >= m.nullifyFlashInterval
+            ? ((i.lastFlash = n), N.run(() => Yr(t, r.key)))
+            : Fi(r.key) && N.run(() => woaNullFx(t, r.key, !0));
         return;
     }
     e.damage = e.damage * (1 - z.partialMax * (c.s / c.n));
     let g = e.damage,
-        _ = c.s === 0;
-    nn(i, r.key, Math.max(1, e.damage), g, n);
+        _ = c.s === 0,
+        k0 = nn(i, r.key, Math.max(1, e.damage), g, n);
     let x = jr(t, o, g),
         $ = Gr(t, a, g, n);
-    x && $ && wr(t.id, X(i), _) && ((e.cancel = !0), Ur(t, i, r.key, _, n));
+    if (x && $ && wr(t.id, X(i), _)) {
+        (e.cancel = !0), Ur(t, i, r.key, _, n);
+        return;
+    }
+    if (k0) {
+        let p0 = Math.min(1, (i.pending.get(r.key)?.hits ?? 1) / et(r.key));
+        N.run(() => t.isValid && woaExposeFx(t, r.key, p0));
+    }
 }
 function Qr(e) {
     return Math.min(Ve.maxLevelBonus, Ve.bonusPerLevel * e);
 }
 function Xr(e, t, n) {
-    if (!H(t.id)) return;
+    if (!H(t.id) || woaInPierce.has(n.id)) return;
     let i = le(t),
         r = X(i),
         a = Qr(r),
@@ -1607,19 +2372,40 @@ function ea(e) {
     }
     let o = Xe(i, n);
     if (o.s >= o.n) {
-        (o.used = Date.now()), (e.cancel = !0);
+        (o.used = Date.now()), (e.cancel = !0), N.run(() => t.isValid && woaNullFx(t, n.key, !0));
         return;
     }
-    (e.duration = Math.max(1, Math.round(e.duration * (1 - z.partialMax * (o.s / o.n))))),
+    e.duration > 0 && (e.duration = Math.max(1, Math.round(e.duration * (1 - z.partialMax * (o.s / o.n))))),
         (i.recentEffects = i.recentEffects.filter((c) => r - c.tick <= $e.effectWindow)),
-        i.recentEffects.push({ typeId: e.effectType, tick: r }),
-        nn(i, n.key, 2, 0, r);
+        i.recentEffects.push({ typeId: e.effectType, tick: r });
+    if (isNonDotEffect(n.key)) {
+        let p0 = i.pending.get(n.key);
+        if (!p0) {
+            (p0 = { weight: 2, taken: 0, last: r, hits: 0, lastHit: r }), i.pending.set(n.key, p0);
+            N.run(() => t.isValid && woaExposeFx(t, n.key, 0.05));
+        } else p0.last = r;
+    } else if (nn(i, n.key, 2, 0, r)) {
+        let p0 = Math.min(1, (i.pending.get(n.key)?.hits ?? 1) / et(n.key));
+        N.run(() => t.isValid && woaExposeFx(t, n.key, p0));
+    }
 }
 function ta(e) {
     if (!H(e.id)) return;
     Xi(e);
     let t = le(e);
-    (t.lastKey = void 0), Qt(e), (t.graceUntil = 0), (t.newWheel = !0), (t.firstSpin = void 0), (t.lastTurn = void 0);
+    (t.lastKey = void 0),
+        Qt(e),
+        (t.graceUntil = 0),
+        (t.newWheel = !0),
+        (t.firstSpin = void 0),
+        (t.lastTurn = void 0),
+        (t.lastSlam = -40),
+        (t.lastLightning = -40),
+        (t.lastCounter = -100),
+        (t.counterHits = []),
+        woaSwordHealAt.delete(e.id),
+        woaSwordCombo.delete(e.id),
+        woaSwordPrimed.delete(e.id);
 }
 function on(e, t) {
     let n,
@@ -1660,7 +2446,7 @@ function na(e, t, n, i) {
 }
 function ia(e, t) {
     let n = le(e);
-    Lr(e, n, t), Rr(e, n, t);
+    Lr(e, n, t), Rr(e, n, t), woaTickEffects(e, n, t), woaEnvEvolution(e, n, t), woaScanProjectiles(e, n, t);
     let i = on(n, t);
     i.ready &&
         t - n.lastSpin >= m.spinInterval &&
@@ -1912,7 +2698,152 @@ function Sn(e) {
 }
 import { EntityDamageCause as st, GameMode as Cn, system as O } from "@minecraft/server";
 var lt = new Map(),
-    En = new Set(f.zombieVillagers);
+    En = new Set(f.zombieVillagers),
+    woaInPierce = new Set(),
+    woaPierceTrack = new Map(),
+    woaPierceTick = new Map(),
+    woaSwordHealAt = new Map(),
+    woaSwordCombo = new Map(),
+    woaSwordPrimed = new Set(),
+    woaSlashSpecs = {
+        fire: { id: "fire", color: { r: 1.0, g: 0.42, b: 0.1 }, slashBonus: 3 },
+        storm: { id: "storm", color: { r: 0.25, g: 0.88, b: 1.0 }, slashBonus: 4 },
+        venom: { id: "venom", color: { r: 0.48, g: 0.96, b: 0.32 }, slashBonus: 2 },
+        frost: { id: "frost", color: { r: 0.55, g: 0.82, b: 1.0 }, slashBonus: 3 },
+        pure: { id: "pure", color: woaGold, slashBonus: 0 },
+    };
+function woaClassifyElement(e) {
+    if (!e) return;
+    let [t, n] = Wt(e);
+    if (t === "env") {
+        if (
+            n === "fire" ||
+            n === "soul_fire" ||
+            n === "burning" ||
+            n === "lava" ||
+            n === "magma" ||
+            n === "campfire" ||
+            n === "soul_campfire" ||
+            n === "sulfur_cube_magma"
+        )
+            return "fire";
+        if (n === "lightning" || n === "sonic_boom") return "storm";
+        if (n === "wither") return "venom";
+        if (n === "freezing") return "frost";
+    } else if (t === "effect") {
+        if (n === "wind_charged") return "storm";
+        if (
+            n === "poison" ||
+            n === "fatal_poison" ||
+            n === "wither" ||
+            n === "oozing" ||
+            n === "infested" ||
+            n === "hunger" ||
+            n === "nausea"
+        )
+            return "venom";
+        if (n === "freezing" || n === "slowness" || n === "mining_fatigue" || n === "darkness" || n === "blindness" || n === "weakness")
+            return "frost";
+    } else if (t === "mob") {
+        if (n === "minecraft:blaze" || n === "minecraft:magma_cube" || n === "minecraft:ghast") return "fire";
+        if (n === "minecraft:breeze" || n === "minecraft:warden") return "storm";
+        if (
+            n === "minecraft:cave_spider" ||
+            n === "minecraft:bogged" ||
+            n === "minecraft:wither" ||
+            n === "minecraft:wither_skeleton" ||
+            n === "minecraft:witch" ||
+            n === "minecraft:slime"
+        )
+            return "venom";
+        if (
+            n === "minecraft:stray" ||
+            n === "minecraft:shulker" ||
+            n === "minecraft:enderman" ||
+            n === "minecraft:ender_dragon"
+        )
+            return "frost";
+    } else if (t === "proj") {
+        if (n === "minecraft:fireball" || n === "minecraft:small_fireball") return "fire";
+        if (n === "minecraft:breeze_wind_charge_projectile" || n === "minecraft:wind_charge_projectile") return "storm";
+        if (
+            n === "minecraft:wither_skull" ||
+            n === "minecraft:wither_skull_dangerous" ||
+            n === "minecraft:splash_potion" ||
+            n === "minecraft:lingering_potion"
+        )
+            return "venom";
+        if (n === "minecraft:snowball" || n === "minecraft:shulker_bullet" || n === "minecraft:dragon_fireball")
+            return "frost";
+    } else if (t === "weapon" && n === "mace") return "storm";
+}
+function woaGetSlashElement(e) {
+    if (e.lastKey && woaIsAdapted(e, e.lastKey)) {
+        let t = woaClassifyElement(e.lastKey);
+        if (t) return woaSlashSpecs[t];
+    }
+    let n = -1,
+        i;
+    for (let [r, a] of e.map) {
+        if (a.s < a.n) continue;
+        let o = woaClassifyElement(r);
+        o && (a.used ?? 0) >= n && ((n = a.used ?? 0), (i = o));
+    }
+    return i ? woaSlashSpecs[i] : X(e) > 0 ? woaSlashSpecs.pure : void 0;
+}
+function woaIsShieldBlocking(e) {
+    if (e.typeId !== "minecraft:player" || !s(() => e.isSneaking)) return !1;
+    let t = s(() => e.getComponent("minecraft:equippable"));
+    if (!t) return !1;
+    return (
+        s(() => t.getEquipment(K.Offhand)?.typeId) === "minecraft:shield" ||
+        s(() => t.getEquipment(K.Mainhand)?.typeId) === "minecraft:shield"
+    );
+}
+function woaBumpPierce(e, t) {
+    if (woaPierceTrack.size > 64) {
+        for (let [r, a] of woaPierceTrack) t - a.tick > 120 && woaPierceTrack.delete(r);
+        woaPierceTick.clear();
+    }
+    let n = woaPierceTrack.get(e),
+        i = n && t - n.tick <= 120 ? n.count + 1 : 1;
+    return woaPierceTrack.set(e, { count: i, tick: t }), i;
+}
+function woaApplyPierce(e, t, n, i = woaGold, r = !1) {
+    if (!e?.isValid || !t?.isValid || n <= 0) return;
+    let a = s(() => t.getComponent("minecraft:health")?.currentValue);
+    if (typeof a == "number" && a <= 0) return;
+    woaInPierce.add(t.id);
+    try {
+        s(() => t.applyDamage(n, { cause: st.magic, damagingEntity: e }));
+    } finally {
+        woaInPierce.delete(t.id);
+    }
+    let o = D(t);
+    h(t.dimension, p.deflect, o, woaVm(i, r ? 1.05 : 0.78)),
+        h(t.dimension, p.ray, o, woaVm(i, r ? 1.0 : 0.8)),
+        r && (h(t.dimension, p.flash, o, woaVm(woaGold, 0.85)), T(t.dimension, b.nullify, o, 1.15, 0.9), Z(e, w.swordPierce));
+}
+function woaApplyElementalHit(e, t, n, i = !1) {
+    if (!n || !t?.isValid || t.id === e.id || Da(t)) return;
+    let r = t.dimension,
+        a = D(t);
+    if (n.id === "fire")
+        s(() => t.setOnFire(i ? 5 : 3, !0)), h(r, p.ray, a, woaVm(n.color, i ? 0.95 : 0.7));
+    else if (n.id === "storm")
+        s(() => t.addEffect("slowness", i ? 40 : 20, { amplifier: i ? 1 : 0, showParticles: !1 })),
+            h(r, p.halo, a, woaVm(n.color, i ? 0.95 : 0.65));
+    else if (n.id === "venom")
+        An(t) ||
+            (s(() => t.addEffect(i ? "wither" : "poison", i ? 60 : 40, { amplifier: i ? 1 : 0, showParticles: !1 })),
+            i && s(() => t.addEffect("weakness", 80, { amplifier: 0, showParticles: !1 }))),
+            h(r, p.ray, a, woaVm(n.color, i ? 0.9 : 0.68));
+    else if (n.id === "frost")
+        s(() => t.addEffect("slowness", i ? 80 : 40, { amplifier: i ? 2 : 0, showParticles: !1 })),
+            i && s(() => t.addEffect("weakness", 80, { amplifier: 0, showParticles: !1 })),
+            h(r, p.orb, a, woaVm(n.color, i ? 0.9 : 0.68));
+    else if (n.id === "pure") h(r, p.ray, a, woaVm(woaGold, i ? 0.85 : 0.65));
+}
 function An(e) {
     let t = s(() => e.getComponent("minecraft:type_family")?.hasTypeFamily("undead"));
     return t !== void 0 ? t : (s(() => e.matches({ families: ["undead"] })) ?? !1);
@@ -1973,7 +2904,18 @@ function qa(e) {
     if (!t || !F.has(t.id)) return;
     let n = e.hitEntity,
         i = s(() => D(n));
-    i && $n(t, n.id, n.dimension, i);
+    if ((i && $n(t, n.id, n.dimension, i), !H(t.id) || !n?.isValid)) return;
+    let r = O.currentTick;
+    if (woaIsShieldBlocking(n)) {
+        let a = le(t),
+            o = woaBumpPierce(n.id, r),
+            c = woaIsAdapted(a, He(n.typeId));
+        if ((c || o >= 2) && woaPierceTick.get(n.id) !== r) {
+            woaPierceTick.set(n.id, r);
+            let g = woaGetSlashElement(a)?.color ?? woaGold;
+            O.run(() => woaApplyPierce(t, n, 4.5, g, !0));
+        }
+    }
 }
 function Pa(e, t, n) {
     if (e.damageSource.cause !== st.entityAttack || !F.has(t.id)) return;
@@ -1987,7 +2929,43 @@ function Pa(e, t, n) {
     }
     let r = n.dimension,
         a = D(n);
-    O.run(() => Va(t, n, i, r, a));
+    if (!H(t.id)) {
+        O.run(() => Va(t, n, i, r, a));
+        return;
+    }
+    let o = O.currentTick,
+        c = le(t),
+        g = woaGetSlashElement(c),
+        _ = woaIsAdapted(c, He(n.typeId)),
+        x = woaBumpPierce(n.id, o),
+        $ = s(() => n.getEffect("resistance")),
+        M = woaIsShieldBlocking(n),
+        ue =
+            _ || $ || M || x >= 2
+                ? Math.min(
+                      8,
+                      (_ ? 2.5 : 0) +
+                          ($ ? ($.amplifier + 1) * 2.5 : 0) +
+                          (M ? 3.5 : 0) +
+                          (x >= 2 && !_ && !$ && !M ? 1.5 : 0)
+                  )
+                : 0,
+        ze = (woaSwordCombo.get(t.id) ?? 0) + 1;
+    ze >= 3
+        ? (woaSwordCombo.set(t.id, 0),
+          woaSwordPrimed.has(t.id) || (woaSwordPrimed.add(t.id), Z(t, w.swordPrimed)))
+        : woaSwordCombo.set(t.id, ze),
+        ue > 0 && woaPierceTick.set(n.id, o),
+        O.run(() => {
+            Va(t, n, i, r, a),
+                t.isValid &&
+                    n.isValid &&
+                    (_ &&
+                        o - (woaSwordHealAt.get(t.id) ?? -20) >= 20 &&
+                        (woaSwordHealAt.set(t.id, o), nt(t) > 0 && (s(() => ie(t, 1)), h(t.dimension, p.regen, ge(t, 0.1), woaVm(woaHealColor, 0.7)))),
+                    ue > 0 && woaApplyPierce(t, n, ue, g?.color ?? woaGold, M || !!$),
+                    g && woaApplyElementalHit(t, n, g, !1));
+        });
 }
 function Oa(e, t) {
     return (
@@ -2001,21 +2979,31 @@ function Oa(e, t) {
         ) ?? []
     );
 }
-function La(e, t, n) {
+function La(e, t, n, i) {
     if (!t.getComponent("minecraft:health") || t.typeId === "minecraft:player" || Da(t)) return;
-    let i = t.dimension,
-        r = An(t),
-        a = r ? f.slashUndeadDamage : f.slashDamage;
-    if (En.has(t.typeId) && Mn(t, a)) {
+    let r = t.dimension,
+        a = An(t),
+        o = a ? f.slashUndeadDamage : f.slashDamage;
+    if (i && H(e.id)) {
+        let c = le(e),
+            g = 1 + Qr(X(c)),
+            _ = c.map.get(He(t.typeId)),
+            x = _ && _.s > 0 ? 1 + Ve.maxBonus * Math.min(1, _.s / _.n) : 1,
+            $ = s(() => t.getEffect("resistance")),
+            M = $ ? ($.amplifier + 1) * 2.5 : 0;
+        o = (o * g * x + (i.el?.slashBonus ?? 0) + M) * (i.primed ? 1.35 : 1);
+    }
+    if (En.has(t.typeId) && Mn(t, o)) {
         zn(e, t);
         return;
     }
-    s(() => t.applyDamage(a, { cause: st.magic, damagingEntity: e })),
+    s(() => t.applyDamage(o, { cause: st.magic, damagingEntity: e })),
         s(() => t.applyKnockback({ x: n.x * f.slashKnockback, z: n.z * f.slashKnockback }, 0.3)),
-        T(i, b.slashHit, D(t)),
-        h(i, p.positive, D(t)),
-        h(i, p.inkSpark, D(t)),
-        r && O.run(() => In(e, t));
+        T(r, b.slashHit, D(t)),
+        h(r, p.positive, D(t)),
+        h(r, p.inkSpark, D(t)),
+        i?.el && woaApplyElementalHit(e, t, i.el, !0),
+        a && O.run(() => In(e, t));
 }
 function Wa(e) {
     if (!f.slashCutsBlocks) return !1;
@@ -2057,52 +3045,69 @@ function Ra(e, t) {
     let n = s(() => e.getBlockFromViewDirection({ maxDistance: f.slashRange }));
     return n ? Math.min(f.slashRange, Fn(t, E(n.block.location, n.faceLocation))) : f.slashRange;
 }
-function Fa(e) {
-    let t = f.trailTicks;
-    for (let n = 0; n < t; n++)
-        R(f.slashWindup - t + n, () => {
+function Fa(e, t) {
+    let n = f.trailTicks;
+    for (let i = 0; i < n; i++)
+        R(f.slashWindup - n + i, () => {
             if (!e.isValid) return;
-            let { eye: i, forward: r, right: a, up: o } = Vn(e),
-                c = e.dimension,
-                g = -f.trailArc + (2 * f.trailArc * n) / t,
-                _ = -f.trailArc + (2 * f.trailArc * (n + 1)) / t;
-            for (let x = g; x <= _ + 1e-6; x += 0.07) {
-                let $ = -f.trailTilt * Math.sin(x),
-                    M = E(E(C(r, Math.cos(x)), C(a, Math.sin(x))), C(o, $)),
-                    ue = E(i, C(M, f.trailRadius));
-                h(c, p.slashTrail, ue), h(c, p.ink, E(ue, E(C(o, -0.14), C(r, 0.12))));
+            let { eye: r, forward: a, right: o, up: c } = Vn(e),
+                g = e.dimension,
+                _ = -f.trailArc + (2 * f.trailArc * i) / n,
+                x = -f.trailArc + (2 * f.trailArc * (i + 1)) / n,
+                $ = 0;
+            for (let M = _; M <= x + 1e-6; M += 0.07) {
+                let ue = -f.trailTilt * Math.sin(M),
+                    ze = E(E(C(a, Math.cos(M)), C(o, Math.sin(M))), C(c, ue)),
+                    j = E(r, C(ze, f.trailRadius));
+                h(g, p.slashTrail, j),
+                    h(g, p.ink, E(j, E(C(c, -0.14), C(a, 0.12)))),
+                    t && $ % 3 === 0 && h(g, p.ray, j, woaVm(t.el.color, t.primed ? 1.05 : 0.78)),
+                    $++;
             }
         });
 }
-function Ka(e) {
+function Ka(e, t) {
     if (!e.isValid || !Kn(e) || !F.has(e.id)) return;
-    let t = e.dimension,
-        { eye: n, forward: i, right: r } = Vn(e),
-        a = Wa(e) ? { done: new Set(), blocked: new Set(), count: 0 } : void 0,
-        o = a ? f.slashRange : Ra(e, n),
-        c = new Set([e.id]),
-        g = f.slashStart,
-        _ = O.runInterval(() => {
+    let n = e.dimension,
+        { eye: i, forward: r, right: a } = Vn(e),
+        o = Wa(e) ? { done: new Set(), blocked: new Set(), count: 0 } : void 0,
+        c = o ? f.slashRange : Ra(e, i),
+        g = new Set([e.id]),
+        _ = f.slashStart,
+        x = O.runInterval(() => {
             try {
-                let x = Math.min(o, g + f.slashSpeed);
-                for (let M = g; M <= x && M <= o; M += 0.35) {
-                    let ue = E(n, C(i, M)),
+                let $ = Math.min(c, _ + f.slashSpeed);
+                for (let M = _; M <= $ && M <= c; M += 0.35) {
+                    let ue = E(i, C(r, M)),
                         ze = f.slashWidth;
                     for (let j = -ze; j <= ze + 1e-6; j += ze / 5) {
-                        let qn = C(i, -j * j * 0.22),
-                            Ie = E(E(ue, C(r, j)), qn);
-                        h(t, p.slashTrail, Ie),
-                            h(t, p.ink, E(Ie, C(i, -0.32))),
-                            a && M >= f.slashCutStart && Ha(t, Ie, a) && Math.abs(j) < 1e-6 && (o = Math.min(o, M));
+                        let qn = C(r, -j * j * 0.22),
+                            Ie = E(E(ue, C(a, j)), qn);
+                        h(n, p.slashTrail, Ie),
+                            h(n, p.ink, E(Ie, C(r, -0.32))),
+                            o && M >= f.slashCutStart && Ha(n, Ie, o) && Math.abs(j) < 1e-6 && (c = Math.min(c, M));
                     }
                 }
-                x = Math.min(x, o);
-                let $ = E(n, C(i, x));
-                h(t, p.inkSpark, E($, C(r, f.slashWidth))), h(t, p.inkSpark, E($, C(r, -f.slashWidth)));
-                for (let M of Oa(t, $)) c.has(M.id) || (c.add(M.id), La(e, M, i));
-                (g = x), g >= o && (h(t, p.positive, $), h(t, p.inkSpark, $), O.clearRun(_));
+                $ = Math.min($, c);
+                let M = E(i, C(r, $));
+                h(n, p.inkSpark, E(M, C(a, f.slashWidth))),
+                    h(n, p.inkSpark, E(M, C(a, -f.slashWidth))),
+                    t &&
+                        (h(n, p.ray, M, woaVm(t.el.color, t.primed ? 1.15 : 0.88)),
+                        h(n, p.orb, E(M, C(a, f.slashWidth * 0.65)), woaVm(t.el.color, 0.75)),
+                        h(n, p.orb, E(M, C(a, -f.slashWidth * 0.65)), woaVm(t.el.color, 0.75)));
+                for (let ue of Oa(n, M)) g.has(ue.id) || (g.add(ue.id), La(e, ue, r, t));
+                (_ = $),
+                    _ >= c &&
+                        (h(n, p.positive, M),
+                        h(n, p.inkSpark, M),
+                        t &&
+                            (t.primed || t.level >= 3 || t.el.id !== "pure") &&
+                            (h(n, p.halo, M, woaVm(t.el.color, t.primed ? 1.25 : 0.95)),
+                            h(n, p.burst, M, woaVm(t.el.color, t.primed ? 1.05 : 0.8))),
+                        O.clearRun(x));
             } catch {
-                O.clearRun(_);
+                O.clearRun(x);
             }
         }, 1);
 }
@@ -2110,16 +3115,30 @@ function ja(e) {
     let t = e.source;
     if (e.itemStack?.typeId !== pe) return;
     let n = O.currentTick;
-    n < (Se.get(t.id) ?? 0) ||
-        (Se.set(t.id, n + f.slashCooldown),
+    if (n < (Se.get(t.id) ?? 0)) return;
+    Se.set(t.id, n + f.slashCooldown),
         s(() => t.startItemCooldown(f.cooldownCategory, f.slashCooldown)),
         s(() => t.playAnimation(U.slash, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop })),
-        T(t.dimension, b.slash, t.location),
-        Fa(t),
-        R(f.slashWindup, () => Ka(t)));
+        T(t.dimension, b.slash, t.location);
+    let i;
+    if (H(t.id)) {
+        let r = le(t),
+            a = woaGetSlashElement(r),
+            o = woaSwordPrimed.delete(t.id),
+            c = X(r);
+        (a || o || c > 0) &&
+            ((i = { el: a ?? woaSlashSpecs.pure, primed: o, level: c }),
+            (i.el.id !== "pure" || o) && Z(t, w.swordSlash(i.el.id, o)));
+    }
+    Fa(t, i), R(f.slashWindup, () => Ka(t, i));
 }
 function Ga(e) {
-    ct.clear(), Se.delete(e), lt.delete(e);
+    ct.clear(),
+        Se.delete(e),
+        lt.delete(e),
+        woaSwordHealAt.delete(e),
+        woaSwordCombo.delete(e),
+        woaSwordPrimed.delete(e);
 }
 hr(),
     Ca(),
@@ -2127,10 +3146,18 @@ hr(),
         if (e.mode !== t.mode) for (let n of I.getAllPlayers()) s(() => (e.mode === "starter" ? Sn(n) : Ia(n)));
     });
 function Ua(e) {
-    be.add(e.id), Qi(e), T(e.dimension, b.equip, e.location), Z(e, w.equip, 90);
+    be.add(e.id), Qi(e), T(e.dimension, b.equip, e.location), Z(e, w.equip, 90), woaEquipFx(e);
 }
 function Ja(e) {
-    be.delete(e.id), er(e), sn(e.id), Ut(e.id), Yi(e), s(() => e.onScreenDisplay.setActionBar(w.unequip));
+    be.delete(e.id),
+        er(e),
+        sn(e.id),
+        Ut(e.id),
+        Yi(e),
+        woaSwordHealAt.delete(e.id),
+        woaSwordCombo.delete(e.id),
+        woaSwordPrimed.delete(e.id),
+        s(() => e.onScreenDisplay.setActionBar(w.unequip));
 }
 function Na(e, t) {
     let n = e.getComponent("minecraft:equippable");
@@ -2139,7 +3166,8 @@ function Na(e, t) {
     let i = n.getEquipment(ft.Head)?.typeId,
         r = !!i && me.has(i),
         a = H(e.id);
-    r && !a ? Ua(e) : !r && a && Ja(e),
+    woaLastVel.set(e.id, s(() => e.getVelocity()) ?? { x: 0, y: 0, z: 0 }),
+        r && !a ? Ua(e) : !r && a && Ja(e),
         _r(e, t),
         t % 20 === 0 && Cr(e),
         !(!r || !i) && (ei(e, t), Sr(e, i, t), ia(e, t), ar(e, t));
@@ -2153,7 +3181,7 @@ de.runInterval(() => {
             if (e.damage <= 0) return;
             let t = e.hurtEntity,
                 n = q(t);
-            if ((n && H(n.id) && Zr(e, n), e.cancel)) return;
+            if ((n && H(n.id) && Zr(e, n), e.cancel || e.damage <= 0)) return;
             let i = e.damageSource.damagingEntity,
                 r = q(i);
             if (!r || r.id === t.id) return;
@@ -2181,9 +3209,32 @@ de.runInterval(() => {
     I.afterEvents.itemUse.subscribe((e) => {
         s(() => ja(e));
     }),
+    I.afterEvents.projectileHitEntity?.subscribe((e) => {
+        try {
+            let t = q(e.getEntityHit()?.entity);
+            if (!t || !H(t.id)) return;
+            let n = e.projectile;
+            if (!n?.isValid || woaDeflected.has(n.id)) return;
+            let i = le(t),
+                r = s(() => e.source),
+                a = woaProjAdaptedKey(i, oe(n), r);
+            if (!a) return;
+            pr(t, woaLastVel.get(t.id) ?? { x: 0, y: 0, z: 0 }),
+                woaDeflectProjectile(t, i, de.currentTick, n, e.hitVector, r);
+        } catch {}
+    }),
     I.beforeEvents.playerLeave.subscribe((e) => {
         let t = e.player.id;
         de.run(() => {
-            tr(t), sn(t), Ut(t), xr(t), Ga(t), Ar(t), Zi(t);
+            tr(t),
+                sn(t),
+                Ut(t),
+                xr(t),
+                Ga(t),
+                Ar(t),
+                Zi(t),
+                woaDotAt.delete(t),
+                woaExposeAt.delete(t),
+                woaLastVel.delete(t);
         });
     });

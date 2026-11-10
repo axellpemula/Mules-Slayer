@@ -10,28 +10,32 @@
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 14
+        "num_particles": 22
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 0.05
       },
       "minecraft:emitter_shape_disc": {
-        "radius": 0.75,
+        "radius": 0.78,
         "plane_normal": "y",
         "surface_only": true,
         "direction": "outwards"
       },
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": "math.random(0.3, 0.5)"
+        "max_lifetime": "math.random(0.35, 0.6)"
       },
-      "minecraft:particle_initial_speed": "math.random(0.6, 1.4)",
+      "minecraft:particle_initial_speed": "math.random(0.9, 2.1)",
+      "minecraft:particle_initial_spin": {
+        "rotation": "math.random(0, 360)",
+        "rotation_rate": 180
+      },
       "minecraft:particle_motion_dynamic": {
-        "linear_drag_coefficient": 3.0
+        "linear_drag_coefficient": 3.2
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.16 * (1 - v.particle_age / v.particle_lifetime)",
-          "0.16 * (1 - v.particle_age / v.particle_lifetime)"
+          "0.19 * (v.scale ? v.scale : 1.0) * (1 - v.particle_age / v.particle_lifetime)",
+          "0.19 * (v.scale ? v.scale : 1.0) * (1 - v.particle_age / v.particle_lifetime)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -48,29 +52,12 @@
         }
       },
       "minecraft:particle_appearance_tinting": {
-        "color": {
-          "interpolant": "v.particle_age / v.particle_lifetime",
-          "gradient": {
-            "0.00": [
-              1.0,
-              1.0,
-              1.0,
-              1.0
-            ],
-            "0.50": [
-              1.0,
-              0.93,
-              0.62,
-              1.0
-            ],
-            "1.00": [
-              1.0,
-              0.7,
-              0.2,
-              0.0
-            ]
-          }
-        }
+        "color": [
+          "1.0 + ((v.tint ? v.r : 1.0) - 1.0) * math.min(1, (v.particle_age / v.particle_lifetime) * 2.0)",
+          "0.96 + ((v.tint ? v.g : 0.84) - 0.96) * math.min(1, (v.particle_age / v.particle_lifetime) * 2.0)",
+          "0.78 + ((v.tint ? v.b : 0.28) - 0.78) * math.min(1, (v.particle_age / v.particle_lifetime) * 2.0)",
+          "1.0 - (v.particle_age / v.particle_lifetime) * (v.particle_age / v.particle_lifetime)"
+        ]
       }
     }
   }
