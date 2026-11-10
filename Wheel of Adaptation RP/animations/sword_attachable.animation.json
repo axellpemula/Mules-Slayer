@@ -1,0 +1,84 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.xvoid.sword.hide_arm": {
+      "loop": true,
+      "bones": {
+        "fp_arm": {
+          "scale": 0
+        }
+      }
+    },
+    "animation.xvoid.sword.first_person": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            -15,
+            0,
+            0
+          ],
+          "position": [
+            -3,
+            5,
+            -2
+          ]
+        }
+      }
+    },
+    "animation.xvoid.sword.motes": {
+      "loop": true,
+      "animation_length": 1.2,
+      "bones": {
+        "aura_0": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 0.0, 1.2) / 1.2) * 180) * 1.2"
+        },
+        "aura_1": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 0.2, 1.2) / 1.2) * 180) * 1.2"
+        },
+        "aura_2": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 0.4, 1.2) / 1.2) * 180) * 1.2"
+        },
+        "aura_3": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 0.6, 1.2) / 1.2) * 180) * 1.2"
+        },
+        "aura_4": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 0.8, 1.2) / 1.2) * 180) * 1.2"
+        },
+        "aura_5": {
+          "position": [
+            "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 360) * 0.6",
+            "(math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 7",
+            0
+          ],
+          "scale": "math.sin((math.mod(q.anim_time + 1.0, 1.2) / 1.2) * 180) * 1.2"
+        }
+      }
+    }
+  }
+}

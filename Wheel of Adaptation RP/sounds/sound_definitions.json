@@ -1,0 +1,145 @@
+{
+  "format_version": "1.20.20",
+  "sound_definitions": {
+    "xvoid.wheel.spin": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_spin",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.first": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_first",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.fast": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_fast",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.adapted": {
+      "category": "player",
+      "min_distance": 6.0,
+      "max_distance": 48.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_adapted",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.nullify": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 24.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_nullify",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.undying": {
+      "category": "player",
+      "min_distance": 6.0,
+      "max_distance": 48.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_undying",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.wheel.heal": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/heal",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.slash": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/slash_fire",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.slash_hit": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 24.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/slash_hit",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.stab": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 24.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/stab_hit_1",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/xvoid/stab_hit_2",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/xvoid/stab_hit_3",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.purify": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/purify",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.restore": {
+      "category": "player",
+      "min_distance": 4.0,
+      "max_distance": 32.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/restore",
+          "volume": 1.0
+        }
+      ]
+    }
+  }
+}
