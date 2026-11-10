@@ -40,7 +40,7 @@
       "minecraft:particle_appearance_billboard": {
         "size": [
           "0.18 * (v.scale ? v.scale : 1.0) * (1 - (v.particle_age / v.particle_lifetime) * 0.6)",
-          "1.85 * (v.scale ? v.scale : 1.0) * (0.4 + 0.85 * math.sqrt(v.particle_age / v.particle_lifetime))"
+          "1.85 * (v.scale ? v.scale : 1.0) * (0.4 + 0.85 * math.sin((v.particle_age / v.particle_lifetime) * 90))"
         ],
         "facing_camera_mode": "rotate_y",
         "uv": {

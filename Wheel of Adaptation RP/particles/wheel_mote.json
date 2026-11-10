@@ -14,14 +14,14 @@
         "rotation": false
       },
       "minecraft:emitter_rate_steady": {
-        "spawn_rate": "v.emitter_age > 0.06 && v.emitter_age < 4.3 ? 34 : 0",
-        "max_particles": 64
+        "spawn_rate": "v.emitter_age > 0.04 && v.emitter_age < 4.3 ? 42 : 0",
+        "max_particles": 72
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 4.4
       },
       "minecraft:emitter_shape_disc": {
-        "radius": 0.72,
+        "radius": 0.76,
         "plane_normal": "y",
         "surface_only": true,
         "direction": [
@@ -44,8 +44,8 @@
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.09 * (1 - (v.particle_age / v.particle_lifetime) * 0.85)",
-          "0.09 * (1 - (v.particle_age / v.particle_lifetime) * 0.85)"
+          "0.105 * math.sin(math.min(1, (v.particle_age / v.particle_lifetime) * 3.5) * 90) * (1 - (v.particle_age / v.particle_lifetime) * 0.8)",
+          "0.105 * math.sin(math.min(1, (v.particle_age / v.particle_lifetime) * 3.5) * 90) * (1 - (v.particle_age / v.particle_lifetime) * 0.8)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -66,22 +66,22 @@
           "interpolant": "v.particle_age / v.particle_lifetime",
           "gradient": {
             "0.00": [
-              1.0,
+              1,
               0.96,
               0.72,
-              1.0
+              1
             ],
             "0.50": [
-              1.0,
+              1,
               0.82,
               0.28,
               0.95
             ],
             "1.00": [
-              1.0,
+              1,
               0.58,
               0.12,
-              0.0
+              0
             ]
           }
         }

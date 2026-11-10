@@ -37,6 +37,11 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         purify: "xvoid.sword.purify",
         cure: "xvoid.sword.restore",
         undying: "xvoid.wheel.undying",
+        parryOpen: "xvoid.sword.parry_open",
+        parryHit: "xvoid.sword.parry_hit",
+        overdrive: "xvoid.sword.overdrive",
+        primed: "xvoid.sword.primed",
+        surge: "xvoid.wheel.surge",
     },
     p = {
         spin: "xvoid:wheel_spin",
@@ -68,6 +73,8 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
     U = {
         stab: "animation.extermination_sword.stab",
         slash: "animation.extermination_sword.slash",
+        parry: "animation.extermination_sword.parry",
+        overdrive: "animation.extermination_sword.overdrive",
         controller: "controller.xvoid.sword",
         stop: "q.any_animation_finished",
     },
@@ -259,8 +266,25 @@ function Kn(e) {
     return (s(() => e.getComponent("minecraft:health")?.currentValue) ?? 0) > 0;
 }
 function Y(e) {
-    let t = e.getHeadLocation();
-    return { x: t.x, y: t.y + m.heightAboveEyes, z: t.z };
+    let t = e.getHeadLocation(),
+        sn = s(() => e.isSneaking) ? 0.1 : 0,
+        sp = Ae.get(e.id),
+        tk = sp ? en.currentTick : 0,
+        lift = 0;
+    if (sp && tk < sp.until) {
+        let age = tk - sp.start;
+        lift =
+            sp.kind === "full"
+                ? age < 3
+                    ? 0.04
+                    : 0.125
+                : sp.kind === "react"
+                  ? 0.038
+                  : sp.kind === "first" && age < 4
+                    ? 0.04
+                    : 0.094;
+    }
+    return { x: t.x, y: t.y + m.heightAboveEyes + sn + lift, z: t.z };
 }
 var woaGold = { r: 1.0, g: 0.84, b: 0.28 },
     woaWhiteGold = { r: 1.0, g: 0.94, b: 0.68 },
@@ -393,9 +417,9 @@ function woaHoriz(e) {
         n = ht({ x: t.x, y: 0, z: t.z });
     return n.x === 0 && n.z === 0 && (n = { x: 0, y: 0, z: 1 }), { f: n, r: { x: -n.z, y: 0, z: n.x } };
 }
-function woaPerip(e, t, n, i = 1, r = 0.75, a = 0.88, o = -0.16) {
+function woaPerip(e, t, n, i = 1, r = 0.42, a = 0.88, o = 0) {
     if (!e.isValid) return;
-    let c = e.getHeadLocation(),
+    let c = Y(e),
         { f: g, r: _ } = woaHoriz(e),
         x = woaVm(n, i),
         $ = { x: c.x + g.x * r, y: c.y + o, z: c.z + g.z * r };
@@ -414,16 +438,17 @@ function woaEquipFx(e) {
     if (!e?.isValid) return;
     let t = e.dimension,
         n = ge(e, 0.05),
-        i = D(e),
         r = Y(e);
     h(t, p.seal, n, woaVm(woaGold, 0.98, 1)),
         h(t, p.runeRing, n, woaVm(woaGold, 1.05, -1.35)),
         h(t, p.beamCore, n, woaVm(woaGold, 0.9)),
-        h(t, p.halo, i, woaVm(woaGold, 1.05)),
-        h(t, p.halo, r, woaVm(woaWhiteGold, 0.9)),
-        h(t, p.flash, r, woaVm(woaGold, 0.88)),
+        h(t, p.halo, r, woaVm(woaWhiteGold, 0.96)),
+        h(t, p.flash, r, woaVm(woaGold, 0.9)),
         woaPerip(e, p.orb, woaGold, 0.95),
-        woaLowFx() || (woaRing(t, p.orb, i, 8, 1.1, woaGold, 0.9, 0.4), woaRing(t, p.ray, r, 4, 0.95, woaWhiteGold, 0.85, 0));
+        woaLowFx() ||
+            (woaRing(t, p.orb, r, 8, 0.95, woaGold, 0.9, 0.4),
+            woaRing(t, p.ray, r, 4, 0.88, woaWhiteGold, 0.85, 0),
+            woaShake(e, 0.08, 0.14, "positional"));
 }
 function woaExposeFx(e, t, n = 0.5) {
     if (!e?.isValid) return;
@@ -434,26 +459,25 @@ function woaExposeFx(e, t, n = 0.5) {
     let a = e.dimension,
         o = woaTheme(t),
         c = Y(e),
-        g = 0.68 + 0.35 * Math.min(1, n);
+        g = 0.72 + 0.35 * Math.min(1, n);
     h(a, p.charge, c, woaVm(o, g)),
-        woaPerip(e, p.ray, o, 0.65 + 0.25 * n, 0.82, 0.85, -0.15),
-        !woaLowFx() && n >= 0.65 && (h(a, p.charge, D(e), woaVm(woaGold, 0.75)), woaPerip(e, p.orb, woaGold, 0.8));
+        woaPerip(e, p.ray, o, 0.68 + 0.25 * n, 0.45, 0.86, 0),
+        !woaLowFx() && n >= 0.65 && (h(a, p.charge, { x: c.x, y: c.y + 0.04, z: c.z }, woaVm(woaGold, 0.78)), woaPerip(e, p.orb, woaGold, 0.82, 0.36, 0.86, 0.02));
 }
 function woaSpinFx(e, t, n) {
     if (!e?.isValid) return;
     let i = woaTheme(n),
         r = woaLowFx(),
-        a = (o, c, g = 0.95, _ = 0.9) => {
+        a = (o, c, g = 0.88, _ = 0.9) => {
             if (!e.isValid) return;
             let x = e.dimension,
-                $ = Y(e),
-                M = D(e);
+                $ = Y(e);
             h(x, p.ray, { x: $.x + Math.cos(o) * g, y: $.y, z: $.z + Math.sin(o) * g }, woaVm(c, _)),
                 r ||
                     h(
                         x,
                         p.orb,
-                        { x: M.x + Math.cos(o + Math.PI) * (g + 0.15), y: M.y + 0.15, z: M.z + Math.sin(o + Math.PI) * (g + 0.15) },
+                        { x: $.x + Math.cos(o + Math.PI) * (g + 0.08), y: $.y + 0.02, z: $.z + Math.sin(o + Math.PI) * (g + 0.08) },
                         woaVm(c, _ * 0.9)
                     );
         };
@@ -468,18 +492,19 @@ function woaSpinFx(e, t, n) {
             r ||
                 ([3, 6, 9].forEach((g, _) =>
                     R(g, () => {
-                        a(_ * 1.45, _ % 2 ? woaGold : i, 0.98, 0.9),
-                            e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.78, 0.78, 0.88, -0.12 + _ * 0.08);
+                        a(_ * 1.45, _ % 2 ? woaGold : i, 0.9, 0.9),
+                            e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.78, 0.44, 0.88, _ * 0.03);
                     })
                 ),
                 R(12, () => {
                     if (!e.isValid) return;
                     let g = e.dimension,
                         _ = Y(e);
-                    h(g, p.flash, _, woaVm(woaGold, 0.9)),
-                        h(g, p.halo, _, woaVm(woaGold, 1.1)),
+                    h(g, p.flash, _, woaVm(woaGold, 0.92)),
+                        h(g, p.halo, _, woaVm(woaGold, 1.12)),
                         h(g, p.spin, _, woaVm(i, 0.95)),
-                        woaShake(e, 0.08, 0.14);
+                        woaShake(e, 0.08, 0.14),
+                        woaShake(e, 0.06, 0.12, "positional");
                 }));
         return;
     }
@@ -499,8 +524,8 @@ function woaSpinFx(e, t, n) {
                             M = Y(e),
                             ue = 0.68 + x * 0.09;
                         h($, p.charge, M, woaVm(x % 2 ? woaGold : i, ue)),
-                            woaRing($, p.ray, M, 4, 0.92, i, 0.78, x * 0.45),
-                            woaPerip(e, p.orb, i, 0.88, 0.8, 0.88, -0.18),
+                            woaRing($, p.ray, M, 4, 0.88, i, 0.78, x * 0.45),
+                            woaPerip(e, p.orb, i, 0.88, 0.44, 0.88, 0),
                             (x === 2 || x === 4) && h($, p.runeRing, ge(e, 0.05), woaVm(woaGold, 0.9 + x * 0.08, -1.5)),
                             (x === 3 || x === 5) && (h($, p.halo, M, woaVm(i, 0.88 + x * 0.07)), woaShake(e, 0.06, 0.12));
                     })
@@ -509,19 +534,19 @@ function woaSpinFx(e, t, n) {
                     if (!e.isValid) return;
                     let _ = e.dimension,
                         x = Y(e),
-                        $ = D(e),
                         g0 = ge(e, 0.08);
                     h(_, p.flash, x, woaVm(woaGold, 1.2)),
                         h(_, p.shockwave, g0, woaVm(i, 0.85)),
                         h(_, p.sonic, g0, woaVm(woaGold, 0.95)),
                         h(_, p.burst, x, woaVm(i, 0.85)),
-                        h(_, p.halo, $, woaVm(woaGold, 1.05)),
+                        h(_, p.halo, { x: x.x, y: x.y + 0.04, z: x.z }, woaVm(woaGold, 1.05)),
                         woaPerip(e, p.ray, woaGold, 1.0),
-                        woaShake(e, 0.16, 0.28);
+                        woaShake(e, 0.16, 0.28),
+                        woaShake(e, 0.14, 0.22, "positional");
                 }),
                 [46, 51, 56, 61, 66, 71].forEach((_, x) =>
                     R(_, () => {
-                        a(x * 1.1, x % 2 ? woaGold : i, 1.08, 0.98),
+                        a(x * 1.1, x % 2 ? woaGold : i, 0.96, 0.96),
                             e.isValid && woaPerip(e, p.orb, x % 2 ? i : woaGold, 0.92);
                     })
                 ),
@@ -545,8 +570,8 @@ function woaSpinFx(e, t, n) {
         r ||
             ([6, 10, 14, 18, 22].forEach((g, _) =>
                 R(g, () => {
-                    a(_ * 1.15, _ % 2 ? woaGold : i, 0.98, 0.92),
-                        e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.76, 0.8, 0.88, -0.14 + _ * 0.06);
+                    a(_ * 1.15, _ % 2 ? woaGold : i, 0.9, 0.92),
+                        e.isValid && woaPerip(e, p.ray, _ % 2 ? woaGold : i, 0.76, 0.44, 0.88, _ * 0.02);
                 })
             ),
             R(17, () => {
@@ -563,7 +588,8 @@ function woaSpinFx(e, t, n) {
                     h(g, p.halo, _, woaVm(woaGold, 1.1)),
                     h(g, p.spin, _, woaVm(woaGold, 1.05)),
                     h(g, p.sonic, ge(e, 0.08), woaVm(woaGold, 0.85)),
-                    woaShake(e, 0.09, 0.16);
+                    woaShake(e, 0.09, 0.16),
+                    woaShake(e, 0.07, 0.12, "positional");
             }));
 }
 function woaFullFx(e, t) {
@@ -582,14 +608,13 @@ function woaFullFx(e, t) {
                     if (!e.isValid) return;
                     let g = e.dimension,
                         _ = Y(e),
-                        x = D(e),
                         $ = 0.9 + c * 0.24;
                     h(g, p.charge, _, woaVm(c % 2 ? woaGold : n, $)),
                         h(g, p.halo, _, woaVm(n, 0.88 + c * 0.26)),
                         h(g, p.spin, _, woaVm(woaGold, 0.95 + c * 0.16)),
                         h(g, p.runeRing, ge(e, 0.05), woaVm(c % 2 ? n : woaGold, 0.95 + c * 0.18, c % 2 ? 1.5 : -1.5)),
-                        woaRing(g, p.orb, x, 6, 1.2, c % 2 ? woaGold : n, 0.98, c * 0.6),
-                        woaPerip(e, p.ray, woaGold, 0.9 + c * 0.12),
+                        woaRing(g, p.orb, _, 6, 0.96, c % 2 ? woaGold : n, 0.98, c * 0.6),
+                        woaPerip(e, p.ray, woaGold, 0.9 + c * 0.12, 0.44, 0.88, 0.03),
                         woaShake(e, 0.07 + c * 0.035, 0.16);
                 })
             ),
@@ -597,7 +622,6 @@ function woaFullFx(e, t) {
                 if (!e.isValid) return;
                 let o = e.dimension,
                     c = ge(e, 0.05),
-                    g = D(e),
                     _ = Y(e);
                 h(o, p.seal, c, woaVm(woaGold, 1.38, 1.1)),
                     h(o, p.runeRing, { x: c.x, y: c.y + 0.03, z: c.z }, woaVm(n, 1.45, -1.5)),
@@ -607,19 +631,21 @@ function woaFullFx(e, t) {
                     h(o, p.beamCore, c, woaVm(woaGold, 1.15)),
                     h(o, p.pillar, c, woaVm(n, 1.1)),
                     h(o, p.flash, _, woaVm(woaGold, 1.45)),
-                    h(o, p.burst, g, woaVm(n, 1.05)),
-                    woaRing(o, p.ray, _, 8, 1.22, woaGold, 1.15, 0),
-                    woaPerip(e, p.orb, woaGold, 1.25, 0.85, 0.95, -0.1),
-                    woaShake(e, 0.28, 0.48);
+                    h(o, p.halo, _, woaVm(n, 1.25)),
+                    h(o, p.burst, _, woaVm(n, 1.05)),
+                    woaRing(o, p.ray, _, 8, 1.05, woaGold, 1.15, 0),
+                    woaPerip(e, p.orb, woaGold, 1.25, 0.48, 0.92, 0.04),
+                    woaShake(e, 0.28, 0.48),
+                    woaShake(e, 0.24, 0.36, "positional");
             }),
             [42, 46, 50, 54, 58, 62, 66, 70, 74].forEach((o, c) =>
                 R(o, () => {
                     if (!e.isValid) return;
                     let g = e.dimension,
-                        _ = e.location,
+                        _ = Y(e),
                         x = c * 0.95,
-                        $ = _.y + 0.35 + c * 0.26,
-                        M = 1.12 - c * 0.03;
+                        $ = _.y - 0.55 + c * 0.14,
+                        M = 0.98 - c * 0.025;
                     h(g, p.ray, { x: _.x + Math.cos(x) * M, y: $, z: _.z + Math.sin(x) * M }, woaVm(woaGold, 0.95)),
                         h(
                             g,
@@ -627,30 +653,29 @@ function woaFullFx(e, t) {
                             { x: _.x + Math.cos(x + Math.PI) * M, y: $, z: _.z + Math.sin(x + Math.PI) * M },
                             woaVm(n, 1.0)
                         ),
-                        c % 2 === 0 && h(g, p.halo, Y(e), woaVm(c % 4 ? woaGold : n, 0.95));
+                        c % 2 === 0 && h(g, p.halo, _, woaVm(c % 4 ? woaGold : n, 0.95));
                 })
             ));
 }
 function woaNullFx(e, t, n = !1) {
     if (!e?.isValid) return;
     let i = woaTheme(t),
-        r = e.dimension;
+        r = e.dimension,
+        a = Y(e);
     if (n) {
         if (woaLowFx()) return;
-        let a = Hn.currentTick;
-        if (a - (woaDotAt.get(e.id) ?? -20) < m.nullifyFlashInterval) return;
-        woaDotAt.set(e.id, a), woaRing(r, p.orb, D(e), 4, 0.85, i, 0.72, (a % 10) * 0.5);
+        let o = Hn.currentTick;
+        if (o - (woaDotAt.get(e.id) ?? -20) < m.nullifyFlashInterval) return;
+        woaDotAt.set(e.id, o), woaRing(r, p.orb, a, 4, 0.8, i, 0.72, (o % 10) * 0.5);
         return;
     }
-    let a = Y(e),
-        o = e.getHeadLocation(),
-        { f: c } = woaHoriz(e),
-        g = { x: o.x + c.x * 0.92, y: o.y - 0.26, z: o.z + c.z * 0.92 };
+    let { f: c } = woaHoriz(e),
+        g = { x: a.x + c.x * 0.65, y: a.y, z: a.z + c.z * 0.65 };
     h(r, p.spin, a, woaVm(woaGold, 0.92)),
         h(r, p.flash, a, woaVm(i, 0.72)),
         h(r, p.halo, a, woaVm(woaGold, 0.88)),
         h(r, p.deflect, g, woaVm(i, 0.92)),
-        woaPerip(e, p.ray, i, 0.82, 0.82, 0.72, -0.2),
+        woaPerip(e, p.ray, i, 0.82, 0.45, 0.8, 0),
         woaLowFx() || (h(r, p.deflect, g, woaVm(woaGold, 0.65)), woaShake(e, 0.05, 0.1));
 }
 var woaDeflected = new Map(),
@@ -720,41 +745,70 @@ function woaProjKeyFromEntity(e, t, n) {
     }
     return `proj:${t}`;
 }
+function woaPrimeFx(e, silent = !1) {
+    if (!e?.isValid) return;
+    let wh = Y(e);
+    T(e.dimension, b.primed, wh, 1.05, 0.72),
+        T(e.dimension, "block.beacon.power_select", wh, 1.5, 0.45),
+        h(e.dimension, p.flash, wh, woaVm(woaWhiteGold, 0.78)),
+        silent || Z(e, w.swordPrimed);
+}
+function woaPrimeOverdrive(e, silent = !1) {
+    if (!e?.isValid) return;
+    woaSwordCombo.set(e.id, 0);
+    let was = woaSwordPrimed.has(e.id);
+    woaSwordPrimed.add(e.id), was || woaPrimeFx(e, silent);
+}
 function woaBumpCombo(e, t = 1) {
     let n = (woaSwordCombo.get(e.id) ?? 0) + t;
-    n >= 3
-        ? (woaSwordCombo.set(e.id, 0), woaSwordPrimed.has(e.id) || (woaSwordPrimed.add(e.id), Z(e, w.swordPrimed)))
-        : woaSwordCombo.set(e.id, n);
+    n >= 3 ? woaPrimeOverdrive(e, !1) : woaSwordCombo.set(e.id, n);
 }
-function woaParryFx(e, t, n = !1) {
+function woaParryFx(e, t, n = !1, perf = !1) {
     if (!e?.isValid) return;
     let i = e.dimension,
         r = woaTheme(t),
         { f: a } = woaHoriz(e),
         o = D(e),
-        c = { x: o.x + a.x * 1.15, y: o.y + 0.15, z: o.z + a.z * 1.15 };
-    h(i, p.deflect, c, woaVm(woaGold, n ? 1.15 : 1.05)),
-        h(i, p.crescent, c, woaVm(r, n ? 1.1 : 0.98)),
-        h(i, p.flash, c, woaVm(woaWhiteGold, 0.9)),
-        woaLowFx() || h(i, p.ray, c, woaVm(r, 0.95)),
-        T(i, b.nullify, Y(e), n ? 1.25 : 1.12, 0.95),
-        T(i, b.slashHit, c, 1.15, 0.72),
-        woaShake(e, 0.08, 0.14);
+        c = { x: o.x + a.x * 1.15, y: o.y + 0.15, z: o.z + a.z * 1.15 },
+        wh = Y(e),
+        low = woaLowFx(),
+        sc = perf ? 1.38 : n ? 1.18 : 1.05;
+    h(i, p.deflect, c, woaVm(perf ? woaWhiteGold : woaGold, sc)),
+        h(i, p.crescent, c, woaVm(perf ? woaWhiteGold : r, sc, perf ? -36 : -32)),
+        h(i, p.flash, c, woaVm(woaWhiteGold, perf ? 1.28 : 0.9)),
+        low ||
+            (h(i, p.crescent, c, woaVm(perf ? r : woaGold, perf ? 1.28 : n ? 1.05 : 0.9, perf ? 36 : 32)),
+            h(i, p.ray, c, woaVm(r, perf ? 1.15 : 0.95)),
+            perf && (h(i, p.sonic, ge(e, 0.08), woaVm(woaWhiteGold, 0.95)), woaRing(i, p.ray, c, 6, 0.9, woaWhiteGold, 0.95, 0.3))),
+        T(i, b.parryHit, wh, perf ? 1.18 : n ? 1.06 : 0.96, 0.95),
+        T(i, "block.bell.hit", wh, perf ? 1.55 : 1.2, perf ? 0.95 : 0.7),
+        T(i, "item.shield.block", c, perf ? 1.3 : 1.1, 0.8),
+        perf && (T(i, "random.anvil_land", c, 1.85, 0.45), T(i, b.purify, c, 1.55, 0.55)),
+        woaShake(e, perf ? 0.14 : 0.08, perf ? 0.2 : 0.14),
+        woaShake(e, perf ? 0.16 : 0.09, perf ? 0.22 : 0.14, "positional");
 }
-function woaParryRiposte(e, t, n, i) {
+function woaParryRiposte(e, t, n, i, perf = !1) {
     if (!e?.isValid || !H(e.id)) return;
-    Dn(e), woaParryFx(e, n, !1), Z(e, w.swordParry), woaBumpCombo(e, 1);
+    Dn(e),
+        woaParryFx(e, n, !1, perf),
+        Z(e, perf ? w.swordParryPerfect : w.swordParry),
+        perf ? woaPrimeOverdrive(e, !0) : woaBumpCombo(e, 1);
     if (!i?.isValid || i.id === e.id || Da(i) || !Kn(i) || e.dimension.id !== i.dimension.id) return;
     let r = s(() => i.getGameMode?.());
-    if (r === Cn.Creative || r === Cn.Spectator || Fn(D(e), D(i)) > 4.5) return;
+    if (r === Cn.Creative || r === Cn.Spectator || Fn(D(e), D(i)) > (perf ? 5.2 : 4.5)) return;
     let a = An(i),
-        o = a ? 7 : 5,
+        o = perf ? (a ? 12 : 9) : a ? 7 : 5,
         c = woaGetSlashElement(t, e),
         g = ht(Bn(D(i), D(e)));
+    if (En.has(i.typeId) && Mn(i, o)) {
+        zn(e, i);
+        return;
+    }
     woaDealMagic(e, i, o),
-        s(() => i.applyKnockback({ x: g.x * 0.9, z: g.z * 0.9 }, 0.28)),
-        h(i.dimension, p.severCut, D(i), woaVm(c?.color ?? woaGold, 0.92)),
-        c && woaApplyElementalHit(e, i, c, !1),
+        s(() => i.applyKnockback({ x: g.x * (perf ? 1.25 : 0.9), z: g.z * (perf ? 1.25 : 0.9) }, perf ? 0.36 : 0.28)),
+        h(i.dimension, p.severCut, D(i), woaVm(c?.color ?? woaGold, perf ? 1.15 : 0.92)),
+        c && woaApplyElementalHit(e, i, c, perf),
+        perf && woaInflictSever(e, i, O.currentTick, 140),
         a && O.run(() => In(e, i));
 }
 function woaIsPoiseCause(e) {
@@ -851,16 +905,18 @@ function woaScanProjectiles(e, t, n) {
         }
         if (parryActive) {
             let pk = woaProjKeyFromEntity(e, o, g),
-                sp = Hi(pk);
+                sp = Hi(pk),
+                perf = n - (t.parryAt ?? -99) <= 3;
             if (woaDeflectProjectile(e, t, n, a, x, g, pk)) {
                 (t.parryUntil = 0),
-                    (t.lastParryAt = n - 20),
+                    (t.parryAt = -40),
+                    (t.lastParryAt = n - (perf ? 25 : 20)),
                     (parryActive = !1),
-                    sp && (Xe(t, sp), nn(t, pk, 3, 0, n), (t.pending.get(pk).hits += 1)),
+                    sp && (Xe(t, sp), nn(t, pk, perf ? 4 : 3, 0, n), t.pending.get(pk) && (t.pending.get(pk).hits += perf ? 2 : 1)),
                     Dn(e),
-                    woaParryFx(e, pk, !0),
-                    woaBumpCombo(e, 1),
-                    Z(e, w.swordParryProj);
+                    woaParryFx(e, pk, !0, perf),
+                    perf ? woaPrimeOverdrive(e, !0) : woaBumpCombo(e, 1),
+                    Z(e, perf ? w.swordParryPerfectProj : w.swordParryProj);
                 break;
             }
         }
@@ -887,7 +943,8 @@ function woaFallSlam(e, t, n) {
             (h(i, p.seal, a, woaVm(woaGold, _ * 1.05, 1)),
             h(i, p.runeRing, a, woaVm(breeze ? woaCyanColor : o, _ * 1.15, -1.5)),
             woaRing(i, p.ray, a, 8, 1.4, o, 0.95, 0)),
-        woaShake(e, Math.min(0.32, 0.12 + n * 0.012), 0.3);
+        woaShake(e, Math.min(0.32, 0.12 + n * 0.012), 0.3),
+        woaShake(e, Math.min(0.26, 0.1 + n * 0.01), 0.25, "positional");
     let x =
         s(() =>
             i.getEntities({
@@ -929,7 +986,8 @@ function woaLightningCharge(e) {
         h(t, p.flash, i, woaVm(r, 1.2)),
         woaLowFx() || h(t, p.runeRing, n, woaVm(r, 1.18, -1.6)),
         woaRing(t, p.ray, D(e), 8, 1.25, r, 1.05, 0),
-        woaShake(e, 0.18, 0.3);
+        woaShake(e, 0.18, 0.3),
+        woaShake(e, 0.14, 0.22, "positional");
 }
 function woaCounterShockwave(e, t, n) {
     if (!e?.isValid) return;
@@ -946,7 +1004,8 @@ function woaCounterShockwave(e, t, n) {
         h(i, p.burst, a, woaVm(woaGold, 0.92)),
         woaLowFx() || h(i, p.runeRing, o, woaVm(woaGold, 1.1, -1.5)),
         woaRing(i, p.ray, a, 8, 1.15, c, 0.95, 0),
-        woaShake(e, 0.14, 0.24);
+        woaShake(e, 0.14, 0.24),
+        woaShake(e, 0.12, 0.18, "positional");
     let g =
             s(() =>
                 i.getEntities({
@@ -969,14 +1028,17 @@ function woaCounterShockwave(e, t, n) {
             h(x.dimension, p.ray, D(x), woaVm(c, 0.85));
     }
     if (n?.isValid && n.id !== e.id && !_.has(n.id) && !Da(n) && n.getComponent("minecraft:health")) {
-        let $ = n.location,
-            M = $.x - r.x,
-            ue = $.z - r.z,
-            ze = Math.hypot(M, ue) || 1;
-        ze <= 5.5 &&
-            (woaDealMagic(e, n, 6),
-            s(() => n.applyKnockback({ x: (M / ze) * 1.4, z: (ue / ze) * 1.4 }, 0.42)),
-            h(n.dimension, p.ray, D(n), woaVm(c, 0.85)));
+        let gm = s(() => n.getGameMode?.());
+        if (gm !== Cn.Creative && gm !== Cn.Spectator) {
+            let $ = n.location,
+                M = $.x - r.x,
+                ue = $.z - r.z,
+                ze = Math.hypot(M, ue) || 1;
+            ze <= 5.5 &&
+                (woaDealMagic(e, n, 6),
+                s(() => n.applyKnockback({ x: (M / ze) * 1.4, z: (ue / ze) * 1.4 }, 0.42)),
+                h(n.dimension, p.ray, D(n), woaVm(c, 0.85)));
+        }
     }
 }
 function woaTrackCounter(e, t, n, i, r) {
@@ -1028,7 +1090,9 @@ function woaTrySurge(e, t, n) {
         s(() => e.addEffect("speed", 200, { amplifier: 1, showParticles: !1 })),
         s(() => e.addEffect("strength", 200, { amplifier: 0, showParticles: !1 })),
         T(dim, b.adapted, hd, 1.15, 1.1),
+        T(dim, b.surge, hd, 1.15, 0.8),
         T(dim, b.undying, hd, 1.0, 0.7),
+        T(dim, "block.beacon.activate", hd, 1.35, 0.55),
         Z(e, w.evoSurge),
         h(dim, p.seal, a, woaVm(woaSurgeColor, 1.35, 1.15)),
         h(dim, p.runeRing, a, woaVm(woaCrimsonColor, 1.42, -1.6)),
@@ -1038,17 +1102,18 @@ function woaTrySurge(e, t, n) {
         h(dim, p.shockwave, a, woaVm(woaCrimsonColor, 1.25)),
         h(dim, p.halo, hd, woaVm(woaSurgeColor, 1.2)),
         h(dim, p.flash, D(e), woaVm(woaSurgeColor, 1.3)),
-        woaLowFx() || woaRing(dim, p.orb, D(e), 8, 1.2, woaSurgeColor, 0.98, 0),
-        woaShake(e, 0.24, 0.36);
+        woaLowFx() || woaRing(dim, p.orb, hd, 8, 1.0, woaSurgeColor, 0.98, 0),
+        woaShake(e, 0.24, 0.36),
+        woaShake(e, 0.2, 0.28, "positional");
 }
 function woaTickSurge(e, t, n) {
     if (!woaInSurge(t, n)) return;
     if (n % 2 === 0 && !woaLowFx()) {
         let ang = n * 0.32,
-            c = D(e),
+            w0 = Y(e),
             dim = e.dimension;
-        h(dim, p.orb, { x: c.x + Math.cos(ang) * 0.95, y: c.y + 0.15, z: c.z + Math.sin(ang) * 0.95 }, woaVm(woaSurgeColor, 0.85)),
-            h(dim, p.ray, { x: c.x + Math.cos(ang + Math.PI) * 0.95, y: c.y - 0.15, z: c.z + Math.sin(ang + Math.PI) * 0.95 }, woaVm(woaCrimsonColor, 0.78));
+        h(dim, p.orb, { x: w0.x + Math.cos(ang) * 0.92, y: w0.y, z: w0.z + Math.sin(ang) * 0.92 }, woaVm(woaSurgeColor, 0.85)),
+            h(dim, p.ray, { x: w0.x + Math.cos(ang + Math.PI) * 0.92, y: w0.y, z: w0.z + Math.sin(ang + Math.PI) * 0.92 }, woaVm(woaCrimsonColor, 0.78));
     }
     n % 10 === 0 && !Ze(e.id, n) && te(e, "fast"),
         n % 20 === 0 &&
@@ -1140,6 +1205,7 @@ function woaCheckBlink(e, t, n, i, r) {
         h(dim, p.orb, toCenter, woaVm(clr, 0.95)),
         woaLowFx() || h(dim, p.seal, { x: dest.x, y: dest.y + 0.05, z: dest.z }, woaVm(clr, 0.88, 1.2)),
         T(dim, b.nullify, dest, 1.45, 0.85),
+        T(dim, "mob.endermen.portal", dest, 1.25, 0.75),
         Z(e, w.trophyBlink);
 }
 function woaCheckSonicSense(e, t, n) {
@@ -1205,7 +1271,8 @@ function woaCheckBreezeStep(e, t, n, i, r) {
         h(e.dimension, p.deflect, ge(e, 0.55), woaVm({ r: 0.88, g: 0.98, b: 1.0 }, 0.9)),
         h(e.dimension, p.halo, gnd, woaVm(woaCyanColor, 0.92)),
         h(e.dimension, p.ray, ge(e, 0.2), woaVm({ r: 0.88, g: 0.98, b: 1.0 }, 0.85)),
-        T(e.dimension, b.slash, e.location, 1.5, 0.45);
+        T(e.dimension, b.slash, e.location, 1.5, 0.45),
+        T(e.dimension, "wind_charge.burst", e.location, 1.2, 0.65);
 }
 function woaTryBreathNova(e, t, n) {
     if (
@@ -1227,6 +1294,7 @@ function woaStartBreathNova(e, t) {
     (t.breathZone = { dim, x: loc.x, y: loc.y, z: loc.z, until: n + 81, nextTick: n + 10 }),
         T(dim, b.nullify, Y(e), 0.72, 1.0),
         T(dim, b.adapted, Y(e), 1.12, 0.72),
+        T(dim, "mob.enderdragon.growl", Y(e), 1.1, 0.55),
         Z(e, w.trophyDragon),
         h(dim, p.shockwave, loc, woaVm(woaDragonColor, 1.15)),
         h(dim, p.sonic, loc, woaVm(woaDragonColor, 1.2)),
@@ -1302,6 +1370,7 @@ function woaFireAbyssalGaze(e, atk) {
         s(() => atk.addEffect("mining_fatigue", 60, { amplifier: 0, showParticles: !1 })),
         s(() => atk.addEffect("slowness", 40, { amplifier: 0, showParticles: !1 })),
         T(dim, b.nullify, Y(e), 1.35, 0.85),
+        T(dim, "mob.elderguardian.curse", Y(e), 1.2, 0.55),
         Z(e, w.trophyGuardian);
 }
 function woaTryDreadSiphon(e, t, n) {
@@ -1358,11 +1427,18 @@ function woaCheckParryInput(e, t, n) {
         prev = woaPrevSneak.get(e.id) ?? !1;
     if ((woaPrevSneak.set(e.id, cur), !(!prev && cur) || !F.has(e.id) || !woaPref(e, "parry"))) return;
     if (n - (t.lastParryAt ?? -40) < 35) return;
-    (t.parryUntil = n + 9), (t.lastParryAt = n);
+    (t.parryUntil = n + 9), (t.parryAt = n), (t.lastParryAt = n);
+    s(() => e.playAnimation(U.parry, { blendOutTime: 0.15, controller: U.controller, stopExpression: U.stop }));
     let { f: pf } = woaHoriz(e),
         pd = D(e),
-        pg = { x: pd.x + pf.x * 0.95, y: pd.y + 0.15, z: pd.z + pf.z * 0.95 };
-    h(e.dimension, p.ray, pg, woaVm(woaWhiteGold, 0.58)), T(e.dimension, b.stab, Y(e), 1.65, 0.32);
+        pg = { x: pd.x + pf.x * 0.95, y: pd.y + 0.15, z: pd.z + pf.z * 0.95 },
+        dim = e.dimension;
+    h(dim, p.deflect, pg, woaVm(woaGold, 0.72)),
+        h(dim, p.ray, pg, woaVm(woaWhiteGold, 0.62)),
+        woaLowFx() || h(dim, p.halo, pg, woaVm(woaGold, 0.62)),
+        T(dim, b.parryOpen, Y(e), 1.02, 0.52),
+        T(dim, "item.shield.block", Y(e), 1.45, 0.32),
+        woaShake(e, 0.04, 0.08, "positional");
 }
 function woaTickTrophies(e, t, n) {
     if (!e?.isValid || s(() => e.getGameMode()) === Cn.Spectator) return;
@@ -1540,9 +1616,13 @@ function woaUndyingFx(e, t) {
         h(n, p.beamCore, r, woaVm(woaGold, 0.95)),
         h(n, p.pillar, r, woaVm(woaGold, 1.0)),
         h(n, p.flash, a, woaVm(woaGold, 1.35)),
-        h(n, p.burst, D(e), woaVm(i, 0.95)),
+        h(n, p.halo, a, woaVm(i, 1.18)),
+        h(n, p.burst, a, woaVm(i, 0.95)),
         woaPerip(e, p.orb, woaGold, 1.15),
-        woaShake(e, 0.22, 0.35);
+        T(n, "random.totem", a, 1.1, 0.55),
+        T(n, "block.beacon.activate", a, 1.2, 0.55),
+        woaShake(e, 0.22, 0.35),
+        woaShake(e, 0.2, 0.28, "positional");
 }
 function ye(e, t = b.spin, n = "spin", i) {
     let r = Y(e);
@@ -1737,6 +1817,7 @@ var ri = new Set([
         cure: k(`${u.sword} \xA7f`, d("woa.toast.cured")),
         forgotten: (e, t) => k(`${u.wheel} \xA77`, d("woa.toast.forgotten"), ` \xA78\xB7 ${e} \xA7f`, t),
         starving: k(`${u.heartDim} \xA77`, d("woa.toast.starving")),
+        miracleReady: k(`${u.sparkle} \xA7a`, d("woa.toast.miracle_ready")),
         evoSupercharge: k(`${u.lightning} \xA7b`, d("woa.evo.supercharge")),
         evoCounter: k(`${u.shield} \xA76`, d("woa.evo.counter")),
         evoSurge: k(`${u.sparkle} \xA76\xA7l`, d("woa.evo.surge")),
@@ -1754,7 +1835,11 @@ var ri = new Set([
         swordSever: k(`${u.sword} \xA7c`, d("woa.sword.sever")),
         swordParry: k(`${u.sword} \xA76\xA7l`, d("woa.sword.parry")),
         swordParryProj: k(`${u.sword} \xA76\xA7l`, d("woa.sword.parry"), " \xA78\xB7 \xA7f", d("woa.sword.parry_proj")),
+        swordParryPerfect: k(`${u.sparkle} \xA7f\xA7l`, d("woa.sword.parry_perfect")),
+        swordParryPerfectProj: k(`${u.sparkle} \xA7f\xA7l`, d("woa.sword.parry_perfect"), " \xA78\xB7 \xA7f", d("woa.sword.parry_perfect_proj")),
+        swordPlunge: (e, t) => k(t ? `${u.sparkle} \xA76\xA7l` : `${u.sword} \xA76`, d("woa.sword.plunge"), ...(e && e !== "pure" ? [" \xA78\xB7 \xA7f", d(`woa.sword.${e}`)] : [])),
         swordOverdrive: (e) => k(`${u.sparkle} \xA76\xA7l`, d("woa.sword.overdrive"), " \xA78\xB7 \xA7f", d(`woa.sword.${e}`)),
+        swordOverdriveAscended: (e) => k(`${u.sparkle} \xA7d\xA7l`, d("woa.sword.overdrive_ascended"), " \xA78\xB7 \xA7f", d(`woa.sword.${e}`)),
         swordElSelected: (e) => k(`${u.sword} \xA76`, d("woa.sword.el.selected", e)),
         swordSlash: (e, t) => k(t ? `${u.sparkle} \xA76\xA7l` : `${u.sword} \xA7f`, d(`woa.sword.${e}`)),
         soulbound: k("\xA78", d("woa.lore.soulbound")),
@@ -2424,6 +2509,7 @@ function Kt() {
         lastGazeClear: -60,
         wasBulwark: !1,
         parryUntil: 0,
+        parryAt: -40,
         lastParryAt: -40,
     };
 }
@@ -2770,7 +2856,10 @@ function Qt(e) {
 }
 function _r(e, t) {
     let n = Zt(e, t);
-    n !== 0 && (t >= n ? Qt(e) : t % S.saveEvery === 0 && Je(e, n - t));
+    n !== 0 &&
+        (t >= n
+            ? (Qt(e), H(e.id) && (T(e.dimension, b.cure, Y(e), 1.25, 0.55), Z(e, w.miracleReady)))
+            : t % S.saveEvery === 0 && Je(e, n - t));
 }
 function xr(e) {
     ce.delete(e), Yt.delete(e);
@@ -3197,13 +3286,23 @@ function Zr(e, t) {
             a === y.blockExplosion ||
             a === y.sonicBoom);
     if (canParry) {
+        let perf = n - (i.parryAt ?? -99) <= 3;
         (i.parryUntil = 0),
-            (i.lastParryAt = n - 20),
-            (e.damage = e.damage * 0.2 * (1 - z.partialMax * (c.s / c.n))),
+            (i.parryAt = -40),
+            (i.lastParryAt = n - (perf ? 25 : 20)),
             pr(
                 t,
                 s(() => t.getVelocity())
             );
+        if (perf) {
+            (e.cancel = !0);
+            let k0 = nn(i, r.key, Math.max(3, o), o, n),
+                ph = i.pending.get(r.key);
+            ph && (ph.hits += k0 ? 2 : 3);
+            N.run(() => woaParryRiposte(t, i, r.key, atk, !0));
+            return;
+        }
+        e.damage = e.damage * 0.2 * (1 - z.partialMax * (c.s / c.n));
         let g = e.damage,
             _ = c.s === 0,
             k0 = nn(i, r.key, Math.max(2, o), g, n),
@@ -3215,7 +3314,7 @@ function Zr(e, t) {
             (e.cancel = !0), Ur(t, i, r.key, _, n);
             return;
         }
-        N.run(() => woaParryRiposte(t, i, r.key, atk));
+        N.run(() => woaParryRiposte(t, i, r.key, atk, !1));
         return;
     }
     e.damage = e.damage * (1 - z.partialMax * (c.s / c.n));
@@ -3326,6 +3425,7 @@ function ta(e) {
         (t.lastGazeClear = -60),
         (t.wasBulwark = !1),
         (t.parryUntil = 0),
+        (t.parryAt = -40),
         (t.lastParryAt = -40),
         woaSwordHealAt.delete(e.id),
         woaSwordCombo.delete(e.id),
@@ -3369,7 +3469,7 @@ function na(e, t, n, i) {
         need: a ? et(a) : 0,
         spin: t.spin,
         swordTicks: holdSword ? Math.max(0, (Se.get(e.id) ?? 0) - n) : void 0,
-        active: !!i || Ze(e.id, n),
+        active: !!i || Ze(e.id, n) || woaInSurge(t, n) || (holdSword && woaSwordPrimed.has(e.id)),
         motion: br(e.id, n),
         surgeActive: woaInSurge(t, n),
         bulwarkActive: !!t.wasBulwark,
@@ -3399,7 +3499,28 @@ function ia(e, t) {
             ? t >= (Qe.get(e.id) ?? 0) && (Qe.set(e.id, t + 200), Z(e, w.starving))
             : (Br(e, n, i.ready, t), (i = on(n, t)))),
         n.dirty && t % 100 === 0 && ((n.dirty = !1), s(() => je(e, n))),
+        t % 12 === 0 &&
+            F.has(e.id) &&
+            woaSwordPrimed.has(e.id) &&
+            !Ze(e.id, t) &&
+            !woaLowFx() &&
+            (() => {
+                let w1 = Y(e);
+                h(
+                    e.dimension,
+                    p.orb,
+                    {
+                        x: w1.x + Math.cos(t * 0.25) * 0.88,
+                        y: w1.y,
+                        z: w1.z + Math.sin(t * 0.25) * 0.88,
+                    },
+                    woaVm(elColorOrGold(e, n), 0.72)
+                );
+            })(),
         Ni(e, na(e, n, t, i.watching), t);
+}
+function elColorOrGold(e, t) {
+    return woaGetSlashElement(t, e)?.color ?? woaGold;
 }
 function sn(e) {
     Qe.delete(e);
@@ -4170,6 +4291,7 @@ var lt = new Map(),
     woaSwordHealAt = new Map(),
     woaSwordCombo = new Map(),
     woaSwordPrimed = new Set(),
+    woaSlashSign = new Map(),
     woaSlashSpecs = {
         fire: { id: "fire", color: { r: 1.0, g: 0.42, b: 0.1 }, slashBonus: 3 },
         storm: { id: "storm", color: { r: 0.25, g: 0.88, b: 1.0 }, slashBonus: 4 },
@@ -4382,6 +4504,7 @@ var ct = new Map();
 function $n(e, t, n, i) {
     let r = O.currentTick,
         k0 = `${e.id}:${t}`;
+    if (ct.size > 256) for (let [ck, cv] of ct) r - cv >= f.strikeFxGap * 2 && ct.delete(ck);
     r - (ct.get(k0) ?? -f.strikeFxGap) < f.strikeFxGap || (ct.set(k0, r), e.isValid && Dn(e), h(n, p.positive, i));
 }
 function Va(e, t, n, i, r) {
@@ -4477,10 +4600,10 @@ function Pa(e, t, n) {
                           (x >= 2 && !_ && !$ && !M ? 1.5 : 0)
                   )
                 : 0,
-        ze = (woaSwordCombo.get(t.id) ?? 0) + 1;
+        ze = (woaSwordCombo.get(t.id) ?? 0) + 1,
+        newlyPrimed = ze >= 3 && !woaSwordPrimed.has(t.id);
     ze >= 3
-        ? (woaSwordCombo.set(t.id, 0),
-          woaSwordPrimed.has(t.id) || (woaSwordPrimed.add(t.id), Z(t, w.swordPrimed)))
+        ? (woaSwordCombo.set(t.id, 0), woaSwordPrimed.add(t.id))
         : woaSwordCombo.set(t.id, ze);
     let severNow =
         ze >= 3 ||
@@ -4492,7 +4615,8 @@ function Pa(e, t, n) {
         (s(() => n.getComponent("minecraft:health")?.effectiveMax) ?? 20) >= 40;
     ue > 0 && woaPierceTick.set(n.id, o),
         O.run(() => {
-            Va(t, n, i, r, a),
+            newlyPrimed && t.isValid && woaPrimeFx(t, !1),
+                Va(t, n, i, r, a),
                 t.isValid &&
                     n.isValid &&
                     (_ &&
@@ -4585,8 +4709,10 @@ function Ra(e, t) {
     let n = s(() => e.getBlockFromViewDirection({ maxDistance: f.slashRange }));
     return n ? Math.min(f.slashRange, Fn(t, E(n.block.location, n.faceLocation))) : f.slashRange;
 }
-function Fa(e, t) {
-    let n = f.trailTicks;
+function Fa(e, t, sign = 1) {
+    let n = f.trailTicks,
+        low = woaLowFx(),
+        clr = t?.el?.color ?? woaGold;
     for (let i = 0; i < n; i++)
         R(f.slashWindup - n + i, () => {
             if (!e.isValid) return;
@@ -4596,17 +4722,18 @@ function Fa(e, t) {
                 x = -f.trailArc + (2 * f.trailArc * (i + 1)) / n,
                 $ = 0;
             for (let M = _; M <= x + 1e-6; M += 0.07) {
-                let ue = -f.trailTilt * Math.sin(M),
+                let ue = sign * -f.trailTilt * Math.sin(M),
                     ze = E(E(C(a, Math.cos(M)), C(o, Math.sin(M))), C(c, ue)),
                     j = E(r, C(ze, f.trailRadius));
                 h(g, p.slashTrail, j),
                     h(g, p.ink, E(j, E(C(c, -0.14), C(a, 0.12)))),
-                    t && $ % 3 === 0 && h(g, p.ray, j, woaVm(t.el.color, t.primed ? 1.05 : 0.78)),
+                    !low && $ % 3 === 0 && h(g, p.ray, j, woaVm(clr, t?.primed ? 1.08 : 0.76)),
+                    t && !low && $ % 5 === 0 && h(g, p.orb, j, woaVm(clr, t.primed ? 0.85 : 0.65)),
                     $++;
             }
         });
 }
-function Ka(e, t) {
+function Ka(e, t, sign = 1) {
     if (!e.isValid || !Kn(e) || !F.has(e.id)) return;
     let n = e.dimension,
         { eye: i, forward: r, right: a } = Vn(e),
@@ -4616,6 +4743,7 @@ function Ka(e, t) {
         _ = f.slashStart,
         low = woaLowFx(),
         clr = t?.el?.color ?? woaGold,
+        ang = sign * 26,
         launched = !1,
         x = O.runInterval(() => {
             try {
@@ -4638,8 +4766,9 @@ function Ka(e, t) {
                     !launched &&
                         ((launched = !0),
                         low ||
-                            (h(n, p.slashDark, M, woaVm(clr, t?.primed ? 1.24 : 0.98)),
-                            h(n, p.crescent, M, woaVm(clr, t?.primed ? 1.28 : 1.0)))),
+                            (h(n, p.slashDark, M, woaVm(clr, t?.primed ? 1.24 : 0.98, ang)),
+                            h(n, p.crescent, M, woaVm(clr, t?.primed ? 1.28 : 1.0, ang)),
+                            t?.primed && h(n, p.crescent, M, woaVm(woaWhiteGold, 1.16, -ang)))),
                     t &&
                         (h(n, p.ray, M, woaVm(t.el.color, t.primed ? 1.15 : 0.88)),
                         h(n, p.orb, E(M, C(a, f.slashWidth * 0.65)), woaVm(t.el.color, 0.75)),
@@ -4649,18 +4778,166 @@ function Ka(e, t) {
                     _ >= c &&
                         (h(n, p.positive, M),
                         h(n, p.inkSpark, M),
-                        h(n, p.crescent, M, woaVm(clr, t?.primed ? 1.38 : 1.08)),
-                        h(n, p.severCut, M, woaVm(clr, t?.primed ? 1.25 : 0.95)),
+                        h(n, p.crescent, M, woaVm(clr, t?.primed ? 1.38 : 1.08, ang)),
+                        h(n, p.severCut, M, woaVm(clr, t?.primed ? 1.25 : 0.95, -ang)),
                         low || h(n, p.sonic, M, woaVm(clr, t?.primed ? 1.15 : 0.88)),
+                        t?.primed && woaShake(e, 0.08, 0.14, "positional"),
                         t &&
                             (t.primed || t.level >= 3 || t.el.id !== "pure") &&
                             (h(n, p.halo, M, woaVm(t.el.color, t.primed ? 1.28 : 0.98)),
                             h(n, p.burst, M, woaVm(t.el.color, t.primed ? 1.12 : 0.85))),
+                        t?.surge &&
+                            (() => {
+                                let cleaved = new Set();
+                                c >= 6 && !low && woaDelayedCleave(e, n, E(i, C(r, c * 0.34)), t, 0.9, cleaved),
+                                    c >= 4 && woaDelayedCleave(e, n, E(i, C(r, c * 0.68)), t, 0.95, cleaved),
+                                    woaDelayedCleave(e, n, M, t, t.primed ? 1.35 : 1.0, cleaved);
+                            })(),
                         O.clearRun(x));
             } catch {
                 O.clearRun(x);
             }
         }, 1);
+}
+function woaDelayedCleave(e, dim, pt, elData, dmgScale = 1, hitSet) {
+    let clr = elData?.el?.color ?? woaGold;
+    R(6, () => {
+        if (!e?.isValid || e.dimension.id !== dim.id) return;
+        let low = woaLowFx();
+        T(dim, b.purify, pt, 1.55, 0.72),
+            T(dim, "mob.endermen.portal", pt, 1.6, 0.42),
+            h(dim, p.severCut, pt, woaVm(clr, 1.32, -40)),
+            h(dim, p.severCut, pt, woaVm(woaWhiteGold, 1.22, 40)),
+            h(dim, p.crescent, pt, woaVm(woaGold, 1.18, 22)),
+            h(dim, p.flash, pt, woaVm(clr, 0.95)),
+            low || h(dim, p.sonic, pt, woaVm(clr, 1.05));
+        let ents =
+                s(() =>
+                    dim.getEntities({
+                        location: pt,
+                        maxDistance: 2.8,
+                        excludeFamilies: ["inanimate"],
+                        excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                    })
+                ) ?? [],
+            dmg = (5 + (elData?.el?.slashBonus ?? 0)) * dmgScale;
+        for (let g of ents) {
+            if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+            if (hitSet) {
+                if (hitSet.has(g.id)) continue;
+                hitSet.add(g.id);
+            }
+            if (En.has(g.typeId) && Mn(g, dmg)) {
+                zn(e, g);
+                continue;
+            }
+            woaDealMagic(e, g, dmg),
+                h(dim, p.positive, D(g)),
+                elData?.el && woaApplyElementalHit(e, g, elData.el, !1),
+                H(e.id) && woaInflictSever(e, g, O.currentTick, 120),
+                An(g) && O.run(() => In(e, g));
+        }
+    });
+}
+function woaPlungeCleave(e, elData, n) {
+    if (!e?.isValid || !Kn(e) || !F.has(e.id)) return;
+    Se.set(e.id, n + f.slashCooldown),
+        s(() => e.startItemCooldown(f.cooldownCategory, f.slashCooldown)),
+        H(e.id) && (le(e).graceUntil = Math.max(le(e).graceUntil, n + 45)),
+        s(() => e.playAnimation(U.overdrive, { blendOutTime: 0.2, controller: U.controller, stopExpression: U.stop }));
+    let dim = e.dimension,
+        clr = elData?.el?.color ?? woaGold,
+        low = woaLowFx(),
+        { f: fwd } = woaHoriz(e),
+        startLoc = e.location;
+    T(dim, b.slash, startLoc, 0.85, 1.0),
+        T(dim, "wind_charge.burst", startLoc, 1.25, 0.55),
+        s(() => e.applyKnockback({ x: fwd.x * 0.48, z: fwd.z * 0.48 }, -0.88));
+    let age = 0,
+        lastY = startLoc.y,
+        done = !1,
+        land = () => {
+            if (done || !e.isValid) return;
+            done = !0;
+            let gnd = ge(e, 0.08),
+                ctr = D(e),
+                curDim = e.dimension,
+                nowTick = O.currentTick;
+            H(e.id) && (le(e).graceUntil = Math.max(le(e).graceUntil, nowTick + 15)),
+                T(curDim, b.slashHit, gnd, 0.85, 1.0),
+                T(curDim, "item.trident.thunder", gnd, 1.35, 0.55),
+                T(curDim, "wind_charge.burst", gnd, 1.1, 0.6),
+                T(curDim, "random.explode", gnd, 1.6, 0.42),
+                h(curDim, p.shockwave, gnd, woaVm(clr, 1.25)),
+                h(curDim, p.sonic, gnd, woaVm(woaGold, 1.28)),
+                h(curDim, p.crescent, ctr, woaVm(clr, 1.3, -75)),
+                h(curDim, p.crescent, ctr, woaVm(woaGold, 1.24, 75)),
+                h(curDim, p.severCut, ctr, woaVm(clr, 1.15, 12)),
+                h(curDim, p.burst, ctr, woaVm(clr, 1.05)),
+                low || (h(curDim, p.runeRing, gnd, woaVm(clr, 1.18, -1.4)), woaRing(curDim, p.ray, gnd, 8, 1.55, clr, 0.98, 0.3)),
+                woaShake(e, 0.16, 0.26),
+                woaShake(e, 0.22, 0.28, "positional");
+            let r = H(e.id) ? le(e) : void 0,
+                lvl = r ? 1 + Qr(X(r)) : 1,
+                surgeMult = elData?.surge ? 1.2 : 1,
+                el = elData?.el ?? woaSlashSpecs.pure,
+                ents =
+                    s(() =>
+                        curDim.getEntities({
+                            location: gnd,
+                            maxDistance: 4.2,
+                            excludeFamilies: ["inanimate"],
+                            excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                        })
+                    ) ?? [];
+            for (let g of ents) {
+                if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+                let gc = D(g),
+                    dir = ht(Bn(gc, ctr));
+                Math.hypot(dir.x, dir.y, dir.z) < 0.01 && (dir = fwd);
+                H(e.id) && woaIsShieldBlocking(g) && woaApplyPierce(e, g, 4, clr, !0);
+                if (!g.isValid || !Kn(g)) continue;
+                let undead = An(g),
+                    res = s(() => g.getEffect("resistance")),
+                    resB = res ? (res.amplifier + 1) * 2.5 : 0,
+                    dmg = ((undead ? 12 : 8) * lvl * surgeMult + (el.slashBonus ?? 0) + resB) * (elData?.primed ? 1.35 : 1);
+                if (En.has(g.typeId) && Mn(g, dmg)) {
+                    zn(e, g);
+                    continue;
+                }
+                woaDealMagic(e, g, dmg),
+                    s(() => g.applyKnockback({ x: dir.x * 1.15, z: dir.z * 1.15 }, 0.35)),
+                    h(curDim, p.positive, gc),
+                    h(curDim, p.inkSpark, gc),
+                    h(curDim, p.severCut, gc, woaVm(clr, 0.98)),
+                    elData?.el && woaApplyElementalHit(e, g, elData.el, !0),
+                    H(e.id) && woaInflictSever(e, g, nowTick, elData?.primed ? 150 : 120),
+                    undead && O.run(() => In(e, g));
+            }
+            elData?.surge && woaDelayedCleave(e, curDim, gnd, elData, elData.primed ? 1.3 : 1.0);
+        },
+        iv = O.runInterval(() => {
+            try {
+                if (!e.isValid || !Kn(e) || !F.has(e.id)) {
+                    O.clearRun(iv);
+                    return;
+                }
+                age++;
+                let curLoc = e.location,
+                    vy = s(() => e.getVelocity().y) ?? 0,
+                    onGnd = !!s(() => e.isOnGround);
+                h(e.dimension, p.slashTrail, D(e)),
+                    age % 2 === 0 && h(e.dimension, p.crescent, D(e), woaVm(clr, 0.88, 85));
+                if (onGnd || age >= 26 || (age >= 4 && Math.abs(vy) < 0.05 && Math.abs(curLoc.y - lastY) < 0.03)) {
+                    O.clearRun(iv), land();
+                    return;
+                }
+                lastY = curLoc.y;
+            } catch {
+                O.clearRun(iv);
+            }
+        }, 1);
+    elData && (elData.primed || elData.surge || elData.el.id !== "pure") && Z(e, w.swordPlunge(elData.el.id, elData.primed));
 }
 function woaTriggerOverdrive(e, n) {
     if (!e?.isValid || !H(e.id)) return;
@@ -4668,27 +4945,60 @@ function woaTriggerOverdrive(e, n) {
         s(() => e.startItemCooldown(f.cooldownCategory, f.slashCooldown)),
         woaSwordPrimed.delete(e.id),
         woaSwordCombo.set(e.id, 0),
-        s(() => e.playAnimation(U.slash, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop }));
+        s(() => e.playAnimation(U.overdrive, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop }));
     let r = le(e),
         el = woaGetSlashElement(r, e) ?? woaSlashSpecs.pure,
         clr = el.color ?? woaGold,
         dim = e.dimension,
         center = D(e),
         gnd = ge(e, 0.08),
-        low = woaLowFx();
-    T(dim, b.adapted, Y(e), 1.05, 1.0),
-        T(dim, b.purify, center, 1.15, 0.9),
-        T(dim, b.nullify, Y(e), 1.2, 0.85),
-        h(dim, p.shockwave, gnd, woaVm(clr, 1.35)),
-        h(dim, p.sonic, gnd, woaVm(woaGold, 1.45)),
-        h(dim, p.flash, Y(e), woaVm(woaWhiteGold, 1.3)),
+        wh = Y(e),
+        low = woaLowFx(),
+        ascended = woaInSurge(r, n);
+    T(dim, b.overdrive, wh, ascended ? 1.12 : 1.05, 1.0),
+        T(dim, "item.trident.thunder", center, 1.1, 0.75),
+        T(dim, "mob.warden.sonic_boom", center, ascended ? 1.25 : 1.15, 0.5),
+        h(dim, p.shockwave, gnd, woaVm(clr, ascended ? 1.48 : 1.35)),
+        h(dim, p.sonic, gnd, woaVm(woaGold, ascended ? 1.55 : 1.45)),
+        h(dim, p.flash, wh, woaVm(woaWhiteGold, 1.3)),
         h(dim, p.halo, center, woaVm(clr, 1.25)),
         low ||
-            (h(dim, p.seal, gnd, woaVm(woaGold, 1.28, 1)),
-            h(dim, p.runeRing, gnd, woaVm(clr, 1.35, -1.5)),
-            woaRing(dim, p.orb, center, 10, 2.4, clr, 1.05, 0),
-            woaRing(dim, p.crescent, center, 4, 2.2, woaGold, 1.05, 0)),
-        woaShake(e, 0.25, 0.36);
+            (h(dim, p.crescent, center, woaVm(woaGold, 1.25, -28)),
+            h(dim, p.crescent, center, woaVm(clr, 1.22, 28)),
+            R(3, () => {
+                if (!e.isValid) return;
+                let g0 = ge(e, 0.05),
+                    c0 = D(e),
+                    w0 = Y(e);
+                T(dim, b.purify, c0, 1.25, 0.72),
+                    T(dim, "block.bell.hit", c0, 1.45, 0.45),
+                    h(dim, p.seal, g0, woaVm(woaGold, 1.32, 1)),
+                    h(dim, p.runeRing, g0, woaVm(clr, 1.38, -1.5)),
+                    h(dim, p.halo, w0, woaVm(woaGold, 1.18)),
+                    woaRing(dim, p.orb, c0, 10, 2.4, clr, 1.05, 0),
+                    [-36, 36, -14, 14].forEach((ang, idx) => {
+                        let th = idx * (Math.PI / 2);
+                        h(
+                            dim,
+                            p.crescent,
+                            { x: c0.x + Math.cos(th) * 2.2, y: c0.y + 0.15, z: c0.z + Math.sin(th) * 2.2 },
+                            woaVm(idx % 2 ? clr : woaGold, 1.08, ang)
+                        );
+                    });
+            }),
+            R(7, () => {
+                if (!e.isValid) return;
+                let g0 = ge(e, 0.05),
+                    c0 = D(e),
+                    w0 = Y(e);
+                h(dim, p.pillar, g0, woaVm(clr, 1.1)),
+                    h(dim, p.beamCore, g0, woaVm(woaGold, 1.15)),
+                    h(dim, p.flash, w0, woaVm(woaGold, 1.15)),
+                    h(dim, p.halo, w0, woaVm(clr, 1.25)),
+                    woaRing(dim, p.ray, c0, 8, 2.1, woaGold, 1.08, 0.4);
+            })),
+        woaShake(e, 0.24, 0.36),
+        woaShake(e, 0.26, 0.34, "positional");
     let ents =
             s(() =>
                 dim.getEntities({
@@ -4701,7 +5011,7 @@ function woaTriggerOverdrive(e, n) {
         nearestMobKey,
         nearestDist = 99,
         lvl = 1 + Qr(X(r)),
-        surge = woaInSurge(r, n) ? 1.2 : 1;
+        surge = ascended ? 1.2 : 1;
     for (let g of ents) {
         if (!g.isValid || g.id === e.id || Da(g) || !Kn(g)) continue;
         let gm = s(() => g.getGameMode?.());
@@ -4731,6 +5041,52 @@ function woaTriggerOverdrive(e, n) {
             woaInflictSever(e, g, n, 160),
             undead && O.run(() => In(e, g));
     }
+    ascended &&
+        R(11, () => {
+            if (!e.isValid || e.dimension.id !== dim.id) return;
+            let c0 = D(e),
+                g0 = ge(e, 0.08),
+                lowNow = woaLowFx();
+            T(dim, b.purify, c0, 1.4, 0.85),
+                T(dim, "mob.warden.sonic_boom", c0, 1.3, 0.55),
+                T(dim, "mob.endermen.portal", c0, 1.5, 0.5),
+                h(dim, p.shockwave, g0, woaVm(woaWhiteGold, 1.42)),
+                h(dim, p.sonic, g0, woaVm(clr, 1.45)),
+                lowNow ||
+                    [-42, 42, -16, 16].forEach((ang, idx) => {
+                        let th = idx * (Math.PI / 2) + 0.4;
+                        h(
+                            dim,
+                            p.severCut,
+                            { x: c0.x + Math.cos(th) * 2.6, y: c0.y + 0.15, z: c0.z + Math.sin(th) * 2.6 },
+                            woaVm(idx % 2 ? woaWhiteGold : clr, 1.25, ang)
+                        );
+                    }),
+                woaShake(e, 0.22, 0.28, "positional");
+            let ae0 =
+                    s(() =>
+                        dim.getEntities({
+                            location: c0,
+                            maxDistance: 6.8,
+                            excludeFamilies: ["inanimate"],
+                            excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                        })
+                    ) ?? [],
+                sdmg = (6 + (el.slashBonus ?? 0)) * lvl;
+            for (let g of ae0) {
+                if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+                let gm = s(() => g.getGameMode?.());
+                if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+                if (En.has(g.typeId) && Mn(g, sdmg)) {
+                    zn(e, g);
+                    continue;
+                }
+                woaDealMagic(e, g, sdmg),
+                    h(dim, p.severCut, D(g), woaVm(woaWhiteGold, 1.1, 45)),
+                    h(dim, p.positive, D(g)),
+                    An(g) && O.run(() => In(e, g));
+            }
+        });
     let projs =
         s(() =>
             dim.getEntities({
@@ -4773,7 +5129,7 @@ function woaTriggerOverdrive(e, n) {
                 rn(e, r, watchKey, n);
         }
     }
-    Z(e, w.swordOverdrive(el.id));
+    Z(e, ascended ? w.swordOverdriveAscended(el.id) : w.swordOverdrive(el.id));
 }
 function ja(e) {
     let t = e.source;
@@ -4784,21 +5140,27 @@ function ja(e) {
         woaTriggerOverdrive(t, n);
         return;
     }
-    Se.set(t.id, n + f.slashCooldown),
-        s(() => t.startItemCooldown(f.cooldownCategory, f.slashCooldown)),
-        s(() => t.playAnimation(U.slash, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop })),
-        T(t.dimension, b.slash, t.location);
-    let i;
+    let falling = !s(() => t.isOnGround) && !s(() => t.isInWater) && (s(() => t.getVelocity().y) ?? 0) < -0.18,
+        i;
     if (H(t.id)) {
         let r = le(t),
             a = woaGetSlashElement(r, t),
             o = woaSwordPrimed.delete(t.id),
-            c = X(r);
-        (a || o || c > 0) &&
-            ((i = { el: a ?? woaSlashSpecs.pure, primed: o, level: c }),
-            (i.el.id !== "pure" || o) && Z(t, w.swordSlash(i.el.id, o)));
+            c = X(r),
+            sg = woaInSurge(r, n);
+        (a || o || c > 0 || sg) && (i = { el: a ?? woaSlashSpecs.pure, primed: o, level: c, surge: sg });
     }
-    Fa(t, i), R(f.slashWindup, () => Ka(t, i));
+    if (falling) {
+        woaPlungeCleave(t, i, n);
+        return;
+    }
+    Se.set(t.id, n + f.slashCooldown),
+        s(() => t.startItemCooldown(f.cooldownCategory, f.slashCooldown)),
+        s(() => t.playAnimation(U.slash, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop })),
+        T(t.dimension, b.slash, t.location);
+    i && (i.el.id !== "pure" || i.primed) && Z(t, w.swordSlash(i.el.id, i.primed));
+    let sign = -(woaSlashSign.get(t.id) ?? -1);
+    woaSlashSign.set(t.id, sign), Fa(t, i, sign), R(f.slashWindup, () => Ka(t, i, sign));
 }
 function Ga(e) {
     let pfx = `${e}:`,
@@ -4810,7 +5172,8 @@ function Ga(e) {
         lt.delete(e),
         woaSwordHealAt.delete(e),
         woaSwordCombo.delete(e),
-        woaSwordPrimed.delete(e);
+        woaSwordPrimed.delete(e),
+        woaSlashSign.delete(e);
 }
 function woaEnforceSlotLimit(e, t, silent = !1) {
     let allFull = [...t.map.entries()].filter(([, c]) => c.s >= c.n);
@@ -4847,6 +5210,7 @@ function Ja(e) {
         woaSwordHealAt.delete(e.id),
         woaSwordCombo.delete(e.id),
         woaSwordPrimed.delete(e.id),
+        woaSlashSign.delete(e.id),
         woaGrounded.delete(e.id),
         woaSneakTicks.delete(e.id),
         woaPrevSneak.delete(e.id),
@@ -4903,6 +5267,7 @@ de.runInterval(() => {
                 (d0.breathZone = void 0),
                 (d0.wasBulwark = !1),
                 (d0.parryUntil = 0),
+                (d0.parryAt = -40),
                 (d0.lastParryAt = -40),
                 woaSwordCombo.delete(n.id),
                 woaSwordPrimed.delete(n.id),
