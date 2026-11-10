@@ -14,8 +14,8 @@
         "rotation": false
       },
       "minecraft:emitter_rate_steady": {
-        "spawn_rate": "v.emitter_age > 0.08 && v.emitter_age < 4.3 ? 24 : 0",
-        "max_particles": 48
+        "spawn_rate": "v.emitter_age > 0.06 && v.emitter_age < 4.3 ? 34 : 0",
+        "max_particles": 64
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 4.4
