@@ -9,43 +9,38 @@
       }
     },
     "components": {
-      "minecraft:emitter_local_space": {
-        "position": true,
-        "rotation": false
-      },
-      "minecraft:emitter_rate_steady": {
-        "spawn_rate": 7,
-        "max_particles": 18
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
       },
       "minecraft:emitter_lifetime_once": {
-        "active_time": 0.75
+        "active_time": 0.05
       },
       "minecraft:emitter_shape_disc": {
-        "radius": 0.74,
+        "radius": 0.615,
         "plane_normal": "y",
         "surface_only": true,
         "direction": [
           0,
-          0.35,
+          0.2,
           0
         ]
       },
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": "math.random(0.85, 1.35)"
+        "max_lifetime": "math.random(0.55, 0.85)"
       },
-      "minecraft:particle_initial_speed": "math.random(0.16, 0.36)",
+      "minecraft:particle_initial_speed": "math.random(0.05, 0.12)",
       "minecraft:particle_motion_dynamic": {
         "linear_acceleration": [
           0,
-          0.28,
+          0.08,
           0
         ],
-        "linear_drag_coefficient": 1.1
+        "linear_drag_coefficient": 1.2
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.062 * math.sin((v.particle_age / v.particle_lifetime) * 180)",
-          "0.062 * math.sin((v.particle_age / v.particle_lifetime) * 180)"
+          "0.044 * math.sin((v.particle_age / v.particle_lifetime) * 180)",
+          "0.044 * math.sin((v.particle_age / v.particle_lifetime) * 180)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -67,20 +62,20 @@
           "gradient": {
             "0.00": [
               1,
-              0.96,
-              0.72,
+              0.94,
+              0.68,
               0
             ],
             "0.25": [
               1,
-              0.88,
-              0.38,
-              0.78
+              0.86,
+              0.34,
+              0.62
             ],
             "1.00": [
               1,
-              0.74,
-              0.18,
+              0.72,
+              0.16,
               0
             ]
           }

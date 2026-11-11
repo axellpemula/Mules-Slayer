@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.xvoid.shrine": {
+      "initial_state": "spawn",
+      "states": {
+        "spawn": {
+          "animations": [
+            "spawn"
+          ],
+          "transitions": [
+            {
+              "collapse": "q.variant == 2"
+            },
+            {
+              "active": "q.variant == 1"
+            }
+          ],
+          "blend_transition": 0.15
+        },
+        "active": {
+          "animations": [
+            "active"
+          ],
+          "transitions": [
+            {
+              "collapse": "q.variant == 2"
+            }
+          ],
+          "blend_transition": 0.18
+        },
+        "collapse": {
+          "animations": [
+            "collapse"
+          ]
+        }
+      }
+    }
+  }
+}

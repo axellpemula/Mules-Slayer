@@ -210,6 +210,62 @@
           "pitch": 1.15
         }
       ]
+    },
+    "xvoid.domain.open": {
+      "category": "player",
+      "min_distance": 12.0,
+      "max_distance": 64.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/wheel_adapted",
+          "volume": 1.0,
+          "pitch": 0.58
+        },
+        {
+          "name": "sounds/xvoid/purify",
+          "volume": 0.95,
+          "pitch": 0.65
+        }
+      ]
+    },
+    "xvoid.domain.slash": {
+      "category": "player",
+      "min_distance": 8.0,
+      "max_distance": 48.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/slash_hit",
+          "volume": 0.9,
+          "pitch": 1.28
+        },
+        {
+          "name": "sounds/xvoid/stab_hit_1",
+          "volume": 0.8,
+          "pitch": 1.38
+        },
+        {
+          "name": "sounds/xvoid/stab_hit_3",
+          "volume": 0.8,
+          "pitch": 1.22
+        }
+      ]
+    },
+    "xvoid.domain.shatter": {
+      "category": "player",
+      "min_distance": 10.0,
+      "max_distance": 64.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/restore",
+          "volume": 1.0,
+          "pitch": 0.62
+        },
+        {
+          "name": "sounds/xvoid/wheel_nullify",
+          "volume": 0.95,
+          "pitch": 0.72
+        }
+      ]
     }
   }
 }
