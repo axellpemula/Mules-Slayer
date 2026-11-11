@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=Requires >%s HP to Sacrifice for Domain
 woa.ui.status.domain_active=Domain: Active (%ss left)
 woa.ui.status.domain_cd=Domain Cooldown: %ss
 woa.ui.status.domain_ready=Domain: Ready (Sneak + Use Bell)
+woa.domain.authority=Shrine Authority

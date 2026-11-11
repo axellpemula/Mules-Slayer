@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=Requiere >%s de vida para el sacrificio del Dominio
 woa.ui.status.domain_active=Dominio: Activo (%ss restantes)
 woa.ui.status.domain_cd=Enfriamiento de Dominio: %ss
 woa.ui.status.domain_ready=Dominio: Listo (Agáchate + Usa Campana)
+woa.domain.authority=Autoridad del Relicario

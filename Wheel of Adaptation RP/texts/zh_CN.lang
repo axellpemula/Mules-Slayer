@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=开启领域需要高于 %s 的生命献祭
 woa.ui.status.domain_active=领域：激活中（剩余 %ss）
 woa.ui.status.domain_cd=领域冷却：%ss
 woa.ui.status.domain_ready=领域：已就绪（潜行 + 使用铃铛）
+woa.domain.authority=御厨子主权

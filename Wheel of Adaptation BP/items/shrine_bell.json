@@ -18,7 +18,7 @@
       "minecraft:can_destroy_in_creative": false,
       "minecraft:cooldown": {
         "category": "xvoid:domain_shrine",
-        "duration": 150.0
+        "duration": 300.0
       },
       "minecraft:tags": {
         "tags": ["xvoid:mahoraga"]
