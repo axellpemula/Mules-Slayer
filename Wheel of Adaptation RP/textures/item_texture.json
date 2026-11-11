@@ -10,6 +10,9 @@
     },
     "xvoid_adaptation_config": {
       "textures": "textures/items/xvoid/adaptation_config"
+    },
+    "xvoid_shrine_bell": {
+      "textures": "textures/items/xvoid/shrine_bell"
     }
   }
 }

@@ -1,0 +1,82 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "xvoid:malevolent_shrine",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "xvoid:shrine_spawn": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "xvoid:shrine_active": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "xvoid:shrine_collapse": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": ["inanimate", "xvoid_shrine"]
+      },
+      "minecraft:collision_box": {
+        "width": 0.01,
+        "height": 0.01
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:health": {
+        "value": 9999,
+        "max": 9999
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "deals_damage": "no"
+        }
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:persistent": {}
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": ["xvoid:shrine_spawn"]
+        }
+      },
+      "xvoid:set_active": {
+        "remove": {
+          "component_groups": ["xvoid:shrine_spawn", "xvoid:shrine_collapse"]
+        },
+        "add": {
+          "component_groups": ["xvoid:shrine_active"]
+        }
+      },
+      "xvoid:set_collapse": {
+        "remove": {
+          "component_groups": ["xvoid:shrine_spawn", "xvoid:shrine_active"]
+        },
+        "add": {
+          "component_groups": ["xvoid:shrine_collapse"]
+        }
+      }
+    }
+  }
+}

@@ -8,25 +8,6 @@
           "scale": 0
         }
       }
-    },
-    "animation.xvoid.wheel.glow_fx": {
-      "animation_length": 4.4,
-      "particle_effects": {
-        "0.0": {
-          "effect": "mote",
-          "locator": "glow"
-        }
-      }
-    },
-    "animation.xvoid.wheel.idle_fx": {
-      "loop": true,
-      "animation_length": 0.75,
-      "particle_effects": {
-        "0.0": {
-          "effect": "idle_mote",
-          "locator": "glow"
-        }
-      }
     }
   }
 }

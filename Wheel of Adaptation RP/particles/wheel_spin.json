@@ -16,7 +16,7 @@
         "active_time": 0.05
       },
       "minecraft:emitter_shape_disc": {
-        "radius": 0.78,
+        "radius": 0.62,
         "plane_normal": "y",
         "surface_only": true,
         "direction": "outwards"
@@ -24,7 +24,7 @@
       "minecraft:particle_lifetime_expression": {
         "max_lifetime": "math.random(0.35, 0.6)"
       },
-      "minecraft:particle_initial_speed": "math.random(0.9, 2.1)",
+      "minecraft:particle_initial_speed": "math.random(0.75, 1.65)",
       "minecraft:particle_initial_spin": {
         "rotation": "math.random(0, 360)",
         "rotation_rate": 220
