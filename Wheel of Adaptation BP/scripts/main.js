@@ -46,7 +46,9 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         surge: "xvoid.wheel.surge",
         domainOpen: "xvoid.domain.open",
         domainSlash: "xvoid.domain.slash",
+        domainCleave: "xvoid.domain.cleave",
         domainShatter: "xvoid.domain.shatter",
+        domainAura: "xvoid.domain.aura",
     },
     p = {
         spin: "xvoid:wheel_spin",
@@ -82,6 +84,8 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         domainCleaveBlack: "xvoid:domain_cleave_black",
         domainAsh: "xvoid:domain_ash",
         domainImplosion: "xvoid:domain_implosion",
+        domainSlashArc: "xvoid:domain_slash_arc",
+        domainPillarCore: "xvoid:domain_pillar_core",
     },
     U = {
         stab: "animation.extermination_sword.stab",
@@ -1884,6 +1888,7 @@ var ri = new Set([
         domainCooldown: (e) => k("\xA7c", d("woa.domain.toast.cooldown", String(e))),
         domainAlreadyActive: k("\xA7c", d("woa.domain.toast.already_active")),
         domainLowHp: k("\xA7c", d("woa.domain.toast.low_hp", "35%")),
+        domainAuthority: k(`${u.sword} \xA74`, d("woa.domain.authority")),
         soulbound: k("\xA78", d("woa.lore.soulbound")),
         env: (e) => d(`woa.env.${e}`),
         weapon: (e) => d(`woa.weapon.${e}`),
@@ -1893,6 +1898,7 @@ var ri = new Set([
 import { EntityDamageCause as v } from "@minecraft/server";
 var re = { spins: l.heavy, icon: u.flame },
     A = { spins: l.arcane, icon: u.explosion },
+    reExplLight = { spins: l.light, icon: u.explosion },
     kt = { spins: l.light, icon: u.impact },
     Pe = { spins: l.light, icon: u.anvil },
     bt = { spins: l.heavy, icon: u.anvil },
@@ -1906,8 +1912,8 @@ var re = { spins: l.heavy, icon: u.flame },
         campfire: re,
         soul_campfire: re,
         explosion: A,
-        creeper_explosion: A,
-        charged_creeper_explosion: A,
+        creeper_explosion: reExplLight,
+        charged_creeper_explosion: reExplLight,
         tnt_explosion: A,
         end_crystal_explosion: A,
         bed_explosion: A,
@@ -2429,6 +2435,7 @@ function Gi(e, t) {
         badges = [
             ...(e.suppressed ? [` \xA7c${u.wheel}`] : []),
             ...(e.domainLeft > 0 ? [" \xA78\xB7 \xA74", d("woa.hud.domain", String(e.domainLeft))] : []),
+            ...(e.domainAuthority ? [` \xA74${u.sword}`] : []),
             ...(!e.suppressed && e.surgeActive ? [` ${u.lightning}`] : []),
             ...(!e.suppressed && e.bulwarkActive ? [` \xA75${u.shield}`] : []),
         ],
@@ -2481,11 +2488,13 @@ function Ji(e) {
         `${Nn(e.spin, m.handles)}`,
         ...(e.parryWindow
             ? [`  \xA76\xA7l${u.sword} `, d("woa.hud.parry_active")]
-            : e.suppressed
-              ? [`  \xA7c\xA7l${u.wheel} `, d("woa.hud.suppressed")]
-              : e.surgeActive
-                ? [`  \xA76\xA7l${u.sparkle} `, d("woa.hud.surge_tag")]
-                : []),
+            : e.domainAuthority
+              ? [`  \xA74\xA7l${u.sword} `, d("woa.domain.authority")]
+              : e.suppressed
+                ? [`  \xA7c\xA7l${u.wheel} `, d("woa.hud.suppressed")]
+                : e.surgeActive
+                  ? [`  \xA76\xA7l${u.sparkle} `, d("woa.hud.surge_tag")]
+                  : []),
     ];
     return k(
         ...top,
@@ -2668,7 +2677,7 @@ function woaGetCompendiumState(e) {
                 r = (i.v ?? 1) < Ft;
             for (let [a, o] of Object.entries(i.m ?? {})) {
                 if (r && ci.includes(a)) continue;
-                let g = a.startsWith("effect:") ? _e(a.slice(7)) : void 0,
+                let g = Hi(a),
                     x = g ? g.spins : o[1],
                     c = Math.min(o[0], x);
                 t.map.set(a, { s: c, n: x, used: o[2] ?? 0 });
@@ -2695,7 +2704,7 @@ function Qi(e) {
                 r = (i.v ?? 1) < Ft;
             for (let [a, o] of Object.entries(i.m ?? {})) {
                 if (r && ci.includes(a)) continue;
-                let g = a.startsWith("effect:") ? _e(a.slice(7)) : void 0,
+                let g = Hi(a),
                     x = g ? g.spins : o[1],
                     c = Math.min(o[0], x);
                 t.map.set(a, { s: c, n: x, used: o[2] ?? 0 });
@@ -2992,6 +3001,7 @@ function Xe(e, t) {
 }
 function et(e) {
     if (isNonDotEffect(e)) return m.nonDotSpinTicks;
+    if (e.startsWith("env:") && (e.includes("explosion") || e.includes("firework"))) return 2;
     return m.hitsPerKey[e] ?? m.hitsPerSpin[e.slice(0, e.indexOf(":"))] ?? m.hitsPerSpin.mob ?? 3;
 }
 function woaTickEffects(e, t, n) {
@@ -3531,24 +3541,24 @@ function on(e, t) {
 }
 var woaDomainCdProp = "xvoid:domain_cd",
     woaDomainCfg = {
-        radius: 22,
-        vertRange: 18,
-        duration: 280,
+        radius: 76,
+        vertRange: 32,
+        duration: 360,
         spawnTicks: 15,
         collapseTicks: 12,
-        cooldown: 3000,
-        burnoutTicks: 120,
+        cooldown: 6000,
+        burnoutTicks: 160,
         minHpRatio: 0.35,
         upfrontRatio: 0.2,
-        drainPerSec: 1.5,
+        drainPerSec: 0.7,
         shatterHp: 2,
-        maxBreakDist: 40,
+        maxBreakDist: 96,
         slashEvery: 10,
         projEvery: 2,
-        blockEvery: 2,
-        blocksPerStep: 12,
-        blocksMaxBreak: 6,
-        plinthSafeR: 3.2,
+        arriveBreakR: 4.3,
+        arriveBreakMax: 36,
+        hitBreakMaxPerStep: 8,
+        plinthSafeR: 6.0,
         cdCategory: "xvoid:domain_shrine",
     },
     woaDomainProtected = new Set([
@@ -3586,15 +3596,27 @@ function woaCleanupOrphanShrines() {
         for (let ent of list) !activeIds.has(ent.id) && s(() => ent.remove());
     }
 }
+function woaInsideDomainBounds(dom, dimId, loc) {
+    if (!dom || dom.ended || dom.dimId !== dimId || !loc) return !1;
+    let dx = loc.x - dom.center.x,
+        dz = loc.z - dom.center.z;
+    return dx * dx + dz * dz <= woaDomainCfg.radius * woaDomainCfg.radius && Math.abs(loc.y - dom.center.y) <= woaDomainCfg.vertRange;
+}
 function woaInsideAnyDomain(dimId, loc) {
     if (!dimId || !loc || !woaDomains.size) return;
-    let r2 = woaDomainCfg.radius * woaDomainCfg.radius;
-    for (let dom of woaDomains.values()) {
-        if (dom.ended || dom.dimId !== dimId) continue;
-        let dx = loc.x - dom.center.x,
-            dz = loc.z - dom.center.z;
-        if (dx * dx + dz * dz <= r2 && Math.abs(loc.y - dom.center.y) <= woaDomainCfg.vertRange) return dom;
-    }
+    for (let dom of woaDomains.values()) if (woaInsideDomainBounds(dom, dimId, loc)) return dom;
+}
+function woaIsInOwnDomain(e) {
+    if (!e?.isValid || !woaDomains.size) return;
+    let dom = woaDomains.get(e.id);
+    if (dom && woaInsideDomainBounds(dom, s(() => e.dimension?.id), s(() => e.location))) return dom;
+}
+function woaInsideOtherDomain(e) {
+    if (!e?.isValid || !woaDomains.size) return;
+    let dimId = s(() => e.dimension?.id),
+        loc = s(() => e.location);
+    if (!dimId || !loc) return;
+    for (let dom of woaDomains.values()) if (dom.casterId !== e.id && woaInsideDomainBounds(dom, dimId, loc)) return dom;
 }
 function woaIsSuppressed(e) {
     if (!e?.isValid || !woaDomains.size) return !1;
@@ -3656,12 +3678,12 @@ function woaFindShrineSpot(caster) {
         yaw = s(() => caster.getRotation().y) ?? 0,
         minY = s(() => dim.heightRange?.min) ?? -64,
         maxY = s(() => dim.heightRange?.max) ?? 319;
-    for (let dist of [2.6, 1.5, 0]) {
+    for (let dist of [5.2, 3.4, 0]) {
         let sx = loc.x - fwd.x * dist,
             sz = loc.z - fwd.z * dist,
             bx = Math.floor(sx),
             bz = Math.floor(sz);
-        for (let dy of [2, 1, 0, -1, -2, -3]) {
+        for (let dy of [0, 1, -1, 2, -2, 3, -3]) {
             let by = Math.floor(loc.y + dy);
             if (by <= minY || by + 1 >= maxY) continue;
             let cur = s(() => dim.getBlock({ x: bx, y: by, z: bz })),
@@ -3671,7 +3693,75 @@ function woaFindShrineSpot(caster) {
                 return { loc: { x: sx, y: by, z: sz }, yaw };
         }
     }
-    return { loc: { x: loc.x - fwd.x * 2.4, y: loc.y, z: loc.z - fwd.z * 2.4 }, yaw };
+    return { loc: { x: loc.x - fwd.x * 4.8, y: loc.y, z: loc.z - fwd.z * 4.8 }, yaw };
+}
+function woaCanCarveBlock(blk) {
+    if (!blk || blk.isAir || blk.isLiquid) return !1;
+    let tid = s(() => blk.typeId);
+    return !(!tid || f.uncuttable.has(tid) || woaDomainProtected.has(tid) || s(() => blk.getComponent("minecraft:inventory")));
+}
+function woaCarveShrineArrival(dim, spot) {
+    let minY = s(() => dim.heightRange?.min) ?? -64,
+        maxY = s(() => dim.heightRange?.max) ?? 319,
+        baseY = Math.max(minY + 1, Math.floor(spot.y)),
+        topY = Math.min(maxY - 1, baseY + 5),
+        r = Math.ceil(woaDomainCfg.arriveBreakR),
+        r2 = woaDomainCfg.arriveBreakR * woaDomainCfg.arriveBreakR,
+        cx = Math.floor(spot.x),
+        cz = Math.floor(spot.z),
+        broke = 0,
+        fx = 0;
+    for (let dx = -r; dx <= r && broke < woaDomainCfg.arriveBreakMax; dx++)
+        for (let dz = -r; dz <= r && broke < woaDomainCfg.arriveBreakMax; dz++) {
+            if (dx * dx + dz * dz > r2) continue;
+            for (let by = baseY; by <= topY && broke < woaDomainCfg.arriveBreakMax; by++) {
+                let blk = s(() => dim.getBlock({ x: cx + dx, y: by, z: cz + dz }));
+                if (!woaCanCarveBlock(blk)) continue;
+                if (s(() => blk.setType("minecraft:air")) !== void 0 || blk.isAir) {
+                    broke++;
+                    if (fx < 8) {
+                        fx++;
+                        let bp = { x: cx + dx + 0.5, y: by + 0.5, z: cz + dz + 0.5 };
+                        h(dim, p.domainCleaveBlack, bp, woaVm(woaShrineRed, 1.15)),
+                            h(dim, p.domainCleaveRed, bp, woaVm(woaShrineCrimsonGlow, 1.05)),
+                            h(dim, p.inkSpark, bp);
+                    }
+                }
+            }
+        }
+}
+function woaCarveTargetBlocks(dim, target, isCleave, center, budget = 4) {
+    if (!target?.isValid || budget <= 0) return 0;
+    let loc = s(() => target.location);
+    if (!loc) return 0;
+    let minY = s(() => dim.heightRange?.min) ?? -64,
+        maxY = s(() => dim.heightRange?.max) ?? 319,
+        bx = Math.floor(loc.x),
+        by0 = Math.max(minY + 1, Math.floor(loc.y)),
+        bz = Math.floor(loc.z),
+        want = Math.min(budget, isCleave ? 3 : 2),
+        offsets = isCleave
+            ? [[0, 0, 0], [0, 1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1], [1, 1, 0], [-1, 1, 0], [0, 1, 1], [0, 1, -1]]
+            : [[0, 0, 0], [0, 1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]],
+        broke = 0;
+    for (let k0 = 0; k0 < offsets.length && broke < want; k0++) {
+        let [dx, dy, dz] = offsets[k0],
+            tx = bx + dx,
+            ty = by0 + dy,
+            tz = bz + dz;
+        if (ty >= maxY) continue;
+        if (center && Math.hypot(tx + 0.5 - center.x, tz + 0.5 - center.z) <= 2.2 && ty < Math.floor(center.y)) continue;
+        let blk = s(() => dim.getBlock({ x: tx, y: ty, z: tz }));
+        if (!woaCanCarveBlock(blk)) continue;
+        if (s(() => blk.setType("minecraft:air")) !== void 0 || blk.isAir) {
+            broke++;
+            let bp = { x: tx + 0.5, y: ty + 0.5, z: tz + 0.5 };
+            h(dim, p.domainCleaveBlack, bp, woaVm(woaShrineRed, isCleave ? 1.15 : 0.9)),
+                h(dim, p.domainCleaveRed, bp, woaVm(woaShrineCrimsonGlow, isCleave ? 1.1 : 0.85)),
+                h(dim, p.inkSpark, bp);
+        }
+    }
+    return broke;
 }
 function woaTryOpenDomain(e, n) {
     if (!e?.isValid) return;
@@ -3701,9 +3791,9 @@ function woaTryOpenDomain(e, n) {
             nextHp = Math.max(1, hp.currentValue - cut);
         s(() => hp.setCurrentValue(nextHp));
         let ch = D(e);
-        h(e.dimension, p.domainCleaveRed, ch, woaVm(woaShrineRed, 1.15)),
-            h(e.dimension, p.domainCleaveBlack, ch, woaVm(woaShrineRed, 1.0)),
-            h(e.dimension, p.shockwave, ge(e, 0.06), woaVm(woaShrineRed, 1.0));
+        h(e.dimension, p.domainCleaveRed, ch, woaVm(woaShrineRed, 1.25)),
+            h(e.dimension, p.domainCleaveBlack, ch, woaVm(woaShrineRed, 1.15)),
+            h(e.dimension, p.shockwave, ge(e, 0.06), woaVm(woaShrineRed, 1.25));
     }
     let { loc: spot, yaw } = woaFindShrineSpot(e),
         dim = e.dimension,
@@ -3712,6 +3802,8 @@ function woaTryOpenDomain(e, n) {
     woaSetDomainCd(e, n, woaDomainCfg.cooldown),
         s(() => e.startItemCooldown(woaDomainCfg.cdCategory, woaDomainCfg.cooldown)),
         woaSuppressSilent.set(e.id, n + 1);
+    let canBreak = gm !== Cn.Adventure && gm !== Cn.Spectator && !!pa("cut");
+    canBreak && woaCarveShrineArrival(dim, spot);
     let dom = {
         casterId: e.id,
         caster: e,
@@ -3722,40 +3814,77 @@ function woaTryOpenDomain(e, n) {
         startTick: n,
         endsAt: n + woaDomainCfg.duration,
         creative,
-        canBreak: gm !== Cn.Adventure && gm !== Cn.Spectator,
+        canBreak,
         activated: !1,
         ended: !1,
         ringTheta: 0,
+        slashWave: 0,
+        lastCasterStrikeAt: -20,
+        lastCasterHealAt: -20,
     };
     woaDomains.set(e.id, dom);
     let low = woaLowFx(),
         ground = { x: spot.x, y: spot.y + 0.08, z: spot.z },
-        core = { x: spot.x, y: spot.y + 2.2, z: spot.z },
+        core = { x: spot.x, y: spot.y + 5.2, z: spot.z },
         R0 = woaDomainCfg.radius;
     T(dim, b.domainOpen, spot, 1.0, 1.0),
-        T(dim, "mob.warden.sonic_boom", spot, 0.72, 0.9),
-        T(dim, "block.bell.hit", spot, 0.52, 1.0),
-        h(dim, p.domainSeal, ground, woaVm(woaShrineRed, 1.48, 0.85)),
-        h(dim, p.domainSeal, ground, woaVm(woaShrineCrimsonGlow, 1.02, -1.2)),
-        h(dim, p.shockwave, ground, woaVm(woaShrineRed, 1.75)),
-        h(dim, p.sonic, ground, woaVm(woaShrineDark, 1.85)),
-        h(dim, p.beamCore, ground, woaVm(woaShrineRed, 1.45)),
-        h(dim, p.halo, core, woaVm(woaShrineRed, 1.55));
-    let ringN = low ? 8 : 16;
+        h(dim, p.domainSeal, ground, woaVm(woaShrineRed, 3.4, 0.85)),
+        h(dim, p.domainSeal, ground, woaVm(woaShrineCrimsonGlow, 2.35, -1.2)),
+        h(dim, p.shockwave, ground, woaVm(woaShrineRed, 3.2)),
+        h(dim, p.sonic, ground, woaVm(woaShrineDark, 3.4)),
+        h(dim, p.beamCore, ground, woaVm(woaShrineRed, 2.5)),
+        h(dim, p.domainPillarCore, ground, woaVm(woaShrineRed, 1.45)),
+        h(dim, p.halo, core, woaVm(woaShrineRed, 2.8));
+    let ringN = low ? 12 : 24;
     for (let idx = 0; idx < ringN; idx++) {
         let th = (idx / ringN) * Math.PI * 2;
         h(dim, p.domainPillar, { x: spot.x + Math.cos(th) * R0, y: spot.y + 0.05, z: spot.z + Math.sin(th) * R0 });
     }
-    let nearbyPlayers = s(() => dim.getPlayers({ location: spot, maxDistance: R0 + 14 })) ?? [];
+    let nearbyPlayers = s(() => dim.getPlayers({ location: spot, maxDistance: R0 + 18 })) ?? [];
     for (let pl of nearbyPlayers)
-        woaShake(pl, 0.34, 0.45),
-            woaShake(pl, 0.28, 0.38, "positional"),
+        woaShake(pl, 0.42, 0.55),
+            woaShake(pl, 0.32, 0.42, "positional"),
             Z(pl, w.domainOpen);
 }
-function woaDomainSlashDmg(target) {
+function woaDomainSlashDmg(target, isCleave = !1) {
     let maxHp = s(() => target.getComponent("minecraft:health")?.effectiveMax) ?? 20,
-        raw = 4.0 + Math.max(0, maxHp - 20) * 0.045 + (target.typeId === "minecraft:player" ? 1.5 : 0);
-    return Math.min(28, raw);
+        raw = 7.5 + Math.max(0, maxHp - 20) * 0.075 + (target.typeId === "minecraft:player" ? 2.0 : 0);
+    return Math.min(40, raw) * (isCleave ? 1.32 : 1.0);
+}
+function woaApplyDomainPressure(g) {
+    s(() => g.addEffect("slowness", 35, { amplifier: 2, showParticles: !1 })),
+        s(() => g.addEffect("weakness", 35, { amplifier: 1, showParticles: !1 })),
+        g.typeId === "minecraft:player" && s(() => g.addEffect("mining_fatigue", 35, { amplifier: 1, showParticles: !1 }));
+}
+function woaApplyCasterDomainBuffs(caster) {
+    s(() => caster.addEffect("speed", 24, { amplifier: 1, showParticles: !1 })),
+        s(() => caster.addEffect("strength", 24, { amplifier: 1, showParticles: !1 })),
+        s(() => caster.addEffect("jump_boost", 24, { amplifier: 0, showParticles: !1 })),
+        s(() => caster.addEffect("resistance", 24, { amplifier: 0, showParticles: !1 }));
+}
+function woaTryDomainCasterStrike(caster, target, n) {
+    if (!caster?.isValid || !target?.isValid || caster.id === target.id || target.typeId === shrineEntity || Da(target)) return;
+    let dom = woaIsInOwnDomain(caster);
+    if (!dom || n - (dom.lastCasterStrikeAt ?? -20) < 10) return;
+    dom.lastCasterStrikeAt = n;
+    let gm = s(() => target.getGameMode?.());
+    if (gm === Cn.Creative || gm === Cn.Spectator) return;
+    N.run(() => {
+        if (!caster.isValid || !target.isValid || !Kn(target)) return;
+        let td = target.dimension,
+            tc = D(target);
+        woaDealMagic(caster, target, 5.0),
+            woaInflictSever(caster, target, n, 100),
+            h(td, p.domainCleaveRed, tc, woaVm(woaShrineCrimsonGlow, 1.32)),
+            h(td, p.domainCleaveBlack, tc, woaVm(woaShrineRed, 1.2)),
+            h(td, p.domainSlashArc, tc, woaVm(woaShrineCrimsonGlow, 1.1)),
+            T(td, b.domainCleave, tc, 1.0 + Math.random() * 0.14, 0.88),
+            dom.canBreak && pa("cut") && woaCarveTargetBlocks(td, target, !0, dom.center, 2);
+        if (n - (dom.lastCasterHealAt ?? -20) >= 15 && Kn(caster)) {
+            dom.lastCasterHealAt = n;
+            s(() => ie(caster, 2.0)), h(caster.dimension, p.regen, ge(caster, 0.12), woaVm(woaShrineCrimsonGlow, 0.85));
+        }
+    });
 }
 function woaSliceDomainProjs(dom, n) {
     let R0 = woaDomainCfg.radius,
@@ -3781,59 +3910,11 @@ function woaSliceDomainProjs(dom, n) {
             dz = pl.z - c.z;
         if (dx * dx + dz * dz > r2 || Math.abs(pl.y - c.y) > woaDomainCfg.vertRange) continue;
         woaDeflected.set(pr0.id, n + 60),
-            h(dom.dim, p.domainCleaveBlack, pl, woaVm(woaShrineRed, 0.72)),
-            h(dom.dim, p.domainCleaveRed, pl, woaVm(woaShrineCrimsonGlow, 0.78)),
-            h(dom.dim, p.slashSpark, pl, woaVm(woaShrineRed, 0.7)),
-            n - (dom.lastProjSfx ?? -10) >= 3 && ((dom.lastProjSfx = n), T(dom.dim, b.domainSlash, pl, 1.55, 0.35)),
+            h(dom.dim, p.domainCleaveBlack, pl, woaVm(woaShrineRed, 0.88)),
+            h(dom.dim, p.domainCleaveRed, pl, woaVm(woaShrineCrimsonGlow, 0.92)),
+            h(dom.dim, p.slashSpark, pl, woaVm(woaShrineRed, 0.8)),
+            n - (dom.lastProjSfx ?? -10) >= 3 && ((dom.lastProjSfx = n), T(dom.dim, b.domainSlash, pl, 1.25, 0.42)),
             po === "minecraft:thrown_trident" ? s(() => pr0.clearVelocity()) : s(() => pr0.remove());
-    }
-}
-function woaSliceDomainBlocks(dom, age) {
-    let dim = dom.dim,
-        c = dom.center,
-        R0 = woaDomainCfg.radius,
-        safeR2 = woaDomainCfg.plinthSafeR * woaDomainCfg.plinthSafeR,
-        low = woaLowFx(),
-        samples = low ? 5 : woaDomainCfg.blocksPerStep,
-        maxBreak = low ? 3 : woaDomainCfg.blocksMaxBreak,
-        waveR = Math.min(R0, 3.4 + (age / woaDomainCfg.duration) * (R0 - 3.4)),
-        maxProbeR = Math.min(R0, waveR + 3.5),
-        minY = s(() => dim.heightRange?.min) ?? -64,
-        maxY = s(() => dim.heightRange?.max) ?? 319,
-        topY = Math.min(maxY - 1, Math.floor(c.y) + 8),
-        botY = Math.max(minY + 1, Math.floor(c.y) - 4),
-        broke = 0,
-        fxCount = 0;
-    for (let i = 0; i < samples && broke < maxBreak; i++) {
-        let th = Math.random() * Math.PI * 2,
-            rad =
-                i < Math.ceil(samples * 0.6)
-                    ? Math.max(woaDomainCfg.plinthSafeR + 0.3, waveR + (Math.random() - 0.5) * 4.2)
-                    : woaDomainCfg.plinthSafeR + 0.3 + Math.random() * (maxProbeR - woaDomainCfg.plinthSafeR - 0.3);
-        if (rad > R0) rad = R0 - Math.random() * 1.2;
-        let bx = Math.floor(c.x + Math.cos(th) * rad),
-            bz = Math.floor(c.z + Math.sin(th) * rad),
-            dx = bx + 0.5 - c.x,
-            dz = bz + 0.5 - c.z;
-        if (dx * dx + dz * dz <= safeR2) continue;
-        for (let by = topY; by >= botY; by--) {
-            let blk = s(() => dim.getBlock({ x: bx, y: by, z: bz }));
-            if (!blk || blk.isAir || blk.isLiquid) continue;
-            let tid = s(() => blk.typeId);
-            if (!tid || f.uncuttable.has(tid) || woaDomainProtected.has(tid) || s(() => blk.getComponent("minecraft:inventory")))
-                break;
-            if (s(() => blk.setType("minecraft:air")) !== void 0 || blk.isAir) {
-                broke++;
-                if (fxCount < 4) {
-                    fxCount++;
-                    let bp = { x: bx + 0.5, y: by + 0.5, z: bz + 0.5 };
-                    h(dim, p.domainCleaveBlack, bp, woaVm(woaShrineRed, 0.92)),
-                        h(dim, p.domainCleaveRed, bp, woaVm(woaShrineCrimsonGlow, 0.88)),
-                        h(dim, p.inkSpark, bp);
-                }
-            }
-            break;
-        }
     }
 }
 function woaEndDomain(casterId, shattered = !1) {
@@ -3849,11 +3930,11 @@ function woaEndDomain(casterId, shattered = !1) {
         s(() => shrine.triggerEvent("xvoid:set_collapse"));
         R(woaDomainCfg.collapseTicks + 1, () => s(() => shrine.isValid && shrine.remove()));
     }
-    T(dim, b.domainShatter, spot, shattered ? 0.85 : 1.0, 1.0),
-        h(dim, p.domainImplosion, ground, woaVm(woaShrineRed, 1.65)),
-        h(dim, p.domainImplosion, { x: ground.x, y: ground.y + 1.4, z: ground.z }, woaVm(woaShrineCrimsonGlow, 1.05)),
-        h(dim, p.shockwave, ground, woaVm(woaShrineRed, shattered ? 1.55 : 1.25)),
-        h(dim, p.sonic, ground, woaVm(woaShrineDark, 1.4));
+    T(dim, b.domainShatter, spot, shattered ? 0.9 : 1.0, 1.0),
+        h(dim, p.domainImplosion, ground, woaVm(woaShrineRed, 3.4)),
+        h(dim, p.domainImplosion, { x: ground.x, y: ground.y + 3.2, z: ground.z }, woaVm(woaShrineCrimsonGlow, 2.2)),
+        h(dim, p.shockwave, ground, woaVm(woaShrineRed, shattered ? 3.2 : 2.6)),
+        h(dim, p.sonic, ground, woaVm(woaShrineDark, 3.0));
     let caster = dom.caster,
         toast = shattered ? w.domainShattered : w.domainEnded;
     if (caster?.isValid) {
@@ -3861,10 +3942,10 @@ function woaEndDomain(casterId, shattered = !1) {
             s(() => caster.addEffect("weakness", woaDomainCfg.burnoutTicks, { amplifier: 0, showParticles: !1 })),
                 s(() => caster.addEffect("slowness", woaDomainCfg.burnoutTicks, { amplifier: 0, showParticles: !1 }));
         }
-        woaShake(caster, shattered ? 0.3 : 0.18, 0.35), Z(caster, toast);
+        woaShake(caster, shattered ? 0.34 : 0.22, 0.4), Z(caster, toast);
     }
-    let nearby = s(() => dim.getPlayers({ location: spot, maxDistance: woaDomainCfg.radius + 14 })) ?? [];
-    for (let pl of nearby) pl.id !== casterId && (woaShake(pl, 0.18, 0.28), Z(pl, toast));
+    let nearby = s(() => dim.getPlayers({ location: spot, maxDistance: woaDomainCfg.radius + 18 })) ?? [];
+    for (let pl of nearby) pl.id !== casterId && (woaShake(pl, 0.2, 0.3), Z(pl, toast));
 }
 function woaTickDomains(n) {
     if (!woaDomains.size) return;
@@ -3895,7 +3976,7 @@ function woaTickDomains(n) {
         if (age >= woaDomainCfg.spawnTicks && !dom.activated) {
             dom.activated = !0;
             s(() => dom.shrine.triggerEvent("xvoid:set_active"));
-            h(dim, p.shockwave, { x: c.x, y: c.y + 0.1, z: c.z }, woaVm(woaShrineRed, 1.55));
+            h(dim, p.shockwave, { x: c.x, y: c.y + 0.1, z: c.z }, woaVm(woaShrineRed, 2.8));
         }
         if (!dom.creative && age > 0 && age % 20 === 0 && chp) {
             let nextV = Math.max(1, chp.currentValue - woaDomainCfg.drainPerSec);
@@ -3905,39 +3986,82 @@ function woaTickDomains(n) {
                 continue;
             }
         }
-        let low = woaLowFx();
-        if (age % 20 === 0) {
+        let low = woaLowFx(),
+            insidePlayers =
+                s(() =>
+                    dim.getPlayers({
+                        location: c,
+                        maxDistance: R0 + 2,
+                    })
+                )?.filter((pl) => woaInsideDomainBounds(dom, dom.dimId, s(() => pl.location))) ?? [];
+        if (age % 16 === 0) {
             let g0 = { x: c.x, y: c.y + 0.08, z: c.z };
-            h(dim, p.domainSeal, g0, woaVm(woaShrineRed, 1.38, age % 40 === 0 ? 0.9 : -0.9)),
-                h(dim, p.halo, { x: c.x, y: c.y + 2.2, z: c.z }, woaVm(woaShrineRed, 1.25));
+            h(dim, p.domainSeal, g0, woaVm(woaShrineRed, 3.1, age % 32 === 0 ? 0.95 : -0.95)),
+                h(dim, p.domainPillarCore, g0, woaVm(woaShrineRed, 1.3)),
+                h(dim, p.halo, { x: c.x, y: c.y + 5.2, z: c.z }, woaVm(woaShrineRed, 2.65));
         }
+        age % 80 === 0 && T(dim, b.domainAura, c, 0.96, 0.78);
         if (age % 4 === 0) {
-            dom.ringTheta = (dom.ringTheta + 0.26) % (Math.PI * 2);
-            let pts = low ? 2 : 4;
+            dom.ringTheta = (dom.ringTheta + 0.22) % (Math.PI * 2);
+            let pts = low ? 4 : 8;
             for (let k0 = 0; k0 < pts; k0++) {
                 let th = dom.ringTheta + (k0 / pts) * Math.PI * 2;
                 h(dim, p.domainPillar, { x: c.x + Math.cos(th) * R0, y: c.y + 0.05, z: c.z + Math.sin(th) * R0 });
             }
+            for (let pl of insidePlayers) {
+                let ploc = s(() => pl.location);
+                if (!ploc) continue;
+                let dist = Math.hypot(ploc.x - c.x, ploc.z - c.z);
+                if (dist >= R0 - 30) {
+                    let ang = Math.atan2(ploc.z - c.z, ploc.x - c.x);
+                    for (let off of [-0.14, 0, 0.14]) {
+                        let th = ang + off;
+                        h(dim, p.domainPillar, { x: c.x + Math.cos(th) * R0, y: c.y + 0.05, z: c.z + Math.sin(th) * R0 });
+                    }
+                }
+            }
         }
         if (age % 2 === 0) {
-            let sc = low ? 1 : 3;
-            for (let k0 = 0; k0 < sc; k0++) {
-                let th = Math.random() * Math.PI * 2,
-                    rr = Math.sqrt(Math.random()) * (R0 - 1.5),
-                    sp0 = {
-                        x: c.x + Math.cos(th) * rr,
-                        y: c.y + 0.6 + Math.random() * 4.5,
-                        z: c.z + Math.sin(th) * rr,
-                    };
-                h(dim, p.domainCleaveBlack, sp0, woaVm(woaShrineRed, 0.9 + Math.random() * 0.45)),
-                    h(dim, p.domainCleaveRed, sp0, woaVm(woaShrineCrimsonGlow, 0.85 + Math.random() * 0.45)),
-                    k0 === 0 && h(dim, p.domainAsh, { x: sp0.x, y: c.y + 0.25, z: sp0.z });
+            let hubs = [c, ...insidePlayers.slice(0, 3).map((pl) => pl.location)];
+            for (let hIdx = 0; hIdx < hubs.length; hIdx++) {
+                let hub = hubs[hIdx];
+                if (!hub) continue;
+                let sc = hIdx === 0 ? (low ? 2 : 3) : low ? 1 : 2,
+                    spread = hIdx === 0 ? 15 : 22;
+                for (let k0 = 0; k0 < sc; k0++) {
+                    let th = Math.random() * Math.PI * 2,
+                        rr = 2.0 + Math.random() * spread,
+                        sx0 = hub.x + Math.cos(th) * rr,
+                        sz0 = hub.z + Math.sin(th) * rr;
+                    if ((sx0 - c.x) * (sx0 - c.x) + (sz0 - c.z) * (sz0 - c.z) > r2) continue;
+                    let sp0 = { x: sx0, y: c.y + 0.6 + Math.random() * 8.5, z: sz0 };
+                    h(dim, p.domainCleaveBlack, sp0, woaVm(woaShrineRed, 0.95 + Math.random() * 0.55)),
+                        h(dim, p.domainCleaveRed, sp0, woaVm(woaShrineCrimsonGlow, 0.9 + Math.random() * 0.5)),
+                        !low && k0 === 0 && h(dim, p.domainSlashArc, sp0, woaVm(woaShrineCrimsonGlow, 0.85 + Math.random() * 0.55)),
+                        k0 === 0 && h(dim, p.domainAsh, { x: sx0, y: c.y + 0.25, z: sz0 });
+                }
             }
         }
         age % woaDomainCfg.projEvery === 0 && woaSliceDomainProjs(dom, n);
-        age >= 10 && age % woaDomainCfg.blockEvery === 0 && dom.canBreak && pa("cut") && woaSliceDomainBlocks(dom, age);
-        if (age >= 8 && age % woaDomainCfg.slashEvery === 0) {
-            T(dim, b.domainSlash, c, 0.95 + Math.random() * 0.25, 0.9);
+        let isPressureTick = age % 10 === 0,
+            isSlashTick = age >= 8 && age % woaDomainCfg.slashEvery === 0;
+        if (isPressureTick || isSlashTick) {
+            isPressureTick && woaInsideDomainBounds(dom, s(() => caster.dimension?.id), s(() => caster.location)) && woaApplyCasterDomainBuffs(caster);
+            let heavyWave = !1,
+                cutBudget = 0;
+            if (isSlashTick) {
+                let waveIdx = ++dom.slashWave;
+                heavyWave = waveIdx % 4 === 0;
+                cutBudget = dom.canBreak && pa("cut") ? woaDomainCfg.hitBreakMaxPerStep : 0;
+                let audioHubs = 0;
+                T(dim, heavyWave ? b.domainCleave : b.domainSlash, c, 0.95 + Math.random() * 0.25, 0.92);
+                for (let pl of insidePlayers) {
+                    if (audioHubs >= 3) break;
+                    let ploc = s(() => pl.location);
+                    if (!ploc || Fn(ploc, c) < 48) continue;
+                    audioHubs++, T(dim, heavyWave ? b.domainCleave : b.domainSlash, ploc, 0.94 + Math.random() * 0.24, 0.78);
+                }
+            }
             let ents =
                 s(() =>
                     dim.getEntities({
@@ -3955,26 +4079,38 @@ function woaTickDomains(n) {
                     dx = gl.x - c.x,
                     dz = gl.z - c.z;
                 if (dx * dx + dz * dz > r2 || Math.abs(gl.y - c.y) > woaDomainCfg.vertRange) continue;
-                let dmg = woaDomainSlashDmg(g),
+                isPressureTick && woaApplyDomainPressure(g);
+                if (!isSlashTick) continue;
+                let hpComp = s(() => g.getComponent("minecraft:health")),
+                    lowHp = !!hpComp && hpComp.currentValue <= hpComp.effectiveMax * 0.4,
+                    isCleave = heavyWave || lowHp,
+                    dmg = woaDomainSlashDmg(g, isCleave),
                     gc = D(g);
                 woaDealMagic(caster, g, dmg),
-                    woaInflictSever(caster, g, n, 80),
-                    h(dim, p.domainCleaveBlack, gc, woaVm(woaShrineRed, 1.05)),
-                    h(dim, p.domainCleaveRed, gc, woaVm(woaShrineCrimsonGlow, 1.12)),
-                    !low && h(dim, p.slashSpark, gc, woaVm(woaShrineRed, 0.9)),
-                    h(dim, p.inkSpark, gc);
+                    woaInflictSever(caster, g, n, isCleave ? 100 : 80),
+                    h(dim, p.domainCleaveBlack, gc, woaVm(woaShrineRed, isCleave ? 1.4 : 1.15)),
+                    h(dim, p.domainCleaveRed, gc, woaVm(woaShrineCrimsonGlow, isCleave ? 1.45 : 1.18)),
+                    h(dim, p.domainSlashArc, gc, woaVm(isCleave ? woaShrineCrimsonGlow : woaShrineRed, isCleave ? 1.25 : 0.95)),
+                    !low && h(dim, p.slashSpark, gc, woaVm(woaShrineRed, isCleave ? 1.15 : 0.9)),
+                    h(dim, p.inkSpark, gc),
+                    g.typeId === "minecraft:player" && isCleave && woaShake(g, 0.22, 0.24),
+                    cutBudget > 0 && (cutBudget -= woaCarveTargetBlocks(dim, g, isCleave, c, cutBudget));
                 let pull = ht({ x: c.x - gl.x, y: 0, z: c.z - gl.z });
-                s(() => g.applyKnockback({ x: pull.x * 0.14, z: pull.z * 0.14 }, 0.08));
+                s(() => g.applyKnockback({ x: pull.x * 0.16, z: pull.z * 0.16 }, 0.08));
             }
         }
     }
 }
 function woaGetDomainHudInfo(e, n) {
     let own = woaDomains.get(e.id),
-        inside = woaInsideAnyDomain(s(() => e.dimension?.id), s(() => e.location)),
+        dimId = s(() => e.dimension?.id),
+        loc = s(() => e.location),
+        inside = woaInsideAnyDomain(dimId, loc),
+        ownInside = !!own && !own.ended && woaInsideDomainBounds(own, dimId, loc),
         showDom = own && !own.ended ? own : inside;
     return {
         suppressed: !!inside,
+        authority: ownInside,
         domainLeft: showDom ? Math.max(1, Math.ceil((showDom.endsAt - n) / 20)) : 0,
     };
 }
@@ -4004,6 +4140,7 @@ function na(e, t, n, i) {
         surgeActive: !domHud.suppressed && woaInSurge(t, n),
         bulwarkActive: !domHud.suppressed && !!t.wasBulwark,
         suppressed: domHud.suppressed,
+        domainAuthority: domHud.authority,
         domainLeft: domHud.domainLeft,
         nextEvict: woaNextEvictKey(e, t),
         pinCount: woaGetPrefs(e).pins.filter((pk) => woaIsAdapted(t, pk)).length,
@@ -5245,7 +5382,8 @@ function La(e, t, n, i) {
         h(r, p.severCut, D(t), woaVm(i?.el?.color ?? woaCrimsonColor, i?.primed ? 1.05 : 0.82)),
         wheelActive && i?.el && woaApplyElementalHit(e, t, i.el, !0),
         wheelActive && woaInflictSever(e, t, O.currentTick, i?.primed ? 160 : 120),
-        a && O.run(() => In(e, t));
+        a && O.run(() => In(e, t)),
+        t.isValid && Kn(t) && woaTryDomainCasterStrike(e, t, O.currentTick);
 }
 function Wa(e) {
     if (!f.slashCutsBlocks || !pa("cut")) return !1;
@@ -5808,6 +5946,15 @@ function Na(e, t) {
         _r(e, t),
         woaTickDomainCd(e, t),
         t % 20 === 0 && Cr(e),
+        !r &&
+            t % 20 === 0 &&
+            (() => {
+                let ownD = woaIsInOwnDomain(e);
+                if (ownD && !ownD.ended) {
+                    let sec = Math.max(1, Math.ceil((ownD.endsAt - t) / 20));
+                    Z(e, k("\xA74\xA7l", d("woa.hud.domain", String(sec)), " \xA78\xB7 \xA7c", d("woa.domain.authority")));
+                }
+            })(),
         !(!r || !i) && (ei(e, t), Sr(e, i, t), ia(e, t), ar(e, t));
 }
 de.runTimeout(() => woaCleanupOrphanShrines(), 20),
@@ -5821,13 +5968,24 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
         try {
             if (e.damage <= 0) return;
             let t = e.hurtEntity,
-                n = q(t);
+                n = q(t),
+                i = s(() => e.damageSource.damagingEntity),
+                atkLoc = i ?? s(() => e.damageSource.damagingProjectile);
+            if (woaDomains.size > 0 && !woaInPierce.has(t.id) && !Kr.has(e.damageSource.cause)) {
+                atkLoc && woaInsideOtherDomain(atkLoc) && (e.damage *= 0.65);
+                n && woaIsInOwnDomain(n) && (e.damage *= 0.75);
+            }
             if ((n && H(n.id) && Zr(e, n), e.cancel || e.damage <= 0)) return;
-            let i = e.damageSource.damagingEntity,
-                r = q(i);
+            let r = q(i);
             if (!r || r.id === t.id) return;
-            Xr(e, r, t), Pa(e, r, t),
-                !e.cancel && e.damage > 0 && e.damageSource.cause !== qe.magic && e.damageSource.cause !== qe.thorns && woaTryDreadSiphon(r, t, de.currentTick);
+            Xr(e, r, t),
+                Pa(e, r, t),
+                !e.cancel &&
+                    e.damage > 0 &&
+                    e.damageSource.cause !== qe.magic &&
+                    e.damageSource.cause !== qe.thorns &&
+                    !woaInPierce.has(t.id) &&
+                    (woaTryDreadSiphon(r, t, de.currentTick), woaTryDomainCasterStrike(r, t, de.currentTick));
         } catch {}
     }),
     I.beforeEvents.effectAdd.subscribe((e) => {

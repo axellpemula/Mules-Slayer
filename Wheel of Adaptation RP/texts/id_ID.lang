@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=Butuh >%s HP untuk Pengorbanan Domain
 woa.ui.status.domain_active=Domain: Aktif (%ss tersisa)
 woa.ui.status.domain_cd=Cooldown Domain: %ss
 woa.ui.status.domain_ready=Domain: Siap (Menunduk + Gunakan Lonceng)
+woa.domain.authority=Otoritas Kuil

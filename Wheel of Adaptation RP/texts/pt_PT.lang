@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=Requer >%s de Vida para Sacrificar pelo Domínio
 woa.ui.status.domain_active=Domínio: Ativo (%ss restantes)
 woa.ui.status.domain_cd=Recarga do Domínio: %ss
 woa.ui.status.domain_ready=Domínio: Pronto (Agache + Use Sino)
+woa.domain.authority=Autoridade do Santuário

@@ -237,3 +237,4 @@ woa.domain.toast.low_hp=領域の代償にはHPが%s以上必要
 woa.ui.status.domain_active=領域: 展開中 (残り %ss)
 woa.ui.status.domain_cd=領域クールダウン: %ss
 woa.ui.status.domain_ready=領域: 準備完了 (スニーク＋鈴)
+woa.domain.authority=御廚子の主権
