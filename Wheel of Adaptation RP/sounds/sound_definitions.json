@@ -273,6 +273,50 @@
           "volume": 0.72
         }
       ]
+    },
+    "xvoid.domain.fuga_open": {
+      "category": "player",
+      "min_distance": 22.0,
+      "max_distance": 112.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/fuga_open",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.domain.fuga_boom": {
+      "category": "player",
+      "min_distance": 28.0,
+      "max_distance": 128.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/fuga_boom",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.sword.world_slash": {
+      "category": "player",
+      "min_distance": 14.0,
+      "max_distance": 72.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/world_slash",
+          "volume": 1.0
+        }
+      ]
+    },
+    "xvoid.domain.clash": {
+      "category": "player",
+      "min_distance": 24.0,
+      "max_distance": 112.0,
+      "sounds": [
+        {
+          "name": "sounds/xvoid/domain_clash",
+          "volume": 0.95
+        }
+      ]
     }
   }
 }

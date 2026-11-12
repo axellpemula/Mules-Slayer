@@ -1,4 +1,15 @@
-import { EquipmentSlot as ft, MolangVariableMap as mv, system as de, world as I } from "@minecraft/server";
+import {
+    ButtonState,
+    CameraShakeType,
+    EntitySwingSource,
+    EquipmentSlot as ft,
+    HeldItemOption,
+    InputButton,
+    MolangVariableMap as mv,
+    PlayerInventoryType,
+    system as de,
+    world as I,
+} from "@minecraft/server";
 function ut(...e) {
     return e;
 }
@@ -49,6 +60,10 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         domainCleave: "xvoid.domain.cleave",
         domainShatter: "xvoid.domain.shatter",
         domainAura: "xvoid.domain.aura",
+        domainClash: "xvoid.domain.clash",
+        fugaOpen: "xvoid.domain.fuga_open",
+        fugaBoom: "xvoid.domain.fuga_boom",
+        worldSlash: "xvoid.sword.world_slash",
     },
     p = {
         spin: "xvoid:wheel_spin",
@@ -86,6 +101,9 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
         domainImplosion: "xvoid:domain_implosion",
         domainSlashArc: "xvoid:domain_slash_arc",
         domainPillarCore: "xvoid:domain_pillar_core",
+        fugaPillar: "xvoid:domain_fuga_pillar",
+        fugaTrail: "xvoid:domain_fuga_trail",
+        worldCut: "xvoid:world_cut_tear",
     },
     U = {
         stab: "animation.extermination_sword.stab",
@@ -194,9 +212,6 @@ var l = { light: 3, heavy: 4, arcane: 5, elite: 6, boss: 8 },
     },
     J = { radius: 6, damage: 7, knockback: 1.4, knockbackUp: 0.45, fxDelay: 4 },
     V = {
-        tagPrefix: "xvoid_w_",
-        scanRadius: 32,
-        scanInterval: 20,
         kinds: [
             { id: "sword", spins: l.heavy, glyph: "weaponSword", items: G("sword") },
             { id: "axe", spins: l.heavy, glyph: "weaponAxe", items: G("axe") },
@@ -271,8 +286,8 @@ function R(e, t) {
 function h(e, t, n, i) {
     s(() => (i ? e.spawnParticle(t, n, i) : e.spawnParticle(t, n)));
 }
-function T(e, t, n, i = 1, r = 1) {
-    s(() => e.playSound(t, n, { pitch: i, volume: r }));
+function T(e, t, n, i = 1, r = 1, o = void 0) {
+    return s(() => e.playSound(t, n, o ? { pitch: i, volume: r, ...o } : { pitch: i, volume: r }));
 }
 function ie(e, t) {
     if (woaIsSevered(e.id, N.currentTick)) return;
@@ -332,11 +347,12 @@ var woaGold = { r: 1.0, g: 0.84, b: 0.28 },
     woaGrounded = new Map(),
     woaSneakTicks = new Map(),
     woaSevered = new Map();
-function woaDealMagic(e, t, n) {
+function woaDealMagic(e, t, n, trueDmg = !1) {
     if (!t?.isValid || n <= 0) return;
     woaInPierce.add(t.id);
     try {
-        s(() => t.applyDamage(n, { cause: qe.magic, damagingEntity: e }));
+        let ok = trueDmg ? s(() => t.applyDamage(n, { cause: qe.override, damagingEntity: e })) : void 0;
+        (!trueDmg || ok === void 0) && s(() => t.applyDamage(n, { cause: qe.magic, damagingEntity: e }));
     } finally {
         woaInPierce.delete(t.id);
     }
@@ -442,8 +458,15 @@ function woaVm(e = woaGold, t = 1, n = 1) {
 }
 function woaShake(e, t, n, i = "rotational") {
     if (woaLowFx() || !e?.isValid) return;
-    let r = String(e.name ?? "").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    r && s(() => e.dimension.runCommand(`camerashake add "${r}" ${t} ${n} ${i}`));
+    let cam = s(() => e.camera);
+    if (!cam || typeof cam.addShake != "function") return;
+    s(() =>
+        cam.addShake({
+            intensity: Math.min(4, Math.max(0.01, t)),
+            duration: Math.max(0.05, n),
+            type: i === "positional" ? CameraShakeType.Positional : CameraShakeType.Rotational,
+        })
+    );
 }
 function woaHoriz(e) {
     let t = s(() => e.getViewDirection()) ?? { x: 0, y: 0, z: 1 },
@@ -721,6 +744,22 @@ var woaDeflected = new Map(),
     ]),
     woaDragonKeys = ["mob:minecraft:ender_dragon", "proj:minecraft:dragon_fireball"],
     woaWitherKeys = ["mob:minecraft:wither", "proj:minecraft:wither_skull", "proj:minecraft:wither_skull_dangerous"],
+    woaCreeperKeys = ["mob:minecraft:creeper", "env:creeper_explosion", "env:charged_creeper_explosion"],
+    woaBlazeKeys = [
+        "mob:minecraft:blaze",
+        "mob:minecraft:ghast",
+        "proj:minecraft:small_fireball",
+        "proj:minecraft:fireball",
+        "env:fireball_explosion",
+    ],
+    woaShulkerKeys = ["mob:minecraft:shulker", "proj:minecraft:shulker_bullet"],
+    woaTitanKeys = ["mob:minecraft:iron_golem", "mob:minecraft:ravager"],
+    woaCreeperColor = { r: 0.45, g: 0.96, b: 0.35 },
+    woaBlazeColor = { r: 1.0, g: 0.44, b: 0.1 },
+    woaShulkerColor = { r: 0.86, g: 0.42, b: 1.0 },
+    woaTitanColor = { r: 0.88, g: 0.92, b: 0.98 },
+    woaFugaColor = { r: 1.0, g: 0.56, b: 0.12 },
+    woaWorldCutColor = { r: 0.96, g: 0.84, b: 1.0 },
     woaBulwarkProjs = new Set([
         "minecraft:arrow",
         "minecraft:thrown_trident",
@@ -827,7 +866,7 @@ function woaParryRiposte(e, t, n, i, perf = !1) {
         woaParryFx(e, n, !1, perf),
         Z(e, perf ? w.swordParryPerfect : w.swordParry),
         !sup && (perf ? woaPrimeOverdrive(e, !0) : woaBumpCombo(e, 1));
-    if (!i?.isValid || i.id === e.id || Da(i) || !Kn(i) || e.dimension.id !== i.dimension.id) return;
+    if (!i?.isValid || i.id === e.id || Da(i, e) || !Kn(i) || e.dimension.id !== i.dimension.id) return;
     let r = s(() => i.getGameMode?.());
     if (r === Cn.Creative || r === Cn.Spectator || Fn(D(e), D(i)) > (perf ? 5.2 : 4.5)) return;
     let a = An(i),
@@ -904,7 +943,8 @@ function woaDeflectProjectile(e, t, n, i, r, a, o0) {
               s(() => i.clearVelocity()),
               s(() => i.applyImpulse(C(ue, Math.min(2.0, ze)))));
     }
-    return !0;
+    return (o === "minecraft:small_fireball" || o === "minecraft:fireball" || woaBlazeKeys.includes(_)) &&
+        woaTryBlazeHalo(e, t, n), !0;
 }
 function woaScanProjectiles(e, t, n) {
     if (n % 100 === 0 && woaDeflected.size)
@@ -990,7 +1030,7 @@ function woaFallSlam(e, t, n) {
             })
         ) ?? [];
     for (let $ of x) {
-        if (!$.isValid || !$.getComponent("minecraft:health") || Da($)) continue;
+        if (!$.isValid || !$.getComponent("minecraft:health") || Da($, e)) continue;
         let M = $.location,
             ue = M.x - r.x,
             ze = M.z - r.z,
@@ -1052,7 +1092,7 @@ function woaCounterShockwave(e, t, n) {
             ) ?? [],
         _ = new Set();
     for (let x of g) {
-        if (!x.isValid || !x.getComponent("minecraft:health") || Da(x)) continue;
+        if (!x.isValid || !x.getComponent("minecraft:health") || Da(x, e)) continue;
         _.add(x.id);
         let $ = x.location,
             M = $.x - r.x,
@@ -1062,7 +1102,7 @@ function woaCounterShockwave(e, t, n) {
             s(() => x.applyKnockback({ x: (M / ze) * 1.4, z: (ue / ze) * 1.4 }, 0.42)),
             h(x.dimension, p.ray, D(x), woaVm(c, 0.85));
     }
-    if (n?.isValid && n.id !== e.id && !_.has(n.id) && !Da(n) && n.getComponent("minecraft:health")) {
+    if (n?.isValid && n.id !== e.id && !_.has(n.id) && !Da(n, e) && n.getComponent("minecraft:health")) {
         let gm = s(() => n.getGameMode?.());
         if (gm !== Cn.Creative && gm !== Cn.Spectator) {
             let $ = n.location,
@@ -1090,7 +1130,7 @@ function woaInSurge(e, t) {
     return t < (e?.surgeUntil ?? 0);
 }
 function woaIsCombatThreat(e, t) {
-    if (!e?.isValid || e.id === t.id || Da(e) || !e.getComponent("minecraft:health")) return !1;
+    if (!e?.isValid || e.id === t.id || Da(e, t) || !e.getComponent("minecraft:health")) return !1;
     let tid = oe(e);
     if (tid === "minecraft:armor_stand") return !1;
     if (tid === "minecraft:player") return !0;
@@ -1170,7 +1210,7 @@ function woaTouchUsed(t, keys) {
     let now = Date.now();
     for (let k0 of keys) {
         let e0 = t.map.get(k0);
-        if (e0 && e0.s >= e0.n) e0.used = now;
+        if (e0 && e0.s >= e0.n) (e0.used = now), (t.dirty = !0);
     }
 }
 function woaCheckBlink(e, t, n, i, r) {
@@ -1363,31 +1403,55 @@ function woaTickBreathNova(e, t, n) {
             })
         ) ?? [];
     for (let g of ents) {
-        if (!g.isValid || g.id === e.id || Da(g)) continue;
+        if (!g.isValid || g.id === e.id || Da(g, e)) continue;
         let gm = s(() => g.getGameMode?.());
         if (gm === Cn.Spectator || gm === Cn.Creative) continue;
         if (!woaIsCombatThreat(g, e)) continue;
         woaDealMagic(e, g, 3), h(dim, p.orb, D(g), woaVm(woaDragonColor, 0.78));
     }
 }
+function woaRaycastCombatTargets(e, maxDist = 12) {
+    if (!e?.isValid) return [];
+    let hits = s(() => e.getEntitiesFromViewDirection({ maxDistance: maxDist, ignoreBlockCollision: !1 })) ?? [],
+        out = [];
+    for (let hr of hits) {
+        let g = hr?.entity;
+        if (!g?.isValid || g.id === e.id || g.typeId === shrineEntity || Da(g, e) || !Kn(g)) continue;
+        if (!s(() => g.getComponent("minecraft:health"))) continue;
+        let gm = s(() => g.getGameMode?.());
+        if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+        out.push(hr);
+    }
+    return out;
+}
 function woaTryAbyssalGaze(e, t, atk, n) {
     if (
         !e?.isValid ||
         woaInPierce.has(e.id) ||
         !woaPref(e, "guardian") ||
-        !atk?.isValid ||
-        atk.id === e.id ||
-        Da(atk) ||
-        !Kn(atk) ||
         s(() => e.getGameMode()) === Cn.Spectator ||
         !woaIsAdapted(t, "mob:minecraft:elder_guardian") ||
         n - (t.lastAbyssalGaze ?? -240) < 240
     )
         return;
-    let agm = s(() => atk.getGameMode?.());
-    if (agm === Cn.Spectator || agm === Cn.Creative) return;
-    let d = Fn(D(e), D(atk));
-    d > 10 || ((t.lastAbyssalGaze = n), woaTouchUsed(t, ["mob:minecraft:elder_guardian"]), N.run(() => woaFireAbyssalGaze(e, atk)));
+    let tgt = atk;
+    if (
+        !tgt?.isValid ||
+        tgt.id === e.id ||
+        tgt.typeId === shrineEntity ||
+        Da(tgt, e) ||
+        !Kn(tgt) ||
+        tgt.dimension?.id !== e.dimension?.id ||
+        Fn(D(e), D(tgt)) > 10
+    ) {
+        let rayHit = woaRaycastCombatTargets(e, 10).find((hr) => woaIsCombatThreat(hr.entity, e));
+        tgt = rayHit?.entity;
+    }
+    if (!tgt?.isValid) return;
+    let agm = s(() => tgt.getGameMode?.());
+    if (agm === Cn.Creative || agm === Cn.Spectator) return;
+    let d0 = Fn(D(e), D(tgt));
+    d0 > 10 || ((t.lastAbyssalGaze = n), woaTouchUsed(t, ["mob:minecraft:elder_guardian"]), N.run(() => woaFireAbyssalGaze(e, tgt)));
 }
 function woaFireAbyssalGaze(e, atk) {
     if (!e?.isValid || !atk?.isValid || !H(e.id) || woaIsSuppressed(e) || !Kn(atk) || e.dimension.id !== atk.dimension.id) return;
@@ -1413,7 +1477,7 @@ function woaTryDreadSiphon(e, t, n) {
         !e?.isValid ||
         !t?.isValid ||
         e.id === t.id ||
-        Da(t) ||
+        Da(t, e) ||
         woaInPierce.has(t.id) ||
         !H(e.id) ||
         woaIsSuppressed(e) ||
@@ -1450,6 +1514,176 @@ function woaDreadSiphon(e, t, fdim, floc) {
         T(e.dimension, b.nullify, Y(e), 0.72, 0.8),
         Z(e, w.trophySiphon);
 }
+function woaTryCreeperBlast(e, t, atk, n) {
+    if (
+        !e?.isValid ||
+        !H(e.id) ||
+        woaIsSuppressed(e) ||
+        !woaPref(e, "creeper") ||
+        !woaIsAnyAdapted(t, woaCreeperKeys) ||
+        n - (t.lastCreeperBlast ?? -240) < 240
+    )
+        return;
+    t.lastCreeperBlast = n;
+    woaTouchUsed(t, woaCreeperKeys);
+    N.run(() => {
+        if (!e.isValid || !H(e.id) || woaIsSuppressed(e)) return;
+        let dim = e.dimension,
+            loc = e.location,
+            gnd = ge(e, 0.08),
+            ctr = D(e),
+            low = woaLowFx();
+        T(dim, "random.explode", ctr, 1.42, 0.62),
+            T(dim, b.nullify, ctr, 1.18, 0.85),
+            h(dim, p.shockwave, gnd, woaVm(woaCreeperColor, 1.32)),
+            h(dim, p.sonic, gnd, woaVm(woaGold, 1.25)),
+            h(dim, p.burst, ctr, woaVm(woaCreeperColor, 1.1)),
+            low || h(dim, p.runeRing, gnd, woaVm(woaCreeperColor, 1.22, -1.6)),
+            woaShake(e, 0.14, 0.2),
+            Z(e, w.trophyCreeper);
+        let ents =
+            s(() =>
+                dim.getEntities({
+                    location: loc,
+                    maxDistance: 5.5,
+                    excludeFamilies: ["inanimate"],
+                    excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                })
+            ) ?? [];
+        for (let g of ents) {
+            if (!g.isValid || g.id === e.id || Da(g, e) || !Kn(g)) continue;
+            if (!woaIsCombatThreat(g, e) && g.id !== atk?.id) continue;
+            let gm = s(() => g.getGameMode?.());
+            if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+            let gl = g.location,
+                dx = gl.x - loc.x,
+                dz = gl.z - loc.z,
+                len = Math.hypot(dx, dz) || 1;
+            woaDealMagic(e, g, 7),
+                s(() => g.applyKnockback({ x: (dx / len) * 1.35, z: (dz / len) * 1.35 }, 0.42)),
+                h(dim, p.ray, D(g), woaVm(woaCreeperColor, 0.95));
+        }
+    });
+}
+function woaTryBlazeHalo(e, t, n) {
+    if (
+        !e?.isValid ||
+        !H(e.id) ||
+        woaIsSuppressed(e) ||
+        !woaPref(e, "blaze") ||
+        !woaIsAnyAdapted(t, woaBlazeKeys) ||
+        n - (t.lastBlazeHalo ?? -200) < 200
+    )
+        return;
+    t.lastBlazeHalo = n;
+    woaTouchUsed(t, woaBlazeKeys);
+    N.run(() => {
+        if (!e.isValid || !H(e.id) || woaIsSuppressed(e)) return;
+        let dim = e.dimension,
+            loc = e.location,
+            ctr = D(e),
+            low = woaLowFx();
+        T(dim, "mob.blaze.shoot", ctr, 1.18, 0.72),
+            T(dim, b.nullify, ctr, 1.25, 0.65),
+            h(dim, p.halo, ctr, woaVm(woaBlazeColor, 1.25)),
+            h(dim, p.shockwave, ge(e, 0.1), woaVm(woaBlazeColor, 1.15)),
+            low || woaRing(dim, p.ray, ctr, 10, 1.9, woaBlazeColor, 0.98, 0.35),
+            Z(e, w.trophyBlaze);
+        let ents =
+            s(() =>
+                dim.getEntities({
+                    location: loc,
+                    maxDistance: 5.2,
+                    excludeFamilies: ["inanimate"],
+                    excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                })
+            ) ?? [];
+        for (let g of ents) {
+            if (!g.isValid || g.id === e.id || Da(g, e) || !Kn(g)) continue;
+            if (!woaIsCombatThreat(g, e)) continue;
+            let gm = s(() => g.getGameMode?.());
+            if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+            woaDealMagic(e, g, 5),
+                s(() => g.setOnFire(4, !0)),
+                h(dim, p.ray, D(g), woaVm(woaBlazeColor, 0.95));
+        }
+    });
+}
+function woaTryShulkerStasis(e, t, g, n) {
+    if (
+        !e?.isValid ||
+        !g?.isValid ||
+        e.id === g.id ||
+        Da(g, e) ||
+        !Kn(g) ||
+        !H(e.id) ||
+        woaIsSuppressed(e) ||
+        !woaPref(e, "shulker") ||
+        !woaIsAnyAdapted(t, woaShulkerKeys) ||
+        n - (t.lastShulkerFloat ?? -200) < 200
+    )
+        return;
+    let gm = s(() => g.getGameMode?.());
+    if (gm === Cn.Creative || gm === Cn.Spectator) return;
+    t.lastShulkerFloat = n;
+    woaTouchUsed(t, woaShulkerKeys);
+    let dim = g.dimension,
+        gc = D(g);
+    s(() => g.addEffect("levitation", 25, { amplifier: 1, showParticles: !1 })),
+        s(() => g.addEffect("slowness", 40, { amplifier: 1, showParticles: !1 })),
+        h(dim, p.orb, gc, woaVm(woaShulkerColor, 1.05)),
+        h(dim, p.deflect, gc, woaVm(woaShulkerColor, 0.92)),
+        T(dim, "mob.shulker.bullet.hit", gc, 1.25, 0.65),
+        Z(e, w.trophyShulker);
+}
+function woaTryTitanSlam(e, t, target, n) {
+    if (
+        !e?.isValid ||
+        !target?.isValid ||
+        e.id === target.id ||
+        Da(target, e) ||
+        !H(e.id) ||
+        woaIsSuppressed(e) ||
+        !woaPref(e, "titan") ||
+        !woaIsAnyAdapted(t, woaTitanKeys)
+    )
+        return;
+    let hits = (t.titanHits ?? 0) + 1;
+    t.titanHits = hits;
+    if (hits < 4 || n - (t.lastTitanSlam ?? -160) < 160) return;
+    t.titanHits = 0;
+    t.lastTitanSlam = n;
+    woaTouchUsed(t, woaTitanKeys);
+    let dim = target.dimension,
+        loc = target.location,
+        gnd = ge(target, 0.08);
+    T(dim, "mob.irongolem.attack", loc, 1.05, 0.72),
+        T(dim, b.nullify, loc, 0.9, 0.65),
+        h(dim, p.shockwave, gnd, woaVm(woaTitanColor, 1.18)),
+        h(dim, p.sonic, gnd, woaVm(woaGold, 1.05)),
+        Z(e, w.trophyTitan);
+    let ents =
+        s(() =>
+            dim.getEntities({
+                location: loc,
+                maxDistance: 3.6,
+                excludeFamilies: ["inanimate"],
+                excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+            })
+        ) ?? [];
+    for (let g of ents) {
+        if (!g.isValid || g.id === e.id || Da(g, e) || !Kn(g)) continue;
+        if (g.id !== target.id && !woaIsCombatThreat(g, e)) continue;
+        let gm = s(() => g.getGameMode?.());
+        if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+        woaDealMagic(e, g, 5),
+            s(() => g.applyKnockback({ x: 0, z: 0 }, 0.52)),
+            h(dim, p.ray, D(g), woaVm(woaTitanColor, 0.9));
+    }
+}
+function woaHasWorldSlash(e) {
+    return !!e && (X(e) >= 8 || (X(e) >= 5 && woaIsAnyAdapted(e, ["mob:minecraft:enderman", "mob:minecraft:warden", "env:sonic_boom"])));
+}
 function woaBulwarkHitFx(e, t, n) {
     if (!e?.isValid) return;
     woaTouchUsed(t, woaWitherKeys);
@@ -1458,10 +1692,8 @@ function woaBulwarkHitFx(e, t, n) {
         h(dim, p.halo, D(e), woaVm(woaWitherColor, 0.85)),
         n - t.lastFlash >= 8 && ((t.lastFlash = n), T(dim, b.nullify, Y(e), 1.05, 0.82), Ze(e.id, n) || te(e, "react"));
 }
-function woaCheckParryInput(e, t, n) {
-    let cur = !!s(() => e.isSneaking),
-        prev = woaPrevSneak.get(e.id) ?? !1;
-    if ((woaPrevSneak.set(e.id, cur), !(!prev && cur) || !F.has(e.id) || !woaPref(e, "parry"))) return;
+function woaTriggerParry(e, t, n) {
+    if (!e?.isValid || !t || !F.has(e.id) || !woaPref(e, "parry")) return;
     if (n - (t.lastParryAt ?? -40) < 35) return;
     (t.parryUntil = n + 9), (t.parryAt = n), (t.lastParryAt = n);
     s(() => e.playAnimation(U.parry, { blendOutTime: 0.15, controller: U.controller, stopExpression: U.stop }));
@@ -1475,6 +1707,12 @@ function woaCheckParryInput(e, t, n) {
         T(dim, b.parryOpen, Y(e), 1.02, 0.52),
         T(dim, "item.shield.block", Y(e), 1.45, 0.32),
         woaShake(e, 0.04, 0.08, "positional");
+}
+function woaCheckParryInput(e, t, n) {
+    let cur = !!s(() => e.isSneaking),
+        prev = woaPrevSneak.get(e.id) ?? !1;
+    woaPrevSneak.set(e.id, cur);
+    !prev && cur && woaTriggerParry(e, t, n);
 }
 function woaTickTrophies(e, t, n) {
     if (!e?.isValid || s(() => e.getGameMode()) === Cn.Spectator) return;
@@ -1504,7 +1742,7 @@ function woaVoidRescue(e, t, n) {
         minY = s(() => dim.heightRange?.min) ?? (dim.id === "minecraft:overworld" ? -64 : 0);
     if (r.y >= minY - 2 || !woaIsAnyAdapted(t, ["env:fall", "env:void"]) || n - (t.lastVoidRescue ?? -1200) < 1200)
         return;
-    (t.lastVoidRescue = n), (t.graceUntil = Math.max(t.graceUntil, n + 100));
+    (t.lastVoidRescue = n), (t.lastVoidLevAt = n), (t.graceUntil = Math.max(t.graceUntil, n + 100));
     r.y < minY - 4 && s(() => e.teleport({ x: r.x, y: minY + 1, z: r.z }));
     let { f: fwd } = woaHoriz(e);
     s(() => e.clearVelocity()),
@@ -1731,30 +1969,14 @@ function Nn(e, t) {
 }
 import { EntityDamageCause as y, EntityTypes as Yn, EquipmentSlot as Zn } from "@minecraft/server";
 import { EquipmentSlot as Qn } from "@minecraft/server";
-var yt = Math.max(1, Math.floor(V.scanInterval / V.kinds.length));
-function wt(e) {
-    return V.tagPrefix + e.id;
-}
-function Xn(e, t) {
-    let n = wt(t),
-        i = `r=${V.scanRadius},type=!player`;
-    s(() => e.runCommand(`tag @e[${i},tag=${n}] remove ${n}`));
-    for (let r of t.items)
-        s(() => e.runCommand(`tag @e[${i},hasitem={item=${r},location=slot.weapon.mainhand}] add ${n}`));
-}
-function ei(e, t) {
-    let n = t % V.scanInterval;
-    if (n % yt !== 0) return;
-    let i = V.kinds[n / yt];
-    i && Xn(e, i);
-}
+var woaWeaponByItem = new Map();
+for (let k0 of V.kinds) for (let it0 of k0.items) woaWeaponByItem.set(it0, k0);
 function ti(e) {
     let t = s(() => e.getComponent("minecraft:equippable")?.getEquipment(Qn.Mainhand)?.typeId);
-    if (t) return V.kinds.find((n) => n.items.includes(t));
+    return t ? woaWeaponByItem.get(t) : void 0;
 }
 function ni(e) {
-    let t = q(e);
-    return t ? ti(t) : V.kinds.find((n) => s(() => e.hasTag(wt(n))));
+    return ti(e);
 }
 function vt(e) {
     return V.kinds.find((t) => t.id === e);
@@ -1867,6 +2089,10 @@ var ri = new Set([
         trophyGuardian: k(`${u.sonic} \xA7b`, d("woa.trophy.guardian")),
         trophyBulwark: k(`${u.shield} \xA75`, d("woa.trophy.bulwark")),
         trophySiphon: k(`${u.wither} \xA75`, d("woa.trophy.siphon")),
+        trophyCreeper: k(`${u.explosion} \xA7a`, d("woa.trophy.creeper")),
+        trophyBlaze: k(`${u.flame} \xA76`, d("woa.trophy.blaze")),
+        trophyShulker: k(`${u.sparkle} \xA7d`, d("woa.trophy.shulker")),
+        trophyTitan: k(`${u.shield} \xA7f`, d("woa.trophy.titan")),
         swordPierce: k(`${u.sword} \xA7e`, d("woa.sword.pierce")),
         swordPrimed: k(`${u.sparkle} \xA76`, d("woa.sword.primed")),
         swordSever: k(`${u.sword} \xA7c`, d("woa.sword.sever")),
@@ -1877,11 +2103,19 @@ var ri = new Set([
         swordPlunge: (e, t) => k(t ? `${u.sparkle} \xA76\xA7l` : `${u.sword} \xA76`, d("woa.sword.plunge"), ...(e && e !== "pure" ? [" \xA78\xB7 \xA7f", d(`woa.sword.${e}`)] : [])),
         swordOverdrive: (e) => k(`${u.sparkle} \xA76\xA7l`, d("woa.sword.overdrive"), " \xA78\xB7 \xA7f", d(`woa.sword.${e}`)),
         swordOverdriveAscended: (e) => k(`${u.sparkle} \xA7d\xA7l`, d("woa.sword.overdrive_ascended"), " \xA78\xB7 \xA7f", d(`woa.sword.${e}`)),
+        swordWorldSlash: k(`${u.sparkle} \xA7d\xA7l`, d("woa.sword.world_slash")),
         swordElSelected: (e) => k(`${u.sword} \xA76`, d("woa.sword.el.selected", e)),
         swordSlash: (e, t) => k(t ? `${u.sparkle} \xA76\xA7l` : `${u.sword} \xA7f`, d(`woa.sword.${e}`)),
         domainOpen: k(`${u.sparkle} \xA74\xA7l`, d("woa.domain.open")),
         domainEnded: k("\xA7c", d("woa.domain.ended")),
         domainShattered: k("\xA74\xA7l", d("woa.domain.shattered")),
+        domainDismissed: k("\xA77", d("woa.domain.dismissed")),
+        domainClash: k(`${u.sparkle} \xA7d\xA7l`, d("woa.domain.clash")),
+        domainClashWon: k(`${u.sparkle} \xA76\xA7l`, d("woa.domain.clash_won")),
+        domainFugaReady: k(`${u.flame} \xA76\xA7l`, d("woa.domain.fuga_ready")),
+        domainFugaOpen: k(`${u.flame} \xA76\xA7l`, d("woa.domain.fuga_open")),
+        domainFugaCharging: (e) => k(`${u.flame} \xA7e`, d("woa.domain.toast.fuga_charging", String(e))),
+        domainFugaUsed: k("\xA77", d("woa.domain.toast.fuga_used")),
         domainSuppressed: k(`${u.wheel} \xA7c`, d("woa.domain.suppressed")),
         domainRestored: k(`${u.wheel} \xA7a`, d("woa.domain.restored")),
         domainSneakHint: k("\xA77", d("woa.domain.toast.sneak_hint")),
@@ -2435,6 +2669,7 @@ function Gi(e, t) {
         badges = [
             ...(e.suppressed ? [` \xA7c${u.wheel}`] : []),
             ...(e.domainLeft > 0 ? [" \xA78\xB7 \xA74", d("woa.hud.domain", String(e.domainLeft))] : []),
+            ...(e.domainClashing ? [" \xA7d\xA7l", d("woa.hud.clash", String(e.domainClashHp), "6")] : e.domainFugaReady ? [" \xA76\xA7lFUGA"] : []),
             ...(e.domainAuthority ? [` \xA74${u.sword}`] : []),
             ...(!e.suppressed && e.surgeActive ? [` ${u.lightning}`] : []),
             ...(!e.suppressed && e.bulwarkActive ? [` \xA75${u.shield}`] : []),
@@ -2461,7 +2696,7 @@ function Ui(e) {
                 : e.swordTicks > 0
                   ? ["\xA77", w.seconds(Math.ceil(e.swordTicks / 20)), ` ${u.sword}`]
                   : ["\xA7a", w.ready, ` ${u.sword}`],
-        showCombat = e.swordTicks !== void 0 || e.combo > 0 || e.primed;
+        showCombat = e.swordTicks !== void 0 || e.combo > 0 || e.primed || e.wcsUnlocked;
     if (!showCombat) return base;
     let out = [...base];
     e.elementId &&
@@ -2471,6 +2706,14 @@ function Ui(e) {
         " \xA78\xB7 ",
         ...(e.primed ? [`\xA76\xA7l${u.sparkle} `, d("woa.hud.overdrive")] : [`\xA7f${e.combo}/3`])
     );
+    e.swordTicks !== void 0 &&
+        e.wcsUnlocked &&
+        out.push(
+            " \xA78\xB7 ",
+            ...(e.wcsCdTicks > 0
+                ? ["\xA78", d("woa.hud.wcs_cd", String(Math.ceil(e.wcsCdTicks / 20)))]
+                : [`\xA7d\xA7l${d("woa.hud.wcs_ready")}`])
+        );
     e.swordTicks !== void 0 &&
         e.parryEnabled &&
         out.push(
@@ -2488,13 +2731,17 @@ function Ji(e) {
         `${Nn(e.spin, m.handles)}`,
         ...(e.parryWindow
             ? [`  \xA76\xA7l${u.sword} `, d("woa.hud.parry_active")]
-            : e.domainAuthority
-              ? [`  \xA74\xA7l${u.sword} `, d("woa.domain.authority")]
-              : e.suppressed
-                ? [`  \xA7c\xA7l${u.wheel} `, d("woa.hud.suppressed")]
-                : e.surgeActive
-                  ? [`  \xA76\xA7l${u.sparkle} `, d("woa.hud.surge_tag")]
-                  : []),
+            : e.domainClashing
+              ? [`  \xA7d\xA7l${u.sparkle} `, d("woa.hud.clash", String(e.domainClashHp), "6")]
+              : e.domainFugaReady
+                ? [`  \xA76\xA7l${u.flame} `, d("woa.hud.fuga_tag")]
+                : e.domainAuthority
+                  ? [`  \xA74\xA7l${u.sword} `, d("woa.domain.authority")]
+                  : e.suppressed
+                    ? [`  \xA7c\xA7l${u.wheel} `, d("woa.hud.suppressed")]
+                    : e.surgeActive
+                      ? [`  \xA76\xA7l${u.sparkle} `, d("woa.hud.surge_tag")]
+                      : []),
     ];
     return k(
         ...top,
@@ -2562,6 +2809,12 @@ function Kt() {
         breathZone: void 0,
         lastAbyssalGaze: -240,
         lastDreadSiphon: -160,
+        lastCreeperBlast: -240,
+        lastBlazeHalo: -200,
+        lastShulkerFloat: -200,
+        lastVoidLevAt: -100,
+        titanHits: 0,
+        lastTitanSlam: -160,
         lastBulwarkToast: -200,
         lastGazeClear: -60,
         wasBulwark: !1,
@@ -2575,18 +2828,25 @@ var woaPrefsKey = "xvoid:player_prefs",
     woaDefaultPrefs = {
         element: "auto",
         parry: !0,
+        airArc: !0,
+        wcs: !0,
         blink: !0,
         breeze: !0,
         sonic: !0,
         dragon: !0,
         guardian: !0,
         wither: !0,
+        creeper: !0,
+        blaze: !0,
+        shulker: !0,
+        titan: !0,
         phase: !0,
         pins: [],
     },
     woaElementIds = ["auto", "pure", "fire", "storm", "venom", "frost"],
     woaPrefsMap = new Map(),
-    woaPrevSneak = new Map();
+    woaPrevSneak = new Map(),
+    woaWcsCd = new Map();
 function woaNormalizePins(e) {
     if (!Array.isArray(e)) return [];
     let t = [];
@@ -2601,12 +2861,18 @@ function woaParsePrefs(e) {
         return {
             element: woaElementIds.includes(t.element) ? t.element : "auto",
             parry: typeof t.parry == "boolean" ? t.parry : !0,
+            airArc: typeof t.airArc == "boolean" ? t.airArc : !0,
+            wcs: typeof t.wcs == "boolean" ? t.wcs : !0,
             blink: typeof t.blink == "boolean" ? t.blink : !0,
             breeze: typeof t.breeze == "boolean" ? t.breeze : !0,
             sonic: typeof t.sonic == "boolean" ? t.sonic : !0,
             dragon: typeof t.dragon == "boolean" ? t.dragon : !0,
             guardian: typeof t.guardian == "boolean" ? t.guardian : !0,
             wither: typeof t.wither == "boolean" ? t.wither : !0,
+            creeper: typeof t.creeper == "boolean" ? t.creeper : !0,
+            blaze: typeof t.blaze == "boolean" ? t.blaze : !0,
+            shulker: typeof t.shulker == "boolean" ? t.shulker : !0,
+            titan: typeof t.titan == "boolean" ? t.titan : !0,
             phase: typeof t.phase == "boolean" ? t.phase : !0,
             pins: woaNormalizePins(t.pins),
         };
@@ -3010,6 +3276,16 @@ function woaTickEffects(e, t, n) {
     for (let r of i) {
         let a = s(() => r.typeId),
             o = a ? _e(a) : void 0;
+        if (
+            a &&
+            We(a) === "levitation" &&
+            woaPref(e, "shulker") &&
+            woaIsAnyAdapted(t, woaShulkerKeys) &&
+            n > (t.lastVoidLevAt ?? -100) + 40
+        ) {
+            woaTouchUsed(t, woaShulkerKeys), s(() => e.removeEffect(a)), woaNullFx(e, "mob:minecraft:shulker", !0);
+            continue;
+        }
         if (!o) continue;
         let c = t.map.get(o.key);
         if (c && c.s >= c.n) {
@@ -3106,7 +3382,7 @@ function Dr(e, t) {
             })
         ) ?? [];
     for (let g of c) {
-        if (!g.isValid || !g.getComponent("minecraft:health") || Da(g)) continue;
+        if (!g.isValid || !g.getComponent("minecraft:health") || Da(g, e)) continue;
         let _ = g.location,
             x = _.x - i.x,
             $ = _.z - i.z,
@@ -3345,6 +3621,23 @@ function Zr(e, t) {
             (i.lastBlast = n), N.run(() => woaBlastJump(t, r.key));
             return;
         }
+        if (
+            !blastJump &&
+            (a === y.entityAttack || a === y.maceSmash || a === y.ramAttack || a === y.entityExplosion || a === y.blockExplosion) &&
+            ((atk?.isValid && atk.id !== t.id && Fn(D(t), D(atk)) <= 5.5) || a === y.entityExplosion)
+        )
+            woaTryCreeperBlast(t, i, atk, n);
+        if (
+            a === y.fire ||
+            a === y.fireTick ||
+            a === y.lava ||
+            a === y.magma ||
+            a === y.campfire ||
+            a === y.soulCampfire ||
+            r.key === "env:fireball_explosion" ||
+            woaBlazeKeys.includes(r.key)
+        )
+            woaTryBlazeHalo(t, i, n);
         if (a === y.suffocation && n - (i.lastPhase ?? -20) >= 10) {
             (i.lastPhase = n), N.run(() => woaSuffocationPhase(t));
             return;
@@ -3407,6 +3700,16 @@ function Zr(e, t) {
         N.run(() => woaParryRiposte(t, i, r.key, atk, !1));
         return;
     }
+    if (
+        (a === y.entityAttack || a === y.maceSmash || a === y.ramAttack || a === y.sonicBoom) &&
+        woaPref(t, "titan") &&
+        woaIsAnyAdapted(i, woaTitanKeys)
+    )
+        woaTouchUsed(i, woaTitanKeys),
+            pr(
+                t,
+                s(() => t.getVelocity())
+            );
     e.damage = e.damage * (1 - z.partialMax * (c.s / c.n));
     let g = e.damage,
         _ = c.s === 0,
@@ -3454,6 +3757,20 @@ function ea(e) {
             nowG = N.currentTick;
         nowG - (stG.lastGazeClear ?? -60) >= 60 &&
             ((stG.lastGazeClear = nowG), N.run(() => t.isValid && !woaIsSuppressed(t) && woaNullFx(t, "mob:minecraft:elder_guardian", !0)));
+        return;
+    }
+    if (
+        We(e.effectType ?? "") === "levitation" &&
+        woaPref(t, "shulker") &&
+        woaIsAnyAdapted(le(t), woaShulkerKeys) &&
+        N.currentTick > (le(t).lastVoidLevAt ?? -100) + 40
+    ) {
+        (e.cancel = !0);
+        let stS = le(t),
+            nowS = N.currentTick;
+        woaTouchUsed(stS, woaShulkerKeys),
+            nowS - (stS.lastGazeClear ?? -60) >= 60 &&
+                ((stS.lastGazeClear = nowS), N.run(() => t.isValid && !woaIsSuppressed(t) && woaNullFx(t, "mob:minecraft:shulker", !0)));
         return;
     }
     if (or(t.id, e.effectType)) return;
@@ -3511,12 +3828,19 @@ function ta(e) {
         (t.breathZone = void 0),
         (t.lastAbyssalGaze = -240),
         (t.lastDreadSiphon = -160),
+        (t.lastCreeperBlast = -240),
+        (t.lastBlazeHalo = -200),
+        (t.lastShulkerFloat = -200),
+        (t.lastVoidLevAt = -100),
+        (t.titanHits = 0),
+        (t.lastTitanSlam = -160),
         (t.lastBulwarkToast = -200),
         (t.lastGazeClear = -60),
         (t.wasBulwark = !1),
         (t.parryUntil = 0),
         (t.parryAt = -40),
         (t.lastParryAt = -40),
+        woaWcsCd.delete(e.id),
         woaSwordHealAt.delete(e.id),
         woaSwordCombo.delete(e.id),
         woaSwordPrimed.delete(e.id);
@@ -3548,6 +3872,7 @@ var woaDomainCdProp = "xvoid:domain_cd",
         collapseTicks: 12,
         cooldown: 6000,
         burnoutTicks: 160,
+        dismissBurnoutTicks: 40,
         minHpRatio: 0.35,
         upfrontRatio: 0.2,
         drainPerSec: 0.7,
@@ -3559,6 +3884,12 @@ var woaDomainCdProp = "xvoid:domain_cd",
         arriveBreakMax: 36,
         hitBreakMaxPerStep: 8,
         plinthSafeR: 6.0,
+        fugaReadyTicks: 40,
+        fugaWindupTicks: 14,
+        fugaArrowSpeed: 3.2,
+        fugaArrowRange: 48,
+        fugaBlastRadius: 14,
+        clashIntegrity: 6,
         cdCategory: "xvoid:domain_shrine",
     },
     woaDomainProtected = new Set([
@@ -3584,9 +3915,30 @@ var woaDomainCdProp = "xvoid:domain_cd",
     woaDomainCd = new Map(),
     woaSuppressedPrev = new Set(),
     woaSuppressSilent = new Map(),
+    woaFogTag = "woa_shrine",
+    woaFogId = "xvoid:malevolent_shrine",
+    woaFogActive = new Set(),
     woaShrineRed = { r: 0.96, g: 0.1, b: 0.18 },
     woaShrineCrimsonGlow = { r: 1.0, g: 0.22, b: 0.26 },
     woaShrineDark = { r: 0.58, g: 0.04, b: 0.14 };
+function woaSyncDomainFog(pl, tick, force = !1) {
+    if (!pl?.isValid) return;
+    let fs = s(() => pl.fogSettings);
+    if (!fs) return;
+    let inDom = !!woaInsideAnyDomain(s(() => pl.dimension?.id), s(() => pl.location)),
+        had = woaFogActive.has(pl.id);
+    if (inDom) {
+        if (!had || force) {
+            let tags = s(() => fs.getTags()) ?? [];
+            tags.includes(woaFogTag) || s(() => fs.push(woaFogId, woaFogTag));
+            woaFogActive.add(pl.id);
+        }
+    } else if (had || force || tick % 40 === 0) {
+        woaFogActive.delete(pl.id);
+        let tags = s(() => fs.getTags()) ?? [];
+        tags.includes(woaFogTag) && s(() => fs.remove(woaFogTag));
+    }
+}
 function woaCleanupOrphanShrines() {
     let activeIds = new Set([...woaDomains.values()].map((d0) => d0.shrine?.id).filter(Boolean));
     for (let dimId of ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"]) {
@@ -3605,6 +3957,43 @@ function woaInsideDomainBounds(dom, dimId, loc) {
 function woaInsideAnyDomain(dimId, loc) {
     if (!dimId || !loc || !woaDomains.size) return;
     for (let dom of woaDomains.values()) if (woaInsideDomainBounds(dom, dimId, loc)) return dom;
+}
+function woaDomainsOverlap(d1, d2) {
+    if (!d1 || !d2 || d1.ended || d2.ended || d1.casterId === d2.casterId || d1.dimId !== d2.dimId) return !1;
+    let dx = d1.center.x - d2.center.x,
+        dz = d1.center.z - d2.center.z,
+        maxR = 2 * woaDomainCfg.radius;
+    return dx * dx + dz * dz <= maxR * maxR && Math.abs(d1.center.y - d2.center.y) <= 2 * woaDomainCfg.vertRange;
+}
+function woaCountDomainsAt(dimId, loc) {
+    if (!dimId || !loc || !woaDomains.size) return 0;
+    let cnt = 0;
+    for (let dom of woaDomains.values()) woaInsideDomainBounds(dom, dimId, loc) && cnt++;
+    return cnt;
+}
+function woaIsClashingWith(atk, target) {
+    if (!atk?.isValid || !target?.isValid || woaDomains.size < 2) return !1;
+    let d1 = woaDomains.get(atk.id),
+        d2 = woaDomains.get(target.id);
+    return woaDomainsOverlap(d1, d2);
+}
+function woaApplyClashPressure(atk, target, amount = 1, n = Hn.currentTick) {
+    if (!atk?.isValid || !target?.isValid || atk.id === target.id || woaDomains.size < 2) return;
+    let dAtk = woaDomains.get(atk.id),
+        dTgt = woaDomains.get(target.id);
+    if (!woaDomainsOverlap(dAtk, dTgt)) return;
+    if (amount < 2 && n - (dTgt.lastClashHitAt ?? -20) < 8) return;
+    dTgt.lastClashHitAt = n;
+    dTgt.clashIntegrity = Math.max(0, (dTgt.clashIntegrity ?? woaDomainCfg.clashIntegrity) - amount);
+    let tc = D(target);
+    T(target.dimension, b.domainClash, tc, 1.12, 0.9),
+        h(target.dimension, p.shockwave, ge(target, 0.08), woaVm({ r: 0.95, g: 0.35, b: 1.0 }, 1.25)),
+        h(target.dimension, p.domainSlashArc, tc, woaVm({ r: 0.95, g: 0.35, b: 1.0 }, 1.15));
+    if (dTgt.clashIntegrity <= 0) {
+        woaEndDomain(target.id, !0);
+        T(atk.dimension, b.purify, D(atk), 1.35, 0.88),
+            Z(atk, w.domainClashWon);
+    }
 }
 function woaIsInOwnDomain(e) {
     if (!e?.isValid || !woaDomains.size) return;
@@ -3800,7 +4189,6 @@ function woaTryOpenDomain(e, n) {
         shrine = s(() => dim.spawnEntity(shrineEntity, spot, { initialRotation: yaw }));
     if (!shrine) return;
     woaSetDomainCd(e, n, woaDomainCfg.cooldown),
-        s(() => e.startItemCooldown(woaDomainCfg.cdCategory, woaDomainCfg.cooldown)),
         woaSuppressSilent.set(e.id, n + 1);
     let canBreak = gm !== Cn.Adventure && gm !== Cn.Spectator && !!pa("cut");
     canBreak && woaCarveShrineArrival(dim, spot);
@@ -3819,6 +4207,14 @@ function woaTryOpenDomain(e, n) {
         ended: !1,
         ringTheta: 0,
         slashWave: 0,
+        clashIntegrity: woaDomainCfg.clashIntegrity,
+        clashing: !1,
+        wasClashing: !1,
+        fugaUsed: !1,
+        fugaReadyNotified: !1,
+        fuga: void 0,
+        auraSound: void 0,
+        lastClashHitAt: -20,
         lastCasterStrikeAt: -20,
         lastCasterHealAt: -20,
     };
@@ -3844,7 +4240,225 @@ function woaTryOpenDomain(e, n) {
     for (let pl of nearbyPlayers)
         woaShake(pl, 0.42, 0.55),
             woaShake(pl, 0.32, 0.42, "positional"),
+            woaSyncDomainFog(pl, n, !0),
             Z(pl, w.domainOpen);
+}
+function woaTryBellUse(e, n) {
+    if (!e?.isValid) return;
+    let own = woaDomains.get(e.id);
+    if (own && !own.ended) {
+        if (n - own.startTick < 18) return;
+        if (s(() => e.isSneaking)) {
+            woaEndDomain(e.id, !1, !0);
+            return;
+        }
+        woaTryCastFuga(e, own, n);
+        return;
+    }
+    woaTryOpenDomain(e, n);
+}
+function woaTryCastFuga(e, dom, n) {
+    if (!e?.isValid || !dom || dom.ended) return !1;
+    let age = n - dom.startTick;
+    if (dom.fugaUsed) {
+        Z(e, w.domainFugaUsed);
+        return !0;
+    }
+    if (age < woaDomainCfg.fugaReadyTicks) {
+        let remS = Math.max(1, Math.ceil((woaDomainCfg.fugaReadyTicks - age) / 20));
+        T(e.dimension, b.nullify, D(e), 0.72, 0.55), Z(e, w.domainFugaCharging(remS));
+        return !0;
+    }
+    if (!woaInsideDomainBounds(dom, s(() => e.dimension?.id), s(() => e.location))) {
+        T(e.dimension, b.nullify, D(e), 0.72, 0.55), Z(e, w.domainAlreadyActive);
+        return !0;
+    }
+    dom.fugaUsed = !0;
+    let dim = e.dimension,
+        ctr = D(e),
+        openSnd = T(dim, b.fugaOpen, ctr, 1.0, 1.0);
+    dom.fuga = { phase: "windup", ticks: 0, openSound: openSnd };
+    s(() => e.playAnimation(U.overdrive, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop }));
+    s(() => e.addEffect("resistance", 32, { amplifier: 1, showParticles: !1 }));
+    T(dim, "mob.blaze.breathe", ctr, 0.78, 0.75),
+        h(dim, p.halo, ctr, woaVm(woaFugaColor, 1.4)),
+        h(dim, p.fugaTrail, ctr),
+        woaShake(e, 0.16, 0.35);
+    let nearby = s(() => dim.getPlayers({ location: dom.center, maxDistance: woaDomainCfg.radius + 18 })) ?? [];
+    for (let pl of nearby) Z(pl, w.domainFugaOpen);
+    return !0;
+}
+function woaDetonateFuga(caster, dom, impact, n) {
+    if (!dom || dom.ended || !caster?.isValid) return;
+    let dim = dom.dim,
+        low = woaLowFx(),
+        groundImpact = { x: impact.x, y: Math.max((s(() => dim.heightRange?.min) ?? -64) + 1, impact.y - 0.6), z: impact.z };
+    T(dim, b.fugaBoom, impact, 1.0, 1.0),
+        T(dim, "random.explode", impact, 0.72, 1.0),
+        h(dim, p.fugaPillar, groundImpact, woaVm(woaFugaColor, 1.42)),
+        h(dim, p.shockwave, groundImpact, woaVm(woaFugaColor, 3.6)),
+        h(dim, p.sonic, groundImpact, woaVm(woaShrineRed, 3.4)),
+        h(dim, p.flash, impact, woaVm(woaWhiteGold, 2.5)),
+        h(dim, p.domainCleaveRed, impact, woaVm(woaFugaColor, 2.4)),
+        low || woaRing(dim, p.fugaTrail, impact, 12, 4.5, woaFugaColor, 1.2, 0.5);
+    for (let k0 = 0; k0 < (low ? 8 : 16); k0++) {
+        let th = Math.random() * Math.PI * 2,
+            rr = 1.5 + Math.random() * 11;
+        h(dim, p.domainAsh, { x: impact.x + Math.cos(th) * rr, y: groundImpact.y + 0.5 + Math.random() * 3.0, z: impact.z + Math.sin(th) * rr });
+    }
+    if (dom.canBreak && pa("cut")) {
+        let bx = Math.floor(impact.x),
+            by = Math.floor(impact.y),
+            bz = Math.floor(impact.z),
+            minY = s(() => dim.heightRange?.min) ?? -64,
+            maxY = s(() => dim.heightRange?.max) ?? 319,
+            broke = 0;
+        for (let dx = -3; dx <= 3 && broke < 26; dx++)
+            for (let dz = -3; dz <= 3 && broke < 26; dz++) {
+                if (dx * dx + dz * dz > 10) continue;
+                for (let dy = -1; dy <= 2 && broke < 26; dy++) {
+                    let tx = bx + dx,
+                        ty = by + dy,
+                        tz = bz + dz;
+                    if (ty <= minY || ty >= maxY) continue;
+                    if (Math.hypot(tx + 0.5 - dom.center.x, tz + 0.5 - dom.center.z) <= woaDomainCfg.plinthSafeR && ty <= Math.floor(dom.center.y) + 1) continue;
+                    let blk = s(() => dim.getBlock({ x: tx, y: ty, z: tz }));
+                    woaCanCarveBlock(blk) && (s(() => blk.setType("minecraft:air")) !== void 0 || blk.isAir) && broke++;
+                }
+            }
+    }
+    let R0 = woaDomainCfg.radius,
+        r2 = R0 * R0,
+        br2 = woaDomainCfg.fugaBlastRadius * woaDomainCfg.fugaBlastRadius,
+        ents =
+            s(() =>
+                dim.getEntities({
+                    location: dom.center,
+                    maxDistance: R0 + 4,
+                    excludeFamilies: ["inanimate"],
+                    excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                })
+            ) ?? [];
+    for (let g of ents) {
+        if (!g.isValid || g.id === caster.id || g.typeId === shrineEntity || Da(g, caster) || !Kn(g)) continue;
+        let gm = s(() => g.getGameMode?.());
+        if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+        let gl = g.location,
+            dCx = gl.x - dom.center.x,
+            dCz = gl.z - dom.center.z;
+        if (dCx * dCx + dCz * dCz > r2 && Fn(gl, impact) > woaDomainCfg.fugaBlastRadius) continue;
+        let dist2 = (gl.x - impact.x) * (gl.x - impact.x) + (gl.y - impact.y) * (gl.y - impact.y) + (gl.z - impact.z) * (gl.z - impact.z),
+            inGroundZero = dist2 <= br2,
+            maxHp = s(() => g.getComponent("minecraft:health")?.effectiveMax) ?? 20,
+            dmg = inGroundZero
+                ? Math.min(36, 22 + Math.max(0, maxHp - 20) * 0.1 + (g.typeId === "minecraft:player" ? 4 : 0))
+                : Math.min(22, 11 + Math.max(0, maxHp - 20) * 0.06),
+            gc = D(g);
+        woaDealMagic(caster, g, dmg),
+            s(() => g.setOnFire(inGroundZero ? 8 : 5, !0)),
+            woaInflictSever(caster, g, n, inGroundZero ? 140 : 80),
+            woaApplyClashPressure(caster, g, inGroundZero ? 3 : 1, n),
+            h(dim, p.fugaTrail, gc),
+            h(dim, p.domainCleaveRed, gc, woaVm(woaFugaColor, inGroundZero ? 1.55 : 1.05));
+        if (inGroundZero) {
+            let push = ht({ x: gl.x - impact.x, y: 0, z: gl.z - impact.z });
+            Math.hypot(push.x, push.z) < 0.05 && (push = { x: 0, y: 0, z: 1 });
+            s(() => g.applyKnockback({ x: push.x * 1.45, z: push.z * 1.45 }, 0.55));
+        }
+    }
+    let pls = s(() => dim.getPlayers({ location: dom.center, maxDistance: R0 + 18 })) ?? [];
+    for (let pl of pls) woaShake(pl, 0.45, 0.58), woaShake(pl, 0.35, 0.48, "positional");
+}
+function woaTickFuga(dom, n) {
+    let f0 = dom.fuga;
+    if (!f0 || dom.ended) return;
+    let caster = dom.caster;
+    if (!caster?.isValid || !Kn(caster)) {
+        s(() => f0.openSound?.stop?.());
+        dom.fuga = void 0;
+        return;
+    }
+    if (f0.phase === "windup") {
+        f0.ticks++;
+        let { eye, forward } = Vn(caster),
+            hand = E(eye, C(forward, 1.15));
+        if (f0.ticks % 2 === 0) {
+            h(dom.dim, p.fugaTrail, hand, woaVm(woaFugaColor, 1.1)),
+                h(dom.dim, p.runeRing, ge(caster, 0.08), woaVm(woaFugaColor, 1.25, -1.6)),
+                h(dom.dim, p.ray, hand, woaVm(woaWhiteGold, 1.05));
+        }
+        if (f0.ticks >= woaDomainCfg.fugaWindupTicks) {
+            let v0 = Vn(caster),
+                launchPos = E(v0.eye, C(v0.forward, 1.35)),
+                lockHit = woaRaycastCombatTargets(caster, woaDomainCfg.fugaArrowRange)[0]?.entity,
+                launchDir = v0.forward;
+            if (lockHit?.isValid) {
+                let aim = ht(Bn(D(lockHit), launchPos));
+                pt(aim) > 0.01 && (launchDir = aim);
+            }
+            (f0.phase = "arrow"),
+                (f0.ticks = 0),
+                (f0.pos = launchPos),
+                (f0.dir = launchDir),
+                (f0.dist = 1.35),
+                T(dom.dim, "mob.blaze.shoot", f0.pos, 0.85, 0.95),
+                h(dom.dim, p.flash, f0.pos, woaVm(woaFugaColor, 1.35));
+        }
+        return;
+    }
+    if (f0.phase === "arrow") {
+        f0.ticks++;
+        let subSteps = 2,
+            stepLen = woaDomainCfg.fugaArrowSpeed / subSteps,
+            minY = s(() => dom.dim.heightRange?.min) ?? -64,
+            maxY = s(() => dom.dim.heightRange?.max) ?? 319,
+            detonatedAt;
+        for (let i0 = 0; i0 < subSteps; i0++) {
+            f0.pos = E(f0.pos, C(f0.dir, stepLen));
+            f0.dist += stepLen;
+            if (f0.pos.y <= minY + 1 || f0.pos.y >= maxY - 1) {
+                detonatedAt = f0.pos;
+                break;
+            }
+            h(dom.dim, p.fugaTrail, f0.pos),
+                h(dom.dim, p.ray, f0.pos, woaVm(woaFugaColor, 1.15)),
+                h(dom.dim, p.slashSpark, f0.pos, woaVm(woaWhiteGold, 0.95));
+            let hitEnt = (
+                s(() =>
+                    dom.dim.getEntities({
+                        location: f0.pos,
+                        maxDistance: 2.3,
+                        excludeFamilies: ["inanimate"],
+                        excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                    })
+                ) ?? []
+            ).find((g) => g.isValid && g.id !== caster.id && g.typeId !== shrineEntity && !Da(g, caster) && Kn(g));
+            if (hitEnt) {
+                detonatedAt = D(hitEnt);
+                break;
+            }
+            if (f0.dist >= 4.0) {
+                let blk = s(() => dom.dim.getBlock({ x: Math.floor(f0.pos.x), y: Math.floor(f0.pos.y), z: Math.floor(f0.pos.z) }));
+                if (blk && !blk.isAir && !blk.isLiquid && blk.isSolid !== !1) {
+                    detonatedAt = f0.pos;
+                    break;
+                }
+            }
+            let dCx = f0.pos.x - dom.center.x,
+                dCz = f0.pos.z - dom.center.z;
+            if (
+                f0.dist >= woaDomainCfg.fugaArrowRange ||
+                dCx * dCx + dCz * dCz >= (woaDomainCfg.radius - 2) * (woaDomainCfg.radius - 2)
+            ) {
+                detonatedAt = f0.pos;
+                break;
+            }
+        }
+        if (detonatedAt) {
+            dom.fuga = void 0;
+            woaDetonateFuga(caster, dom, detonatedAt, n);
+        }
+    }
 }
 function woaDomainSlashDmg(target, isCleave = !1) {
     let maxHp = s(() => target.getComponent("minecraft:health")?.effectiveMax) ?? 20,
@@ -3863,7 +4477,7 @@ function woaApplyCasterDomainBuffs(caster) {
         s(() => caster.addEffect("resistance", 24, { amplifier: 0, showParticles: !1 }));
 }
 function woaTryDomainCasterStrike(caster, target, n) {
-    if (!caster?.isValid || !target?.isValid || caster.id === target.id || target.typeId === shrineEntity || Da(target)) return;
+    if (!caster?.isValid || !target?.isValid || caster.id === target.id || target.typeId === shrineEntity || Da(target, caster)) return;
     let dom = woaIsInOwnDomain(caster);
     if (!dom || n - (dom.lastCasterStrikeAt ?? -20) < 10) return;
     dom.lastCasterStrikeAt = n;
@@ -3875,6 +4489,7 @@ function woaTryDomainCasterStrike(caster, target, n) {
             tc = D(target);
         woaDealMagic(caster, target, 5.0),
             woaInflictSever(caster, target, n, 100),
+            woaApplyClashPressure(caster, target, 1, n),
             h(td, p.domainCleaveRed, tc, woaVm(woaShrineCrimsonGlow, 1.32)),
             h(td, p.domainCleaveBlack, tc, woaVm(woaShrineRed, 1.2)),
             h(td, p.domainSlashArc, tc, woaVm(woaShrineCrimsonGlow, 1.1)),
@@ -3917,10 +4532,20 @@ function woaSliceDomainProjs(dom, n) {
             po === "minecraft:thrown_trident" ? s(() => pr0.clearVelocity()) : s(() => pr0.remove());
     }
 }
-function woaEndDomain(casterId, shattered = !1) {
+function woaEndDomain(casterId, shattered = !1, dismissed = !1) {
     let dom = woaDomains.get(casterId);
     if (!dom || dom.ended) return;
     dom.ended = !0;
+    let fugaSnd = dom.fuga?.openSound;
+    fugaSnd && s(() => fugaSnd.stop?.());
+    dom.fuga = void 0;
+    let auraSnd = dom.auraSound;
+    dom.auraSound = void 0;
+    if (auraSnd) {
+        typeof auraSnd.fade == "function"
+            ? (s(() => auraSnd.fade(0.55, 0)), R(12, () => s(() => auraSnd.stop?.())))
+            : s(() => auraSnd.stop?.());
+    }
     woaDomains.delete(casterId), woaSuppressSilent.set(casterId, Hn.currentTick + 1);
     let dim = dom.dim,
         spot = dom.center,
@@ -3930,29 +4555,53 @@ function woaEndDomain(casterId, shattered = !1) {
         s(() => shrine.triggerEvent("xvoid:set_collapse"));
         R(woaDomainCfg.collapseTicks + 1, () => s(() => shrine.isValid && shrine.remove()));
     }
-    T(dim, b.domainShatter, spot, shattered ? 0.9 : 1.0, 1.0),
-        h(dim, p.domainImplosion, ground, woaVm(woaShrineRed, 3.4)),
-        h(dim, p.domainImplosion, { x: ground.x, y: ground.y + 3.2, z: ground.z }, woaVm(woaShrineCrimsonGlow, 2.2)),
-        h(dim, p.shockwave, ground, woaVm(woaShrineRed, shattered ? 3.2 : 2.6)),
-        h(dim, p.sonic, ground, woaVm(woaShrineDark, 3.0));
+    T(dim, b.domainShatter, spot, shattered ? 0.9 : dismissed ? 1.15 : 1.0, dismissed ? 0.72 : 1.0),
+        h(dim, p.domainImplosion, ground, woaVm(woaShrineRed, dismissed ? 2.4 : 3.4)),
+        h(dim, p.domainImplosion, { x: ground.x, y: ground.y + 3.2, z: ground.z }, woaVm(woaShrineCrimsonGlow, dismissed ? 1.5 : 2.2)),
+        h(dim, p.shockwave, ground, woaVm(woaShrineRed, shattered ? 3.2 : dismissed ? 2.0 : 2.6)),
+        h(dim, p.sonic, ground, woaVm(woaShrineDark, dismissed ? 2.2 : 3.0));
     let caster = dom.caster,
-        toast = shattered ? w.domainShattered : w.domainEnded;
+        toast = shattered ? w.domainShattered : dismissed ? w.domainDismissed : w.domainEnded,
+        burnout = dismissed ? woaDomainCfg.dismissBurnoutTicks : woaDomainCfg.burnoutTicks;
     if (caster?.isValid) {
+        let remCd = woaDomainCdLeft(caster, Hn.currentTick);
+        remCd > 0 && s(() => caster.startItemCooldown(woaDomainCfg.cdCategory, remCd));
         if (!dom.creative && Kn(caster)) {
-            s(() => caster.addEffect("weakness", woaDomainCfg.burnoutTicks, { amplifier: 0, showParticles: !1 })),
-                s(() => caster.addEffect("slowness", woaDomainCfg.burnoutTicks, { amplifier: 0, showParticles: !1 }));
+            s(() => caster.addEffect("weakness", burnout, { amplifier: 0, showParticles: !1 })),
+                s(() => caster.addEffect("slowness", burnout, { amplifier: 0, showParticles: !1 }));
         }
-        woaShake(caster, shattered ? 0.34 : 0.22, 0.4), Z(caster, toast);
+        woaShake(caster, shattered ? 0.34 : dismissed ? 0.14 : 0.22, dismissed ? 0.25 : 0.4),
+            woaSyncDomainFog(caster, Hn.currentTick, !0),
+            Z(caster, toast);
     }
     let nearby = s(() => dim.getPlayers({ location: spot, maxDistance: woaDomainCfg.radius + 18 })) ?? [];
-    for (let pl of nearby) pl.id !== casterId && (woaShake(pl, 0.2, 0.3), Z(pl, toast));
+    for (let pl of nearby)
+        woaSyncDomainFog(pl, Hn.currentTick, !0),
+            pl.id !== casterId && (woaShake(pl, 0.2, 0.3), Z(pl, toast));
 }
 function woaTickDomains(n) {
     if (!woaDomains.size) return;
     let R0 = woaDomainCfg.radius,
-        r2 = R0 * R0;
-    for (let [casterId, dom] of [...woaDomains]) {
-        let caster = dom.caster,
+        r2 = R0 * R0,
+        allDoms = [...woaDomains.values()],
+        overlapMap = new Map();
+    for (let d0 of allDoms) overlapMap.set(d0.casterId, []);
+    if (allDoms.length > 1) {
+        for (let i0 = 0; i0 < allDoms.length; i0++) {
+            for (let j0 = i0 + 1; j0 < allDoms.length; j0++) {
+                let dA = allDoms[i0],
+                    dB = allDoms[j0];
+                if (woaDomainsOverlap(dA, dB)) {
+                    overlapMap.get(dA.casterId).push(dB);
+                    overlapMap.get(dB.casterId).push(dA);
+                }
+            }
+        }
+    }
+    for (let dom of allDoms) {
+        if (dom.ended) continue;
+        let casterId = dom.casterId,
+            caster = dom.caster,
             c = dom.center,
             dim = dom.dim,
             age = n - dom.startTick;
@@ -3977,6 +4626,13 @@ function woaTickDomains(n) {
             dom.activated = !0;
             s(() => dom.shrine.triggerEvent("xvoid:set_active"));
             h(dim, p.shockwave, { x: c.x, y: c.y + 0.1, z: c.z }, woaVm(woaShrineRed, 2.8));
+            dom.auraSound = T(dim, b.domainAura, c, 0.96, 0.78, { loopCount: -1 });
+        }
+        if (!dom.fugaReadyNotified && !dom.fugaUsed && age >= woaDomainCfg.fugaReadyTicks) {
+            dom.fugaReadyNotified = !0;
+            Z(caster, w.domainFugaReady);
+            h(dim, p.fugaTrail, { x: c.x, y: c.y + 4.5, z: c.z });
+            T(dim, "mob.blaze.ambient", caster.location, 1.35, 0.55);
         }
         if (!dom.creative && age > 0 && age % 20 === 0 && chp) {
             let nextV = Math.max(1, chp.currentValue - woaDomainCfg.drainPerSec);
@@ -3986,6 +4642,31 @@ function woaTickDomains(n) {
                 continue;
             }
         }
+        let rivals = (overlapMap.get(casterId) ?? []).filter((rv) => !rv.ended);
+        dom.wasClashing = dom.clashing;
+        dom.clashing = rivals.length > 0;
+        if (!dom.wasClashing && dom.clashing) {
+            Z(caster, w.domainClash);
+            T(dim, b.domainClash, c, 1.0, 0.95);
+            dom.auraSound && (s(() => dom.auraSound.setPitch?.(1.08)), s(() => dom.auraSound.setVolume?.(0.92)));
+        } else if (dom.wasClashing && !dom.clashing) {
+            dom.auraSound && (s(() => dom.auraSound.setPitch?.(0.96)), s(() => dom.auraSound.setVolume?.(0.78)));
+        }
+        if (dom.clashing && age % 20 === 0) {
+            for (let rv of rivals) {
+                if (casterId < rv.casterId) {
+                    let mid = {
+                        x: (c.x + rv.center.x) * 0.5,
+                        y: (c.y + rv.center.y) * 0.5 + 1.2,
+                        z: (c.z + rv.center.z) * 0.5,
+                    };
+                    T(dim, b.domainClash, mid, 1.05, 0.85),
+                        h(dim, p.shockwave, mid, woaVm({ r: 0.95, g: 0.35, b: 1.0 }, 2.6)),
+                        h(dim, p.domainSlashArc, mid, woaVm({ r: 1.0, g: 0.72, b: 0.2 }, 1.6));
+                }
+            }
+        }
+        dom.fuga && woaTickFuga(dom, n);
         let low = woaLowFx(),
             insidePlayers =
                 s(() =>
@@ -4000,7 +4681,7 @@ function woaTickDomains(n) {
                 h(dim, p.domainPillarCore, g0, woaVm(woaShrineRed, 1.3)),
                 h(dim, p.halo, { x: c.x, y: c.y + 5.2, z: c.z }, woaVm(woaShrineRed, 2.65));
         }
-        age % 80 === 0 && T(dim, b.domainAura, c, 0.96, 0.78);
+        !dom.auraSound && age % 80 === 0 && T(dim, b.domainAura, c, 0.96, 0.78);
         if (age % 4 === 0) {
             dom.ringTheta = (dom.ringTheta + 0.22) % (Math.PI * 2);
             let pts = low ? 4 : 8;
@@ -4072,7 +4753,7 @@ function woaTickDomains(n) {
                     })
                 ) ?? [];
             for (let g of ents) {
-                if (!g.isValid || g.id === casterId || g.typeId === shrineEntity || Da(g) || !Kn(g)) continue;
+                if (!g.isValid || g.id === casterId || g.typeId === shrineEntity || Da(g, caster) || !Kn(g)) continue;
                 let gm = s(() => g.getGameMode?.());
                 if (gm === Cn.Creative || gm === Cn.Spectator) continue;
                 let gl = g.location,
@@ -4081,6 +4762,12 @@ function woaTickDomains(n) {
                 if (dx * dx + dz * dz > r2 || Math.abs(gl.y - c.y) > woaDomainCfg.vertRange) continue;
                 isPressureTick && woaApplyDomainPressure(g);
                 if (!isSlashTick) continue;
+                if (dom.clashing && woaCountDomainsAt(dom.dimId, gl) > 1) {
+                    let gc0 = D(g);
+                    !low && h(dim, p.deflect, gc0, woaVm({ r: 0.95, g: 0.4, b: 1.0 }, 0.9)),
+                        !low && h(dim, p.domainSlashArc, gc0, woaVm({ r: 0.95, g: 0.4, b: 1.0 }, 0.85));
+                    continue;
+                }
                 let hpComp = s(() => g.getComponent("minecraft:health")),
                     lowHp = !!hpComp && hpComp.currentValue <= hpComp.effectiveMax * 0.4,
                     isCleave = heavyWave || lowHp,
@@ -4106,12 +4793,16 @@ function woaGetDomainHudInfo(e, n) {
         dimId = s(() => e.dimension?.id),
         loc = s(() => e.location),
         inside = woaInsideAnyDomain(dimId, loc),
-        ownInside = !!own && !own.ended && woaInsideDomainBounds(own, dimId, loc),
-        showDom = own && !own.ended ? own : inside;
+        ownActive = !!own && !own.ended,
+        ownInside = ownActive && woaInsideDomainBounds(own, dimId, loc),
+        showDom = ownActive ? own : inside;
     return {
         suppressed: !!inside,
         authority: ownInside,
         domainLeft: showDom ? Math.max(1, Math.ceil((showDom.endsAt - n) / 20)) : 0,
+        clashing: ownActive && !!own.clashing,
+        clashHp: ownActive ? (own.clashIntegrity ?? woaDomainCfg.clashIntegrity) : 0,
+        fugaReady: ownActive && !own.fugaUsed && n - own.startTick >= woaDomainCfg.fugaReadyTicks,
     };
 }
 function na(e, t, n, i) {
@@ -4125,6 +4816,8 @@ function na(e, t, n, i) {
         parryWin = holdSword && parryOn && n <= (t.parryUntil ?? 0),
         parryCd = holdSword ? Math.max(0, 35 - (n - (t.lastParryAt ?? -40))) : 0,
         domHud = woaGetDomainHudInfo(e, n),
+        wcsOn = holdSword && !!woaPref(e, "wcs") && woaHasWorldSlash(t) && (!domHud.suppressed || domHud.authority),
+        wcsCd = wcsOn ? Math.max(0, (woaWcsCd.get(e.id) ?? 0) - n) : 0,
         el = domHud.suppressed ? void 0 : woaGetSlashElement(t, e);
     return {
         adapted: X(t),
@@ -4142,6 +4835,11 @@ function na(e, t, n, i) {
         suppressed: domHud.suppressed,
         domainAuthority: domHud.authority,
         domainLeft: domHud.domainLeft,
+        domainClashing: domHud.clashing,
+        domainClashHp: domHud.clashHp,
+        domainFugaReady: domHud.fugaReady,
+        wcsUnlocked: wcsOn,
+        wcsCdTicks: wcsCd,
         nextEvict: woaNextEvictKey(e, t),
         pinCount: woaGetPrefs(e).pins.filter((pk) => woaIsAdapted(t, pk)).length,
         combo: woaSwordCombo.get(e.id) ?? 0,
@@ -4233,7 +4931,15 @@ import {
     system as un,
 } from "@minecraft/server";
 import { PlayerPermissionLevel as sa, system as la } from "@minecraft/server";
-import { ActionFormData as woaActionForm, FormCancelationReason as ca, ModalFormData as fa } from "@minecraft/server-ui";
+import {
+    ActionFormData as woaActionForm,
+    CustomForm as woaCustomForm,
+    DataDrivenScreenClosedReason as woaCloseReason,
+    FormCancelationReason as ca,
+    ModalFormData as fa,
+    ObservableBoolean as woaObsBool,
+    ObservableUIRawMessage as woaObsMsg,
+} from "@minecraft/server-ui";
 import { world as dn } from "@minecraft/server";
 var ua = ["mode", "slotLimit", "hungerCost", "cut", "keepOnDeath", "lowFx"],
     Te = ["starter", "crafting"],
@@ -4315,16 +5021,23 @@ function wa() {
     let e = at();
     return new fa()
         .title(P.title)
-        .dropdown(P.label("mode"), [P.starter, P.crafting], { defaultValueIndex: Te.indexOf(e.mode) })
-        .toggle(P.label("slotLimit"), { defaultValue: e.slotLimit })
-        .toggle(P.label("hungerCost"), { defaultValue: e.hungerCost })
-        .toggle(P.label("cut"), { defaultValue: e.cut })
-        .toggle(P.label("keepOnDeath"), { defaultValue: e.keepOnDeath })
-        .toggle(P.label("lowFx"), { defaultValue: e.lowFx })
+        .header(d("woa.config.sec_world"))
+        .dropdown(P.label("mode"), [P.starter, P.crafting], {
+            defaultValueIndex: Te.indexOf(e.mode),
+            tooltip: d("woa.config.tip.mode"),
+        })
+        .toggle(P.label("slotLimit"), { defaultValue: e.slotLimit, tooltip: d("woa.config.tip.slot_limit") })
+        .toggle(P.label("hungerCost"), { defaultValue: e.hungerCost, tooltip: d("woa.config.tip.hunger_cost") })
+        .divider()
+        .header(d("woa.config.sec_combat"))
+        .toggle(P.label("cut"), { defaultValue: e.cut, tooltip: d("woa.config.tip.cut") })
+        .toggle(P.label("keepOnDeath"), { defaultValue: e.keepOnDeath, tooltip: d("woa.config.tip.keep_on_death") })
+        .toggle(P.label("lowFx"), { defaultValue: e.lowFx, tooltip: d("woa.config.tip.low_fx") })
         .submitButton(P.save);
 }
 function va(e, t) {
-    let [n, sl, hc, i, r, a] = t,
+    let vals = t.filter((v) => v !== void 0),
+        [n, sl, hc, i, r, a] = vals,
         cur = at();
     gn(
         {
@@ -4356,6 +5069,26 @@ function woaShowForm(e, t, n, i = 0) {
         })
         .catch(() => {});
 }
+function woaShowCustomForm(e, buildFn, retry = 0) {
+    if (!e?.isValid) return;
+    let built;
+    try {
+        built = buildFn();
+    } catch {
+        return;
+    }
+    built.form
+        .show()
+        .then((reason) => {
+            if (reason === woaCloseReason.UserBusy && retry < 30) {
+                la.runTimeout(() => woaShowCustomForm(e, buildFn, retry + 1), 6);
+                return;
+            }
+            let next = built.getNext?.();
+            e.isValid && next && la.run(() => next());
+        })
+        .catch(() => {});
+}
 function ot(e, t = 0, returnToHub = !1) {
     if (!ya(e)) {
         returnToHub ? woaOpenWorldReadonly(e) : e.sendMessage(P.opsOnly);
@@ -4376,20 +5109,17 @@ function ot(e, t = 0, returnToHub = !1) {
     );
 }
 function woaOpenWorldReadonly(e) {
-    let cur = at(),
-        rows = ua.map((k0) => [
-            `\n\xA77\u2022 `,
-            P.label(k0),
-            `: \xA7f`,
-            P.value(k0, cur),
-        ]).flat();
+    let cur = at();
     woaShowForm(
         e,
-        () =>
-            new woaActionForm()
+        () => {
+            let f0 = new woaActionForm()
                 .title(d("woa.ui.world.readonly_title"))
-                .body(k("\xA7e", d("woa.ui.world.readonly_note"), "\n", ...rows))
-                .button(k("\u2190 ", d("woa.ui.back"))),
+                .header(k("\xA7e", d("woa.ui.world.readonly_note")))
+                .divider();
+            for (let k0 of ua) f0.label(k("\xA77\u2022 ", P.label(k0), ": \xA7f", P.value(k0, cur)));
+            return f0.divider().button(k("\u2190 ", d("woa.ui.back")));
+        },
         (n) => {
             !n.canceled && woaOpenCompendium(e);
         }
@@ -4442,6 +5172,34 @@ function woaTrophyStats(e) {
             desc: d("woa.ui.trophies.desc.wither", "50%", "35%"),
             pref: "wither",
         },
+        {
+            id: "creeper",
+            unlocked: woaIsAnyAdapted(e, woaCreeperKeys),
+            name: d("woa.trophy.creeper"),
+            desc: d("woa.ui.trophies.desc.creeper"),
+            pref: "creeper",
+        },
+        {
+            id: "blaze",
+            unlocked: woaIsAnyAdapted(e, woaBlazeKeys),
+            name: d("woa.trophy.blaze"),
+            desc: d("woa.ui.trophies.desc.blaze"),
+            pref: "blaze",
+        },
+        {
+            id: "shulker",
+            unlocked: woaIsAnyAdapted(e, woaShulkerKeys),
+            name: d("woa.trophy.shulker"),
+            desc: d("woa.ui.trophies.desc.shulker"),
+            pref: "shulker",
+        },
+        {
+            id: "titan",
+            unlocked: woaIsAnyAdapted(e, woaTitanKeys),
+            name: d("woa.trophy.titan"),
+            desc: d("woa.ui.trophies.desc.titan"),
+            pref: "titan",
+        },
     ];
     return { list, unlockedCount: list.filter((t) => t.unlocked).length };
 }
@@ -4469,6 +5227,7 @@ function woaEvoStats(e) {
         { unlocked: woaIsAdapted(e, "env:suffocation"), name: d("woa.evo.phase"), desc: d("woa.ui.trophies.desc.phase") },
         { unlocked: anyBlast, name: d("woa.evo.blast"), desc: d("woa.ui.trophies.desc.blast") },
         { unlocked: anyElem, name: d("woa.evo.elements"), desc: d("woa.ui.trophies.desc.elements") },
+        { unlocked: woaHasWorldSlash(e), name: d("woa.evo.world_slash"), desc: d("woa.ui.trophies.desc.world_slash") },
     ];
 }
 function woaOpenCompendium(e) {
@@ -4478,7 +5237,7 @@ function woaOpenCompendium(e) {
         prefs = woaGetPrefs(e),
         unlockedEls = woaGetUnlockedElements(st),
         effEl = prefs.element !== "auto" && unlockedEls.has(prefs.element) ? prefs.element : "auto",
-        { unlockedCount } = woaTrophyStats(st),
+        { list: trList, unlockedCount } = woaTrophyStats(st),
         combo = woaSwordPrimed.has(e.id) ? 3 : (woaSwordCombo.get(e.id) ?? 0),
         resText = woaSwordPrimed.has(e.id)
             ? k("\xA76\xA7l", d("woa.hud.overdrive"))
@@ -4491,38 +5250,35 @@ function woaOpenCompendium(e) {
         ownDom = woaDomains.get(e.id),
         domCd = woaDomainCdLeft(e, nowT),
         hasBell = Ea(e).has(shrineBell),
-        domLine =
+        domBadge =
             ownDom && !ownDom.ended
-                ? [`\n\xA74${u.sparkle} \xA7c`, d("woa.ui.status.domain_active", String(Math.max(1, Math.ceil((ownDom.endsAt - nowT) / 20))))]
+                ? k(`\xA74${u.sparkle} \xA7c`, d("woa.ui.status.domain_active", String(Math.max(1, Math.ceil((ownDom.endsAt - nowT) / 20)))))
                 : domCd > 0
-                  ? [`\n\xA74${u.hourglass} \xA77`, d("woa.ui.status.domain_cd", String(Math.ceil(domCd / 20)))]
+                  ? k(`\xA74${u.hourglass} \xA77`, d("woa.ui.status.domain_cd", String(Math.ceil(domCd / 20))))
                   : hasBell
-                    ? [`\n\xA74${u.sparkle} \xA7f`, d("woa.ui.status.domain_ready")]
-                    : [];
+                    ? k(`\xA74${u.sparkle} \xA7f`, d("woa.ui.status.domain_ready"))
+                    : void 0;
     woaShowForm(
         e,
-        () =>
-            new woaActionForm()
+        () => {
+            let f0 = new woaActionForm()
                 .title(d("woa.ui.title"))
-                .body(
+                .header(k(`${u.wheel} `, equipped ? "\xA7a" : "\xA77", d(equipped ? "woa.ui.status.equipped" : "woa.ui.status.unequipped")))
+                .label(
                     k(
-                        `${u.wheel} `,
-                        equipped ? "\xA7a" : "\xA77",
-                        d(equipped ? "woa.ui.status.equipped" : "woa.ui.status.unequipped"),
-                        `\n${u.shield} \xA7f`,
+                        `${u.shield} \xA7f`,
                         tactical
                             ? d("woa.ui.status.mode_tactical", String(adapted), String(z.slots))
                             : k(d("woa.ui.status.mode_unlimited"), ` \xA78\xB7 \xA7f${adapted} `, d("woa.hud.adapted")),
-                        pinBadge,
-                        `\n${u.sword} \xA7f`,
-                        d("woa.ui.status.element", woaElementName(effEl)),
-                        ` \xA78\xB7 `,
-                        d("woa.ui.status.resonance", resText),
-                        `\n${u.sparkle} \xA7f`,
-                        d("woa.ui.status.trophies", String(unlockedCount), "6"),
-                        ...domLine
+                        pinBadge
                     )
                 )
+                .label(k(`${u.sword} \xA7f`, d("woa.ui.status.element", woaElementName(effEl)), " \xA78\xB7 ", d("woa.ui.status.resonance", resText)))
+                .label(k(`${u.sparkle} \xA7f`, d("woa.ui.status.trophies", String(unlockedCount), String(trList.length))));
+            domBadge && f0.label(domBadge);
+            return f0
+                .divider()
+                .header(d("woa.ui.status.compendium_footer"))
                 .button(k(`${u.shield} `, d("woa.ui.menu.adaptations", String(adapted))), "textures/items/xvoid/wheel_of_adaptation")
                 .button(k(`${u.sparkle} `, d("woa.ui.menu.trophies")), "textures/ui/xvoid/hud_emblem")
                 .button(
@@ -4531,7 +5287,8 @@ function woaOpenCompendium(e) {
                 )
                 .button(k(`${u.check} `, d("woa.ui.menu.personal")))
                 .button(k(`${u.wheel} `, d("woa.ui.menu.world")), "textures/items/xvoid/adaptation_config")
-                .button(d("woa.ui.close")),
+                .button(d("woa.ui.close"));
+        },
         (n) => {
             if (n.canceled || n.selection === void 0) return;
             n.selection === 0
@@ -4580,10 +5337,11 @@ function woaOpenAdaptationsMenu(e) {
         () => {
             let f0 = new woaActionForm()
                 .title(d("woa.ui.adapt.title"))
-                .body(head)
+                .header(head)
+                .divider()
                 .button(k(`${u.wheel} `, d("woa.ui.adapt.all", String(counts.all))));
             for (let c of cats) f0.button(d(`woa.ui.adapt.cat.${c}`, String(counts[c])));
-            return f0.button(k("\u2190 ", d("woa.ui.back")));
+            return f0.divider().button(k("\u2190 ", d("woa.ui.back")));
         },
         (n) => {
             if (n.canceled || n.selection === void 0) return;
@@ -4624,17 +5382,14 @@ function woaOpenAdaptCategory(e, cat) {
             .sort((a, o) => (o[1].used ?? 0) - (a[1].used ?? 0));
         allFull.forEach(([k0], idx) => slotRank.set(k0, idx + 1));
     }
-    let headerParts = [`${u.sparkle} \xA7b`, d("woa.ui.adapt.pins_status", String(prefs.pins.length), String(woaMaxPins))];
-    nextEvict && headerParts.push(`\n${u.wheel} \xA7c`, d("woa.ui.adapt.next_evict", Fe(nextEvict)));
-    ordered.length
-        ? headerParts.push("\n\xA77", d("woa.ui.adapt.select_hint"))
-        : headerParts.push("\n\n\xA77", d("woa.ui.adapt.none"));
     woaShowForm(
         e,
         () => {
             let f0 = new woaActionForm()
                 .title(cat === "all" ? d("woa.ui.adapt.all", String(entries.length)) : d(`woa.ui.adapt.cat.${cat}`, String(entries.length)))
-                .body(k(...headerParts));
+                .header(k(`${u.sparkle} \xA7b`, d("woa.ui.adapt.pins_status", String(prefs.pins.length), String(woaMaxPins))));
+            nextEvict && f0.label(k(`${u.wheel} \xA7c`, d("woa.ui.adapt.next_evict", Fe(nextEvict))));
+            f0.label(k("\xA77", d(ordered.length ? "woa.ui.adapt.select_hint" : "woa.ui.adapt.none"))).divider();
             for (let it0 of ordered) {
                 let pinned = pinSet.has(it0.key),
                     full = it0.s >= it0.n,
@@ -4662,108 +5417,145 @@ function woaOpenAdaptCategory(e, cat) {
     );
 }
 function woaOpenAdaptEntry(e, key, backCat) {
-    let { st } = woaGetCompendiumState(e),
-        ent = st.map.get(key),
-        pend = st.pending.get(key),
-        pinned = woaIsPinned(e, key),
-        pins = woaGetPrefs(e).pins,
-        nextEvict = woaNextEvictKey(e, st),
-        elId = woaClassifyElement(key),
-        sVal = ent?.s ?? 0,
-        nVal = ent?.n ?? Hi(key)?.spins ?? 4,
-        isFull = sVal >= nVal,
-        parts = [
-            `${xe(key)} \xA7f\xA7l`,
-            Fe(key),
-            "\xA7r\n",
-            isFull ? k("\xA76\xA7l", d("woa.toast.adapted")) : k("\xA7f", gt(sVal, nVal), ` \xA77(${sVal}/${nVal})`),
-        ];
-    if (!isFull && pend && pend.hits > 0) {
-        let need = et(key);
-        parts.push("\n\xA77", d("woa.ui.adapt.watching", String(Math.floor(pend.hits * 10) / 10), String(need)));
-    }
-    elId && parts.push("\n\xA77", d("woa.ui.status.element", woaElementName(elId)));
-    pinned
-        ? parts.push(`\n${u.sparkle} \xA7b`, d("woa.ui.adapt.pinned_note"))
-        : nextEvict === key && parts.push(`\n${u.wheel} \xA7c`, d("woa.ui.adapt.evict_warn"));
-    let actions = [];
-    (ent || pinned) && actions.push("pin"),
-        (sVal > 0 || (pend && pend.hits > 0)) && actions.push("forget");
-    woaShowForm(
-        e,
-        () => {
-            let f0 = new woaActionForm().title(Fe(key)).body(k(...parts));
-            for (let act of actions)
-                act === "pin"
-                    ? f0.button(
-                          pinned
-                              ? k(`${u.handleOff} \xA7e`, d("woa.ui.adapt.unpin"))
-                              : k(`${u.sparkle} \xA7b`, d("woa.ui.adapt.pin", String(pins.length), String(woaMaxPins)))
-                      )
-                    : f0.button(k(`${u.skull} \xA7c`, d("woa.ui.adapt.forget")));
-            return f0.button(k("\u2190 ", d("woa.ui.back")));
-        },
-        (n) => {
-            if (n.canceled || n.selection === void 0) return;
-            let act = actions[n.selection];
-            if (act === "pin") {
-                let res = woaTogglePin(e, key);
-                res.ok
-                    ? (T(e.dimension, b.nullify, Y(e), res.pinned ? 1.35 : 0.9, 0.65),
-                      Z(e, k(res.pinned ? `${u.sparkle} \xA7b` : "\xA77", d(res.pinned ? "woa.ui.adapt.pinned_toast" : "woa.ui.adapt.unpinned_toast", Fe(key)))))
-                    : (T(e.dimension, b.nullify, Y(e), 0.6, 0.5),
-                      Z(e, k("\xA7c", d("woa.ui.adapt.pin_limit", String(woaMaxPins)))));
-                woaOpenAdaptEntry(e, key, backCat);
-                return;
-            }
-            if (act === "forget") {
-                woaForgetAdaptation(e, key), woaOpenAdaptCategory(e, backCat);
-                return;
-            }
-            woaOpenAdaptCategory(e, backCat);
+    woaShowCustomForm(e, () => {
+        let { st } = woaGetCompendiumState(e),
+            ent = st.map.get(key),
+            pend = st.pending.get(key),
+            pinned = woaIsPinned(e, key),
+            pins = woaGetPrefs(e).pins,
+            nextEvict = woaNextEvictKey(e, st),
+            elId = woaClassifyElement(key),
+            sVal = ent?.s ?? 0,
+            nVal = ent?.n ?? Hi(key)?.spins ?? 4,
+            isFull = sVal >= nVal,
+            nextAction,
+            pinNoteMsg = (isP, evictK) =>
+                isP
+                    ? k(`${u.sparkle} \xA7b`, d("woa.ui.adapt.pinned_note"))
+                    : evictK === key
+                      ? k(`${u.wheel} \xA7c`, d("woa.ui.adapt.evict_warn"))
+                      : k(""),
+            pinBtnMsg = (isP, cnt) =>
+                isP
+                    ? k(`${u.handleOff} \xA7e`, d("woa.ui.adapt.unpin"))
+                    : k(`${u.sparkle} \xA7b`, d("woa.ui.adapt.pin", String(cnt), String(woaMaxPins))),
+            pinStatusObs = new woaObsMsg(pinNoteMsg(pinned, nextEvict)),
+            pinStatusVisObs = new woaObsBool(pinned || nextEvict === key),
+            pinBtnLabelObs = new woaObsMsg(pinBtnMsg(pinned, pins.length)),
+            pinBtnDisabledObs = new woaObsBool(!pinned && pins.length >= woaMaxPins),
+            pinTipMsg = (isP, cnt) =>
+                !isP && cnt >= woaMaxPins
+                    ? d("woa.ui.adapt.pin_full_tip", String(cnt), String(woaMaxPins))
+                    : d("woa.ui.adapt.pin_tip"),
+            pinBtnTipObs = new woaObsMsg(pinTipMsg(pinned, pins.length)),
+            form = new woaCustomForm(e, Fe(key))
+                .header(k(`${xe(key)} \xA7f`, Fe(key)))
+                .label(isFull ? k("\xA76\xA7l", d("woa.toast.adapted")) : k("\xA7f", gt(sVal, nVal), ` \xA77(${sVal}/${nVal})`));
+        if (!isFull && pend && pend.hits > 0) {
+            let need = et(key);
+            form.label(k("\xA77", d("woa.ui.adapt.watching", String(Math.floor(pend.hits * 10) / 10), String(need))));
         }
-    );
+        elId && form.label(k("\xA77", d("woa.ui.status.element", woaElementName(elId))));
+        form.label(pinStatusObs, { visible: pinStatusVisObs }).divider();
+        if (ent || pinned) {
+            form.button(
+                pinBtnLabelObs,
+                () => {
+                    let res = woaTogglePin(e, key);
+                    if (res.ok) {
+                        pinned = res.pinned;
+                        let nowPins = woaGetPrefs(e).pins,
+                            nowEvict = woaNextEvictKey(e, st);
+                        pinBtnLabelObs.setData(pinBtnMsg(pinned, nowPins.length)),
+                            pinStatusObs.setData(pinNoteMsg(pinned, nowEvict)),
+                            pinStatusVisObs.setData(pinned || nowEvict === key),
+                            pinBtnDisabledObs.setData(!pinned && nowPins.length >= woaMaxPins),
+                            pinBtnTipObs.setData(pinTipMsg(pinned, nowPins.length)),
+                            T(e.dimension, b.nullify, Y(e), pinned ? 1.35 : 0.9, 0.65),
+                            Z(e, k(pinned ? `${u.sparkle} \xA7b` : "\xA77", d(pinned ? "woa.ui.adapt.pinned_toast" : "woa.ui.adapt.unpinned_toast", Fe(key))));
+                    } else {
+                        let nowPins = woaGetPrefs(e).pins;
+                        pinBtnDisabledObs.setData(!0),
+                            pinBtnTipObs.setData(pinTipMsg(!1, nowPins.length)),
+                            T(e.dimension, b.nullify, Y(e), 0.6, 0.5),
+                            Z(e, k("\xA7c", d("woa.ui.adapt.pin_limit", String(woaMaxPins))));
+                    }
+                },
+                {
+                    disabled: pinBtnDisabledObs,
+                    tooltip: pinBtnTipObs,
+                }
+            );
+        }
+        if (sVal > 0 || (pend && pend.hits > 0)) {
+            form.button(
+                k(`${u.skull} \xA7c`, d("woa.ui.adapt.forget")),
+                () => {
+                    woaForgetAdaptation(e, key), (nextAction = () => woaOpenAdaptCategory(e, backCat));
+                    try {
+                        form.close();
+                    } catch {}
+                },
+                { tooltip: d("woa.ui.adapt.forget_tip") }
+            );
+        }
+        form
+            .button(
+                k("\u2190 ", d("woa.ui.back")),
+                () => {
+                    nextAction = () => woaOpenAdaptCategory(e, backCat);
+                    try {
+                        form.close();
+                    } catch {}
+                },
+                { tooltip: d("woa.ui.personal.back_tip") }
+            )
+            .closeButton();
+        return { form, getNext: () => nextAction };
+    });
 }
 function woaOpenTrophiesMenu(e) {
     let { st } = woaGetCompendiumState(e),
         prefs = woaGetPrefs(e),
-        { list: trList } = woaTrophyStats(st),
+        { list: trList, unlockedCount } = woaTrophyStats(st),
         evList = woaEvoStats(st),
-        parts = ["\xA76\xA7l", d("woa.ui.trophies.section_trophies"), "\xA7r"];
-    for (let t of trList) {
-        let onBadge = prefs[t.pref] ? "\xA7aON" : "\xA7cOFF";
-        parts.push(
-            "\n",
-            t.unlocked ? "\xA7a[" : "\xA78[",
-            d(t.unlocked ? "woa.ui.trophies.unlocked" : "woa.ui.trophies.locked"),
-            "] ",
-            t.unlocked ? "\xA7f" : "\xA77",
-            t.name,
-            ` \xA78[${onBadge}\xA78]\n\xA77  `,
-            t.desc
-        );
-    }
-    parts.push("\n\n\xA76\xA7l", d("woa.ui.trophies.section_evos"), "\xA7r");
-    for (let ev of evList) {
-        parts.push(
-            "\n",
-            ev.unlocked ? "\xA7a[" : "\xA78[",
-            d(ev.unlocked ? "woa.ui.trophies.unlocked" : "woa.ui.trophies.locked"),
-            "] ",
-            ev.unlocked ? "\xA7f" : "\xA77",
-            ev.name,
-            "\n\xA77  ",
-            ev.desc
-        );
-    }
+        evUnlocked = evList.filter((ev) => ev.unlocked).length;
     woaShowForm(
         e,
-        () =>
-            new woaActionForm()
+        () => {
+            let f0 = new woaActionForm()
                 .title(d("woa.ui.trophies.title"))
-                .body(k(...parts))
-                .button(k(`${u.check} `, d("woa.ui.menu.personal")))
-                .button(k("\u2190 ", d("woa.ui.back"))),
+                .header(k("\xA76", d("woa.ui.trophies.section_trophies"), ` \xA78(${unlockedCount}/${trList.length})`));
+            for (let t of trList) {
+                let onBadge = prefs[t.pref] ? "\xA7aON" : "\xA7cOFF";
+                f0.label(
+                    k(
+                        t.unlocked ? "\xA7a[" : "\xA78[",
+                        d(t.unlocked ? "woa.ui.trophies.unlocked" : "woa.ui.trophies.locked"),
+                        "] ",
+                        t.unlocked ? "\xA7f" : "\xA77",
+                        t.name,
+                        ` \xA78[${onBadge}\xA78]\n\xA77  `,
+                        t.desc
+                    )
+                );
+            }
+            f0.divider().header(k("\xA76", d("woa.ui.trophies.section_evos"), ` \xA78(${evUnlocked}/${evList.length})`));
+            for (let ev of evList) {
+                f0.label(
+                    k(
+                        ev.unlocked ? "\xA7a[" : "\xA78[",
+                        d(ev.unlocked ? "woa.ui.trophies.unlocked" : "woa.ui.trophies.locked"),
+                        "] ",
+                        ev.unlocked ? "\xA7f" : "\xA77",
+                        ev.name,
+                        "\n\xA77  ",
+                        ev.desc
+                    )
+                );
+            }
+            return f0.divider().button(k(`${u.check} `, d("woa.ui.menu.personal"))).button(k("\u2190 ", d("woa.ui.back")));
+        },
         (n) => {
             if (n.canceled || n.selection === void 0) return;
             n.selection === 0 ? woaOpenPersonalSettings(e) : woaOpenCompendium(e);
@@ -4771,82 +5563,154 @@ function woaOpenTrophiesMenu(e) {
     );
 }
 function woaOpenElementMenu(e) {
-    let { st } = woaGetCompendiumState(e),
-        unlocked = woaGetUnlockedElements(st),
-        cur = woaGetPrefs(e).element,
-        colors = { auto: "\xA7f", pure: "\xA76", fire: "\xA7c", storm: "\xA7b", venom: "\xA7a", frost: "\xA79" },
-        reqKeys = {
-            pure: "woa.ui.element.req_pure",
-            fire: "woa.ui.element.req_fire",
-            storm: "woa.ui.element.req_storm",
-            venom: "woa.ui.element.req_venom",
-            frost: "woa.ui.element.req_frost",
-        };
-    woaShowForm(
-        e,
-        () => {
-            let f0 = new woaActionForm().title(d("woa.ui.element.title")).body(d("woa.ui.element.body"));
-            for (let id of woaElementIds) {
-                let ok = id === "auto" || unlocked.has(id),
-                    sel = cur === id,
-                    pre = sel ? `${u.check} \xA7a` : ok ? colors[id] : "\xA78";
-                f0.button(
-                    ok
-                        ? k(pre, woaElementName(id), sel ? k(" \xA78[", d("woa.ui.element.active"), "\xA78]") : "")
-                        : k("\xA78", woaElementName(id), "\n\xA78", d(reqKeys[id]))
-                );
-            }
-            return f0.button(k("\u2190 ", d("woa.ui.back")));
-        },
-        (n) => {
-            if (n.canceled || n.selection === void 0) return;
-            if (n.selection >= woaElementIds.length) {
-                woaOpenCompendium(e);
-                return;
-            }
-            let pick = woaElementIds[n.selection],
-                ok = pick === "auto" || unlocked.has(pick);
-            if (!ok) {
-                Z(e, k("\xA7c", d("woa.sword.el.locked", d(reqKeys[pick])))),
-                    T(e.dimension, b.nullify, Y(e), 0.6, 0.5),
-                    woaOpenElementMenu(e);
-                return;
-            }
-            woaSavePrefs(e, { element: pick });
-            let specClr = woaSlashSpecs[pick]?.color ?? woaGold;
-            h(e.dimension, p.ray, D(e), woaVm(specClr, 0.95)),
-                h(e.dimension, p.halo, Y(e), woaVm(specClr, 0.85)),
-                T(e.dimension, b.nullify, Y(e), 1.35, 0.72),
-                Z(e, w.swordElSelected(woaElementName(pick))),
-                woaOpenCompendium(e);
+    woaShowCustomForm(e, () => {
+        let { st } = woaGetCompendiumState(e),
+            unlocked = woaGetUnlockedElements(st),
+            rawEl = woaGetPrefs(e).element,
+            cur = rawEl !== "auto" && unlocked.has(rawEl) ? rawEl : "auto",
+            colors = { auto: "\xA7f", pure: "\xA76", fire: "\xA7c", storm: "\xA7b", venom: "\xA7a", frost: "\xA79" },
+            reqKeys = {
+                pure: "woa.ui.element.req_pure",
+                fire: "woa.ui.element.req_fire",
+                storm: "woa.ui.element.req_storm",
+                venom: "woa.ui.element.req_venom",
+                frost: "woa.ui.element.req_frost",
+            },
+            nextAction,
+            makeBanner = (id) => k(`${u.sword} \xA7f`, d("woa.ui.status.element", k("\xA76\xA7l", woaElementName(id)))),
+            makeBtnLabel = (id, ok, sel) => {
+                let pre = sel ? `${u.check} \xA7a` : ok ? colors[id] : "\xA78";
+                return ok
+                    ? k(pre, woaElementName(id), sel ? k(" \xA78[", d("woa.ui.element.active"), "\xA78]") : "")
+                    : k("\xA78", woaElementName(id), " \xA78(", d(reqKeys[id]), ")");
+            },
+            activeObs = new woaObsMsg(makeBanner(cur)),
+            btnObsMap = new Map(),
+            form = new woaCustomForm(e, d("woa.ui.element.title"))
+                .header(activeObs)
+                .label(d("woa.ui.element.body"))
+                .divider();
+        for (let id of woaElementIds) {
+            let ok = id === "auto" || unlocked.has(id),
+                lObs = new woaObsMsg(makeBtnLabel(id, ok, cur === id));
+            btnObsMap.set(id, { ok, obs: lObs });
+            form.button(
+                lObs,
+                () => {
+                    if (!ok) {
+                        Z(e, k("\xA7c", d("woa.sword.el.locked", d(reqKeys[id])))),
+                            T(e.dimension, b.nullify, Y(e), 0.6, 0.5);
+                        return;
+                    }
+                    cur = id;
+                    woaSavePrefs(e, { element: id });
+                    activeObs.setData(makeBanner(id));
+                    for (let [eid, info] of btnObsMap) info.obs.setData(makeBtnLabel(eid, info.ok, cur === eid));
+                    let specClr = woaSlashSpecs[id]?.color ?? woaGold;
+                    h(e.dimension, p.ray, D(e), woaVm(specClr, 0.95)),
+                        h(e.dimension, p.halo, Y(e), woaVm(specClr, 0.85)),
+                        T(e.dimension, b.nullify, Y(e), 1.35, 0.72),
+                        Z(e, w.swordElSelected(woaElementName(id)));
+                },
+                {
+                    disabled: !ok,
+                    tooltip: ok ? d("woa.ui.element.select_tip", woaElementName(id)) : d("woa.ui.element.locked_tip", d(reqKeys[id])),
+                }
+            );
         }
-    );
+        form
+            .divider()
+            .button(
+                k("\u2190 ", d("woa.ui.back")),
+                () => {
+                    nextAction = () => woaOpenCompendium(e);
+                    try {
+                        form.close();
+                    } catch {}
+                },
+                { tooltip: d("woa.ui.personal.back_tip") }
+            )
+            .closeButton();
+        return { form, getNext: () => nextAction };
+    });
+}
+function woaPrefLangKey(k0) {
+    return k0 === "airArc" ? "air_arc" : k0;
+}
+function woaPersonalTooltip(k0) {
+    if (k0 === "parry") return d("woa.ui.personal.tip.parry");
+    if (k0 === "airArc") return d("woa.ui.trophies.desc.air_arc");
+    if (k0 === "wcs") return d("woa.ui.trophies.desc.world_slash");
+    if (k0 === "wither") return d("woa.ui.trophies.desc.wither", "50%", "35%");
+    return d(`woa.ui.trophies.desc.${k0}`);
 }
 function woaOpenPersonalSettings(e) {
-    let prefs = woaGetPrefs(e),
-        keys = ["parry", "blink", "breeze", "sonic", "dragon", "guardian", "wither", "phase"];
-    woaShowForm(
-        e,
-        () => {
-            let f0 = new fa().title(d("woa.ui.personal.title"));
-            for (let k0 of keys) f0.toggle(d(`woa.ui.personal.${k0}`), { defaultValue: !!prefs[k0] });
-            return f0.submitButton(P.save);
-        },
-        (n) => {
-            if (n.canceled) {
-                n.cancelationReason !== ca.UserBusy && woaOpenCompendium(e);
-                return;
-            }
-            if (n.formValues) {
-                let patch = {};
-                keys.forEach((k0, idx) => {
-                    typeof n.formValues[idx] == "boolean" && (patch[k0] = n.formValues[idx]);
+    woaShowCustomForm(e, () => {
+        let { st } = woaGetCompendiumState(e),
+            prefs = woaGetPrefs(e),
+            { list: trList } = woaTrophyStats(st),
+            trUnlockMap = new Map(trList.map((t) => [t.pref, t.unlocked])),
+            groups = [
+                { sec: "woa.ui.personal.sec_combat", keys: ["parry", "airArc", "wcs"] },
+                { sec: "woa.ui.personal.sec_trophies", keys: ["blink", "breeze", "sonic", "dragon", "guardian", "wither", "creeper", "blaze", "shulker", "titan"] },
+                { sec: "woa.ui.personal.sec_evo", keys: ["phase"] },
+            ],
+            obsMap = new Map(),
+            bulkUpdating = !1,
+            nextAction,
+            statusObs = new woaObsMsg(k("\xA77", d("woa.ui.personal.auto_save"))),
+            form = new woaCustomForm(e, d("woa.ui.personal.title"));
+        groups.forEach((grp, gIdx) => {
+            gIdx > 0 && form.divider();
+            form.header(d(grp.sec));
+            for (let k0 of grp.keys) {
+                let obs = new woaObsBool(!!prefs[k0], { clientWritable: !0 }),
+                    tip = woaPersonalTooltip(k0),
+                    unlocked =
+                        k0 === "wcs"
+                            ? woaHasWorldSlash(st)
+                            : k0 === "phase"
+                              ? woaIsAdapted(st, "env:suffocation")
+                              : trUnlockMap.get(k0),
+                    desc =
+                        unlocked === void 0
+                            ? tip
+                            : k(unlocked ? "\xA7a[" : "\xA78[", d(unlocked ? "woa.ui.trophies.unlocked" : "woa.ui.trophies.locked"), "] \xA77", tip);
+                obsMap.set(k0, obs);
+                obs.subscribe((val) => {
+                    if (bulkUpdating) return;
+                    woaSavePrefs(e, { [k0]: val }), statusObs.setData(k(`${u.check} \xA7a`, d("woa.ui.personal.saved")));
                 });
-                woaSavePrefs(e, patch), Z(e, k(`${u.check} \xA7a`, d("woa.ui.personal.saved")));
+                form.toggle(d(`woa.ui.personal.${woaPrefLangKey(k0)}`), obs, { description: desc, tooltip: tip });
             }
-            woaOpenCompendium(e);
-        }
-    );
+        });
+        let setAll = (val) => {
+            bulkUpdating = !0;
+            let patch = {};
+            for (let [k0, obs] of obsMap) (patch[k0] = val), obs.setData(val);
+            woaSavePrefs(e, patch),
+                (bulkUpdating = !1),
+                statusObs.setData(k(`${u.check} \xA7a`, d("woa.ui.personal.saved"))),
+                T(e.dimension, b.nullify, Y(e), val ? 1.35 : 0.85, 0.55);
+        };
+        form
+            .divider()
+            .label(statusObs)
+            .button(k(`${u.check} \xA7a`, d("woa.ui.personal.all_on")), () => setAll(!0), { tooltip: d("woa.ui.personal.all_on_tip") })
+            .button(k(`${u.handleOff} \xA7c`, d("woa.ui.personal.all_off")), () => setAll(!1), { tooltip: d("woa.ui.personal.all_off_tip") })
+            .button(
+                k("\u2190 ", d("woa.ui.back")),
+                () => {
+                    nextAction = () => woaOpenCompendium(e);
+                    try {
+                        form.close();
+                    } catch {}
+                },
+                { tooltip: d("woa.ui.personal.back_tip") }
+            )
+            .closeButton();
+        return { form, getNext: () => nextAction };
+    });
 }
 import { ItemStack as _a } from "@minecraft/server";
 var _n = "xvoid:adaptation_config";
@@ -4861,7 +5725,7 @@ function ka(e) {
     t === _n
         ? woaOpenCompendium(e.source)
         : t === shrineBell
-          ? woaTryOpenDomain(e.source, O.currentTick)
+          ? woaTryBellUse(e.source, O.currentTick)
           : t && me.has(t) && (H(e.source.id) || e.source.isSneaking) && woaOpenCompendium(e.source);
 }
 var ba = ["open", "item"];
@@ -5006,6 +5870,8 @@ var lt = new Map(),
     woaSwordCombo = new Map(),
     woaSwordPrimed = new Set(),
     woaSlashSign = new Map(),
+    woaLastSwingBlockOrMelee = new Map(),
+    woaAirSlashCd = new Map(),
     woaSlashSpecs = {
         fire: { id: "fire", color: { r: 1.0, g: 0.42, b: 0.1 }, slashBonus: 3 },
         storm: { id: "storm", color: { r: 0.25, g: 0.88, b: 1.0 }, slashBonus: 4 },
@@ -5148,7 +6014,7 @@ function woaApplyPierce(e, t, n, i = woaGold, r = !1) {
             Z(e, w.swordPierce));
 }
 function woaApplyElementalHit(e, t, n, i = !1) {
-    if (!n || !t?.isValid || t.id === e.id || Da(t)) return;
+    if (!n || !t?.isValid || t.id === e.id || Da(t, e)) return;
     let r = t.dimension,
         a = D(t);
     if (n.id === "fire")
@@ -5171,8 +6037,17 @@ function An(e) {
     let t = s(() => e.getComponent("minecraft:type_family")?.hasTypeFamily("undead"));
     return t !== void 0 ? t : (s(() => e.matches({ families: ["undead"] })) ?? !1);
 }
-function Da(e) {
-    return s(() => e.getComponent("minecraft:tameable")?.isTamed) ?? !1;
+function Da(e, attacker = void 0) {
+    let tc = s(() => e?.getComponent("minecraft:is_tamed"));
+    if (tc) {
+        let ownerId = s(() => tc.tamedToPlayerId);
+        if (!ownerId || !attacker || ownerId === attacker.id) return !0;
+        let atkDom = woaDomains.get(attacker.id),
+            ownDom = woaDomains.get(ownerId);
+        if (atkDom && ownDom && woaDomainsOverlap(atkDom, ownDom)) return !1;
+        return !0;
+    }
+    return s(() => e?.getComponent("minecraft:tameable")?.isTamed) ?? !1;
 }
 function Mn(e, t) {
     let n = e.getComponent("minecraft:health");
@@ -5227,9 +6102,11 @@ function Va(e, t, n, i, r) {
 function qa(e) {
     let t = q(e.damagingEntity);
     if (!t || !F.has(t.id)) return;
-    let n = e.hitEntity,
-        i = s(() => D(n));
-    if ((i && $n(t, n.id, n.dimension, i), !H(t.id) || woaIsSuppressed(t) || !n?.isValid)) return;
+    woaLastSwingBlockOrMelee.set(t.id, O.currentTick);
+    let n = e.hitEntity;
+    if (!n?.isValid || n.typeId === shrineEntity) return;
+    let i = s(() => D(n));
+    if ((i && $n(t, n.id, n.dimension, i), !H(t.id) || woaIsSuppressed(t))) return;
     let r = O.currentTick;
     if (woaIsShieldBlocking(n)) {
         let a = le(t),
@@ -5243,7 +6120,7 @@ function qa(e) {
     }
 }
 function woaInflictSever(e, t, n, i = 120) {
-    if (!t?.isValid || (e && t.id === e.id) || Da(t)) return;
+    if (!t?.isValid || (e && t.id === e.id) || Da(t, e)) return;
     let r = s(() => t.getComponent("minecraft:health"));
     if (!r || r.currentValue <= 0) return;
     s(() => t.removeEffect("regeneration"));
@@ -5282,7 +6159,7 @@ function woaTickSevered(e) {
     }
 }
 function Pa(e, t, n) {
-    if (e.damageSource.cause !== st.entityAttack || !F.has(t.id)) return;
+    if (e.damageSource.cause !== st.entityAttack || !F.has(t.id) || n.typeId === shrineEntity) return;
     let i = An(n);
     if ((i && (e.damage = e.damage * f.undeadMultiplier), En.has(n.typeId) && Mn(n, e.damage))) {
         (e.cancel = !0),
@@ -5338,6 +6215,9 @@ function Pa(e, t, n) {
                         (woaSwordHealAt.set(t.id, o), nt(t) > 0 && (s(() => ie(t, 1)), h(t.dimension, p.regen, ge(t, 0.1), woaVm(woaHealColor, 0.7)))),
                     ue > 0 && woaApplyPierce(t, n, ue, g?.color ?? woaGold, M || !!$),
                     g && woaApplyElementalHit(t, n, g, !1),
+                    woaTryShulkerStasis(t, c, n, o),
+                    woaTryTitanSlam(t, c, n, o),
+                    woaApplyClashPressure(t, n, 1, o),
                     severNow && woaInflictSever(t, n, O.currentTick, 120));
         });
 }
@@ -5354,7 +6234,7 @@ function Oa(e, t) {
     );
 }
 function La(e, t, n, i) {
-    if (!t.getComponent("minecraft:health") || t.typeId === "minecraft:player" || Da(t)) return;
+    if (!t.getComponent("minecraft:health") || t.typeId === "minecraft:player" || t.typeId === shrineEntity || Da(t, e)) return;
     let r = t.dimension,
         a = An(t),
         o = a ? f.slashUndeadDamage : f.slashDamage,
@@ -5382,6 +6262,7 @@ function La(e, t, n, i) {
         h(r, p.severCut, D(t), woaVm(i?.el?.color ?? woaCrimsonColor, i?.primed ? 1.05 : 0.82)),
         wheelActive && i?.el && woaApplyElementalHit(e, t, i.el, !0),
         wheelActive && woaInflictSever(e, t, O.currentTick, i?.primed ? 160 : 120),
+        wheelActive && woaTryShulkerStasis(e, le(e), t, O.currentTick),
         a && O.run(() => In(e, t)),
         t.isValid && Kn(t) && woaTryDomainCasterStrike(e, t, O.currentTick);
 }
@@ -5538,7 +6419,7 @@ function woaDelayedCleave(e, dim, pt, elData, dmgScale = 1, hitSet) {
                 ) ?? [],
             dmg = (5 + (elData?.el?.slashBonus ?? 0)) * dmgScale;
         for (let g of ents) {
-            if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+            if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || g.typeId === shrineEntity || Da(g, e) || !Kn(g)) continue;
             if (hitSet) {
                 if (hitSet.has(g.id)) continue;
                 hitSet.add(g.id);
@@ -5607,7 +6488,7 @@ function woaPlungeCleave(e, elData, n) {
                         })
                     ) ?? [];
             for (let g of ents) {
-                if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+                if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || g.typeId === shrineEntity || Da(g, e) || !Kn(g)) continue;
                 let gc = D(g),
                     dir = ht(Bn(gc, ctr));
                 Math.hypot(dir.x, dir.y, dir.z) < 0.01 && (dir = fwd);
@@ -5729,7 +6610,7 @@ function woaTriggerOverdrive(e, n) {
         lvl = 1 + Qr(X(r)),
         surge = ascended ? 1.2 : 1;
     for (let g of ents) {
-        if (!g.isValid || g.id === e.id || Da(g) || !Kn(g)) continue;
+        if (!g.isValid || g.id === e.id || Da(g, e) || !Kn(g)) continue;
         let gm = s(() => g.getGameMode?.());
         if (gm === Cn.Creative || gm === Cn.Spectator) continue;
         let gc = D(g),
@@ -5755,6 +6636,7 @@ function woaTriggerOverdrive(e, n) {
             h(dim, p.positive, gc),
             woaApplyElementalHit(e, g, el, !0),
             woaInflictSever(e, g, n, 160),
+            woaApplyClashPressure(e, g, 1, n),
             undead && O.run(() => In(e, g));
     }
     ascended &&
@@ -5790,7 +6672,7 @@ function woaTriggerOverdrive(e, n) {
                     ) ?? [],
                 sdmg = (6 + (el.slashBonus ?? 0)) * lvl;
             for (let g of ae0) {
-                if (!g.isValid || g.id === e.id || g.typeId === "minecraft:player" || Da(g) || !Kn(g)) continue;
+                if (!g.isValid || g.id === e.id || g.typeId === shrineEntity || Da(g, e) || !Kn(g)) continue;
                 let gm = s(() => g.getGameMode?.());
                 if (gm === Cn.Creative || gm === Cn.Spectator) continue;
                 if (En.has(g.typeId) && Mn(g, sdmg)) {
@@ -5847,14 +6729,212 @@ function woaTriggerOverdrive(e, n) {
     }
     Z(e, ascended ? w.swordOverdriveAscended(el.id) : w.swordOverdrive(el.id));
 }
+function woaTriggerWorldSlash(e, st0, n) {
+    if (!e?.isValid || !F.has(e.id)) return;
+    woaWcsCd.set(e.id, n + 400);
+    Se.set(e.id, n + 60);
+    s(() => e.startItemCooldown(f.cooldownCategory, 60));
+    s(() => e.playAnimation(U.slash, { blendOutTime: 0.25, controller: U.controller, stopExpression: U.stop }));
+    let wh = Y(e);
+    T(e.dimension, b.worldSlash, wh, 1.0, 1.0),
+        T(e.dimension, b.purify, wh, 1.65, 0.72),
+        Z(e, w.swordWorldSlash),
+        woaShake(e, 0.22, 0.28);
+    R(3, () => {
+        if (!e?.isValid || !F.has(e.id)) return;
+        let curTick = O.currentTick,
+            dim = e.dimension,
+            { eye, forward, right, up } = Vn(e),
+            low = woaLowFx(),
+            canCut = Wa(e),
+            cutState = canCut ? { done: new Set(), blocked: new Set(), count: 0 } : void 0,
+            ownDom = woaDomains.get(e.id),
+            minY = s(() => dim.heightRange?.min) ?? -64,
+            maxY = s(() => dim.heightRange?.max) ?? 319,
+            hitSet = new Set(),
+            rayHits = woaRaycastCombatTargets(e, 24.0),
+            applyWcsHit = (g) => {
+                if (!g?.isValid || g.id === e.id || g.typeId === shrineEntity || hitSet.has(g.id) || Da(g, e) || !Kn(g)) return;
+                let gm = s(() => g.getGameMode?.());
+                if (gm === Cn.Creative || gm === Cn.Spectator) return;
+                hitSet.add(g.id);
+                let maxHp = s(() => g.getComponent("minecraft:health")?.effectiveMax) ?? 20,
+                    dmg = Math.min(42, 18 + Math.max(0, maxHp - 20) * 0.12 + (g.typeId === "minecraft:player" ? 4 : 0)),
+                    gc = D(g);
+                if (En.has(g.typeId) && Mn(g, dmg)) {
+                    zn(e, g);
+                    return;
+                }
+                woaDealMagic(e, g, dmg, !0),
+                    woaInflictSever(e, g, curTick, 160),
+                    woaApplyClashPressure(e, g, 2, curTick),
+                    h(dim, p.worldCut, gc, woaVm(woaWorldCutColor, 1.35)),
+                    h(dim, p.severCut, gc, woaVm(woaWhiteGold, 1.25)),
+                    h(dim, p.flash, gc, woaVm(woaWorldCutColor, 1.1)),
+                    T(dim, b.slashHit, gc, 1.15, 0.85),
+                    s(() => g.applyKnockback({ x: forward.x * 0.85, z: forward.z * 0.85 }, 0.34)),
+                    An(g) && O.run(() => In(e, g));
+            };
+        for (let dist = 1.4, step = 0; dist <= 24.0; dist += 1.25, step++) {
+            let pt = E(eye, C(forward, dist));
+            if (pt.y <= minY || pt.y >= maxY) continue;
+            if (step % 2 === 0) {
+                h(dim, p.worldCut, pt, woaVm(woaWorldCutColor, 1.15)),
+                    h(dim, p.severCut, pt, woaVm(woaWorldCutColor, 1.28, -32)),
+                    h(dim, p.domainSlashArc, pt, woaVm(woaCrimsonColor, 1.1)),
+                    !low && h(dim, p.slashDark, pt, woaVm(woaWorldCutColor, 1.05, 18)),
+                    h(dim, p.ray, pt, woaVm(woaWhiteGold, 0.95));
+            }
+            if (cutState && cutState.count < 48) {
+                for (let off of [
+                    { x: 0, y: 0, z: 0 },
+                    { x: 0, y: 1, z: 0 },
+                    C(right, 0.9),
+                    C(right, -0.9),
+                    C(up, 0.8),
+                ]) {
+                    if (cutState.count >= 48) break;
+                    let bp = E(pt, off),
+                        bx = Math.floor(bp.x),
+                        by = Math.floor(bp.y),
+                        bz = Math.floor(bp.z),
+                        bk = `${bx},${by},${bz}`;
+                    if (by <= minY || by >= maxY || cutState.done.has(bk)) continue;
+                    cutState.done.add(bk);
+                    let nearPlinth = !1;
+                    for (let d0 of woaDomains.values()) {
+                        if (
+                            !d0.ended &&
+                            d0.dimId === dim.id &&
+                            Math.hypot(bx + 0.5 - d0.center.x, bz + 0.5 - d0.center.z) <= woaDomainCfg.plinthSafeR &&
+                            by <= Math.floor(d0.center.y) + 1
+                        ) {
+                            nearPlinth = !0;
+                            break;
+                        }
+                    }
+                    if (nearPlinth) continue;
+                    let blk = s(() => dim.getBlock({ x: bx, y: by, z: bz }));
+                    if (!blk || blk.isAir || blk.isLiquid) continue;
+                    if (!woaCanCarveBlock(blk)) continue;
+                    Ba(dim, blk, { x: bx + 0.5, y: by + 0.5, z: bz + 0.5 }) && cutState.count++;
+                }
+            }
+            let ents =
+                s(() =>
+                    dim.getEntities({
+                        location: pt,
+                        maxDistance: 2.6,
+                        excludeFamilies: ["inanimate"],
+                        excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                    })
+                ) ?? [];
+            for (let g of ents) applyWcsHit(g);
+        }
+        for (let hr of rayHits) hr?.entity && applyWcsHit(hr.entity);
+    });
+}
+function woaHandleSwordAirSwing(e, swingTick) {
+    if (!e?.isValid || !Kn(e) || !F.has(e.id)) return;
+    if (s(() => e.getGameMode()) === Cn.Spectator) return;
+    let lastHit = woaLastSwingBlockOrMelee.get(e.id) ?? -99;
+    if (lastHit >= swingTick) return;
+    if (!woaPref(e, "airArc")) return;
+    let n = O.currentTick;
+    if (n < (woaAirSlashCd.get(e.id) ?? 0) || n < (Se.get(e.id) ?? 0)) return;
+    let ownDom = woaIsInOwnDomain(e),
+        wheelActive = H(e.id) && (!woaIsSuppressed(e) || !!ownDom);
+    if (!wheelActive) return;
+    woaAirSlashCd.set(e.id, n + 28);
+    let st0 = le(e),
+        el = woaGetSlashElement(st0, e) ?? woaSlashSpecs.pure,
+        clr = el.color ?? woaGold,
+        low = woaLowFx(),
+        sign = -(woaSlashSign.get(e.id) ?? -1),
+        ang = sign * 26;
+    woaSlashSign.set(e.id, sign);
+    let dim = e.dimension,
+        { eye, forward } = Vn(e),
+        surge = woaInSurge(st0, n),
+        minY = s(() => dim.heightRange?.min) ?? -64,
+        maxY = s(() => dim.heightRange?.max) ?? 319;
+    T(dim, b.slash, e.location, 1.32, 0.45);
+    for (let dist of [2.0, 3.8, 5.6]) {
+        let pt = E(eye, C(forward, dist));
+        if (pt.y <= minY || pt.y >= maxY) continue;
+        h(dim, p.slashTrail, pt),
+            h(dim, p.crescent, pt, woaVm(clr, dist > 5 ? 0.96 : 0.82, ang)),
+            !low && h(dim, p.ray, pt, woaVm(clr, 0.78));
+    }
+    let hitIds = new Set(),
+        targets = [];
+    for (let hr of woaRaycastCombatTargets(e, 6.5)) {
+        if (!hr?.entity || hitIds.has(hr.entity.id)) continue;
+        hitIds.add(hr.entity.id), targets.push(hr.entity);
+        if (targets.length >= 3) break;
+    }
+    if (targets.length < 3) {
+        let tip = E(eye, C(forward, 5.0)),
+            near =
+                s(() =>
+                    dim.getEntities({
+                        location: tip,
+                        maxDistance: 1.7,
+                        excludeFamilies: ["inanimate"],
+                        excludeTypes: ["minecraft:item", "minecraft:xp_orb", "minecraft:armor_stand"],
+                    })
+                ) ?? [];
+        for (let g of near) {
+            if (!g?.isValid || g.id === e.id || g.typeId === shrineEntity || hitIds.has(g.id) || Da(g, e) || !Kn(g)) continue;
+            if (!s(() => g.getComponent("minecraft:health"))) continue;
+            let gm = s(() => g.getGameMode?.());
+            if (gm === Cn.Creative || gm === Cn.Spectator) continue;
+            hitIds.add(g.id), targets.push(g);
+            if (targets.length >= 3) break;
+        }
+    }
+    for (let g of targets) {
+        let undead = An(g),
+            dmg = (undead ? 7 : 4) + (el.slashBonus ?? 0) * 0.5 + (surge ? 1 : 0),
+            gc = D(g);
+        if (En.has(g.typeId) && Mn(g, dmg)) {
+            zn(e, g);
+            continue;
+        }
+        woaDealMagic(e, g, dmg),
+            woaApplyElementalHit(e, g, el, !1),
+            s(() => g.applyKnockback({ x: forward.x * 0.42, z: forward.z * 0.42 }, 0.16)),
+            h(dim, p.inkSpark, gc),
+            T(dim, b.slashHit, gc, 1.15, 0.52),
+            undead && O.run(() => In(e, g));
+    }
+}
 function ja(e) {
     let t = e.source;
     if (e.itemStack?.typeId !== pe) return;
     let n = O.currentTick;
+    woaLastSwingBlockOrMelee.set(t.id, n);
+    let ownDom = woaIsInOwnDomain(t);
+    if (ownDom && s(() => t.isSneaking) && !ownDom.fugaUsed && n - ownDom.startTick >= woaDomainCfg.fugaReadyTicks) {
+        woaTryCastFuga(t, ownDom, n);
+        return;
+    }
     if (n < (Se.get(t.id) ?? 0)) return;
     let wheelActive = H(t.id) && !woaIsSuppressed(t);
     if (wheelActive && woaSwordPrimed.has(t.id) && s(() => t.isSneaking)) {
         woaTriggerOverdrive(t, n);
+        return;
+    }
+    let stW = H(t.id) ? le(t) : void 0;
+    if (
+        stW &&
+        (!woaIsSuppressed(t) || ownDom) &&
+        woaPref(t, "wcs") &&
+        woaHasWorldSlash(stW) &&
+        s(() => t.isSneaking) &&
+        n >= (woaWcsCd.get(t.id) ?? 0)
+    ) {
+        woaTriggerWorldSlash(t, stW, n);
         return;
     }
     let falling = !s(() => t.isOnGround) && !s(() => t.isInWater) && (s(() => t.getVelocity().y) ?? 0) < -0.18,
@@ -5887,10 +6967,13 @@ function Ga(e) {
     for (let k0 of woaPierceTick.keys()) (k0.startsWith(pfx) || k0.endsWith(sfx)) && woaPierceTick.delete(k0);
     Se.delete(e),
         lt.delete(e),
+        woaWcsCd.delete(e),
         woaSwordHealAt.delete(e),
         woaSwordCombo.delete(e),
         woaSwordPrimed.delete(e),
-        woaSlashSign.delete(e);
+        woaSlashSign.delete(e),
+        woaLastSwingBlockOrMelee.delete(e),
+        woaAirSlashCd.delete(e);
 }
 function woaEnforceSlotLimit(e, t, silent = !1) {
     let allFull = [...t.map.entries()].filter(([, c]) => c.s >= c.n);
@@ -5910,8 +6993,14 @@ hr(),
         if (e.slotLimit && !t.slotLimit)
             for (let n of I.getAllPlayers()) H(n.id) && woaEnforceSlotLimit(n, le(n));
     });
+function woaSyncSwordHeld(e) {
+    if (!e?.isValid) return;
+    let eq = s(() => e.getComponent("minecraft:equippable"));
+    eq?.getEquipment(ft.Mainhand)?.typeId === pe ? F.add(e.id) : F.delete(e.id);
+}
 function Ua(e) {
-    be.add(e.id);
+    be.add(e.id),
+        woaSyncSwordHeld(e);
     let st0 = Qi(e);
     pa("slotLimit") && woaEnforceSlotLimit(e, st0, !0),
         T(e.dimension, b.equip, e.location),
@@ -5925,39 +7014,51 @@ function Ja(e) {
         sn(e.id),
         Ut(e.id),
         Yi(e),
+        woaDotAt.delete(e.id),
+        woaExposeAt.delete(e.id),
         woaSwordHealAt.delete(e.id),
         woaSwordCombo.delete(e.id),
         woaSwordPrimed.delete(e.id),
         woaSlashSign.delete(e.id),
+        woaLastSwingBlockOrMelee.delete(e.id),
+        woaAirSlashCd.delete(e.id),
         woaGrounded.delete(e.id),
         woaSneakTicks.delete(e.id),
         woaPrevSneak.delete(e.id),
+        woaWcsCd.delete(e.id),
         s(() => e.onScreenDisplay.setActionBar(w.unequip));
 }
 function Na(e, t) {
     let n = e.getComponent("minecraft:equippable");
     if (!n) return;
-    n.getEquipment(ft.Mainhand)?.typeId === pe ? F.add(e.id) : F.delete(e.id);
     let i = n.getEquipment(ft.Head)?.typeId,
         r = !!i && me.has(i),
         a = H(e.id);
     woaLastVel.set(e.id, s(() => e.getVelocity()) ?? { x: 0, y: 0, z: 0 }),
         r && !a ? Ua(e) : !r && a && Ja(e),
+        (t % 5 === 0 || woaFogActive.has(e.id)) && woaSyncDomainFog(e, t),
         _r(e, t),
         woaTickDomainCd(e, t),
-        t % 20 === 0 && Cr(e),
         !r &&
             t % 20 === 0 &&
             (() => {
                 let ownD = woaIsInOwnDomain(e);
                 if (ownD && !ownD.ended) {
-                    let sec = Math.max(1, Math.ceil((ownD.endsAt - t) / 20));
-                    Z(e, k("\xA74\xA7l", d("woa.hud.domain", String(sec)), " \xA78\xB7 \xA7c", d("woa.domain.authority")));
+                    let sec = Math.max(1, Math.ceil((ownD.endsAt - t) / 20)),
+                        tag = ownD.clashing
+                            ? [" \xA78\xB7 \xA7d\xA7l", d("woa.hud.clash", String(ownD.clashIntegrity ?? woaDomainCfg.clashIntegrity), "6")]
+                            : !ownD.fugaUsed && t - ownD.startTick >= woaDomainCfg.fugaReadyTicks
+                              ? [" \xA78\xB7 \xA76\xA7l", d("woa.hud.fuga_tag")]
+                              : [];
+                    Z(e, k("\xA74\xA7l", d("woa.hud.domain", String(sec)), " \xA78\xB7 \xA7c", d("woa.domain.authority"), ...tag));
                 }
             })(),
-        !(!r || !i) && (ei(e, t), Sr(e, i, t), ia(e, t), ar(e, t));
+        !(!r || !i) && (Sr(e, i, t), ia(e, t), ar(e, t));
 }
-de.runTimeout(() => woaCleanupOrphanShrines(), 20),
+de.runTimeout(() => {
+    woaCleanupOrphanShrines();
+    for (let p0 of I.getAllPlayers()) s(() => (woaSyncSwordHeld(p0), Cr(p0)));
+}, 20),
     de.runInterval(() => {
         let e = de.currentTick;
         e % 2 === 0 && woaSevered.size > 0 && woaTickSevered(e),
@@ -5970,10 +7071,12 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
             let t = e.hurtEntity,
                 n = q(t),
                 i = s(() => e.damageSource.damagingEntity),
-                atkLoc = i ?? s(() => e.damageSource.damagingProjectile);
+                proj = s(() => e.damageSource.damagingProjectile);
             if (woaDomains.size > 0 && !woaInPierce.has(t.id) && !Kr.has(e.damageSource.cause)) {
-                atkLoc && woaInsideOtherDomain(atkLoc) && (e.damage *= 0.65);
-                n && woaIsInOwnDomain(n) && (e.damage *= 0.75);
+                let projDom = proj ? woaInsideAnyDomain(s(() => proj.dimension?.id), s(() => proj.location)) : void 0,
+                    otherAtkDom = (i && woaInsideOtherDomain(i)) || (projDom && projDom.casterId !== i?.id ? projDom : void 0);
+                otherAtkDom && !(n && woaIsClashingWith(i, n)) && (e.damage *= 0.65);
+                n && woaIsInOwnDomain(n) && !(i && woaIsClashingWith(i, n)) && (e.damage *= 0.75);
             }
             if ((n && H(n.id) && Zr(e, n), e.cancel || e.damage <= 0)) return;
             let r = q(i);
@@ -5991,12 +7094,112 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
     I.beforeEvents.effectAdd.subscribe((e) => {
         s(() => ea(e));
     }),
+    I.beforeEvents.entityHeal?.subscribe((e) => {
+        try {
+            if (e.healing <= 0) return;
+            let ent = e.healedEntity;
+            if (!ent) return;
+            let sv = woaSevered.get(ent.id);
+            if (!sv) return;
+            let curTick = de.currentTick;
+            if (curTick >= sv.until) return;
+            e.cancel = !0;
+            if (curTick - sv.lastFx >= 12) {
+                sv.lastFx = curTick;
+                de.run(() => {
+                    if (!ent?.isValid) return;
+                    let loc = D(ent);
+                    h(ent.dimension, p.severCut, loc, woaVm(woaCrimsonColor, 0.85, -1.2)),
+                        h(ent.dimension, p.ray, loc, woaVm(woaCrimsonColor, 0.9)),
+                        h(ent.dimension, p.inkSpark, loc);
+                });
+            }
+        } catch {}
+    }),
+    I.beforeEvents.explosion?.subscribe((e) => {
+        try {
+            let dim = e.dimension,
+                dimId = dim.id,
+                blocks = e.getImpactedBlocks();
+            if (!blocks || !blocks.length) return;
+            let guards = [];
+            for (let d0 of woaDomains.values()) {
+                !d0.ended &&
+                    d0.dimId === dimId &&
+                    guards.push({
+                        x: d0.center.x,
+                        y: d0.center.y,
+                        z: d0.center.z,
+                        r: woaDomainCfg.plinthSafeR + 1.0,
+                        plinthY: Math.floor(d0.center.y) + 1,
+                        isPlinth: !0,
+                    });
+            }
+            let shieldedPlayers = [],
+                blastKeys = [
+                    ...woaCreeperKeys,
+                    "env:explosion",
+                    "env:tnt_explosion",
+                    "env:creeper_explosion",
+                    "env:charged_creeper_explosion",
+                    "env:end_crystal_explosion",
+                    "env:fireball_explosion",
+                ];
+            for (let pl of I.getAllPlayers()) {
+                if (!pl?.isValid || pl.dimension?.id !== dimId || !H(pl.id) || woaIsSuppressed(pl) || !woaPref(pl, "creeper")) continue;
+                let st0 = le(pl);
+                if (!woaIsAnyAdapted(st0, blastKeys)) continue;
+                let ploc = pl.location;
+                guards.push({ x: ploc.x, y: ploc.y, z: ploc.z, r: 3.5, isPlinth: !1 });
+                shieldedPlayers.push({ pl, st: st0, loc: ploc });
+            }
+            if (!guards.length) return;
+            let kept = [];
+            for (let blk of blocks) {
+                let bl = blk.location,
+                    protect = !1;
+                for (let g of guards) {
+                    if (g.isPlinth) {
+                        if (Math.hypot(bl.x + 0.5 - g.x, bl.z + 0.5 - g.z) <= g.r && bl.y <= g.plinthY) {
+                            protect = !0;
+                            break;
+                        }
+                    } else if (
+                        Math.abs(bl.x + 0.5 - g.x) <= g.r &&
+                        Math.abs(bl.z + 0.5 - g.z) <= g.r &&
+                        bl.y >= g.y - 1.2 &&
+                        bl.y <= g.y + 3.2
+                    ) {
+                        protect = !0;
+                        break;
+                    }
+                }
+                protect || kept.push(blk);
+            }
+            if (kept.length < blocks.length) {
+                e.setImpactedBlocks(kept);
+                let srcLoc = e.source?.location;
+                de.run(() => {
+                    for (let sp of shieldedPlayers) {
+                        if (!sp.pl?.isValid) continue;
+                        if (srcLoc && Fn(sp.loc, srcLoc) > 14) continue;
+                        let n = de.currentTick;
+                        if (n - (sp.st.lastBlastShieldFx ?? -20) < 10) continue;
+                        sp.st.lastBlastShieldFx = n;
+                        h(sp.pl.dimension, p.deflect, D(sp.pl), woaVm(woaCreeperColor, 1.05));
+                    }
+                });
+            }
+        } catch {}
+    }),
     I.afterEvents.entityDie.subscribe((e) => {
         let t = e.deadEntity,
             tid = t.id,
             sfx = `:${tid}`;
         woaDomains.has(tid) && woaEndDomain(tid, !0),
-            woaSevered.delete(tid);
+            woaSevered.delete(tid),
+            Ee.delete(tid),
+            Ut(tid);
         for (let k0 of woaPierceTrack.keys()) k0.endsWith(sfx) && woaPierceTrack.delete(k0);
         for (let k0 of woaPierceTick.keys()) k0.endsWith(sfx) && woaPierceTick.delete(k0);
         let n = q(t);
@@ -6020,13 +7223,103 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
     }),
     I.afterEvents.playerSpawn.subscribe((e) => {
         let t = e.player;
-        e.initialSpawn && woaDomainCd.delete(t.id),
+        s(() => woaSyncSwordHeld(t)),
+            e.initialSpawn && woaDomainCd.delete(t.id),
             de.runTimeout(() => {
                 if (!t?.isValid) return;
-                s(() => Sn(t));
+                s(() => Sn(t)),
+                    s(() => Cr(t)),
+                    woaSyncSwordHeld(t),
+                    woaSyncDomainFog(t, de.currentTick, !0);
                 let lc = woaDomainCdLeft(t, de.currentTick);
-                lc > 0 && s(() => t.startItemCooldown(woaDomainCfg.cdCategory, lc));
+                !woaDomains.has(t.id) && lc > 0 && s(() => t.startItemCooldown(woaDomainCfg.cdCategory, lc));
             }, De.delayTicks);
+    }),
+    I.afterEvents.playerHotbarSelectedSlotChange?.subscribe((e) => {
+        let p0 = e.player;
+        p0?.isValid && (e.itemStack?.typeId === pe ? F.add(p0.id) : F.delete(p0.id));
+    }),
+    I.afterEvents.playerInventoryItemChange?.subscribe(
+        (e) => {
+            let p0 = e.player;
+            if (!p0?.isValid) return;
+            if (e.slot !== p0.selectedSlotIndex && e.itemStack?.typeId !== pe && e.beforeItemStack?.typeId !== pe) return;
+            woaSyncSwordHeld(p0);
+        },
+        PlayerInventoryType ? { inventoryType: PlayerInventoryType.Hotbar } : void 0
+    ),
+    I.afterEvents.playerInventoryItemChange?.subscribe(
+        (e) => {
+            let st = e.itemStack;
+            if (!st || !Ne(st.typeId) || !e.player?.isValid) return;
+            let c = s(() => e.player.getComponent("minecraft:inventory")?.container);
+            if (!c) return;
+            let cur = s(() => c.getItem(e.slot));
+            cur && Ne(cur.typeId) ? s(() => c.setItem(e.slot, Ye(cur, L))) : s(() => Cr(e.player));
+        },
+        { includeItems: [...me].filter((id) => id !== L), ignoreQuantityChange: !0 }
+    ),
+    I.afterEvents.entityStartSneaking?.subscribe(
+        (e) => {
+            s(() => {
+                let p0 = q(e.entity);
+                if (!p0 || !H(p0.id) || !F.has(p0.id)) return;
+                woaPrevSneak.set(p0.id, !0), woaTriggerParry(p0, le(p0), de.currentTick);
+            });
+        },
+        { entityFilter: { type: "minecraft:player" } }
+    ),
+    I.afterEvents.playerButtonInput?.subscribe(
+        (e) => {
+            s(() => {
+                if (e.button !== InputButton.Jump || e.newButtonState !== ButtonState.Pressed) return;
+                let p0 = e.player;
+                if (!p0?.isValid || !H(p0.id) || p0.getGameMode() === Cn.Spectator || woaIsSuppressed(p0)) return;
+                let onGnd = !!s(() => p0.isOnGround) || !!(woaGrounded.get(p0.id) ?? !1);
+                if (!onGnd) return;
+                let n = de.currentTick,
+                    st0 = le(p0);
+                s(() => p0.isSneaking)
+                    ? (woaCheckBlink(p0, st0, n, !0, !0), st0.lastBlink === n && woaGrounded.set(p0.id, !1))
+                    : (woaCheckBreezeStep(p0, st0, n, !0, !0), st0.lastBreeze === n && woaGrounded.set(p0.id, !1));
+            });
+        },
+        InputButton && ButtonState ? { buttons: [InputButton.Jump], state: ButtonState.Pressed } : void 0
+    ),
+    I.afterEvents.playerSwingStart?.subscribe(
+        (e) => {
+            s(() => {
+                if (e.heldItemStack?.typeId !== pe) return;
+                let p0 = e.player;
+                if (!p0?.isValid || !F.has(p0.id)) return;
+                let swingTick = de.currentTick;
+                de.run(() => woaHandleSwordAirSwing(p0, swingTick));
+            });
+        },
+        HeldItemOption && EntitySwingSource
+            ? { heldItemOption: HeldItemOption.AnyItem, swingSource: EntitySwingSource.Attack }
+            : void 0
+    ),
+    I.afterEvents.entityHitBlock?.subscribe((e) => {
+        let p0 = q(e.damagingEntity);
+        p0 && F.has(p0.id) && woaLastSwingBlockOrMelee.set(p0.id, de.currentTick);
+    }),
+    I.afterEvents.playerStartBreakingBlock?.subscribe((e) => {
+        let p0 = e.player;
+        p0 && F.has(p0.id) && woaLastSwingBlockOrMelee.set(p0.id, de.currentTick);
+    }),
+    I.afterEvents.playerDimensionChange?.subscribe((e) => {
+        s(() => {
+            let p0 = e.player;
+            if (!p0?.isValid) return;
+            woaDomains.has(p0.id) && e.fromDimension?.id !== e.toDimension?.id && woaEndDomain(p0.id, !0),
+                woaSyncSwordHeld(p0),
+                woaSyncDomainFog(p0, de.currentTick, !0),
+                woaGrounded.delete(p0.id),
+                woaLastVel.delete(p0.id),
+                woaSneakTicks.delete(p0.id),
+                woaPrevSneak.delete(p0.id);
+        });
     }),
     I.afterEvents.entitySpawn.subscribe((e) => {
         s(() => Er(e.entity));
@@ -6072,6 +7365,7 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
                     tr(t),
                     sn(t),
                     Ut(t),
+                    Ee.delete(t),
                     xr(t),
                     Ga(t),
                     Ar(t),
@@ -6082,7 +7376,13 @@ de.runTimeout(() => woaCleanupOrphanShrines(), 20),
                     woaGrounded.delete(t),
                     woaSneakTicks.delete(t),
                     woaPrevSneak.delete(t),
+                    woaWcsCd.delete(t),
+                    woaFogActive.delete(t),
                     woaPrefsMap.delete(t),
-                    woaSevered.delete(t);
+                    woaSevered.delete(t),
+                    woaLastSwingBlockOrMelee.delete(t),
+                    woaAirSlashCd.delete(t),
+                    F.delete(t),
+                    be.delete(t);
             });
     });
