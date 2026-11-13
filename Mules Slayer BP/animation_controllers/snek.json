@@ -1,0 +1,68 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.snek": {
+      "states": {
+        "default": {
+          "transitions": [
+            {"snek": "query.is_sneaking"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s sneak 0",
+            "/scoreboard players set @s dsneak 0"
+          ]
+        },
+        "snek": {
+          "transitions": [
+            {"default": "!query.is_sneaking"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s sneak 1",
+            "/scoreboard players set @s[scores={parry=0}] parry 3",
+            "/scoreboard players set @s sneakT 2"
+          ]
+        }
+      }
+    },
+    "controller.animation.sprint": {
+      "states": {
+        "default": {
+          "transitions": [
+            {"sprint": "query.is_sprinting"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s sprint 0"
+          ]
+        },
+        "sprint": {
+          "transitions": [
+            {"default": "!query.is_sprinting"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s sprint 1"
+          ]
+        }
+      }
+    },
+    "controller.animation.jump": {
+      "states": {
+        "default": {
+          "transitions": [
+            {"jump": "query.is_jumping"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s jump 0"
+          ]
+        },
+        "jump": {
+          "transitions": [
+            {"default": "!query.is_jumping"}
+          ],
+          "on_entry": [
+            "/scoreboard players set @s jump 1"
+          ]
+        }
+      }
+    }
+  }
+}

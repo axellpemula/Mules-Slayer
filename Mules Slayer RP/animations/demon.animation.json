@@ -1,0 +1,55 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.demon.run": {
+			"loop": true,
+			"animation_length": 0.32,
+			"bones": {
+				"leftArm": {
+					"rotation": {
+						"0.0": [-60, 0, 0],
+						"0.16": [60, 0, 0],
+						"0.32": [-60, 0, 0]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [60, 0, 0],
+						"0.16": [-60, 0, 0],
+						"0.32": [60, 0, 0]
+					}
+				},
+				"leftLeg": {
+					"rotation": {
+						"0.0": [45, 0, 0],
+						"0.16": [-45, 0, 0],
+						"0.32": [45, 0, 0]
+					}
+				},
+				"rightLeg": {
+					"rotation": {
+						"0.0": [-45, 0, 0],
+						"0.16": [45, 0, 0],
+						"0.32": [-45, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.demon.attack": {
+			"animation_length": 0.48,
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"rightArm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [-100, 30, 0],
+						"0.24": [-77.5, -25, 0],
+						"0.36": [-30, -45, 0],
+						"0.48": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

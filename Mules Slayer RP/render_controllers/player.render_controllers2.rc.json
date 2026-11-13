@@ -1,0 +1,33 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+    "controller.render.player.first_person2": {
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "rightArm": true
+        },
+        {
+          "leftArm": true
+        },
+        {
+          "rightLeg": true
+        },
+        {
+          "leftLeg":  true
+        }
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "geometry": "Geometry.kontol",
+      "textures": [
+        "Texture.default"
+      ]
+    }
+}
+}

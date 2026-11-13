@@ -1,0 +1,503 @@
+axell:itemGroup.name.breathings=§dBuku Pernapasan
+axell:itemGroup.name.haoris=§bHaori dan Seragam
+axell:itemGroup.name.uniform=§6Seragam
+item.spawn_egg.entity.axell:dontol.name=Telur Spawn Dontol
+item.spawn_egg.entity.axell:akaza.name=Telur Spawn Akaza
+item.spawn_egg.entity.axell:giyuu.name=Telur Spawn Giyuu
+item.spawn_egg.entity.axell:kocho.name=Telur Spawn Kocho
+item.spawn_egg.entity.axell:rengoku.name=Telur Spawn Rengoku
+item.spawn_egg.entity.axell:sanemi.name=Telur Spawn Sanemi
+item.spawn_egg.entity.axell:tengen.name=Telur Spawn Tengen
+item.spawn_egg.entity.axell:tanjiro.name=Tanjiro Spawn Egg
+item.spawn_egg.entity.axell:tokito.name=Telur Spawn Tokito
+
+text.axell:selectform=Pilih Bentuk untuk ditampilkan atau ditingkatkan:
+text.axell:back=§4Kembali
+text.axell:cooldown=§4Sedang Dalam Cooldown
+text.axell:noenergy=§cEnergi Tidak Cukup
+text.learned=§aAnda Telah Mempelajari 
+
+text.stats:cycle=Ubah ke mode Siklus
+text.stats:manual=Ubah ke mode Manual
+
+text.haganezuka:chat1=Aku lihat kamu pembunuh demon.
+text.haganezuka:chat2=Biarkan aku membantu menyesuaikan pedangmu.
+text.haganezuka:chat3=Pedang yang dipukul dengan baik dapat membuat perbedaan antara hidup dan mati.
+text.haganezuka:chat4=Sekarang, tunjukkan padaku pedangmu!
+
+item.axell:heavenly_dna=§dDNA Surgawi
+item.item:scarlet_iron_ingot=§eBatang Besi Merah Ceri
+item.item:raw_scarlet_iron=§eBesi Merah Ceri Mentah
+
+entity.dcb:basic_demon.name=Demon Dasar
+item.spawn_egg.entity.dcb:basic_demon.name=Telur Spawn Demon Dasar
+
+entity.axell:haganezuka.name=Haganezuka
+item.spawn_egg.entity.axell:haganezuka.name=§eTelur Spawn Haganezuka
+
+item.axell:stats=§aAtribut dan Statistik
+item.breathings:cancel=§cSetel Ulang Pernapasan
+item.breathings:mist=§bBuku Pernapasan Kabut
+item.breathings:flame=§6Buku Pernapasan Api
+item.breathings:water=§9Buku Pernapasan Air
+item.breathings:thunder=§eBuku Pernapasan Petir
+item.breathings:wind=§2Buku Pernapasan Angin
+item.breathings:sound=§gBuku Pernapasan Suara
+item.breathings:insect=§dBuku Pernapasan Serangga
+item.breathings:beast=§3Buku Pernapasan Binatang
+item.breathings:flower=§5Buku Pernapasan Bunga
+item.breathings:love=§cBuku Pernapasan Cinta
+item.breathings:serpent=§aBuku Pernapasan Ular
+item.breathings:stone=§8Buku Pernapasan Batu
+item.breathings:sun=§4Buku Pernapasan Matahari
+item.breathings:moon=§7Buku Pernapasan Bulan
+
+item.ds:uniform=§eSeragam Pembunuh Demon
+item.ds:haori_cloud=§eHaori Awan
+item.ds:giyuu_haori=§eHaori Giyuu
+item.ds:kocho_haori=§eHaori Shinobu
+item.ds:michikatsu_haori=§eHaori Michikatsu
+item.ds:rengoku_haori=§eHaori Rengoku
+item.ds:shinazugawa_haori=§eHaori Shinazugawa
+item.ds:tanjiro_haori=§eHaori Tanjiro
+item.ds:tokito_haori=§eSeragam Muichiro
+item.ds:yorichi_haori=§eHaori Yoriichi
+item.ds:zenitsu_haori=§eHaori Zenitsu
+
+item.axell:nichirin=§6Pedang Nichirin
+item.axell:bda=§cSeni Demon Darah
+
+text.axell:m1=§4Serangan Normal
+text.axell:m1b=§l§6Serangan Normal
+§y§rtext.axell:m1=Serangan Normal
+
+§g§rtext.stats:stats=Statistik
+text.stats:family=§sKeluarga
+text.stats:breathing=§6Gaya Pernapasan
+text.stats:bda=§cSeni Demon Darah
+text.stats:convertsp=§aKonversi XP ke SP
+
+#breathings
+§y§rtext.breathings:mist=Pernapasan Kabut
+§y§rtext.breathings:flame=Pernapasan Api
+§y§rtext.breathings:water=Pernapasan Air
+§y§rtext.breathings:wind=Pernapasan Angin
+§y§rtext.breathings:sound=Pernapasan Suara
+§y§rtext.breathings:thunder=Pernapasan Petir
+§y§rtext.breathings:beast=Pernapasan Binatang
+§y§rtext.breathings:flower=Pernapasan Bunga
+§y§rtext.breathings:love=Pernapasan Cinta
+§y§rtext.breathings:serpent=Pernapasan Ular
+§y§rtext.breathings:stone=Pernapasan Batu
+§y§rtext.breathings:insect=Pernapasan Serangga
+§y§rtext.breathings:sun=Pernapasan Matahari
+§y§rtext.breathings:moon=Pernapasan Bulan
+
+#breathings color
+text.breathings:mist=§bPernapasan Kabut
+text.breathings:flame=§6Pernapasan Api
+text.breathings:water=§9Pernapasan Air
+text.breathings:wind=§2Pernapasan Angin
+text.breathings:sound=§gPernapasan Suara
+text.breathings:thunder=§ePernapasan Petir
+text.breathings:beast=§3Pernapasan Binatang
+text.breathings:flower=§5Pernapasan Bunga
+text.breathings:love=§cPernapasan Cinta
+text.breathings:serpent=§aPernapasan Ular
+text.breathings:stone=§8Pernapasan Batu
+text.breathings:insect=§dPernapasan Serangga
+text.breathings:sun=§4Pernapasan Matahari
+text.breathings:moon=§7Pernapasan Bulan
+
+#mist
+text.mist:form1=§4Kabut Rendah, Kabur Jauh\n§0(Terkunci)
+text.mist:form2=§4Kabut Berlapis Delapan\n§0(Terkunci)
+text.mist:form3=§4Percikan Kabut Tersebar\n§0(Terkunci)
+text.mist:form4=§4Goresan Aliran Bergeser\n§0(Terkunci)
+text.mist:form5=§4Laut Awan Kabut\n§0(Terkunci)
+text.mist:form6=§4Kabut Penyebar Lunar\n§0(Terkunci)
+text.mist:form7=§4Oboro\n§0(Terkunci)
+
+text.mist:form1b=§l§6Kabut Rendah, Kabur Jauh
+text.mist:form2b=§l§6Kabut Berlapis Delapan
+text.mist:form3b=§l§6Percikan Kabut Tersebar
+text.mist:form4b=§l§6Goresan Aliran Bergeser
+text.mist:form5b=§l§6Laut Awan Kabut
+text.mist:form6b=§l§6Kabut Penyebar Lunar
+text.mist:form7b=§l§6Oboro
+
+§y§rtext.mist:form1=Kabut Rendah, Kabur Jauh
+§y§rtext.mist:form2=Kabut Berlapis Delapan
+§y§rtext.mist:form3=Percikan Kabut Tersebar
+§y§rtext.mist:form4=Goresan Aliran Bergeser
+§y§rtext.mist:form5=Laut Awan Kabut
+§y§rtext.mist:form6=Kabut Penyebar Lunar
+§y§rtext.mist:form7=Oboro
+
+#flame
+text.flame:form1=§4Api Tak Dikenal\n§0(Terkunci)
+text.flame:form2=§4Matahari Penyengat Naik\n§0(Terkunci)
+text.flame:form3=§4Alam Semesta Menyala\n§0(Terkunci)
+text.flame:form4=§4Undulasi Nyala Mekar\n§0(Terkunci)
+text.flame:form5=§4Harimau Api\n§0(Terkunci)
+text.flame:form9=§4Rengoku\n§0(Terkunci)
+
+text.flame:form1b=§l§6Api Tak Dikenal
+text.flame:form2b=§l§6Matahari Penyengat Naik
+text.flame:form3b=§l§6Alam Semesta Menyala
+text.flame:form4b=§l§6Undulasi Nyala Mekar
+text.flame:form5b=§l§6Harimau Api
+text.flame:form9b=§l§6Rengoku
+
+§y§rtext.flame:form1=Api Tak Dikenal
+§y§rtext.flame:form2=Matahari Penyengat Naik
+§y§rtext.flame:form3=Alam Semesta Menyala
+§y§rtext.flame:form4=Undulasi Nyala Mekar
+§y§rtext.flame:form5=Harimau Api
+§y§rtext.flame:form9=Rengoku
+
+#water
+text.water:form1=§4Goresan Permukaan Air\n§0(Terkunci)
+text.water:form2=§4Roda Air\n§0(Terkunci)
+text.water:form3=§4Tarian Mengalir\n§0(Terkunci)
+text.water:form4=§4Pasang Menyerang\n§0(Terkunci)
+text.water:form5=§4Hujan Berkah Setelah Kekeringan\n§0(Terkunci)
+text.water:form6=§4Pusaran\n§0(Terkunci)
+text.water:form7=§4Tusukan Riak Tetes\n§0(Terkunci)
+text.water:form8=§4Cekungan Air Terjun\n§0(Terkunci)
+text.water:form9=§4Percikan Aliran Air Bergejolak\n§0(Terkunci)
+text.water:form10=§4Aliran Konstan\n§0(Terkunci)
+text.water:form11=§4Ketenangan Mati\n§0(Terkunci)
+
+text.water:form1b=§l§6Goresan Permukaan Air
+text.water:form2b=§l§6Roda Air
+text.water:form3b=§l§6Tarian Mengalir
+text.water:form4b=§l§6Pasang Menyerang
+text.water:form5b=§l§6Hujan Berkah Setelah Kekeringan
+text.water:form6b=§l§6Pusaran
+text.water:form7b=§l§6Tusukan Riak Tetes
+text.water:form8b=§l§6Cekungan Air Terjun
+text.water:form9b=§l§6Percikan Aliran Air Bergejolak
+text.water:form10b=§l§6Aliran Konstan
+text.water:form11b=§l§6Ketenangan Mati
+
+§y§rtext.water:form1=Goresan Permukaan Air
+§y§rtext.water:form2=Roda Air
+§y§rtext.water:form3=Tarian Mengalir
+§y§rtext.water:form4=Pasang Menyerang
+§y§rtext.water:form5=Hujan Berkah Setelah Kekeringan
+§y§rtext.water:form6=Pusaran
+§y§rtext.water:form7=Tusukan Riak Tetes
+§y§rtext.water:form8=Cekungan Air Terjun
+§y§rtext.water:form9=Percikan Aliran Air Bergejolak
+§y§rtext.water:form10=Aliran Konstan
+§y§rtext.water:form11=Ketenangan Mati
+
+#wind
+text.wind:form1=§4Pemotong Puyuh Debu\n§0(Terkunci)
+text.wind:form2=§4Cakar, Angin Penyucian\n§0(Terkunci)
+text.wind:form3=§4Pohon Angin Badai Bersih\n§0(Terkunci)
+text.wind:form4=§4Badai Debu Naik\n§0(Terkunci)
+text.wind:form5=§4Angin Gunung Dingin\n§0(Terkunci)
+text.wind:form6=§4Badai Gunung Angin Hitam\n§0(Terkunci)
+text.wind:form7=§4Angin Leher, Angin Tengu\n§0(Terkunci)
+text.wind:form8=§4Goresan Angin Purba Pertama\n§0(Terkunci)
+text.wind:form9=§4Puyuh Idaten\n§0(Terkunci)
+
+text.wind:form1b=§l§6Pemotong Puyuh Debu
+text.wind:form2b=§l§6Cakar, Angin Penyucian
+text.wind:form3b=§l§6Pohon Angin Badai Bersih
+text.wind:form4b=§l§6Badai Debu Naik
+text.wind:form5b=§l§6Angin Gunung Dingin
+text.wind:form6b=§l§6Badai Gunung Angin Hitam
+text.wind:form7b=§l§6Angin Leher, Angin Tengu
+text.wind:form8b=§l§6Goresan Angin Purba Pertama
+text.wind:form9b=§l§6Puyuh Idaten
+
+§y§rtext.wind:form1=Pemotong Puyuh Debu
+§y§rtext.wind:form2=Cakar, Angin Penyucian
+§y§rtext.wind:form3=Pohon Angin Badai Bersih
+§y§rtext.wind:form4=Badai Debu Naik
+§y§rtext.wind:form5=Angin Gunung Dingin
+§y§rtext.wind:form6=Badai Gunung Angin Hitam
+§y§rtext.wind:form7=Angin Leher, Angin Tengu
+§y§rtext.wind:form8=Goresan Angin Purba Pertama
+§y§rtext.wind:form9=Puyuh Idaten
+
+#sound
+text.sound:form1=§4Geram\n§0(Terkunci)
+text.sound:form2=§4Bergeram\n§0(Terkunci)
+text.sound:form3=§4Goresan Bergema\n§0(Terkunci)
+text.sound:form4=§4Goresan Bergema Konstan\n§0(Terkunci)
+text.sound:form5=§4Pertunjukan Senar\n§0(Terkunci)
+
+text.sound:form1b=§l§6Geram
+text.sound:form2b=§l§6Bergeram
+text.sound:form3b=§l§6Goresan Bergema
+text.sound:form4b=§l§6Goresan Bergema Konstan
+text.sound:form5b=§l§6Pertunjukan Senar
+
+§y§rtext.sound:form1=Geram
+§y§rtext.sound:form2=Bergeram
+§y§rtext.sound:form3=Goresan Bergema
+§y§rtext.sound:form4=Goresan Bergema Konstan
+§y§rtext.sound:form5=Pertunjukan Senar
+
+#thunder
+text.thunder:form1=§4Guntur dan Kilat\n§0(Terkunci)
+text.thunder:form2=§4Semangat Padi\n§0(Terkunci)
+text.thunder:form3=§4Kawanan Petir\n§0(Terkunci)
+text.thunder:form4=§4Petir Jauh\n§0(Terkunci)
+text.thunder:form5=§4Petir Panas\n§0(Terkunci)
+text.thunder:form6=§4Desis dan Kilat\n§0(Terkunci)
+
+text.thunder:form1b=§l§6Guntur dan Kilat
+text.thunder:form2b=§l§6Semangat Padi
+text.thunder:form3b=§l§6Kawanan Petir
+text.thunder:form4b=§l§6Petir Jauh
+text.thunder:form5b=§l§6Petir Panas
+text.thunder:form6b=§l§6Desis dan Kilat
+
+§y§rtext.thunder:form1=Guntur dan Kilat
+§y§rtext.thunder:form2=Semangat Padi
+§y§rtext.thunder:form3=Kawanan Petir
+§y§rtext.thunder:form4=Petir Jauh
+§y§rtext.thunder:form5=Petir Panas
+§y§rtext.thunder:form6=Desis dan Kilat
+
+#beast
+text.beast:form1=§4Tusukan\n§0(Terkunci)
+text.beast:form2=§4Iris dan Dadu\n§0(Terkunci)
+text.beast:form3=§4Goresan Menelan\n§0(Terkunci)
+text.beast:form4=§4Goresan Gua\n§0(Terkunci)
+text.beast:form5=§4Belah Gila\n§0(Terkunci)
+text.beast:form6=§4Taring Menggigit Brutalitas\n§0(Terkunci)
+text.beast:form7=§4Kesadaran Ruang\n§0(Terkunci)
+text.beast:form8=§4Larian Eksplosif\n§0(Terkunci)
+text.beast:form9=§4Pukulan Lemparan Mendadak\n§0(Terkunci)
+text.beast:form10=§4Taring Berputar Melingkar\n§0(Terkunci)
+
+text.beast:form1b=§l§6Tusukan
+text.beast:form2b=§l§6Iris dan Dadu
+text.beast:form3b=§l§6Goresan Menelan
+text.beast:form4b=§l§6Goresan Gua
+text.beast:form5b=§l§6Belah Gila
+text.beast:form6b=§l§6Taring Menggigit Brutalitas
+text.beast:form7b=§l§6Kesadaran Ruang
+text.beast:form8b=§l§6Larian Eksplosif
+text.beast:form9b=§l§6Pukulan Lemparan Mendadak
+text.beast:form10b=§l§6Taring Berputar Melingkar
+
+§y§rtext.beast:form1=Tusukan
+§y§rtext.beast:form2=Iris dan Dadu
+§y§rtext.beast:form3=Goresan Menelan
+§y§rtext.beast:form4=Goresan Gua
+§y§rtext.beast:form5=Belah Gila
+§y§rtext.beast:form6=Taring Menggigit Brutalitas
+§y§rtext.beast:form7=Kesadaran Ruang
+§y§rtext.beast:form8=Larian Eksplosif
+§y§rtext.beast:form9=Pukulan Lemparan Mendadak
+§y§rtext.beast:form10=Taring Berputar Melingkar
+
+#sun
+text.sun:form1=§4Tarian\n§0(Terkunci)
+text.sun:form2=§4Langit Biru Jernih\n§0(Terkunci)
+text.sun:form3=§4Matahari Membara\n§0(Terkunci)
+text.sun:form4=§4Tulang Terbakar, Matahari Musim Panas\n§0(Terkunci)
+text.sun:form5=§4Transformasi Matahari Terbenam\n§0(Terkunci)
+text.sun:form6=§4Mirage Panas Matahari\n§0(Terkunci)
+text.sun:form7=§4Radiasi Bermanfaat\n§0(Terkunci)
+text.sun:form8=§4Tusukan Bunga Matahari\n§0(Terkunci)
+text.sun:form9=§4Tarian Kepala Halo Matahari\n§0(Terkunci)
+text.sun:form10=§4Roda Api\n§0(Terkunci)
+text.sun:form11=§4Pelangi Palsu\n§0(Terkunci)
+text.sun:form12=§4Tarian Api\n§0(Terkunci)
+text.sun:form13=§4Bentuk Ketiga Belas\n§0(Terkunci)
+
+text.sun:form1b=§l§6Tarian
+text.sun:form2b=§l§6Langit Biru Jernih
+text.sun:form3b=§l§6Matahari Membara
+text.sun:form4b=§l§6Tulang Terbakar, Matahari Musim Panas
+text.sun:form5b=§l§6Transformasi Matahari Terbenam
+text.sun:form6b=§l§6Mirage Panas Matahari
+text.sun:form7b=§l§6Radiasi Bermanfaat
+text.sun:form8b=§l§6Tusukan Bunga Matahari
+text.sun:form9b=§l§6Tarian Kepala Halo Matahari
+text.sun:form10b=§l§6Roda Api
+text.sun:form11b=§l§6Pelangi Palsu
+text.sun:form12b=§l§6Tarian Api
+text.sun:form13b=§l§6Bentuk Ketiga Belas
+
+§y§rtext.sun:form1=Tarian
+§y§rtext.sun:form2=Langit Biru Jernih
+§y§rtext.sun:form3=Matahari Membara
+§y§rtext.sun:form4=Tulang Terbakar, Matahari Musim Panas
+§y§rtext.sun:form5=Transformasi Matahari Terbenam
+§y§rtext.sun:form6=Mirage Panas Matahari
+§y§rtext.sun:form7=Radiasi Bermanfaat
+§y§rtext.sun:form8=Tusukan Bunga Matahari
+§y§rtext.sun:form9=Tarian Kepala Halo Matahari
+§y§rtext.sun:form10=Roda Api
+§y§rtext.sun:form11=Pelangi Palsu
+§y§rtext.sun:form12=Tarian Api
+§y§rtext.sun:form13=Bentuk Ketiga Belas
+
+#moon
+text.moon:form1=§4Bulan Gelap, Istana Sore\n§0(Terkunci)
+text.moon:form2=§4Bunga Mutiara Menatap Bulan\n§0(Terkunci)
+text.moon:form3=§4Bulan Benci, Rantai\n§0(Terkunci)
+text.moon:form4=§4Ilusi Cahaya Bulan, Fajar Beku\n§0(Terkunci)
+text.moon:form5=§4Pusaran Bencana Roh Bulan\n§0(Terkunci)
+text.moon:form6=§4Bulan Abadi, Tak Terbatas\n§0(Terkunci)
+text.moon:form7=§4Cermin Kemalangan, Cahaya Bulan\n§0(Terkunci)
+text.moon:form8=§4Ekor Naga Bulan\n§0(Terkunci)
+text.moon:form9=§4Gelombang Bulan Menyusut\n§0(Terkunci)
+text.moon:form10=§4Pencerahan Cahaya Bulan Tanpa Henti\n§0(Terkunci)
+text.moon:form11=§4Busur Bulan, Bulan Setengah\n§0(Terkunci)
+text.moon:form12=§4Pencerahan Bulan Atas\n§0(Terkunci)
+text.moon:form13=§4Gerhana Bulan\n§0(Terkunci)
+text.moon:form14=§4Bulan Katastrofal, Potongan Berkelanjutan\n§0(Terkunci)
+text.moon:form15=§4Bulan Abadi, Ketenangan\n§0(Terkunci)
+text.moon:form16=§4Menghilangnya Bulan Iluso\n§0(Terkunci)
+
+text.moon:form1b=§l§6Bulan Gelap, Istana Sore
+text.moon:form2b=§l§6Bunga Mutiara Menatap Bulan
+text.moon:form3b=§l§6Bulan Benci, Rantai
+text.moon:form4b=§l§6Ilusi Cahaya Bulan, Fajar Beku
+text.moon:form5b=§l§6Pusaran Bencana Roh Bulan
+text.moon:form6b=§l§6Bulan Abadi, Tak Terbatas
+text.moon:form7b=§l§6Cermin Kemalangan, Cahaya Bulan
+text.moon:form8b=§l§6Ekor Naga Bulan
+text.moon:form9b=§l§6Gelombang Bulan Menyusut
+text.moon:form10b=§l§6Pencerahan Cahaya Bulan Tanpa Henti
+text.moon:form11b=§l§6Busur Bulan, Bulan Setengah
+text.moon:form12b=§l§6Pencerahan Bulan Atas
+text.moon:form13b=§l§6Gerhana Bulan
+text.moon:form14b=§l§6Bulan Katastrofal, Potongan Berkelanjutan
+text.moon:form15b=§l§6Bulan Abadi, Ketenangan
+text.moon:form16b=§l§6Menghilangnya Bulan Iluso
+
+§y§rtext.moon:form1=Bulan Gelap, Istana Sore
+§y§rtext.moon:form2=Bunga Mutiara Menatap Bulan
+§y§rtext.moon:form3=Bulan Benci, Rantai
+§y§rtext.moon:form4=Ilusi Cahaya Bulan, Fajar Beku
+§y§rtext.moon:form5=Pusaran Bencana Roh Bulan
+§y§rtext.moon:form6=Bulan Abadi, Tak Terbatas
+§y§rtext.moon:form7=Cermin Kemalangan, Cahaya Bulan
+§y§rtext.moon:form8=Ekor Naga Bulan
+§y§rtext.moon:form9=Gelombang Bulan Menyusut
+§y§rtext.moon:form10=Pencerahan Cahaya Bulan Tanpa Henti
+§y§rtext.moon:form11=Busur Bulan, Bulan Setengah
+§y§rtext.moon:form12=Pencerahan Bulan Atas
+§y§rtext.moon:form13=Gerhana Bulan
+§y§rtext.moon:form14=Bulan Katastrofal, Potongan Berkelanjutan
+§y§rtext.moon:form15=Bulan Abadi, Ketenangan
+§y§rtext.moon:form16=Menghilangnya Bulan Iluso
+
+#serpent
+text.serpent:form1=§4Goresan Ular Berputar\n§0(Terkunci)
+text.serpent:form2=§4Taring Bisa Kepala Sempit\n§0(Terkunci)
+text.serpent:form3=§4Pengikatan Koil\n§0(Terkunci)
+text.serpent:form4=§4Reptil Berkepala Dua\n§0(Terkunci)
+text.serpent:form5=§4Ular Merayap\n§0(Terkunci)
+
+text.serpent:form1b=§l§6Goresan Ular Berputar
+text.serpent:form2b=§l§6Taring Bisa Kepala Sempit
+text.serpent:form3b=§l§6Pengikatan Koil
+text.serpent:form4b=§l§6Reptil Berkepala Dua
+text.serpent:form5b=§l§6Ular Merayap
+
+§y§rtext.serpent:form1=Goresan Ular Berputar
+§y§rtext.serpent:form2=Taring Bisa Kepala Sempit
+§y§rtext.serpent:form3=Pengikatan Koil
+§y§rtext.serpent:form4=Reptil Berkepala Dua
+§y§rtext.serpent:form5=Ular Merayap
+
+#love
+text.love:form1=§4Getaran Cinta Pertama\n§0(Terkunci)
+text.love:form2=§4Sakit Cinta\n§0(Terkunci)
+text.love:form3=§4Hujan Cinta Kucing\n§0(Terkunci)
+text.love:form5=§4Cinta Berhoyong, Cakar Liar\n§0(Terkunci)
+text.love:form6=§4Angin Cinta, Cakar Berkilau\n§0(Terkunci)
+text.love:form7=§4Tendangan Terbang Kucing Kecil\n§0(Terkunci)
+
+text.love:form1b=§l§6Getaran Cinta Pertama
+text.love:form2b=§l§6Sakit Cinta
+text.love:form3b=§l§6Hujan Cinta Kucing
+text.love:form5b=§l§6Cinta Berhoyong, Cakar Liar
+text.love:form6b=§l§6Angin Cinta, Cakar Berkilau
+text.love:form7b=§l§6Tendangan Terbang Kucing Kecil
+
+§y§rtext.love:form1=Getaran Cinta Pertama
+§y§rtext.love:form2=Sakit Cinta
+§y§rtext.love:form3=Hujan Cinta Kucing
+§y§rtext.love:form5=Cinta Berhoyong, Cakar Liar
+§y§rtext.love:form6=Angin Cinta, Cakar Berkilau
+§y§rtext.love:form7=Tendangan Terbang Kucing Kecil
+
+#stone
+text.stone:form1=§4Serpentin Bipolar\n§0(Terkunci)
+text.stone:form2=§4Smash Atas\n§0(Terkunci)
+text.stone:form3=§4Kulit Batu\n§0(Terkunci)
+text.stone:form4=§4Batu Vulkanik, Penaklukan Cepat\n§0(Terkunci)
+text.stone:form5=§4Busur Keadilan\n§0(Terkunci)
+
+text.stone:form1b=§l§6Serpentin Bipolar
+text.stone:form2b=§l§6Smash Atas
+text.stone:form3b=§l§6Kulit Batu
+text.stone:form4b=§l§6Batu Vulkanik, Penaklukan Cepat
+text.stone:form5b=§l§6Busur Keadilan
+
+§y§rtext.stone:form1=Serpentin Bipolar
+§y§rtext.stone:form2=Smash Atas
+§y§rtext.stone:form3=Kulit Batu
+§y§rtext.stone:form4=Batu Vulkanik, Penaklukan Cepat
+§y§rtext.stone:form5=Busur Keadilan
+
+#insect
+text.insect:form1=§4Tarian Kupu-kupu: Keinginan\n§0(Terkunci)
+text.insect:form2=§4Tarian Kumbang: Ledakan Sejati\n§0(Terkunci)
+text.insect:form3=§4Tarian Capung: Heksagon Mata Majemuk\n§0(Terkunci)
+text.insect:form4=§4Tarian Kelabang: Zigzag Seratus Kaki\n§0(Terkunci)
+
+text.insect:form1b=§l§6Tarian Kupu-kupu: Keinginan
+text.insect:form2b=§l§6Tarian Kumbang: Ledakan Sejati
+text.insect:form3b=§l§6Tarian Capung: Heksagon Mata Majemuk
+text.insect:form4b=§l§6Tarian Kelabang: Zigzag Seratus Kaki
+
+§y§rtext.insect:form1=Tarian Kupu-kupu: Keinginan
+§y§rtext.insect:form2=Tarian Kumbang: Ledakan Sejati
+§y§rtext.insect:form3=Tarian Capung: Heksagon Mata Majemuk
+§y§rtext.insect:form4=Tarian Kelabang: Zigzag Seratus Kaki
+
+#Custom Armor / haoris
+item.ds:uniform_red=§eSeragam Pembunuh Demon - §cMerah
+item.ds:uniform_tengen=§eSeragam Pembunuh Demon - §6Tanpa Lengan
+
+item.ds:giyuu_haori1=§eHaori Hanhan - §sSiyan
+item.ds:giyuu_haori2=§eHaori Hanhan - §6Oranye
+item.ds:giyuu_haori3=§eHaori Hanhan - §5Ungu
+item.ds:giyuu_haori4=§eHaori Hanhan - §1Biru
+
+item.ds:kocho_haori1=§eHaori Serangga - §aHijau
+item.ds:kocho_haori2=§eHaori Serangga - §dMerah Muda
+item.ds:kocho_haori3=§eHaori Serangga - §bBiru
+
+item.ds:rengoku_haori1=§eHaori Berapi - §bBiru
+item.ds:rengoku_haori2=§eHaori Berapi - §6Kuning
+item.ds:rengoku_haori3=§eHaori Berapi - §rPutih
+item.ds:rengoku_haori5=§eHaori Berapi - §cMerah
+item.ds:xeno_haori=§eHaori Xeno
+
+item.ds:tanjiro_haori1=§eHaori Kotak-kotak - §cMerah
+item.ds:tanjiro_haori2=§eHaori Kotak-kotak - §1Biru
+item.ds:tanjiro_haori3=§eHaori Kotak-kotak - §5Ungu
+item.ds:tanjiro_haori4=§eHaori Kotak-kotak - §6Coklat
+item.ds:tanjiro_haori5=§eHaori Kotak-kotak - §7Abu-abu
+item.ds:tanjiro_haori6=§eHaori Kotak-kotak - §0Hitam
+item.ds:tanjiro_haori7=§eHaori Kotak-kotak - §2Hutan
+
+item.ds:zenitsu_haori1=§eHaori Segitiga - §9Biru
+item.ds:zenitsu_haori2=§eHaori Segitiga - §dUngu
+item.ds:zenitsu_haori3=§eHaori Segitiga - §6Oranye
+item.ds:zenitsu_haori4=§eHaori Segitiga - §cCoklat

@@ -1,0 +1,53 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.clothes_shinazugawa",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0],
+					"binding": "q.item_slot_to_bone_name(c.item_slot)"
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12.32604, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24.65208, 0],
+					"cubes": [
+						{"origin": [-4.07227, 12.31922, -2.22141], "size": [8.14453, 12.33968, 4.44281], "inflate": 0.251, "uv": [16, 16]},
+						{"origin": [0.125, 25.03387, -2.07721], "size": [4.07225, 5.14264, 4.41803], "inflate": 0.125, "uv": [0, 16]},
+						{"origin": [-4.19725, 25.03387, -2.07721], "size": [4.07225, 5.14264, 4.41803], "inflate": 0.125, "uv": [16, 48]}
+					]
+				},
+				{
+					"name": "rightArm",
+					"parent": "root",
+					"pivot": [-5.085, 22.59774, 0],
+					"cubes": [
+						{"origin": [-8.14027, 13.34639, -2.22141], "size": [4.07653, 11.31251, 4.44281], "inflate": 0.251, "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "leftArm",
+					"parent": "root",
+					"pivot": [5.085, 22.59774, 0],
+					"cubes": [
+						{"origin": [4.06373, 13.34639, -2.22141], "size": [4.07653, 11.31251, 4.44281], "inflate": 0.251, "uv": [32, 48]}
+					]
+				}
+			]
+		}
+	]
+}

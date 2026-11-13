@@ -1,0 +1,201 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.akaza",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [1.9, 12, 0],
+					"mirror": true,
+					"cubes": [
+						{"origin": [-0.1, 0, -2], "size": [4, 12, 4], "uv": [0, 16]},
+						{"origin": [-0.3, -0.2, -2.2], "size": [4.4, 12.4, 4.4], "uv": [0, 48]}
+					]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-1.9, 12, 0],
+					"cubes": [
+						{"origin": [-3.9, 0, -2], "size": [4, 12, 4], "uv": [0, 16]},
+						{"origin": [-4.1, -0.2, -2.2], "size": [4.4, 12.4, 4.4], "uv": [0, 48]}
+					]
+				},
+				{
+					"name": "rightLegging",
+					"parent": "rightLeg",
+					"pivot": [-1.9, 12, 0]
+				},
+				{
+					"name": "rightBoot",
+					"parent": "rightLeg",
+					"pivot": [-1.9, 12, 0]
+				},
+				{
+					"name": "rightSock",
+					"parent": "rightLeg",
+					"pivot": [-1.9, 12, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [16, 16]},
+						{"origin": [-4.2, 11.8, -2.2], "size": [8.4, 12.4, 4.4], "uv": [16, 32]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "waist",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "hat",
+					"parent": "head",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.5, "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "helmet",
+					"parent": "head",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "rightArm",
+					"parent": "waist",
+					"pivot": [-5, 22, 0],
+					"cubes": [
+						{"origin": [-8, 12, -2], "size": [4, 12, 4], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1]
+				},
+				{
+					"name": "rightArmArmor",
+					"parent": "rightArm",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "leftArm",
+					"parent": "waist",
+					"pivot": [5, 22, 0],
+					"mirror": true,
+					"cubes": [
+						{"origin": [4, 12, -2], "size": [4, 12, 4], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "particlebase",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "particler",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"locator": [0, 16, 0]
+					}
+				},
+				{
+					"name": "particler2",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"locator2": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill2",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill2": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill3",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill3": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill4",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill4": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill5",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill5": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill6",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill6": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill7",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill7": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill8",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill8": [0, 16, 0]
+					}
+				}
+			]
+		}
+	]
+}

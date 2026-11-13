@@ -1,0 +1,28 @@
+{
+	"format_version": "1.20.0",
+	"animation_controllers": {
+		"controller.animation.akaza.idle": {
+		    "initial_state" : "default",
+			"states": {
+				"akazaidle" : {
+					"animations" : [ "akazaidle" ],
+					"transitions" : [
+						{
+							"akazawalk" : "query.is_moving"
+						},
+						{
+							"default" : "q.all_animations_finished"
+						}
+					]
+				},
+				"akazawalk" : {
+					"animations" : [ "akazawalk" ],
+					"transitions" : [
+						{
+							"akazaidle" : "!query.is_moving"
+						},
+						{
+							"default" : "q.all_animations_finished"
+						}
+					]
+				}}}}}

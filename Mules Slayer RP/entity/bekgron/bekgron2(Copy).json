@@ -1,0 +1,24 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "water:form11",
+      "materials": {
+        "default": "void_material"
+      },
+      "textures": {
+        "default": "textures/entity/watur11"
+      },
+      "geometry": {
+        "default": "geometry.bekgron2"
+      },
+      "scripts": {
+        "scale": "2.0",
+        "should_update_bones_and_effects_offscreen": true
+      },
+      "render_controllers": [
+		"controller.render.kanjut_bekgron1"
+	 ]
+    }
+  }
+}

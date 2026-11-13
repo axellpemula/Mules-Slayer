@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "axell:haganezuka",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/haganezuka"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom"
+      },
+      "render_controllers": ["controller.render.axell"],
+      "spawn_egg": {
+        "base_color": "#ffe999",
+        "overlay_color": "#fff700"
+      },
+      "scripts": {
+        "animate": [
+          { "run": "query.is_moving" },
+          { "attack": "variable.attack_time > 0" }
+        ]
+      },
+      "animations": {
+          "run": "animation.demon.run",
+          "attack": "animation.demon.attack"
+      },
+      "enable_attachables": true
+    }
+  }
+}

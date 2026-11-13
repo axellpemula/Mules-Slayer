@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sun:solar",
+      "materials": {
+        "Body": "entity_alphatest"
+      },
+      "textures": {
+        "Base": "textures/entity/cihuy"
+      },
+      "geometry": {
+        "default": "geometry.front_particle2"
+      },
+      "particle_effects": {
+        "solar1": "sun:solar",
+        "solar2": "sun:solar2",
+        "solar3": "sun:solar3"
+       },
+"scripts": {
+      "animate": [
+      { "facing": "(1.0)" }
+    ]},
+    "animations": {
+      "facing": "animation.sun.solar"
+    },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "texture": "icikiwir"
+      }
+    }
+  }
+}

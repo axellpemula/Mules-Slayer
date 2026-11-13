@@ -1,0 +1,62 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "akaza:air",     
+      "runtime_identifier": "minecraft:arrow",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "real", "inanimate" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.01,
+        "height": 0.01
+      },
+      "minecraft:health": {
+        "value": 1000,
+        "max": 1000
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/none.json"
+      },
+      "minecraft:nameable": {
+		"always_show": false
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      }
+    },
+    "component_groups": {
+      "axell:despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "events": {
+      "axell:despawn": {
+        "add": {
+          "component_groups": [
+            "axell:despawn"
+          ]
+        }
+      }
+    }
+  }
+}
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            

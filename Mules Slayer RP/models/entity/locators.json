@@ -1,0 +1,136 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.locator",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 7,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "particlebase",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "particler",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"locator": [0, 16, 0]
+					}
+				},
+				{
+					"name": "particler2",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"locator2": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill2",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill2": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill3",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill3": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill4",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill4": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill5",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill5": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill6",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill6": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill7",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill7": [0, 16, 0]
+					}
+				},
+				{
+					"name": "skill8",
+					"parent": "particlebase",
+					"pivot": [0, 23, 0],
+					"locators": {
+						"skill8": [0, 16, 0]
+					}
+				},
+				{
+					"name": "root",
+					"pivot": [0, 1, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 13, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 25, 0]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 25, 0]
+				},
+				{
+					"name": "ndas1",
+					"parent": "head",
+					"pivot": [0, 28, 0],
+					"locators": {
+						"ndas1": [0, 28, 0]
+					}
+				},
+				{
+					"name": "ndas2",
+					"parent": "head",
+					"pivot": [0, 28, 0],
+					"locators": {
+						"ndas2": [0, 28, 0]
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,195 @@
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "axell:tengen",
+			"min_engine_version": "1.8.0",
+			"materials": {
+				"default": "zombie"
+			},
+      "textures": {
+        "default": "textures/entity/slayers/tengen",
+		"blade": "textures/entity/blade/bladeorange",
+		"tsuba": "textures/entity/tsuba/uzui",
+		"handle": "textures/entity/handle/red_white"
+      },
+      "geometry": {
+        "default": "geometry.akaza",
+		"blade": "geometry.nichirin_cleaver_dual",
+		"tsuba": "geometry.uzui_tsuba_dual",
+		"handle": "geometry.nichirin_handle_dual_chain"
+	  },
+      "spawn_egg": {
+		  "base_color": "#FB90B2",
+		  "overlay_color": "#DCEAF0"
+		},
+		"particle_effects": { 
+        "disorder": "akaza:disorder",
+        "akazapunch2": "akaza:punch2",
+        "akazapunch": "akaza:punch",
+        "akazam1a": "akaza:m1a",
+        "akazam1b": "akaza:m1b",
+        "akazabr": "akaza:br",
+        "akazaexf": "akaza:exf",
+        "akazacompass1": "akaza:compass1",
+        "akazacompass2": "akaza:compass2",
+        "akazacompass3": "akaza:compass3",
+        "akaza8l": "akaza:8l",
+        "akazabsca": "akaza:bsca",
+        "akazabsca2": "akaza:bsca2",
+        "akazafptw": "akaza:fptw",
+        "akazafptw2": "akaza:fptw2",
+        
+        "flamem1a": "rengoku:m1a",
+        "flamem1b": "rengoku:m1b",
+        "flameglowa": "flame:glow",
+        "flameglowb": "flame:glowb",
+        "flameforma": "flame:forma",
+        "flameforma1": "flame:forma1",
+        "flameformb": "flame:formb",
+        "flameformb1": "flame:formb1",
+        "flameform7": "flame:form7",
+        "flameform7a": "flame:form7a",
+        "flameform4": "flame:form4",
+        "flameform4a": "flame:form4",
+
+        "waterm1a": "water:m1a",
+        "waterm1b": "water:m1b",
+        "waterm1d": "water:m1d",
+        "waterglowb": "water:glow",
+        "waterglowa": "water:glowb",
+        "waterforma": "water:forma",
+        "waterformb": "water:formb",
+        "waterform7a": "water:form7a",
+        "waterformbglow": "water:formbglow",
+        "waterforma1": "water:forma1",
+        "waterformb1": "water:formb1",
+        "watersmoosh": "water:smoosh",
+        "mizuguruma": "water:wheel",
+        "mizuguruma2": "water:wheel2",
+
+        "windformb": "wind:forma",
+        "windforma": "wind:formb",
+        "windformb1": "wind:forma1",
+        "windforma1": "wind:formb1",
+        "windform1": "wind:form1z",
+        "windform4": "wind:form4",
+        "windform7": "wind:forrm7",
+        "windform7b": "wind:form7b",
+        "windform9": "wind:forrm9",
+        "windform9b": "wind:form9b",
+        "windm1a": "wind:m1a",
+        "windm1b": "wind:m1b",
+        "windglowa": "wind:glowa",
+        "windglowb": "wind:glowb",
+
+        "soundform5": "sound:form5",
+        "soundform3": "sound:form3",
+        "soundforma": "sound:form1a",
+        "soundmeletup": "sound:meletup",
+        "soundm1d": "sound:m1d",
+        "soundm1d2": "sound:m1d2",
+        "soundm1a": "sound:m1a",
+        "soundm1b": "sound:m1b",
+
+        "thunderform1": "thunder:form1a",
+        "thunderform3a": "thunder:form3a",
+        "thunderforma": "thunder:forma",
+        "thunderformb": "thunder:formb",
+        "thunderpetir": "thunder:petir",
+        "thunderm1a": "thunder:m1a",
+        "thunderm1b": "thunder:m1b",
+        "thunderglowa": "thunder:glowa",
+        "thunderglowb": "thunder:glowb",
+        "thunderaura": "thunder:aura",
+
+        "misty": "mist:form2a",
+        "mistform": "mist:forma",
+        "mistform1": "mist:form1",
+        "mistform5": "mist:form5",
+        "mistform1b": "mist:form1b",
+        "mistm1e1": "mist:m1e1",
+        "mistm1e2": "mist:m1e2",
+        "mistm1a": "mist:m1a",
+        "mistm1b": "mist:m1b",
+        "mistglowa": "mist:glowa",
+        "mistglowb": "mist:glowb",
+        
+        "insectm1b": "insect:m1b",
+        "insectform3": "insect:form3",
+        "insectm1e2": "insect:m1e2",
+
+        "sheeth": "nichirin:sheeth",
+        "unsheeth": "nichirin:unsheeth",
+        "nichirin": "axell:nichirin"
+	  },
+	  "scripts": {
+		"pre_animation": ["variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"]
+	  },
+      "animations": {
+		"humanoid_big_head": "animation.humanoid.big_head",
+		"look_at_target_default": "animation.humanoid.look_at_target.default",
+		"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+		"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+		"move": "animation.humanoid.move",
+		"attack.rotations": "animation.humanoid.attack.rotations",
+		"sneaking": "animation.humanoid.sneaking",
+		"bob": "animation.humanoid.bob",
+		"tengenidle": "animation.tengen.idle2",
+        
+        "water_idle": "animation.water.idle",
+        "mist_idle": "animation.mist.idle",
+        "insect_idle": "animation.insect.idle",
+        "nichirin_idle": "animation.nichirin.idle",
+        "thunder_idle": "animation.thunder.idle",
+
+        "dual_idle": "animation.dual.idle",
+        "dual_chain_idle": "animation.dual_chain.idle",
+        "nichirin_invisible": "animation.nichirin.invisible",
+
+        "axell_walk": "animation.nichirin.walk",
+        "thunder_walk": "animation.thunder.walk",
+        "dual_walk": "animation.dual.walk",
+        "dual_chain_walk": "animation.dual_chain.walk",
+        "axell_run": "animation.nichirin.run",
+        "thunder_run": "animation.thunder.run",
+        "dual_run": "animation.dual.run",
+        "dual_chain_run": "animation.dual_chain.run",
+        "nichirin_sneak": "animation.nichirin_sneak",
+        "nichirin_sneak_walk": "animation.nichirin_sneak_walk",
+        "dual_sneak": "animation.dual_sneak",
+        "dual_sneak_walk": "animation.dual_sneak_walk",
+        "dual_chain_sneak": "animation.dual_chain_sneak",
+        "dual_chain_sneak_walk": "animation.dual_chain_sneak_walk",
+        "axell_fpp": "animation.stand.fpp",
+        "axell_fpp2": "animation.axell.fpp",
+        "demon_fpp": "animation.stand.fpp"
+			},
+			"animation_controllers": [
+				{
+					"look_at_target": "controller.animation.humanoid.look_at_target"
+				},
+				{
+					"tengenwalk": "controller.animation.humanoid.move"
+				},
+
+				{
+					"sneaking": "controller.animation.humanoid.sneaking"
+				},
+				{
+					"bob": "controller.animation.dual_chainac"
+				},
+				{
+					"swimming": "controller.animation.zombie.swimming"
+				}
+			],
+			"render_controllers": [
+			"controller.render.slayer",
+			"controller.render.slayerBlade",
+			"controller.render.slayerTsuba",
+			"controller.render.slayerHandle"
+			],
+			"enable_attachables": true
+		}
+	}
+}

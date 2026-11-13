@@ -1,0 +1,109 @@
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "axell:tokito",
+			"min_engine_version": "1.8.0",
+			"materials": {
+				"default": "zombie"
+			},
+      "textures": {
+        "default": "textures/entity/slayers/tokito",
+		"blade": "textures/entity/blade/bladewhite",
+		"tsuba": "textures/entity/tsuba/tokito",
+		"handle": "textures/entity/handle/green_black",
+		"scabbard": "textures/entity/handle/black_white"
+      },
+      "geometry": {
+        "default": "geometry.akaza",
+		"blade": "geometry.nichirin_blade",
+		"tsuba": "geometry.tokito_tsuba",
+		"handle": "geometry.nichirin_handle",
+		"scabbard": "geometry.sheeth"
+	  },
+      "spawn_egg": {
+		  "base_color": "#3A4B53",
+		  "overlay_color": "#9CD0CB"
+		},
+		"particle_effects": { 
+        "misty": "mist:form2a",
+        "mistform": "mist:forma",
+        "mistform1": "mist:form1",
+        "mistform5": "mist:form5",
+        "mistform1b": "mist:form1b",
+        "mistm1e1": "mist:m1e1",
+        "mistm1e2": "mist:m1e2",
+        "mistm1a": "mist:m1a",
+        "mistm1b": "mist:m1b",
+        "mistglowa": "mist:glowa",
+        "mistglowb": "mist:glowb"
+	  },
+	  "scripts": {
+		"pre_animation": ["variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"]
+	  },
+      "animations": {
+		"humanoid_big_head": "animation.humanoid.big_head",
+		"look_at_target_default": "animation.humanoid.look_at_target.default",
+		"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+		"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+		"move": "animation.humanoid.move",
+		"attack.rotations": "animation.humanoid.attack.rotations",
+		"sneaking": "animation.humanoid.sneaking",
+		"bob": "animation.humanoid.bob",
+        "water_idle": "animation.water.idle",
+        "mist_idle": "animation.mist.idle",
+        "insect_idle": "animation.insect.idle",
+        "nichirin_idle": "animation.nichirin.idle",
+        "thunder_idle": "animation.thunder.idle",
+
+        "dual_idle": "animation.dual.idle",
+        "dual_chain_idle": "animation.dual_chain.idle",
+        "nichirin_invisible": "animation.nichirin.invisible",
+
+        "axell_walk": "animation.nichirin.walk",
+        "thunder_walk": "animation.thunder.walk",
+        "dual_walk": "animation.dual.walk",
+        "dual_chain_walk": "animation.dual_chain.walk",
+        "axell_run": "animation.nichirin.run",
+        "thunder_run": "animation.thunder.run",
+        "dual_run": "animation.dual.run",
+        "dual_chain_run": "animation.dual_chain.run",
+        "nichirin_sneak": "animation.nichirin_sneak",
+        "nichirin_sneak_walk": "animation.nichirin_sneak_walk",
+        "dual_sneak": "animation.dual_sneak",
+        "dual_sneak_walk": "animation.dual_sneak_walk",
+        "dual_chain_sneak": "animation.dual_chain_sneak",
+        "dual_chain_sneak_walk": "animation.dual_chain_sneak_walk",
+        "axell_fpp": "animation.stand.fpp",
+        "axell_fpp2": "animation.axell.fpp",
+        "demon_fpp": "animation.stand.fpp"
+			},
+			"animation_controllers": [
+				{
+					"look_at_target": "controller.animation.humanoid.look_at_target"
+				},
+				{
+					"tengenwalk": "controller.animation.humanoid.move"
+				},
+
+				{
+					"sneaking": "controller.animation.humanoid.sneaking"
+				},
+				{
+					"bob": "controller.animation.mistac"
+				},
+				{
+					"swimming": "controller.animation.zombie.swimming"
+				}
+			],
+			"render_controllers": [
+			"controller.render.slayer",
+			"controller.render.slayerBlade",
+			"controller.render.slayerTsuba",
+			"controller.render.slayerHandle",
+			"controller.render.slayerScabbard"
+			],
+			"enable_attachables": true
+		}
+	}
+}

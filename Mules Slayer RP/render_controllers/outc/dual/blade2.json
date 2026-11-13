@@ -1,0 +1,46 @@
+
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.blade2_dual_no": {
+			"textures": [
+				"Array.variants[query.property('property:blade')]"
+			],
+			"materials": [
+				{
+					"*": "Material.default"
+				}
+			],
+			"geometry": "geometry.blade2_dual_no",
+			"arrays": {
+				"textures": {
+					"Array.variants": [
+						"Texture.none",
+						"Texture.bladebase",
+						"Texture.bladeblack",
+						"Texture.bladeblue",
+						"Texture.bladered",
+						"Texture.bladegreen",
+						"Texture.bladecyan",
+						"Texture.bladepurple",
+						"Texture.bladeorange",
+						"Texture.bladebrown",
+						"Texture.bladegray",
+						"Texture.bladeindigo",
+						"Texture.bladewhite"
+						
+					]
+				}
+			},
+	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+		}
+	}
+}

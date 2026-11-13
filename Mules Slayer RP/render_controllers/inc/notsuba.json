@@ -1,0 +1,33 @@
+
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.no_tsuba": {
+			"textures": [
+				"Array.variants[query.property('property:handle')]"
+			],
+			"materials": [
+				{
+					"*": "Material.default"
+				}
+			],
+			"geometry": "geometry.no_tsuba",
+			"arrays": {
+				"textures": {
+					"Array.variants": [
+						"Texture.none"
+					]
+				}
+			},
+	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+		}
+	}
+}

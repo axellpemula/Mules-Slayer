@@ -1,0 +1,68 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "equipment",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "breathings:water",
+              "name": "axell:itemGroup.name.breathings"
+            },
+            "items": [
+              "breathings:water",
+              "breathings:flame",
+              "breathings:wind",
+              "breathings:thunder",
+              "breathings:sound",
+              "breathings:mist",
+              "breathings:insect",
+              "breathings:cancel"
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "equipment",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "ds:uniform",
+              "name": "axell:itemGroup.name.uniform"
+            },
+            "items": [
+              "ds:uniform",
+              "ds:uniform_red",
+              "ds:uniform_tengen"
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "equipment",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "ds:tanjiro_haori",
+              "name": "axell:itemGroup.name.haoris"
+            },
+            "items": [
+              "ds:haori_cloud",
+              "ds:giyuu_haori",
+              "ds:tanjiro_haori",
+              "ds:rengoku_haori",
+              "ds:zenitsu_haori",
+              "ds:tokito_haori",
+              "ds:yorichi_haori",
+              "ds:michikatsu_haori",
+              "ds:shinazugawa_haori",
+              "ds:kocho_haori"
+
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

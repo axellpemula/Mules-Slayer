@@ -1,0 +1,503 @@
+axell:itemGroup.name.breathings=§d호흡의 책
+axell:itemGroup.name.haoris=§b하오리 및 유니폼
+axell:itemGroup.name.uniform=§6유니폼
+item.spawn_egg.entity.axell:dontol.name=돈톨 스폰 계란
+item.spawn_egg.entity.axell:akaza.name=아카자 스폰 계란
+item.spawn_egg.entity.axell:giyuu.name=기유 스폰 계란
+item.spawn_egg.entity.axell:kocho.name=시노부 스폰 계란
+item.spawn_egg.entity.axell:rengoku.name=렌고쿠 스폰 계란
+item.spawn_egg.entity.axell:sanemi.name=사네미 스폰 계란
+item.spawn_egg.entity.axell:tengen.name=텐겐 스폰 계란
+item.spawn_egg.entity.axell:tanjiro.name=Tanjiro Spawn Egg
+item.spawn_egg.entity.axell:tokito.name=무이치로 스폰 계란
+
+text.axell:selectform=표시하거나 강화할 형태를 선택하세요:
+text.axell:back=§4뒤로
+text.axell:cooldown=§4쿨다운 중
+text.axell:noenergy=§c에너지가 부족합니다
+text.learned=§a당신은 배웠습니다 
+
+text.stats:cycle=사이클 모드로 변경
+text.stats:manual=수동 모드로 변경
+
+text.haganezuka:chat1=당신은 귀신 해결사군요.
+text.haganezuka:chat2=당신의 칼을 사용자 정의하는 데 도움을 드리겠습니다.
+text.haganezuka:chat3=잘 단련된 칼은 생사를 결정할 수 있습니다.
+text.haganezuka:chat4=이제 당신의 칼을 보여주세요!
+
+item.axell:heavenly_dna=§d천상의 DNA
+item.item:scarlet_iron_ingot=§e주홍 철 주괴
+item.item:raw_scarlet_iron=§e주홍 철광석
+
+entity.dcb:basic_demon.name=기본 귀신
+item.spawn_egg.entity.dcb:basic_demon.name=기본 귀신 스폰 계란
+
+entity.axell:haganezuka.name=하가네주카
+item.spawn_egg.entity.axell:haganezuka.name=§e하가네주카 스폰 계란
+
+item.axell:stats=§a속성 및 통계
+item.breathings:cancel=§c호흡 초기화
+item.breathings:mist=§b안개 호흡 책
+item.breathings:flame=§6불꽃 호흡 책
+item.breathings:water=§9물 호흡 책
+item.breathings:thunder=§e천둥 호흡 책
+item.breathings:wind=§2바람 호흡 책
+item.breathings:sound=§g소리 호흡 책
+item.breathings:insect=§d곤충 호흡 책
+item.breathings:beast=§3짐승 호흡 책
+item.breathings:flower=§5꽃 호흡 책
+item.breathings:love=§c사랑 호흡 책
+item.breathings:serpent=§a뱀 호흡 책
+item.breathings:stone=§8돌 호흡 책
+item.breathings:sun=§4태양 호흡 책
+item.breathings:moon=§7달 호흡 책
+
+item.ds:uniform=§e귀신 해결사 유니폼
+item.ds:haori_cloud=§e구름 하오리
+item.ds:giyuu_haori=§e기유 하오리
+item.ds:kocho_haori=§e시노부 하오리
+item.ds:michikatsu_haori=§e미치카츠 하오리
+item.ds:rengoku_haori=§e렌고쿠 하오리
+item.ds:shinazugawa_haori=§e신나즈가와 하오리
+item.ds:tanjiro_haori=§e탄지로 하오리
+item.ds:tokito_haori=§e무이치로 유니폼
+item.ds:yorichi_haori=§e요리이치 하오리
+item.ds:zenitsu_haori=§e젠이츠 하오리
+
+item.axell:nichirin=§6니치린 칼
+item.axell:bda=§c혈귀술
+
+text.axell:m1=§4일반 공격
+text.axell:m1b=§l§6일반 공격
+§y§rtext.axell:m1=일반 공격
+
+§g§rtext.stats:stats=통계
+text.stats:family=§s가족
+text.stats:breathing=§6호흡 스타일
+text.stats:bda=§c혈귀술
+text.stats:convertsp=§aXP를 SP로 변환
+
+#breathings
+§y§rtext.breathings:mist=안개 호흡
+§y§rtext.breathings:flame=불꽃 호흡
+§y§rtext.breathings:water=물 호흡
+§y§rtext.breathings:wind=바람 호흡
+§y§rtext.breathings:sound=소리 호흡
+§y§rtext.breathings:thunder=천둥 호흡
+§y§rtext.breathings:beast=짐승 호흡
+§y§rtext.breathings:flower=꽃 호흡
+§y§rtext.breathings:love=사랑 호흡
+§y§rtext.breathings:serpent=뱀 호흡
+§y§rtext.breathings:stone=돌 호흡
+§y§rtext.breathings:insect=곤충 호흡
+§y§rtext.breathings:sun=태양 호흡
+§y§rtext.breathings:moon=달 호흡
+
+#breathings color
+text.breathings:mist=§b안개 호흡
+text.breathings:flame=§6불꽃 호흡
+text.breathings:water=§9물 호흡
+text.breathings:wind=§2바람 호흡
+text.breathings:sound=§g소리 호흡
+text.breathings:thunder=§e천둥 호흡
+text.breathings:beast=§3짐승 호흡
+text.breathings:flower=§5꽃 호흡
+text.breathings:love=§c사랑 호흡
+text.breathings:serpent=§a뱀 호흡
+text.breathings:stone=§8돌 호흡
+text.breathings:insect=§d곤충 호흡
+text.breathings:sun=§4태양 호흡
+text.breathings:moon=§7달 호흡
+
+#mist
+text.mist:form1=§4낮은 구름, 먼 안개\n§0(잠금)
+text.mist:form2=§4여덟 겹의 안개\n§0(잠금)
+text.mist:form3=§4흩어지는 안개 튀김\n§0(잠금)
+text.mist:form4=§4이동하는 흐름 베기\n§0(잠금)
+text.mist:form5=§4안개 구름의 바다\n§0(잠금)
+text.mist:form6=§4달 산란 안개\n§0(잠금)
+text.mist:form7=§4오보로\n§0(잠금)
+
+text.mist:form1b=§l§6낮은 구름, 먼 안개
+text.mist:form2b=§l§6여덟 겹의 안개
+text.mist:form3b=§l§6흩어지는 안개 튀김
+text.mist:form4b=§l§6이동하는 흐름 베기
+text.mist:form5b=§l§6안개 구름의 바다
+text.mist:form6b=§l§6달 산란 안개
+text.mist:form7b=§l§6오보로
+
+§y§rtext.mist:form1=낮은 구름, 먼 안개
+§y§rtext.mist:form2=여덟 겹의 안개
+§y§rtext.mist:form3=흩어지는 안개 튀김
+§y§rtext.mist:form4=이동하는 흐름 베기
+§y§rtext.mist:form5=안개 구름의 바다
+§y§rtext.mist:form6=달 산란 안개
+§y§rtext.mist:form7=오보로
+
+#flame
+text.flame:form1=§4알 수 없는 불\n§0(잠금)
+text.flame:form2=§4떠오르는 작열하는 태양\n§0(잠금)
+text.flame:form3=§4불타는 우주\n§0(잠금)
+text.flame:form4=§4활짝 피는 불꽃 물결\n§0(잠금)
+text.flame:form5=§4불꽃 호랑이\n§0(잠금)
+text.flame:form9=§4렌고쿠\n§0(잠금)
+
+text.flame:form1b=§l§6알 수 없는 불
+text.flame:form2b=§l§6떠오르는 작열하는 태양
+text.flame:form3b=§l§6불타는 우주
+text.flame:form4b=§l§6활짝 피는 불꽃 물결
+text.flame:form5b=§l§6불꽃 호랑이
+text.flame:form9b=§l§6렌고쿠
+
+§y§rtext.flame:form1=알 수 없는 불
+§y§rtext.flame:form2=떠오르는 작열하는 태양
+§y§rtext.flame:form3=불타는 우주
+§y§rtext.flame:form4=활짝 피는 불꽃 물결
+§y§rtext.flame:form5=불꽃 호랑이
+§y§rtext.flame:form9=렌고쿠
+
+#water
+text.water:form1=§4수면 베기\n§0(잠금)
+text.water:form2=§4물레\n§0(잠금)
+text.water:form3=§4흐르는 춤\n§0(잠금)
+text.water:form4=§4치는 파도\n§0(잠금)
+text.water:form5=§4가뭄 후의 축복받은 비\n§0(잠금)
+text.water:form6=§4소용돌이\n§0(잠금)
+text.water:form7=§4물방울 물결 찌르기\n§0(잠금)
+text.water:form8=§4폭포 분지\n§0(잠금)
+text.water:form9=§4흐르는 물 튀김, 난기류\n§0(잠금)
+text.water:form10=§4끊임없는 흐름\n§0(잠금)
+text.water:form11=§4죽음의 고요함\n§0(잠금)
+
+text.water:form1b=§l§6수면 베기
+text.water:form2b=§l§6물레
+text.water:form3b=§l§6흐르는 춤
+text.water:form4b=§l§6치는 파도
+text.water:form5b=§l§6가뭄 후의 축복받은 비
+text.water:form6b=§l§6소용돌이
+text.water:form7b=§l§6물방울 물결 찌르기
+text.water:form8b=§l§6폭포 분지
+text.water:form9b=§l§6흐르는 물 튀김, 난기류
+text.water:form10b=§l§6끊임없는 흐름
+text.water:form11b=§l§6죽음의 고요함
+
+§y§rtext.water:form1=수면 베기
+§y§rtext.water:form2=물레
+§y§rtext.water:form3=흐르는 춤
+§y§rtext.water:form4=치는 파도
+§y§rtext.water:form5=가뭄 후의 축복받은 비
+§y§rtext.water:form6=소용돌이
+§y§rtext.water:form7=물방울 물결 찌르기
+§y§rtext.water:form8=폭포 분지
+§y§rtext.water:form9=흐르는 물 튀김, 난기류
+§y§rtext.water:form10=끊임없는 흐름
+§y§rtext.water:form11=죽음의 고요함
+
+#wind
+text.wind:form1=§4먼지 회오리바람 절단기\n§0(잠금)
+text.wind:form2=§4발톱, 정화 바람\n§0(잠금)
+text.wind:form3=§4깨끗한 폭풍 바람 나무\n§0(잠금)
+text.wind:form4=§4상승하는 먼지 폭풍\n§0(잠금)
+text.wind:form5=§4찬 산 바람\n§0(잠금)
+text.wind:form6=§4검은 바람 산 폭풍\n§0(잠금)
+text.wind:form7=§4목 바람, 텐구 바람\n§0(잠금)
+text.wind:form8=§4첫 돌풍 베기\n§0(잠금)
+text.wind:form9=§4이다텐 태풍\n§0(잠금)
+
+text.wind:form1b=§l§6먼지 회오리바람 절단기
+text.wind:form2b=§l§6발톱, 정화 바람
+text.wind:form3b=§l§6깨끗한 폭풍 바람 나무
+text.wind:form4b=§l§6상승하는 먼지 폭풍
+text.wind:form5b=§l§6찬 산 바람
+text.wind:form6b=§l§6검은 바람 산 폭풍
+text.wind:form7b=§l§6목 바람, 텐구 바람
+text.wind:form8b=§l§6첫 돌풍 베기
+text.wind:form9b=§l§6이다텐 태풍
+
+§y§rtext.wind:form1=먼지 회오리바람 절단기
+§y§rtext.wind:form2=발톱, 정화 바람
+§y§rtext.wind:form3=깨끗한 폭풍 바람 나무
+§y§rtext.wind:form4=상승하는 먼지 폭풍
+§y§rtext.wind:form5=찬 산 바람
+§y§rtext.wind:form6=검은 바람 산 폭풍
+§y§rtext.wind:form7=목 바람, 텐구 바람
+§y§rtext.wind:form8=첫 돌풍 베기
+§y§rtext.wind:form9=이다텐 태풍
+
+#sound
+text.sound:form1=§4포효\n§0(잠금)
+text.sound:form2=§4포효하기\n§0(잠금)
+text.sound:form3=§4메아리 베기\n§0(잠금)
+text.sound:form4=§4끊임없는 울리는 베기\n§0(잠금)
+text.sound:form5=§4현악기 연주\n§0(잠금)
+
+text.sound:form1b=§l§6포효
+text.sound:form2b=§l§6포효하기
+text.sound:form3b=§l§6메아리 베기
+text.sound:form4b=§l§6끊임없는 울리는 베기
+text.sound:form5b=§l§6현악기 연주
+
+§y§rtext.sound:form1=포효
+§y§rtext.sound:form2=포효하기
+§y§rtext.sound:form3=메아리 베기
+§y§rtext.sound:form4=끊임없는 울리는 베기
+§y§rtext.sound:form5=현악기 연주
+
+#thunder
+text.thunder:form1=§4천둥과 번개\n§0(잠금)
+text.thunder:form2=§4쌀 영혼\n§0(잠금)
+text.thunder:form3=§4천둥 떼\n§0(잠금)
+text.thunder:form4=§4먼 천둥\n§0(잠금)
+text.thunder:form5=§4열 번개\n§0(잠금)
+text.thunder:form6=§4울음소리와 번개\n§0(잠금)
+
+text.thunder:form1b=§l§6천둥과 번개
+text.thunder:form2b=§l§6쌀 영혼
+text.thunder:form3b=§l§6천둥 떼
+text.thunder:form4b=§l§6먼 천둥
+text.thunder:form5b=§l§6열 번개
+text.thunder:form6b=§l§6울음소리와 번개
+
+§y§rtext.thunder:form1=천둥과 번개
+§y§rtext.thunder:form2=쌀 영혼
+§y§rtext.thunder:form3=천둥 떼
+§y§rtext.thunder:form4=먼 천둥
+§y§rtext.thunder:form5=열 번개
+§y§rtext.thunder:form6=울음소리와 번개
+
+#beast
+text.beast:form1=§4찌르기\n§0(잠금)
+text.beast:form2=§4자르고 주사위\n§0(잠금)
+text.beast:form3=§4삼키는 베기\n§0(잠금)
+text.beast:form4=§4동굴 베기\n§0(잠금)
+text.beast:form5=§4미친 벌림\n§0(잠금)
+text.beast:form6=§4야만성의 물어뜯는 이빨\n§0(잠금)
+text.beast:form7=§4공간 인식\n§0(잠금)
+text.beast:form8=§4폭발적 돌진\n§0(잠금)
+text.beast:form9=§4갑작스러운 투척 베기\n§0(잠금)
+text.beast:form10=§4원형 이빨 회전 이빨\n§0(잠금)
+
+text.beast:form1b=§l§6찌르기
+text.beast:form2b=§l§6자르고 주사위
+text.beast:form3b=§l§6삼키는 베기
+text.beast:form4b=§l§6동굴 베기
+text.beast:form5b=§l§6미친 벌림
+text.beast:form6b=§l§6야만성의 물어뜯는 이빨
+text.beast:form7b=§l§6공간 인식
+text.beast:form8b=§l§6폭발적 돌진
+text.beast:form9b=§l§6갑작스러운 투척 베기
+text.beast:form10b=§l§6원형 이빨 회전 이빨
+
+§y§rtext.beast:form1=찌르기
+§y§rtext.beast:form2=자르고 주사위
+§y§rtext.beast:form3=삼키는 베기
+§y§rtext.beast:form4=동굴 베기
+§y§rtext.beast:form5=미친 벌림
+§y§rtext.beast:form6=야만성의 물어뜯는 이빨
+§y§rtext.beast:form7=공간 인식
+§y§rtext.beast:form8=폭발적 돌진
+§y§rtext.beast:form9=갑작스러운 투척 베기
+§y§rtext.beast:form10=원형 이빨 회전 이빨
+
+#sun
+text.sun:form1=§4춤\n§0(잠금)
+text.sun:form2=§4맑은 푸른 하늘\n§0(잠금)
+text.sun:form3=§4분노의 태양\n§0(잠금)
+text.sun:form4=§4타는 뼈, 여름 태양\n§0(잠금)
+text.sun:form5=§4지는 해 변신\n§0(잠금)
+text.sun:form6=§4태양 열기 신기루\n§0(잠금)
+text.sun:form7=§4자비로운 광휘\n§0(잠금)
+text.sun:form8=§4해바라기 찌르기\n§0(잠금)
+text.sun:form9=§4태양 후광 용머리 춤\n§0(잠금)
+text.sun:form10=§4불바퀴\n§0(잠금)
+text.sun:form11=§4가짜 무지개\n§0(잠금)
+text.sun:form12=§4불꽃 춤\n§0(잠금)
+text.sun:form13=§4열세 번째 형태\n§0(잠금)
+
+text.sun:form1b=§l§6춤
+text.sun:form2b=§l§6맑은 푸른 하늘
+text.sun:form3b=§l§6분노의 태양
+text.sun:form4b=§l§6타는 뼈, 여름 태양
+text.sun:form5b=§l§6지는 해 변신
+text.sun:form6b=§l§6태양 열기 신기루
+text.sun:form7b=§l§6자비로운 광휘
+text.sun:form8b=§l§6해바라기 찌르기
+text.sun:form9b=§l§6태양 후광 용머리 춤
+text.sun:form10b=§l§6불바퀴
+text.sun:form11b=§l§6가짜 무지개
+text.sun:form12b=§l§6불꽃 춤
+text.sun:form13b=§l§6열세 번째 형태
+
+§y§rtext.sun:form1=춤
+§y§rtext.sun:form2=맑은 푸른 하늘
+§y§rtext.sun:form3=분노의 태양
+§y§rtext.sun:form4=타는 뼈, 여름 태양
+§y§rtext.sun:form5=지는 해 변신
+§y§rtext.sun:form6=태양 열기 신기루
+§y§rtext.sun:form7=자비로운 광휘
+§y§rtext.sun:form8=해바라기 찌르기
+§y§rtext.sun:form9=태양 후광 용머리 춤
+§y§rtext.sun:form10=불바퀴
+§y§rtext.sun:form11=가짜 무지개
+§y§rtext.sun:form12=불꽃 춤
+§y§rtext.sun:form13=열세 번째 형태
+
+#moon
+text.moon:form1=§4어두운 달, 저녁 궁전\n§0(잠금)
+text.moon:form2=§4진주 꽃 달 관찰\n§0(잠금)
+text.moon:form3=§4역겨운 달, 사슬\n§0(잠금)
+text.moon:form4=§4달빛 환상, 서리 새벽\n§0(잠금)
+text.moon:form5=§4달 영혼 재난 소용돌이\n§0(잠금)
+text.moon:form6=§4영원한 달, 무한\n§0(잠금)
+text.moon:form7=§4불행의 거울, 달빛\n§0(잠금)
+text.moon:form8=§4달 용 꼬리\n§0(잠금)
+text.moon:form9=§4쇠퇴하는 달 흐름\n§0(잠금)
+text.moon:form10=§4달빛 끊임없는 조명\n§0(잠금)
+text.moon:form11=§4달 호, 반달\n§0(잠금)
+text.moon:form12=§4상달 조명\n§0(잠금)
+text.moon:form13=§4달 일식\n§0(잠금)
+text.moon:form14=§4재난 달, 연속 자르기\n§0(잠금)
+text.moon:form15=§4끝없는 달, 고요함\n§0(잠금)
+text.moon:form16=§4사라지는 환상의 달들\n§0(잠금)
+
+text.moon:form1b=§l§6어두운 달, 저녁 궁전
+text.moon:form2b=§l§6진주 꽃 달 관찰
+text.moon:form3b=§l§6역겨운 달, 사슬
+text.moon:form4b=§l§6달빛 환상, 서리 새벽
+text.moon:form5b=§l§6달 영혼 재난 소용돌이
+text.moon:form6b=§l§6영원한 달, 무한
+text.moon:form7b=§l§6불행의 거울, 달빛
+text.moon:form8b=§l§6달 용 꼬리
+text.moon:form9b=§l§6쇠퇴하는 달 흐름
+text.moon:form10b=§l§6달빛 끊임없는 조명
+text.moon:form11b=§l§6달 호, 반달
+text.moon:form12b=§l§6상달 조명
+text.moon:form13b=§l§6달 일식
+text.moon:form14b=§l§6재난 달, 연속 자르기
+text.moon:form15b=§l§6끝없는 달, 고요함
+text.moon:form16b=§l§6사라지는 환상의 달들
+
+§y§rtext.moon:form1=어두운 달, 저녁 궁전
+§y§rtext.moon:form2=진주 꽃 달 관찰
+§y§rtext.moon:form3=역겨운 달, 사슬
+§y§rtext.moon:form4=달빛 환상, 서리 새벽
+§y§rtext.moon:form5=달 영혼 재난 소용돌이
+§y§rtext.moon:form6=영원한 달, 무한
+§y§rtext.moon:form7=불행의 거울, 달빛
+§y§rtext.moon:form8=달 용 꼬리
+§y§rtext.moon:form9=쇠퇴하는 달 흐름
+§y§rtext.moon:form10=달빛 끊임없는 조명
+§y§rtext.moon:form11=달 호, 반달
+§y§rtext.moon:form12=상달 조명
+§y§rtext.moon:form13=달 일식
+§y§rtext.moon:form14=재난 달, 연속 자르기
+§y§rtext.moon:form15=끝없는 달, 고요함
+§y§rtext.moon:form16=사라지는 환상의 달들
+
+#serpent
+text.serpent:form1=§4회전하는 뱀 베기\n§0(잠금)
+text.serpent:form2=§4좁은 머리의 독 이빨\n§0(잠금)
+text.serpent:form3=§4코일 결합\n§0(잠금)
+text.serpent:form4=§4쌍두 파충류\n§0(잠금)
+text.serpent:form5=§4미끄러지는 뱀\n§0(잠금)
+
+text.serpent:form1b=§l§6회전하는 뱀 베기
+text.serpent:form2b=§l§6좁은 머리의 독 이빨
+text.serpent:form3b=§l§6코일 결합
+text.serpent:form4b=§l§6쌍두 파충류
+text.serpent:form5b=§l§6미끄러지는 뱀
+
+§y§rtext.serpent:form1=회전하는 뱀 베기
+§y§rtext.serpent:form2=좁은 머리의 독 이빨
+§y§rtext.serpent:form3=코일 결합
+§y§rtext.serpent:form4=쌍두 파충류
+§y§rtext.serpent:form5=미끄러지는 뱀
+
+#love
+text.love:form1=§4첫 사랑의 오한\n§0(잠금)
+text.love:form2=§4사랑의 고통\n§0(잠금)
+text.love:form3=§4고양이 사랑 소나기\n§0(잠금)
+text.love:form5=§4흔들리는 사랑, 야생 발톱\n§0(잠금)
+text.love:form6=§4사랑 바람, 번쩍이는 발톱\n§0(잠금)
+text.love:form7=§4고양이 다리 날아차기\n§0(잠금)
+
+text.love:form1b=§l§6첫 사랑의 오한
+text.love:form2b=§l§6사랑의 고통
+text.love:form3b=§l§6고양이 사랑 소나기
+text.love:form5b=§l§6흔들리는 사랑, 야생 발톱
+text.love:form6b=§l§6사랑 바람, 번쩍이는 발톱
+text.love:form7b=§l§6고양이 다리 날아차기
+
+§y§rtext.love:form1=첫 사랑의 오한
+§y§rtext.love:form2=사랑의 고통
+§y§rtext.love:form3=고양이 사랑 소나기
+§y§rtext.love:form5=흔들리는 사랑, 야생 발톱
+§y§rtext.love:form6=사랑 바람, 번쩍이는 발톱
+§y§rtext.love:form7=고양이 다리 날아차기
+
+#stone
+text.stone:form1=§4사문석 양극\n§0(잠금)
+text.stone:form2=§4상단 스매시\n§0(잠금)
+text.stone:form3=§4돌 피부\n§0(잠금)
+text.stone:form4=§4화산 암석, 빠른 정복\n§0(잠금)
+text.stone:form5=§4정의의 호\n§0(잠금)
+
+text.stone:form1b=§l§6사문석 양극
+text.stone:form2b=§l§6상단 스매시
+text.stone:form3b=§l§6돌 피부
+text.stone:form4b=§l§6화산 암석, 빠른 정복
+text.stone:form5b=§l§6정의의 호
+
+§y§rtext.stone:form1=사문석 양극
+§y§rtext.stone:form2=상단 스매시
+§y§rtext.stone:form3=돌 피부
+§y§rtext.stone:form4=화산 암석, 빠른 정복
+§y§rtext.stone:form5=정의의 호
+
+#insect
+text.insect:form1=§4나비 춤: 변덕\n§0(잠금)
+text.insect:form2=§4딱정벌레 춤: 참 비행\n§0(잠금)
+text.insect:form3=§4잠자리 춤: 복안 육각형\n§0(잠금)
+text.insect:form4=§4지네 춤: 백 다리 지그재그\n§0(잠금)
+
+text.insect:form1b=§l§6나비 춤: 변덕
+text.insect:form2b=§l§6딱정벌레 춤: 참 비행
+text.insect:form3b=§l§6잠자리 춤: 복안 육각형
+text.insect:form4b=§l§6지네 춤: 백 다리 지그재그
+
+§y§rtext.insect:form1=나비 춤: 변덕
+§y§rtext.insect:form2=딱정벌레 춤: 참 비행
+§y§rtext.insect:form3=잠자리 춤: 복안 육각형
+§y§rtext.insect:form4=지네 춤: 백 다리 지그재그
+
+#Custom Armor / haoris
+item.ds:uniform_red=§e귀신 해결사 유니폼 - §c빨강
+item.ds:uniform_tengen=§e귀신 해결사 유니폼 - §6민소매
+
+item.ds:giyuu_haori1=§e한한 하오리 - §s청록색
+item.ds:giyuu_haori2=§e한한 하오리 - §6주황색
+item.ds:giyuu_haori3=§e한한 하오리 - §5자주색
+item.ds:giyuu_haori4=§e한한 하오리 - §1파랑
+
+item.ds:kocho_haori1=§e곤충 하오리 - §a초록
+item.ds:kocho_haori2=§e곤충 하오리 - §d핑크
+item.ds:kocho_haori3=§e곤충 하오리 - §b파랑
+
+item.ds:rengoku_haori1=§e불타는 하오리 - §b파랑
+item.ds:rengoku_haori2=§e불타는 하오리 - §6노랑
+item.ds:rengoku_haori3=§e불타는 하오리 - §r하양
+item.ds:rengoku_haori5=§e불타는 하오리 - §c빨강
+item.ds:xeno_haori=§e젤로 하오리
+
+item.ds:tanjiro_haori1=§e체커 하오리 - §c빨강
+item.ds:tanjiro_haori2=§e체커 하오리 - §1파랑
+item.ds:tanjiro_haori3=§e체커 하오리 - §5자주색
+item.ds:tanjiro_haori4=§e체커 하오리 - §6갈색
+item.ds:tanjiro_haori5=§e체커 하오리 - §7회색
+item.ds:tanjiro_haori6=§e체커 하오리 - §0검정
+item.ds:tanjiro_haori7=§e체커 하오리 - §2숲
+
+item.ds:zenitsu_haori1=§e삼각형 하오리 - §9파랑
+item.ds:zenitsu_haori2=§e삼각형 하오리 - §d자주색
+item.ds:zenitsu_haori3=§e삼각형 하오리 - §6주황색
+item.ds:zenitsu_haori4=§e삼각형 하오리 - §c갈색

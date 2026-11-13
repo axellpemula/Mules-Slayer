@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "heavenlydna"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "#A#",
+      "ABA",
+      "#A#"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:nether_star",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "axell:heavenly_dna",
+      "count": 1,
+      "data": 0
+    }
+  }
+}

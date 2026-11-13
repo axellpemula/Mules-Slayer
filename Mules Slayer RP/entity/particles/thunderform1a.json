@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "thunder:form1a",
+      "materials": {
+        "Body": "entity_alphatest"
+      },
+      "textures": {
+        "Base": "textures/entity/cihuy"
+      },
+      "geometry": {
+        "default": "geometry.front_particle2"
+      },
+      "particle_effects": {
+        "thunderform1": "thunder:form1a"
+       },
+"scripts": {
+      "animate": [
+      { "facing": "(1.0)" }
+    ]},
+    "animations": {
+      "facing": "animation.frontparticle_default"
+    },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "texture": "icikiwir"
+      }
+    }
+  }
+}

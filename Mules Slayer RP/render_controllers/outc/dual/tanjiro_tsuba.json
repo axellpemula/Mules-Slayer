@@ -1,0 +1,48 @@
+
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.tanjiro_tsubano_dual": {
+			"textures": [
+				"Array.variants[query.property('property:handle')]"
+			],
+			"materials": [
+				{
+					"*": "Material.default"
+				}
+			],
+			"geometry": "geometry.tanjiro_tsubano_dual",
+			"arrays": {
+				"textures": {
+					"Array.variants": [
+						"Texture.none",
+						"Texture.white_black",
+						"Texture.yellow_black",
+						"Texture.red_black",
+						"Texture.blue_black",
+						"Texture.cyan_black",
+						"Texture.purple_black",
+						"Texture.green_black",
+						"Texture.red_white",
+						"Texture.blue_white",
+						"Texture.cyan_white",
+						"Texture.purple_white",
+						"Texture.green_white",
+						"Texture.yellow_white",
+						"Texture.black_white"
+						
+					]
+				}
+			},
+	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+		}
+	}
+}

@@ -1,0 +1,61 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.rengoku_tsuba": {
+      "geometry": "Geometry.rengoku_tsuba",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.rengoku_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.rengoku_tsuba_dual": {
+      "geometry": "Geometry.rengoku_tsuba_dual",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.rengoku_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.rengoku_tsubano": {
+      "geometry": "Geometry.rengoku_tsubano",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.rengoku_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.rengoku_tsubano_dual": {
+      "geometry": "Geometry.rengoku_tsubano_dual",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.rengoku_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    }
+  }
+}

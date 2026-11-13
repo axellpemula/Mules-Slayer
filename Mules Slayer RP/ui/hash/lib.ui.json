@@ -1,0 +1,90 @@
+{
+  "namespace": "lib",
+  "label": {
+    "type": "image",
+    "texture": "textures/nothing",
+    //"texture": "textures/ui/Black",
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    //"size": ["100%c", 30],
+    "$text_size": [
+      "100%c",
+      10
+    ],
+    "size": "$text_size",
+    "clips_children": true,
+    "offset": "$text_offset",
+    "$text_offset|default": [
+      0,
+      0
+    ],
+    "$text_index|default": [
+      0,
+      0
+    ],
+    "$anchor|default": "center",
+    "$text_alignment|default": "right",
+    "$font_type|default": "default",
+    "$backup_font_type|default": "default",
+    "$font_scale_factor|default": 1,
+    "$layer|default": 0,
+    "$alpha|default": 1,
+    "$shadow|default": false,
+    "$line_padding|default": 5,
+    "controls": [
+      {
+        "subtitle": {
+          "type": "label",
+          "text": "#text",
+          "$update_string": "ui:",
+          "font_size": "normal",
+          "offset": "$text_index",
+          "line_padding": "$line_padding",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "text_alignment": "$text_alignment",
+          "font_type": "$font_type",
+          "backup_font_type": "$font_type",
+          "font_scale_factor": "$font_scale_factor",
+          "layer": "$layer",
+          "alpha": "$alpha",
+          "shadow": "$shadow",
+          "controls": [
+            {
+              "save": {
+                "type": "panel",
+                "size": [
+                  0,
+                  0
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#hud_subtitle_text_string"
+                  },
+                  {
+                    "binding_name": "#hud_subtitle_text_string",
+                    "binding_name_override": "#preserved_text",
+                    "binding_condition": "visibility_changed"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "(not (#hud_subtitle_text_string = #preserved_text) and not ((#hud_subtitle_text_string - $update_string) = #hud_subtitle_text_string))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "save",
+              "source_property_name": "(#preserved_text - $update_string)",
+              "target_property_name": "#text"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

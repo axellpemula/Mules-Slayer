@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "axell:dontol",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/dontol"
+      },
+      "geometry": {
+        "default": "geometry.dontol"
+      },
+      "render_controllers": [
+        "controller.render.axell"
+      ]
+    }
+  }
+}

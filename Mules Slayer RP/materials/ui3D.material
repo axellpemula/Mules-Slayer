@@ -1,0 +1,49 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "name_tag": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "depthFunc": "Always",
+      "vertexShader": "shaders/position.vertex",
+      "vrGeometryShader": "shaders/position.geometry",
+      "fragmentShader": "shaders/current_color.fragment",
+      "vertexFields": [
+        {
+          "field": "Position"
+        }
+      ],
+      "blendSrc": "Zero",
+      "blendDst": "Zero",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "msaaSupport": "Both"
+    },
+    "name_tag_text": {
+      "+states": [
+        "Blending"
+      ],
+      "depthFunc": "Always",
+      "msaaSupport": "Both"
+    },
+    "name_tag_depth_tested:entity_emissive": {
+      "depthFunc": "LessEqual"
+    },
+    "name_tag_alpha_tested:entity_emissive": {
+      "+defines": [
+        "ALPHA_TEST"
+      ],
+      "depthFunc": "LessEqual",
+      "-states": [
+        "Blending",
+        "DisableDepthWrite"
+      ]
+    }
+  }
+}

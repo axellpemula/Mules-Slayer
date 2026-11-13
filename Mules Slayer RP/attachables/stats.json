@@ -1,0 +1,50 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "axell:stats",
+			"render_controllers": ["controller.render.item_default"],
+			"materials": {
+				"default": "entity_alphatest",
+				"enchanted": "entity_alphatest_glint"
+			},
+			"textures": {
+				"default": "textures/entity/invisible",
+				"enchanted": "textures/misc/enchanted_item_glint"
+			},
+			"geometry": {
+				"default": "geometry.none"
+			},
+			"animations": {
+				"third_person_hold": "animation.nichirin.invisible"
+			},
+			"scripts": {
+				"animate": [
+					{
+						"third_person_hold": "!c.is_first_person"
+					}
+				]
+			}
+		}
+	}
+}
+     
+     
+     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                                                                             
+                                                                       

@@ -1,0 +1,76 @@
+{
+    "format_version": "1.17.20",
+    "minecraft:entity": {
+      "description": {
+        "identifier": "axell:haganezuka",
+        "is_spawnable": true,
+        "is_summonable": true,
+        "is_experimental": false
+      },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+      "components": {
+        "minecraft:nameable": {
+          "always_show": true
+        },
+        
+        "minecraft:type_family": {
+          "family": [ "mob", "villager" ]
+        },
+        "minecraft:collision_box": {
+          "width": 0.8,
+          "height": 1.7
+        },
+        "minecraft:health": {
+          "value": 40,
+          "max": 40
+        },
+        "minecraft:hurt_on_condition": {
+          "damage_conditions": [
+            {
+              "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+              "cause": "lava",
+              "damage_per_tick": 4
+            }
+          ]
+        },
+        "minecraft:attack": {
+          "damage": 3
+        },
+        "minecraft:physics": {
+        },
+         "minecraft:behavior.look_at_player": {
+          "priority": 1,
+          "look_distance": 12,
+          "probability": 100
+        },
+        "minecraft:pushable": {
+          "is_pushable": true,
+          "is_pushable_by_piston": true
+        },
+        "minecraft:interact": {
+        "interactions": [
+          {
+            "interact_text": "Talk",
+            "cooldown": 0.75,
+            "on_interact": {
+              "event": "ss"
+            }
+          }
+        ]
+      }
+    },
+    "events": {
+      "despawn_event": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      }
+    }
+      }
+    }

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "axell:dmg",
+      "materials": {
+        "Body": "entity_alphatest"
+      },
+      "textures": {
+        "Base": "textures/entity/cihuy"
+      },
+      "geometry": {
+        "Model": "geometry.demeg"
+      },
+      "render_controllers": [
+        "controller.render.axell"
+      ],
+      "spawn_egg": {
+        "texture": "icikiwir"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+    "format_version": 2,
+    "metadata": {
+        "product_type": "addon",
+        "authors": [
+            "axell"
+        ]
+    },
+    "header": {
+        "name": "Demon Slayer: Mules Slayer [BP]",
+        "description": "Demon Slayer addon made by axell, featuring epic battles and immersive experiences.",
+        "min_engine_version": [
+            1,
+            20,
+            50
+        ],
+        "uuid": "29317deb-0333-4bd9-9cad-47dbaf2c0864",
+        "version": [15,0,1]
+    },
+    "modules": [
+        {
+            "type": "data",
+            "uuid": "5a5d31f6-5f1e-4831-8cdf-5b297c16c279",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        },
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "7e104be3-5a9c-471c-893c-4a52e3fec587",
+            "entry": "scripts/main.js",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "ce6a21e7-c4c8-42d9-8f2c-3d6c6830df81",
+            "version": [15,0,1]
+        },
+        {
+      "module_name": "@minecraft/server",
+      "version": "1.19.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
+    }
+    ]
+}

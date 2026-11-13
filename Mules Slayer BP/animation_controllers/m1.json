@@ -1,0 +1,53 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+ "controller.animation.m1": {
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "left": "variable.attack_time > 0"
+            }
+          ],
+          "on_entry": [
+            "/scoreboard players set @s detect_left 0"
+          ]
+        },
+        "left": {
+          "transitions": [
+            {
+              "default": "!variable.attack_time > 0"
+            }
+          ],
+          "on_entry": [
+            "/scoreboard players set @s[scores={m1=0..100,skillani=0,sp1=0..21,ult=0,aspd=0,ultimate=0},tag=!stun] sp1 30",
+            "/scoreboard players set @s[scores={m1=0..100,skillani=0,sp1=0..22,ult=0,aspd=1,ultimate=0},tag=!stun] sp1 30",
+            "/scoreboard players set @s[scores={m1=0..100,skillani=0,sp1=0..23,ult=0,aspd=2,ultimate=0},tag=!stun] sp1 30",
+            "/scoreboard players set @s[scores={m1=0..100,skillani=0,sp1=0..24,ult=0,aspd=3,ultimate=0},tag=!stun] sp1 30",
+            "/scoreboard players set @s[scores={m1=0..100,skillani=0,sp1=0..25,ult=0,aspd=4..,ultimate=0},tag=!stun] sp1 30"
+            
+            ]
+    }
+}
+}
+}
+}
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+              
+              
+                 

@@ -1,0 +1,20 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "item", "name": "ds:haori_cloud",       "weight": 23 },
+        { "type": "item", "name": "ds:giyuu_haori",       "weight": 3  },
+        { "type": "item", "name": "ds:kocho_haori",       "weight": 3  },
+        { "type": "item", "name": "ds:michikatsu_haori",  "weight": 3  },
+        { "type": "item", "name": "ds:rengoku_haori",     "weight": 3  },
+        { "type": "item", "name": "ds:shinazugawa_haori", "weight": 3  },
+        { "type": "item", "name": "ds:tanjiro_haori",     "weight": 23 },
+        { "type": "item", "name": "ds:tokito_haori",      "weight": 3  },
+        { "type": "item", "name": "ds:yorichi_haori",     "weight": 1  },
+        { "type": "item", "name": "minecraft:air",        "weight": 73 },
+        { "type": "item", "name": "ds:zenitsu_haori",     "weight": 23 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+axell:itemGroup.name.breathings=§dLibro de Respiraciones
+axell:itemGroup.name.haoris=§bHaoris
+axell:itemGroup.name.uniform=§6Uniformes
+
+item.spawn_egg.entity.axell:akaza.name=Huevo de Aparición: Akaza
+item.spawn_egg.entity.axell:giyuu.name=Huevo de Aparición: Giyuu
+item.spawn_egg.entity.axell:kocho.name=Huevo de Aparición: Kocho
+item.spawn_egg.entity.axell:rengoku.name=Huevo de Aparición: Rengoku
+item.spawn_egg.entity.axell:sanemi.name=Huevo de Aparición: Sanemi
+item.spawn_egg.entity.axell:tengen.name=Huevo de Aparición: Tengen
+item.spawn_egg.entity.axell:tokito.name=Huevo de Aparición: Tokito
+item.spawn_egg.entity.axell:tanjiro.name=Tanjiro Spawn Egg
+item.spawn_egg.entity.axell:dontol.name=Huevo de Aparición: Dontol
+
+
+text.axell:selectform=Selecciona las formas para mostrar o mejorar:
+text.axell:back=§4Atrás
+text.axell:cooldown=§4En enfriamiento
+text.axell:noenergy=§cNo tienes suficiente energía
+text.learned=§aHas aprendido
+
+text.stats:cycle=Cambiar al modo Ciclo
+text.stats:manual=Cambiar al modo Manual
+
+text.haganezuka:chat1=Veo que eres un Cazador de Demonios.
+text.haganezuka:chat2=Déjame ayudarte a personalizar tu espada.
+text.haganezuka:chat3=Una hoja bien forjada puede marcar la diferencia entre la vida y la muerte.
+text.haganezuka:chat4=¡Ahora, muéstrame tu espada!
+
+item.axell:heavenly_dna=§dADN Celestial
+item.item:scarlet_iron_ingot=§eLingote de Hierro Escarlata
+item.item:raw_scarlet_iron=§eMineral de Hierro Escarlata
+
+entity.dcb:basic_demon.name=Demonio Básico
+item.spawn_egg.entity.dcb:basic_demon.name=Huevo de Aparición: Demonio Básico
+
+entity.axell:haganezuka.name=Haganezuka
+item.spawn_egg.entity.axell:haganezuka.name=§eHuevo de Aparición: Haganezuka
+
+item.axell:stats=§aAtributos y estadísticas
+item.breathings:cancel=§cReiniciar respiraciones
+item.breathings:mist=§bLibro de Respiración: Niebla
+item.breathings:flame=§6Libro de Respiración: Llama
+item.breathings:water=§9Libro de Respiración: Agua
+item.breathings:thunder=§eLibro de Respiración: Trueno
+item.breathings:wind=§2Libro de Respiración: Viento
+item.breathings:sound=§gLibro de Respiración: Sonido
+item.breathings:insect=§dLibro de Respiración: Insecto
+item.breathings:beast=§3Libro de Respiración: Bestia
+item.breathings:flower=§5Libro de Respiración: Flor
+item.breathings:love=§cLibro de Respiración: Amor
+item.breathings:serpent=§aLibro de Respiración: Serpiente
+item.breathings:stone=§8Libro de Respiración: Piedra
+item.breathings:sun=§4Libro de Respiración: Sol
+item.breathings:moon=§7Libro de Respiración: Luna
+
+
+item.ds:uniform=§eUniforme de Cazador de Demonios
+item.ds:haori_cloud=§eHaori Nube
+item.ds:giyuu_haori=§eHaori de Tomioka
+item.ds:kocho_haori=§eHaori de Shinobu
+item.ds:michikatsu_haori=§eHaori de Michikatsu
+item.ds:rengoku_haori=§eHaori de Rengoku
+item.ds:shinazugawa_haori=§eHaori de Shinazugawa
+item.ds:tanjiro_haori=§eHaori de Tanjiro
+item.ds:tokito_haori=§eUniforme de Muichiro
+item.ds:yorichi_haori=§eHaori de Yoriichi
+item.ds:zenitsu_haori=§eHaori de Zenitsu
+
+item.axell:nichirin=§6Espada Nichirin
+item.axell:bda=§cArte Demoníaco de la Sangre
+
+text.axell:m1=§4Ataque Normal
+text.axell:m1b=§l§6Ataque Normal
+§y§rtext.axell:m1=Ataque Normal
+
+§g§rtext.stats:stats=Estadísticas
+text.stats:family=§sFamilia
+text.stats:breathing=§6Estilo de Respiración
+text.stats:bda=§cArte Demoníaco de la Sangre
+text.stats:convertsp=§aConvertir SP
+
+#breathings
+§y§rtext.breathings:mist=Respiración: Niebla
+§y§rtext.breathings:flame=Respiración: Llama
+§y§rtext.breathings:water=Respiración: Agua
+§y§rtext.breathings:wind=Respiración: Viento
+§y§rtext.breathings:sound=Respiración: Sonido
+§y§rtext.breathings:thunder=Respiración: Trueno
+§y§rtext.breathings:beast=Respiración: Bestia
+§y§rtext.breathings:flower=Respiración: Flor
+§y§rtext.breathings:love=Respiración: Amor
+§y§rtext.breathings:serpent=Respiración: Serpiente
+§y§rtext.breathings:stone=Respiración: Piedra
+§y§rtext.breathings:insect=Respiración: Insecto
+§y§rtext.breathings:sun=Respiración: Sol
+§y§rtext.breathings:moon=Respiración: Luna
+
+
+#breathings color
+text.breathings:mist=§bRespiración: Niebla
+text.breathings:flame=§6Respiración: Llama
+text.breathings:water=§9Respiración: Agua
+text.breathings:wind=§2Respiración: Viento
+text.breathings:sound=§gRespiración: Sonido
+text.breathings:thunder=§eRespiración: Trueno
+text.breathings:beast=§3Respiración: Bestia
+text.breathings:flower=§5Respiración: Flor
+text.breathings:love=§cRespiración: Amor
+text.breathings:serpent=§aRespiración: Serpiente
+text.breathings:stone=§8Respiración: Piedra
+text.breathings:insect=§dRespiración: Insecto
+text.breathings:sun=§4Respiración: Sol
+text.breathings:moon=§7Respiración: Luna
+
+#mist
+text.mist:form1=§4Nubes bajas, niebla distante\n§0(Bloqueado)
+text.mist:form2=§4Niebla en ocho capas\n§0(Bloqueado)
+text.mist:form3=§4Salpicadura de niebla dispersa\n§0(Bloqueado)
+text.mist:form4=§4Mar de nubes y bruma\n§0(Bloqueado)
+text.mist:form5=§4Corte de flujo cambiante\n§0(Bloqueado)
+text.mist:form6=§4Niebla lunar dispersa\n§0(Bloqueado)
+text.mist:form7=§4Oboro\n§0(Bloqueado)
+
+text.mist:form1b=§l§6Nubes bajas, niebla distante
+text.mist:form2b=§l§6Niebla en ocho capas
+text.mist:form3b=§l§6Salpicadura de niebla dispersa
+text.mist:form4b=§l§6Mar de nubes y bruma
+text.mist:form5b=§l§6Corte de flujo cambiante
+text.mist:form6b=§l§6Niebla lunar dispersa
+text.mist:form7b=§l§6Oboro
+
+§y§rtext.mist:form1=Nubes bajas, niebla distante
+§y§rtext.mist:form2=Niebla en ocho capas
+§y§rtext.mist:form3=Salpicadura de niebla dispersa
+§y§rtext.mist:form4=Mar de nubes y bruma
+§y§rtext.mist:form5=Corte de flujo cambiante
+§y§rtext.mist:form6=Niebla lunar dispersa
+§y§rtext.mist:form7=Oboro
+
+#flame
+text.flame:form1=§4Fuego desconocido\n§0(Bloqueado)
+text.flame:form2=§4Sol abrasador ascendente\n§0(Bloqueado)
+text.flame:form4=§4Ondulación de llama en flor\n§0(Bloqueado)
+text.flame:form5=§4Tigre de Llama\n§0(Bloqueado)
+text.flame:form3=§4Universo llameante\n§0(Bloqueado)
+text.flame:form9=§4Rengoku\n§0(Bloqueado)
+
+text.flame:form1b=§l§6Fuego desconocido
+text.flame:form2b=§l§6Sol abrasador ascendente
+text.flame:form4b=§l§6Ondulación de llama en flor
+text.flame:form3b=§l§6Universo llameante
+text.flame:form5b=§l§6Tigre de Llama
+text.flame:form9b=§l§6Rengoku
+
+§y§rtext.flame:form1=Fuego desconocido
+§y§rtext.flame:form2=Sol abrasador ascendente
+§y§rtext.flame:form3=Universo llameante
+§y§rtext.flame:form4=Ondulación de llama en flor
+§y§rtext.flame:form5=Tigre de Llama
+§y§rtext.flame:form9=Rengoku
+
+#water
+text.water:form1=§4Corte en la superficie del agua\n§0(Bloqueado)
+text.water:form2=§4Rueda de agua\n§0(Bloqueado)
+text.water:form3=§4Danza fluida\n§0(Bloqueado)
+text.water:form4=§4Marea golpeadora\n§0(Bloqueado)
+text.water:form5=§4Lluvia bendita tras la sequía\n§0(Bloqueado)
+text.water:form6=§4Remolino\n§0(Bloqueado)
+text.water:form7=§4Empuje de ondas\n§0(Bloqueado)
+text.water:form8=§4Cuenca de cascada\n§0(Bloqueado)
+text.water:form9=§4Flujo de agua salpicante, turbulento\n§0(Bloqueado)
+text.water:form10=§4Flujo constante\n§0(Bloqueado)
+text.water:form11=§4Calma mortal\n§0(Bloqueado)
+
+
+text.water:form1b=§l§6Corte en la superficie del agua
+text.water:form2b=§l§6Rueda de agua
+text.water:form3b=§l§6Danza fluida
+text.water:form4b=§l§6Marea golpeadora
+text.water:form5b=§l§6Lluvia bendita tras la sequía
+text.water:form6b=§l§6Remolino
+text.water:form7b=§l§6Empuje de ondas
+text.water:form8b=§l§6Cuenca de cascada
+text.water:form9b=§l§6Flujo de agua salpicante, turbulento
+text.water:form10b=§l§6Flujo constante
+text.water:form11b=§l§6Calma mortal
+
+§y§rtext.water:form1=Corte en la superficie del agua
+§y§rtext.water:form2=Rueda de agua
+§y§rtext.water:form3=Danza fluida
+§y§rtext.water:form4=Marea golpeadora
+§y§rtext.water:form5=Lluvia bendita tras la sequía
+§y§rtext.water:form6=Remolino
+§y§rtext.water:form7=Empuje de ondas
+§y§rtext.water:form8=Cuenca de cascada
+§y§rtext.water:form9=Flujo de agua salpicante, turbulento
+§y§rtext.water:form10=Flujo constante
+§y§rtext.water:form11=Calma mortal
+
+#wind
+text.wind:form1=§4Cortador de torbellino de polvo\n§0(Bloqueado)
+text.wind:form2=§4Garras, viento purificador\n§0(Bloqueado)
+text.wind:form3=§4Árbol de tormenta limpia\n§0(Bloqueado)
+text.wind:form4=§4Tormenta de polvo ascendente\n§0(Bloqueado)
+text.wind:form5=§4Viento frío de la montaña\n§0(Bloqueado)
+text.wind:form6=§4Tormenta de montaña de viento negro\n§0(Bloqueado)
+text.wind:form7=§4Viento de cuello, viento Tengu\n§0(Bloqueado)
+text.wind:form8=§4Primer corte de vendaval\n§0(Bloqueado)
+text.wind:form9=§4Tifón Idaten\n§0(Bloqueado)
+
+text.wind:form1b=§l§6Cortador de torbellino de polvo
+text.wind:form2b=§l§6Garras, viento purificador
+text.wind:form3b=§l§6Árbol de tormenta limpia
+text.wind:form4b=§l§6Tormenta de polvo ascendente
+text.wind:form5b=§l§6Viento frío de la montaña
+text.wind:form6b=§l§6Tormenta de montaña de viento negro
+text.wind:form7b=§l§6Viento de cuello, viento Tengu
+text.wind:form8b=§l§6Primer corte de vendaval
+text.wind:form9b=§l§6Tifón Idaten
+
+§y§rtext.wind:form1=Cortador de torbellino de polvo
+§y§rtext.wind:form2=Garras, viento purificador
+§y§rtext.wind:form3=Árbol de tormenta limpia
+§y§rtext.wind:form4=Tormenta de polvo ascendente
+§y§rtext.wind:form5=Viento frío de la montaña
+§y§rtext.wind:form6=Tormenta de montaña de viento negro
+§y§rtext.wind:form7=Viento de cuello, viento Tengu
+§y§rtext.wind:form8=Primer corte de vendaval
+§y§rtext.wind:form9=Tifón Idaten
+
+#sound
+text.sound:form1=§4Rugido\n§0(Bloqueado)
+text.sound:form2=§4Rugiente\n§0(Bloqueado)
+text.sound:form3=§4Corte resonante\n§0(Bloqueado)
+text.sound:form4=§4Golpes resonantes constantes\n§0(Bloqueado)
+text.sound:form5=§4Actuación de cuerdas\n§0(Bloqueado)
+
+text.sound:form1b=§l§6Rugido
+text.sound:form2b=§l§6Rugiente
+text.sound:form3b=§l§6Corte resonante
+text.sound:form4b=§l§6Golpes resonantes constantes
+text.sound:form5b=§l§6Actuación de cuerdas
+
+§y§rtext.sound:form1=Rugido
+§y§rtext.sound:form2=Rugiente
+§y§rtext.sound:form3=Corte resonante
+§y§rtext.sound:form4=Golpes resonantes constantes
+§y§rtext.sound:form5=Actuación de cuerdas
+
+#thunder
+text.thunder:form1=§4Aplauso y destello\n§0(Bloqueado)
+text.thunder:form2=§4Espíritu del arroz\n§0(Bloqueado)
+text.thunder:form3=§4Enjambre de truenos\n§0(Bloqueado)
+text.thunder:form4=§4Trueno distante\n§0(Bloqueado)
+text.thunder:form5=§4Relámpago térmico\n§0(Bloqueado)
+text.thunder:form6=§4Retumbar y destello\n§0(Bloqueado)
+
+text.thunder:form1b=§l§6Aplauso y destello
+text.thunder:form2b=§l§6Espíritu del arroz
+text.thunder:form3b=§l§6Enjambre de truenos
+text.thunder:form4b=§l§6Trueno distante
+text.thunder:form5b=§l§6Relámpago térmico
+text.thunder:form6b=§l§6Retumbar y destello
+
+§y§rtext.thunder:form1=Aplauso y destello
+§y§rtext.thunder:form2=Espíritu del arroz
+§y§rtext.thunder:form3=Enjambre de truenos
+§y§rtext.thunder:form4=Trueno distante
+§y§rtext.thunder:form5=Relámpago térmico
+§y§rtext.thunder:form6=Retumbar y destello
+
+#beast
+text.beast:form1=§4Perforar\n§0(Bloqueado)
+text.beast:form2=§4Cortar y trocear\n§0(Bloqueado)
+text.beast:form3=§4Corte devorador\n§0(Bloqueado)
+text.beast:form4=§4Corte de cueva\n§0(Bloqueado)
+text.beast:form5=§4Rabioso\n§0(Bloqueado)
+text.beast:form6=§4Colmillos que muerden con brutalidad\n§0(Bloqueado)
+text.beast:form7=§4Conciencia espacial\n§0(Bloqueado)
+text.beast:form8=§4Embiste explosivo\n§0(Bloqueado)
+text.beast:form9=§4Golpe arrojadizo súbito\n§0(Bloqueado)
+text.beast:form10=§4Colmillo giratorio en círculo\n§0(Bloqueado)
+
+text.beast:form1b=§l§6Perforar
+text.beast:form2b=§l§6Cortar y trocear
+text.beast:form3b=§l§6Corte devorador
+text.beast:form4b=§l§6Corte de cueva
+text.beast:form5b=§l§6Rabioso
+text.beast:form6b=§l§6Colmillos que muerden con brutalidad
+text.beast:form7b=§l§6Conciencia espacial
+text.beast:form8b=§l§6Embiste explosivo
+text.beast:form9b=§l§6Golpe arrojadizo súbito
+text.beast:form10b=§l§6Colmillo giratorio en círculo
+
+§y§rtext.beast:form1=Perforar
+§y§rtext.beast:form2=Cortar y trocear
+§y§rtext.beast:form3=Corte devorador
+§y§rtext.beast:form4=Corte de cueva
+§y§rtext.beast:form5=Rabioso
+§y§rtext.beast:form6=Colmillos que muerden con brutalidad
+§y§rtext.beast:form7=Conciencia espacial
+§y§rtext.beast:form8=Embiste explosivo
+§y§rtext.beast:form9=Golpe arrojadizo súbito
+§y§rtext.beast:form10=Colmillo giratorio en círculo
+
+#sun
+text.sun:form1=§4Danza\n§0(Bloqueado)
+text.sun:form2=§4Cielo azul claro\n§0(Bloqueado)
+text.sun:form3=§4Sol enfurecido\n§0(Bloqueado)
+text.sun:form4=§4Huesos ardientes, sol de verano\n§0(Bloqueado)
+text.sun:form5=§4Transformación del sol poniente\n§0(Bloqueado)
+text.sun:form6=§4Calima térmica solar\n§0(Bloqueado)
+text.sun:form7=§4Radiancia benefactora\n§0(Bloqueado)
+text.sun:form8=§4Estocada girasol\n§0(Bloqueado)
+text.sun:form9=§4Danza cabeza de dragón halo solar\n§0(Bloqueado)
+text.sun:form10=§4Rueda de fuego\n§0(Bloqueado)
+text.sun:form11=§4Arcoíris falso\n§0(Bloqueado)
+text.sun:form12=§4Danza de llamas\n§0(Bloqueado)
+text.sun:form13=§4Decimotercer Forma\n§0(Bloqueado)
+
+text.sun:form1b=§l§6Danza
+text.sun:form2b=§l§6Cielo azul claro
+text.sun:form3b=§l§6Sol enfurecido
+text.sun:form4b=§l§6Huesos ardientes, sol de verano
+text.sun:form5b=§l§6Transformación del sol poniente
+text.sun:form6b=§l§6Calima térmica solar
+text.sun:form7b=§l§6Radiancia benefactora
+text.sun:form8b=§l§6Estocada girasol
+text.sun:form9b=§l§6Danza cabeza de dragón halo solar
+text.sun:form10b=§l§6Rueda de fuego
+text.sun:form11b=§l§6Arcoíris falso
+text.sun:form12b=§l§6Danza de llamas
+text.sun:form13b=§l§6Decimotercer Forma
+
+§y§rtext.sun:form1=Danza
+§y§rtext.sun:form2=Cielo azul claro
+§y§rtext.sun:form3=Sol enfurecido
+§y§rtext.sun:form4=Huesos ardientes, sol de verano
+§y§rtext.sun:form5=Transformación del sol poniente
+§y§rtext.sun:form6=Calima térmica solar
+§y§rtext.sun:form7=Radiancia benefactora
+§y§rtext.sun:form8=Estocada girasol
+§y§rtext.sun:form9=Danza cabeza de dragón halo solar
+§y§rtext.sun:form10=Rueda de fuego
+§y§rtext.sun:form11=Arcoíris falso
+§y§rtext.sun:form12=Danza de llamas
+§y§rtext.sun:form13=Decimotercer Forma
+
+#moon
+text.moon:form1=§4Luna oscura, palacio vespertino\n§0(Bloqueado)
+text.moon:form2=§4Flor de perla, contemplación lunar\n§0(Bloqueado)
+text.moon:form3=§4Luna detestable, cadenas\n§0(Bloqueado)
+text.moon:form4=§4Ilusión a la luz de la luna, amanecer escarchado\n§0(Bloqueado)
+text.moon:form5=§4Remolino calamitoso del espíritu lunar\n§0(Bloqueado)
+text.moon:form6=§4Luna eterna, infinito\n§0(Bloqueado)
+text.moon:form7=§4Espejo de la desgracia, iluminada por la luna\n§0(Bloqueado)
+text.moon:form8=§4Cola de dragón-luna\n§0(Bloqueado)
+text.moon:form9=§4Ráfagas menguantes de luna\n§0(Bloqueado)
+text.moon:form10=§4Iluminación incesante a la luz de la luna\n§0(Bloqueado)
+text.moon:form11=§4Arco lunar, media luna\n§0(Bloqueado)
+text.moon:form12=§4Iluminación de la Luna Superior\n§0(Bloqueado)
+text.moon:form13=§4Eclipse lunar\n§0(Bloqueado)
+text.moon:form14=§4Luna catastrófica, cortes continuos\n§0(Bloqueado)
+text.moon:form15=§4Luna sin fin, tranquilidad\n§0(Bloqueado)
+text.moon:form16=§4Lunas ilusorias que desaparecen\n§0(Bloqueado)
+
+text.moon:form1b=§l§6Luna oscura, palacio vespertino
+text.moon:form2b=§l§6Flor de perla, contemplación lunar
+text.moon:form3b=§l§6Luna detestable, cadenas
+text.moon:form4b=§l§6Ilusión a la luz de la luna, amanecer escarchado
+text.moon:form5b=§l§6Remolino calamitoso del espíritu lunar
+text.moon:form6b=§l§6Luna eterna, infinito
+text.moon:form7b=§l§6Espejo de la desgracia, iluminada por la luna
+text.moon:form8b=§l§6Cola de dragón-luna
+text.moon:form9b=§l§6Ráfagas menguantes de luna
+text.moon:form10b=§l§6Iluminación incesante a la luz de la luna
+text.moon:form11b=§l§6Arco lunar, media luna
+text.moon:form12b=§l§6Iluminación de la Luna Superior
+text.moon:form13b=§l§6Eclipse lunar
+text.moon:form14b=§l§6Luna catastrófica, cortes continuos
+text.moon:form15b=§l§6Luna sin fin, tranquilidad
+text.moon:form16b=§l§6Lunas ilusorias que desaparecen
+
+§y§rtext.moon:form1=Luna oscura, palacio vespertino
+§y§rtext.moon:form2=Flor de perla, contemplación lunar
+§y§rtext.moon:form3=Luna detestable, cadenas
+§y§rtext.moon:form4=Ilusión a la luz de la luna, amanecer escarchado
+§y§rtext.moon:form5=Remolino calamitoso del espíritu lunar
+§y§rtext.moon:form6=Luna eterna, infinito
+§y§rtext.moon:form7=Espejo de la desgracia, iluminada por la luna
+§y§rtext.moon:form8=Cola de dragón-luna
+§y§rtext.moon:form9=Ráfagas menguantes de luna
+§y§rtext.moon:form10=Iluminación incesante a la luz de la luna
+§y§rtext.moon:form11=Arco lunar, media luna
+§y§rtext.moon:form12=Iluminación de la Luna Superior
+§y§rtext.moon:form13=Eclipse lunar
+§y§rtext.moon:form14=Luna catastrófica, cortes continuos
+§y§rtext.moon:form15=Luna sin fin, tranquilidad
+§y§rtext.moon:form16=Lunas ilusorias que desaparecen
+
+#serpent
+text.serpent:form1=§4Corte serpiente giratorio\n§0(Bloqueado)
+text.serpent:form2=§4Colmillos venenosos de la cabeza estrecha\n§0(Bloqueado)
+text.serpent:form3=§4Atadura enroscada\n§0(Bloqueado)
+text.serpent:form4=§4Reptil de dos cabezas\n§0(Bloqueado)
+text.serpent:form5=§4Serpiente serpenteante\n§0(Bloqueado)
+
+text.serpent:form1b=§l§6Corte serpiente giratorio
+text.serpent:form2b=§l§6Colmillos venenosos de la cabeza estrecha
+text.serpent:form3b=§l§6Atadura enroscada
+text.serpent:form4b=§l§6Reptil de dos cabezas
+text.serpent:form5b=§l§6Serpiente serpenteante
+
+§y§rtext.serpent:form1=Corte serpiente giratorio
+§y§rtext.serpent:form2=Colmillos venenosos de la cabeza estrecha
+§y§rtext.serpent:form3=Atadura enroscada
+§y§rtext.serpent:form4=Reptil de dos cabezas
+§y§rtext.serpent:form5=Serpiente serpenteante
+
+#love
+text.love:form1=§4Escalofríos del primer amor\n§0(Bloqueado)
+text.love:form2=§4Puños de amor\n§0(Bloqueado)
+text.love:form3=§4Ducha de amor de gato\n§0(Bloqueado)
+text.love:form5=§4Amor balanceante, garra salvaje\n§0(Bloqueado)
+text.love:form6=§4Viento de amor, garra destellante\n§0(Bloqueado)
+text.love:form7=§4Patada voladora con pierna de gato\n§0(Bloqueado)
+
+text.love:form1b=§l§6Escalofríos del primer amor
+text.love:form2b=§l§6Puños de amor
+text.love:form3b=§l§6Ducha de amor de gato
+text.love:form5b=§l§6Amor balanceante, garra salvaje
+text.love:form6b=§l§6Viento de amor, garra destellante
+text.love:form7b=§l§6Patada voladora con pierna de gato
+
+§y§rtext.love:form1=Escalofríos del primer amor
+§y§rtext.love:form2=Puños de amor
+§y§rtext.love:form3=Ducha de amor de gato
+§y§rtext.love:form5=Amor balanceante, garra salvaje
+§y§rtext.love:form6=Viento de amor, garra destellante
+§y§rtext.love:form7=Patada voladora con pierna de gato
+
+#stone
+text.stone:form1=§4Bipolar de serpentinita\n§0(Bloqueado)
+text.stone:form2=§4Aplastamiento superior\n§0(Bloqueado)
+text.stone:form3=§4Piel de piedra\n§0(Bloqueado)
+text.stone:form4=§4Roca volcánica, conquista rápida\n§0(Bloqueado)
+text.stone:form5=§4Arcos de justicia\n§0(Bloqueado)
+
+text.stone:form1b=§l§6Bipolar de serpentinita
+text.stone:form2b=§l§6Aplastamiento superior
+text.stone:form3b=§l§6Piel de piedra
+text.stone:form4b=§l§6Roca volcánica, conquista rápida
+text.stone:form5b=§l§6Arcos de justicia
+
+§y§rtext.stone:form1=Bipolar de serpentinita
+§y§rtext.stone:form2=Aplastamiento superior
+§y§rtext.stone:form3=Piel de piedra
+§y§rtext.stone:form4=Roca volcánica, conquista rápida
+§y§rtext.stone:form5=Arcos de justicia
+
+#insect
+text.insect:form1=§4Danza de la mariposa: Capricho\n§0(Bloqueado)
+text.insect:form2=§4Danza del escarabajo: Aleteo verdadero\n§0(Bloqueado)
+text.insect:form3=§4Danza de la libélula: Hexágono compuestO de ojo\n§0(Bloqueado)
+text.insect:form4=§4Danza del ciempiés: Zigzag de cien patas\n§0(Bloqueado)
+
+text.insect:form1b=§l§6Danza de la mariposa: Capricho
+text.insect:form2b=§l§6Danza del escarabajo: Aleteo verdadero
+text.insect:form3b=§l§6Danza de la libélula: Hexágono compuesto de ojo
+text.insect:form4b=§l§6Danza del ciempiés: Zigzag de cien patas
+
+§y§rtext.insect:form1=Danza de la mariposa: Capricho
+§y§rtext.insect:form2=Danza del escarabajo: Aleteo verdadero
+§y§rtext.insect:form3=Danza de la libélula: Hexágono compuesto de ojo
+§y§rtext.insect:form4=Danza del ciempiés: Zigzag de cien patas
+
+#Custom Armor / haoris
+item.ds:uniform_red=§eUniforme de Cazador de Demonios - §cRojo
+item.ds:uniform_tengen=§eUniforme de Cazador de Demonios - §6Sin mangas
+
+item.ds:giyuu_haori1=§eHaori Hanhan - §sCian
+item.ds:giyuu_haori2=§eHaori Hanhan - §6Naranja
+item.ds:giyuu_haori3=§eHaori Hanhan - §5Púrpura
+item.ds:giyuu_haori4=§eHaori Hanhan - §1Azul
+
+item.ds:kocho_haori1=§eHaori Insecto - §aVerde
+item.ds:kocho_haori2=§eHaori Insecto - §dRosa
+item.ds:kocho_haori3=§eHaori Insecto - §bAzul
+
+item.ds:rengoku_haori1=§eHaori Llamas - §bAzul
+item.ds:rengoku_haori2=§eHaori Llamas - §6Amarillo
+item.ds:rengoku_haori3=§eHaori Llamas - §rBlanco
+item.ds:rengoku_haori5=§eHaori Llamas - §cRojo
+item.ds:xeno_haori=§eHaori de Xeno
+
+item.ds:tanjiro_haori1=§eHaori a cuadros - §cRojo
+item.ds:tanjiro_haori2=§eHaori a cuadros - §1Azul
+item.ds:tanjiro_haori3=§eHaori a cuadros - §5Púrpura
+item.ds:tanjiro_haori4=§eHaori a cuadros - §6Marrón
+item.ds:tanjiro_haori5=§eHaori a cuadros - §7Gris
+item.ds:tanjiro_haori6=§eHaori a cuadros - §0Negro
+item.ds:tanjiro_haori7=§eHaori a cuadros - §2Bosque
+
+item.ds:zenitsu_haori1=§eHaori triangular - §9Azul
+item.ds:zenitsu_haori1=§eHaori triangular - §dPúrpura
+item.ds:zenitsu_haori1=§eHaori triangular - §6Naranja
+item.ds:zenitsu_haori1=§eHaori triangular - §cMarrón

@@ -1,0 +1,61 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.tokito_tsuba": {
+      "geometry": "Geometry.tokito_tsuba",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.tokito_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.tokito_tsuba_dual": {
+      "geometry": "Geometry.tokito_tsuba_dual",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.tokito_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.tokito_tsubano": {
+      "geometry": "Geometry.tokito_tsubano",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.tokito_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    },
+    "controller.render.tokito_tsubano_dual": {
+      "geometry": "Geometry.tokito_tsubano_dual",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.tokito_tsubaT" ],
+      	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    }
+  }
+}

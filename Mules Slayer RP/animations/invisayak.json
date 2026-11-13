@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ayaka.invis": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"scale": 0
+				},
+				"head": {
+					"scale": 0
+				},
+				"leftLeg": {
+					"scale": 0
+				},
+				"rightLeg": {
+					"scale": 0
+				}
+			}
+		}
+	}
+}

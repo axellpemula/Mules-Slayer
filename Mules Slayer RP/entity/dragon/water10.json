@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "water:form10a",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/particle/water/dragon"
+      },
+      "geometry": {
+        "default": "geometry.waterdragon"
+      },
+    "scripts": {
+      "animate": [
+      { "facing": "(1.0)" }
+    ]},
+    "animations": {
+      "facing": "animation.water10.m1a"
+    },
+      "render_controllers": [
+        "controller.render.axell"
+      ],
+      "spawn_egg": {
+        "texture": "icikiwir"
+      }
+    }
+  }
+}

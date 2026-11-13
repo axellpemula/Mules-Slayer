@@ -1,0 +1,100 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.clothes_kaigaku_chestplate",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "head",
+					"parent": "root",
+					"pivot": [0, 24.408, 0],
+					"cubes": [
+						{"origin": [-4.12735, 25.4165, -4.0765], "size": [8.153, 8.153, 8.153], "inflate": 0.5, "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "hat",
+					"parent": "root",
+					"pivot": [0, 24.408, 0],
+					"cubes": [
+						{"origin": [-4.0765, 25.4165, -4.0765], "size": [8.153, 8.153, 8.153], "inflate": 0.5, "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "rightArm",
+					"parent": "root",
+					"pivot": [-5.085, 22.374, 0],
+					"cubes": [
+						{"origin": [-8.3394, 12.4074, -2.3391], "size": [4.4748, 12.6108, 4.6782], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "rightSleeve",
+					"parent": "rightArm",
+					"pivot": [-5.085, 22.374, 0],
+					"cubes": [
+						{"origin": [-8.3411, 12.4057, -2.3408], "size": [4.4782, 12.6142, 4.6816], "inflate": 0.1, "uv": [40, 32]}
+					]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6.102, 15.255, 1.017]
+				},
+				{
+					"name": "leftArm",
+					"parent": "root",
+					"pivot": [5.085, 22.374, 0],
+					"cubes": [
+						{"origin": [3.8646, 12.4074, -2.3391], "size": [4.4748, 12.6108, 4.6782], "uv": [40, 16], "mirror": true}
+					]
+				},
+				{
+					"name": "leftSleeve",
+					"parent": "leftArm",
+					"pivot": [5.085, 22.374, 0],
+					"cubes": [
+						{"origin": [3.8629, 12.4057, -2.3408], "size": [4.4782, 12.6142, 4.6816], "inflate": 0.1, "uv": [40, 32], "mirror": true}
+					]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6.102, 15.255, 1.017]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12.204, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24.408, 0],
+					"cubes": [
+						{"origin": [-4.22055, 12.4074, -2.3391], "size": [8.49195, 12.55995, 4.6782], "uv": [16, 16]}
+					]
+				},
+				{
+					"name": "jacket",
+					"parent": "body",
+					"pivot": [0, 24.408, 0],
+					"cubes": [
+						{"origin": [-4.2731, 12.4057, -2.3408], "size": [8.49535, 12.56335, 4.6816], "inflate": 0.1, "uv": [16, 32]}
+					]
+				}
+			]
+		}
+	]
+}

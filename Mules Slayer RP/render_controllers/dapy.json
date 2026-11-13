@@ -1,0 +1,43 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.axell": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ]
+    },
+    "controller.render.padoru": {
+      "geometry": "geometry.padoru",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.padoru"
+      ]
+    },
+    "controller.render.mistsplitter": {
+      "geometry": "geometry.mistsplitter",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.mistsplitter"
+      ]
+    },
+    "controller.render.mussou": {
+      "geometry": "geometry.mussou",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.mussou"
+      ]
+    }
+  }
+}

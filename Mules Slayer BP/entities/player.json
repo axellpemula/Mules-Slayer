@@ -1,0 +1,6075 @@
+
+{
+	"format_version": "1.13.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"snek",
+					"health",
+					"statss",
+					"m1",
+					"sprint",
+					"combatstart",
+					"combatend",
+					"skibididop",
+					"dopdop",
+					"sexsex",
+					"jump"
+				]
+			},
+			"animations": {
+				"jump": "controller.animation.jump",
+				"health": "controller.animation.health",
+				"snek": "controller.animation.snek",
+				"statss": "controller.animation.stats",
+				"m1": "controller.animation.m1",
+				"sprint": "controller.animation.sprint",
+				"combatstart": "controller.animation.combatstart",
+				"combatend": "controller.animation.combatend",
+				"skibididop": "controller.animation.abilities",
+				"dopdop": "controller.animation.combatbda",
+				"sexsex": "controller.animation.stats"
+			},
+			"properties": {
+        "property:customskins": {
+          "type": "int",
+          "range": [
+            0,
+            100
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "property:swordskin": {
+          "type": "int",
+          "range": [
+            0,
+            100
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+				"property:handle": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:dual": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:trail": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:blade": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:blades": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:combat": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:demon": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				},
+				"property:tsuba": {
+					"type": "int",
+					"range": [
+						0,
+						100
+					],
+					"default": 0,
+					"client_sync": true
+				}
+			}
+		},
+		"component_groups": {
+			"axell_parry": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "has_tag",
+                                            "value": "parry"
+                                        },
+                                        {
+                                            "test": "has_damage",
+                                            "value": "any"
+                                        }
+                                    ]
+                                },
+                                "event": "parried"
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "has_tag",
+                                            "value": "parry"
+                                        },
+                                        {
+                                            "test": "has_damage",
+                                            "value": "any"
+                                        }
+                                    ]
+                                },
+                                "event": "parried"
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "has_tag",
+                                            "value": "nofall"
+                                        },
+                                        {
+                                            "test": "has_damage",
+                                            "value": "fall"
+                                        }
+                                    ]
+                                }
+                            },
+                            "deals_damage": false
+                        },
+						                        {
+                            "on_damage": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "has_tag",
+                                            "value": "nofall2"
+                                        },
+                                        {
+                                            "test": "has_damage",
+                                            "value": "fall"
+                                        }
+                                    ]
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "has_tag",
+                                            "value": "ultimate"
+                                        },
+                                        {
+                                            "test": "has_damage",
+                                            "value": "any"
+                                        }
+                                    ]
+                                }
+                            },
+                            "deals_damage": false
+                        }
+                    ]
+                }
+            },
+      "axell_blocking":{
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "on_damage": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "value": "blocking"
+                    },
+                    {
+                      "test": "has_damage",
+                      "value": "any"
+                    }
+                  ]
+                },
+                "event": "blocked"
+              },
+              "deals_damage": false
+            }
+          ]
+        }
+      },
+			"axell:ng": {
+				"minecraft:physics": {
+				"has_gravity": false
+				}
+			},
+			"axell:g": {
+				"minecraft:physics": {
+				"has_gravity": true
+				}
+			},
+"axell:hp.1": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        }
+      },
+      "axell:hp.2": {
+        "minecraft:health": {
+          "value": 25,
+          "max": 25
+        }
+      },
+      "axell:hp.3": {
+        "minecraft:health": {
+          "value": 30,
+          "max": 30
+        }
+      },
+      "axell:hp.4": {
+        "minecraft:health": {
+          "value": 40,
+          "max": 40
+        }
+      },
+      "axell:hp.5": {
+        "minecraft:health": {
+          "value": 50,
+          "max": 50
+        }
+      },
+      "axell:hp.6": {
+        "minecraft:health": {
+          "value": 60,
+          "max": 60
+        }
+      },
+      "axell:hp.7": {
+        "minecraft:health": {
+          "value": 70,
+          "max": 70
+        }
+      },
+      "axell:hp.8": {
+        "minecraft:health": {
+          "value": 80,
+          "max": 80
+        }
+      },
+      "axell:hp.9": {
+        "minecraft:health": {
+          "value": 90,
+          "max": 90
+        }
+      },
+      "axell:hp.10": {
+        "minecraft:health": {
+          "value": 100,
+          "max": 100
+        }
+      },
+      "axell:hp.11": {
+        "minecraft:health": {
+          "value": 110,
+          "max": 110
+        }
+      },
+      "axell:hp.12": {
+        "minecraft:health": {
+          "value": 120,
+          "max": 120
+        }
+      },
+      "axell:hp.13": {
+        "minecraft:health": {
+          "value": 130,
+          "max": 130
+        }
+      },
+      "axell:hp.14": {
+        "minecraft:health": {
+          "value": 140,
+          "max": 140
+        }
+      },
+      "axell:hp.15": {
+        "minecraft:health": {
+          "value": 150,
+          "max": 150
+        }
+      },
+      "axell:hp.16": {
+        "minecraft:health": {
+          "value": 160,
+          "max": 160
+        }
+      },
+      "axell:hp.17": {
+        "minecraft:health": {
+          "value": 170,
+          "max": 170
+        }
+      },
+      "axell:hp.18": {
+        "minecraft:health": {
+          "value": 180,
+          "max": 180
+        }
+      },
+      "axell:hp.19": {
+        "minecraft:health": {
+          "value": 190,
+          "max": 190
+        }
+      },
+      "axell:hp.20": {
+        "minecraft:health": {
+          "value": 200,
+          "max": 200
+        }
+      },
+      "axell:hp.21": {
+        "minecraft:health": {
+          "value": 210,
+          "max": 210
+        }
+      },
+      "axell:hp.22": {
+        "minecraft:health": {
+          "value": 220,
+          "max": 220
+        }
+      },
+      "axell:hp.23": {
+        "minecraft:health": {
+          "value": 230,
+          "max": 230
+        }
+      },
+      "axell:hp.24": {
+        "minecraft:health": {
+          "value": 240,
+          "max": 240
+        }
+      },
+      "axell:hp.25": {
+        "minecraft:health": {
+          "value": 250,
+          "max": 250
+        }
+      },
+      "axell:hp.26": {
+        "minecraft:health": {
+          "value": 260,
+          "max": 260
+        }
+      },
+      "axell:hp.27": {
+        "minecraft:health": {
+          "value": 270,
+          "max": 270
+        }
+      },
+      "axell:hp.28": {
+        "minecraft:health": {
+          "value": 280,
+          "max": 280
+        }
+      },
+      "axell:hp.29": {
+        "minecraft:health": {
+          "value": 290,
+          "max": 290
+        }
+      },
+      "axell:hp.30": {
+        "minecraft:health": {
+          "value": 300,
+          "max": 300
+        }
+      },
+      "axell:hp.31": {
+        "minecraft:health": {
+          "value": 310,
+          "max": 310
+        }
+      },
+      "axell:hp.32": {
+        "minecraft:health": {
+          "value": 320,
+          "max": 320
+        }
+      },
+      "axell:hp.33": {
+        "minecraft:health": {
+          "value": 330,
+          "max": 330
+        }
+      },
+      "axell:hp.34": {
+        "minecraft:health": {
+          "value": 340,
+          "max": 340
+        }
+      },
+      "axell:hp.35": {
+        "minecraft:health": {
+          "value": 350,
+          "max": 350
+        }
+      },
+      "axell:hp.36": {
+        "minecraft:health": {
+          "value": 360,
+          "max": 360
+        }
+      },
+      "axell:hp.37": {
+        "minecraft:health": {
+          "value": 370,
+          "max": 370
+        }
+      },
+      "axell:hp.38": {
+        "minecraft:health": {
+          "value": 380,
+          "max": 380
+        }
+      },
+      "axell:hp.39": {
+        "minecraft:health": {
+          "value": 390,
+          "max": 390
+        }
+      },
+      "axell:hp.40": {
+        "minecraft:health": {
+          "value": 400,
+          "max": 400
+        }
+      },
+      "axell:hp.41": {
+        "minecraft:health": {
+          "value": 410,
+          "max": 410
+        }
+      },
+      "axell:hp.42": {
+        "minecraft:health": {
+          "value": 420,
+          "max": 420
+        }
+      },
+      "axell:hp.43": {
+        "minecraft:health": {
+          "value": 430,
+          "max": 430
+        }
+      },
+      "axell:hp.44": {
+        "minecraft:health": {
+          "value": 440,
+          "max": 440
+        }
+      },
+      "axell:hp.45": {
+        "minecraft:health": {
+          "value": 450,
+          "max": 450
+        }
+      },
+      "axell:hp.46": {
+        "minecraft:health": {
+          "value": 460,
+          "max": 460
+        }
+      },
+      "axell:hp.47": {
+        "minecraft:health": {
+          "value": 470,
+          "max": 470
+        }
+      },
+      "axell:hp.48": {
+        "minecraft:health": {
+          "value": 480,
+          "max": 480
+        }
+      },
+      "axell:hp.49": {
+        "minecraft:health": {
+          "value": 490,
+          "max": 490
+        }
+      },
+      "axell:hp.50": {
+        "minecraft:health": {
+          "value": 500,
+          "max": 500
+        }
+      },
+      "axell:hp.51": {
+        "minecraft:health": {
+          "value": 510,
+          "max": 510
+        }
+      },
+      "axell:hp.52": {
+        "minecraft:health": {
+          "value": 520,
+          "max": 520
+        }
+      },
+      "axell:hp.53": {
+        "minecraft:health": {
+          "value": 530,
+          "max": 530
+        }
+      },
+      "axell:hp.54": {
+        "minecraft:health": {
+          "value": 540,
+          "max": 540
+        }
+      },
+      "axell:hp.55": {
+        "minecraft:health": {
+          "value": 550,
+          "max": 550
+        }
+      },
+      "axell:hp.56": {
+        "minecraft:health": {
+          "value": 560,
+          "max": 560
+        }
+      },
+      "axell:hp.57": {
+        "minecraft:health": {
+          "value": 570,
+          "max": 570
+        }
+      },
+      "axell:hp.58": {
+        "minecraft:health": {
+          "value": 580,
+          "max": 580
+        }
+      },
+      "axell:hp.59": {
+        "minecraft:health": {
+          "value": 590,
+          "max": 590
+        }
+      },
+      "axell:hp.60": {
+        "minecraft:health": {
+          "value": 600,
+          "max": 600
+        }
+      },
+      "axell:hp.61": {
+        "minecraft:health": {
+          "value": 610,
+          "max": 610
+        }
+      },
+      "axell:hp.62": {
+        "minecraft:health": {
+          "value": 620,
+          "max": 620
+        }
+      },
+      "axell:hp.63": {
+        "minecraft:health": {
+          "value": 630,
+          "max": 630
+        }
+      },
+      "axell:hp.64": {
+        "minecraft:health": {
+          "value": 640,
+          "max": 640
+        }
+      },
+      "axell:hp.65": {
+        "minecraft:health": {
+          "value": 650,
+          "max": 650
+        }
+      },
+      "axell:hp.66": {
+        "minecraft:health": {
+          "value": 660,
+          "max": 660
+        }
+      },
+      "axell:hp.67": {
+        "minecraft:health": {
+          "value": 670,
+          "max": 670
+        }
+      },
+      "axell:hp.68": {
+        "minecraft:health": {
+          "value": 680,
+          "max": 680
+        }
+      },
+      "axell:hp.69": {
+        "minecraft:health": {
+          "value": 690,
+          "max": 690
+        }
+      },
+      "axell:hp.70": {
+        "minecraft:health": {
+          "value": 700,
+          "max": 700
+        }
+      },
+      "axell:hp.71": {
+        "minecraft:health": {
+          "value": 710,
+          "max": 710
+        }
+      },
+      "axell:hp.72": {
+        "minecraft:health": {
+          "value": 720,
+          "max": 720
+        }
+      },
+      "axell:hp.73": {
+        "minecraft:health": {
+          "value": 730,
+          "max": 730
+        }
+      },
+      "axell:hp.74": {
+        "minecraft:health": {
+          "value": 740,
+          "max": 740
+        }
+      },
+      "axell:hp.75": {
+        "minecraft:health": {
+          "value": 750,
+          "max": 750
+        }
+      },
+      "axell:hp.76": {
+        "minecraft:health": {
+          "value": 760,
+          "max": 760
+        }
+      },
+      "axell:hp.77": {
+        "minecraft:health": {
+          "value": 770,
+          "max": 770
+        }
+      },
+      "axell:hp.78": {
+        "minecraft:health": {
+          "value": 780,
+          "max": 780
+        }
+      },
+      "axell:hp.79": {
+        "minecraft:health": {
+          "value": 790,
+          "max": 790
+        }
+      },
+      "axell:hp.80": {
+        "minecraft:health": {
+          "value": 800,
+          "max": 800
+        }
+      },
+      "axell:hp.81": {
+        "minecraft:health": {
+          "value": 810,
+          "max": 810
+        }
+      },
+      "axell:hp.82": {
+        "minecraft:health": {
+          "value": 820,
+          "max": 820
+        }
+      },
+      "axell:hp.83": {
+        "minecraft:health": {
+          "value": 830,
+          "max": 830
+        }
+      },
+      "axell:hp.84": {
+        "minecraft:health": {
+          "value": 840,
+          "max": 840
+        }
+      },
+      "axell:hp.85": {
+        "minecraft:health": {
+          "value": 850,
+          "max": 850
+        }
+      },
+      "axell:hp.86": {
+        "minecraft:health": {
+          "value": 860,
+          "max": 860
+        }
+      },
+      "axell:hp.87": {
+        "minecraft:health": {
+          "value": 870,
+          "max": 870
+        }
+      },
+      "axell:hp.88": {
+        "minecraft:health": {
+          "value": 880,
+          "max": 880
+        }
+      },
+      "axell:hp.89": {
+        "minecraft:health": {
+          "value": 890,
+          "max": 890
+        }
+      },
+      "axell:hp.90": {
+        "minecraft:health": {
+          "value": 900,
+          "max": 900
+        }
+      },
+      "axell:hp.91": {
+        "minecraft:health": {
+          "value": 910,
+          "max": 910
+        }
+      },
+      "axell:hp.92": {
+        "minecraft:health": {
+          "value": 920,
+          "max": 920
+        }
+      },
+      "axell:hp.93": {
+        "minecraft:health": {
+          "value": 930,
+          "max": 930
+        }
+      },
+      "axell:hp.94": {
+        "minecraft:health": {
+          "value": 940,
+          "max": 940
+        }
+      },
+      "axell:hp.95": {
+        "minecraft:health": {
+          "value": 950,
+          "max": 950
+        }
+      },
+      "axell:hp.96": {
+        "minecraft:health": {
+          "value": 960,
+          "max": 960
+        }
+      },
+      "axell:hp.97": {
+        "minecraft:health": {
+          "value": 970,
+          "max": 970
+        }
+      },
+      "axell:hp.98": {
+        "minecraft:health": {
+          "value": 980,
+          "max": 980
+        }
+      },
+      "axell:hp.99": {
+        "minecraft:health": {
+          "value": 990,
+          "max": 990
+        }
+      },
+      "axell:hp.100": {
+        "minecraft:health": {
+          "value": 1000,
+          "max": 1000
+        }
+      },
+      "axell:hp.101": {
+        "minecraft:health": {
+          "value": 1010,
+          "max": 1010
+        }
+      },
+      "axell:hp.102": {
+        "minecraft:health": {
+          "value": 1020,
+          "max": 1020
+        }
+      },
+      "axell:hp.103": {
+        "minecraft:health": {
+          "value": 1030,
+          "max": 1030
+        }
+      },
+      "axell:hp.104": {
+        "minecraft:health": {
+          "value": 1040,
+          "max": 1040
+        }
+      },
+      "axell:hp.105": {
+        "minecraft:health": {
+          "value": 1050,
+          "max": 1050
+        }
+      },
+      "axell:hp.106": {
+        "minecraft:health": {
+          "value": 1060,
+          "max": 1060
+        }
+      },
+      "axell:hp.107": {
+        "minecraft:health": {
+          "value": 1070,
+          "max": 1070
+        }
+      },
+      "axell:hp.108": {
+        "minecraft:health": {
+          "value": 1080,
+          "max": 1080
+        }
+      },
+      "axell:hp.109": {
+        "minecraft:health": {
+          "value": 1090,
+          "max": 1090
+        }
+      },
+      "axell:hp.110": {
+        "minecraft:health": {
+          "value": 1100,
+          "max": 1100
+        }
+      },
+      "axell:hp.111": {
+        "minecraft:health": {
+          "value": 1110,
+          "max": 1110
+        }
+      },
+      "axell:hp.112": {
+        "minecraft:health": {
+          "value": 1120,
+          "max": 1120
+        }
+      },
+      "axell:hp.113": {
+        "minecraft:health": {
+          "value": 1130,
+          "max": 1130
+        }
+      },
+      "axell:hp.114": {
+        "minecraft:health": {
+          "value": 1140,
+          "max": 1140
+        }
+      },
+      "axell:hp.115": {
+        "minecraft:health": {
+          "value": 1150,
+          "max": 1150
+        }
+      },
+      "axell:hp.116": {
+        "minecraft:health": {
+          "value": 1160,
+          "max": 1160
+        }
+      },
+      "axell:hp.117": {
+        "minecraft:health": {
+          "value": 1170,
+          "max": 1170
+        }
+      },
+      "axell:hp.118": {
+        "minecraft:health": {
+          "value": 1180,
+          "max": 1180
+        }
+      },
+      "axell:hp.119": {
+        "minecraft:health": {
+          "value": 1190,
+          "max": 1190
+        }
+      },
+      "axell:hp.120": {
+        "minecraft:health": {
+          "value": 1200,
+          "max": 1200
+        }
+      },
+      "axell:hp.121": {
+        "minecraft:health": {
+          "value": 1210,
+          "max": 1210
+        }
+      },
+      "axell:hp.122": {
+        "minecraft:health": {
+          "value": 1220,
+          "max": 1220
+        }
+      },
+      "axell:hp.123": {
+        "minecraft:health": {
+          "value": 1230,
+          "max": 1230
+        }
+      },
+      "axell:hp.124": {
+        "minecraft:health": {
+          "value": 1240,
+          "max": 1240
+        }
+      },
+      "axell:hp.125": {
+        "minecraft:health": {
+          "value": 1250,
+          "max": 1250
+        }
+      },
+      "axell:hp.126": {
+        "minecraft:health": {
+          "value": 1260,
+          "max": 1260
+        }
+      },
+      "axell:hp.127": {
+        "minecraft:health": {
+          "value": 1270,
+          "max": 1270
+        }
+      },
+      "axell:hp.128": {
+        "minecraft:health": {
+          "value": 1280,
+          "max": 1280
+        }
+      },
+      "axell:hp.129": {
+        "minecraft:health": {
+          "value": 1290,
+          "max": 1290
+        }
+      },
+      "axell:hp.130": {
+        "minecraft:health": {
+          "value": 1300,
+          "max": 1300
+        }
+      },
+      "axell:hp.131": {
+        "minecraft:health": {
+          "value": 1310,
+          "max": 1310
+        }
+      },
+      "axell:hp.132": {
+        "minecraft:health": {
+          "value": 1320,
+          "max": 1320
+        }
+      },
+      "axell:hp.133": {
+        "minecraft:health": {
+          "value": 1330,
+          "max": 1330
+        }
+      },
+      "axell:hp.134": {
+        "minecraft:health": {
+          "value": 1340,
+          "max": 1340
+        }
+      },
+      "axell:hp.135": {
+        "minecraft:health": {
+          "value": 1350,
+          "max": 1350
+        }
+      },
+      "axell:hp.136": {
+        "minecraft:health": {
+          "value": 1360,
+          "max": 1360
+        }
+      },
+      "axell:hp.137": {
+        "minecraft:health": {
+          "value": 1370,
+          "max": 1370
+        }
+      },
+      "axell:hp.138": {
+        "minecraft:health": {
+          "value": 1380,
+          "max": 1380
+        }
+      },
+      "axell:hp.139": {
+        "minecraft:health": {
+          "value": 1390,
+          "max": 1390
+        }
+      },
+      "axell:hp.140": {
+        "minecraft:health": {
+          "value": 1400,
+          "max": 1400
+        }
+      },
+      "axell:hp.141": {
+        "minecraft:health": {
+          "value": 1410,
+          "max": 1410
+        }
+      },
+      "axell:hp.142": {
+        "minecraft:health": {
+          "value": 1420,
+          "max": 1420
+        }
+      },
+      "axell:hp.143": {
+        "minecraft:health": {
+          "value": 1430,
+          "max": 1430
+        }
+      },
+      "axell:hp.144": {
+        "minecraft:health": {
+          "value": 1440,
+          "max": 1440
+        }
+      },
+      "axell:hp.145": {
+        "minecraft:health": {
+          "value": 1450,
+          "max": 1450
+        }
+      },
+      "axell:hp.146": {
+        "minecraft:health": {
+          "value": 1460,
+          "max": 1460
+        }
+      },
+      "axell:hp.147": {
+        "minecraft:health": {
+          "value": 1470,
+          "max": 1470
+        }
+      },
+      "axell:hp.148": {
+        "minecraft:health": {
+          "value": 1480,
+          "max": 1480
+        }
+      },
+      "axell:hp.149": {
+        "minecraft:health": {
+          "value": 1490,
+          "max": 1490
+        }
+      },
+      "axell:hp.150": {
+        "minecraft:health": {
+          "value": 1500,
+          "max": 1500
+        }
+      },
+      "axell:hp.151": {
+        "minecraft:health": {
+          "value": 1510,
+          "max": 1510
+        }
+      },
+      "axell:hp.152": {
+        "minecraft:health": {
+          "value": 1520,
+          "max": 1520
+        }
+      },
+      "axell:hp.153": {
+        "minecraft:health": {
+          "value": 1530,
+          "max": 1530
+        }
+      },
+      "axell:hp.154": {
+        "minecraft:health": {
+          "value": 1540,
+          "max": 1540
+        }
+      },
+      "axell:hp.155": {
+        "minecraft:health": {
+          "value": 1550,
+          "max": 1550
+        }
+      },
+      "axell:hp.156": {
+        "minecraft:health": {
+          "value": 1560,
+          "max": 1560
+        }
+      },
+      "axell:hp.157": {
+        "minecraft:health": {
+          "value": 1570,
+          "max": 1570
+        }
+      },
+      "axell:hp.158": {
+        "minecraft:health": {
+          "value": 1580,
+          "max": 1580
+        }
+      },
+      "axell:hp.159": {
+        "minecraft:health": {
+          "value": 1590,
+          "max": 1590
+        }
+      },
+      "axell:hp.160": {
+        "minecraft:health": {
+          "value": 1600,
+          "max": 1600
+        }
+      },
+      "axell:hp.161": {
+        "minecraft:health": {
+          "value": 1610,
+          "max": 1610
+        }
+      },
+      "axell:hp.162": {
+        "minecraft:health": {
+          "value": 1620,
+          "max": 1620
+        }
+      },
+      "axell:hp.163": {
+        "minecraft:health": {
+          "value": 1630,
+          "max": 1630
+        }
+      },
+      "axell:hp.164": {
+        "minecraft:health": {
+          "value": 1640,
+          "max": 1640
+        }
+      },
+      "axell:hp.165": {
+        "minecraft:health": {
+          "value": 1650,
+          "max": 1650
+        }
+      },
+      "axell:hp.166": {
+        "minecraft:health": {
+          "value": 1660,
+          "max": 1660
+        }
+      },
+      "axell:hp.167": {
+        "minecraft:health": {
+          "value": 1670,
+          "max": 1670
+        }
+      },
+      "axell:hp.168": {
+        "minecraft:health": {
+          "value": 1680,
+          "max": 1680
+        }
+      },
+      "axell:hp.169": {
+        "minecraft:health": {
+          "value": 1690,
+          "max": 1690
+        }
+      },
+      "axell:hp.170": {
+        "minecraft:health": {
+          "value": 1700,
+          "max": 1700
+        }
+      },
+      "axell:hp.171": {
+        "minecraft:health": {
+          "value": 1710,
+          "max": 1710
+        }
+      },
+      "axell:hp.172": {
+        "minecraft:health": {
+          "value": 1720,
+          "max": 1720
+        }
+      },
+      "axell:hp.173": {
+        "minecraft:health": {
+          "value": 1730,
+          "max": 1730
+        }
+      },
+      "axell:hp.174": {
+        "minecraft:health": {
+          "value": 1740,
+          "max": 1740
+        }
+      },
+      "axell:hp.175": {
+        "minecraft:health": {
+          "value": 1750,
+          "max": 1750
+        }
+      },
+      "axell:hp.176": {
+        "minecraft:health": {
+          "value": 1760,
+          "max": 1760
+        }
+      },
+      "axell:hp.177": {
+        "minecraft:health": {
+          "value": 1770,
+          "max": 1770
+        }
+      },
+      "axell:hp.178": {
+        "minecraft:health": {
+          "value": 1780,
+          "max": 1780
+        }
+      },
+      "axell:hp.179": {
+        "minecraft:health": {
+          "value": 1790,
+          "max": 1790
+        }
+      },
+      "axell:hp.180": {
+        "minecraft:health": {
+          "value": 1800,
+          "max": 1800
+        }
+      },
+      "axell:hp.181": {
+        "minecraft:health": {
+          "value": 1810,
+          "max": 1810
+        }
+      },
+      "axell:hp.182": {
+        "minecraft:health": {
+          "value": 1820,
+          "max": 1820
+        }
+      },
+      "axell:hp.183": {
+        "minecraft:health": {
+          "value": 1830,
+          "max": 1830
+        }
+      },
+      "axell:hp.184": {
+        "minecraft:health": {
+          "value": 1840,
+          "max": 1840
+        }
+      },
+      "axell:hp.185": {
+        "minecraft:health": {
+          "value": 1850,
+          "max": 1850
+        }
+      },
+      "axell:hp.186": {
+        "minecraft:health": {
+          "value": 1860,
+          "max": 1860
+        }
+      },
+      "axell:hp.187": {
+        "minecraft:health": {
+          "value": 1870,
+          "max": 1870
+        }
+      },
+      "axell:hp.188": {
+        "minecraft:health": {
+          "value": 1880,
+          "max": 1880
+        }
+      },
+      "axell:hp.189": {
+        "minecraft:health": {
+          "value": 1890,
+          "max": 1890
+        }
+      },
+      "axell:hp.190": {
+        "minecraft:health": {
+          "value": 1900,
+          "max": 1900
+        }
+      },
+      "axell:hp.191": {
+        "minecraft:health": {
+          "value": 1910,
+          "max": 1910
+        }
+      },
+      "axell:hp.192": {
+        "minecraft:health": {
+          "value": 1920,
+          "max": 1920
+        }
+      },
+      "axell:hp.193": {
+        "minecraft:health": {
+          "value": 1930,
+          "max": 1930
+        }
+      },
+      "axell:hp.194": {
+        "minecraft:health": {
+          "value": 1940,
+          "max": 1940
+        }
+      },
+      "axell:hp.195": {
+        "minecraft:health": {
+          "value": 1950,
+          "max": 1950
+        }
+      },
+      "axell:hp.196": {
+        "minecraft:health": {
+          "value": 1960,
+          "max": 1960
+        }
+      },
+      "axell:hp.197": {
+        "minecraft:health": {
+          "value": 1970,
+          "max": 1970
+        }
+      },
+      "axell:hp.198": {
+        "minecraft:health": {
+          "value": 1980,
+          "max": 1980
+        }
+      },
+      "axell:hp.199": {
+        "minecraft:health": {
+          "value": 1990,
+          "max": 1990
+        }
+      },
+      "axell:hp.200": {
+        "minecraft:health": {
+          "value": 2000,
+          "max": 2000
+        }
+      },
+      "axell:hp.201": {
+        "minecraft:health": {
+          "value": 2010,
+          "max": 2010
+        }
+      },
+      "axell:hp.202": {
+        "minecraft:health": {
+          "value": 2020,
+          "max": 2020
+        }
+      },
+      "axell:hp.203": {
+        "minecraft:health": {
+          "value": 2030,
+          "max": 2030
+        }
+      },
+      "axell:hp.204": {
+        "minecraft:health": {
+          "value": 2040,
+          "max": 2040
+        }
+      },
+      "axell:hp.205": {
+        "minecraft:health": {
+          "value": 2050,
+          "max": 2050
+        }
+      },
+      "axell:hp.206": {
+        "minecraft:health": {
+          "value": 2060,
+          "max": 2060
+        }
+      },
+      "axell:hp.207": {
+        "minecraft:health": {
+          "value": 2070,
+          "max": 2070
+        }
+      },
+      "axell:hp.208": {
+        "minecraft:health": {
+          "value": 2080,
+          "max": 2080
+        }
+      },
+      "axell:hp.209": {
+        "minecraft:health": {
+          "value": 2090,
+          "max": 2090
+        }
+      },
+      "axell:hp.210": {
+        "minecraft:health": {
+          "value": 2100,
+          "max": 2100
+        }
+      },
+      "axell:hp.211": {
+        "minecraft:health": {
+          "value": 2110,
+          "max": 2110
+        }
+      },
+      "axell:hp.212": {
+        "minecraft:health": {
+          "value": 2120,
+          "max": 2120
+        }
+      },
+      "axell:hp.213": {
+        "minecraft:health": {
+          "value": 2130,
+          "max": 2130
+        }
+      },
+      "axell:hp.214": {
+        "minecraft:health": {
+          "value": 2140,
+          "max": 2140
+        }
+      },
+      "axell:hp.215": {
+        "minecraft:health": {
+          "value": 2150,
+          "max": 2150
+        }
+      },
+      "axell:hp.216": {
+        "minecraft:health": {
+          "value": 2160,
+          "max": 2160
+        }
+      },
+      "axell:hp.217": {
+        "minecraft:health": {
+          "value": 2170,
+          "max": 2170
+        }
+      },
+      "axell:hp.218": {
+        "minecraft:health": {
+          "value": 2180,
+          "max": 2180
+        }
+      },
+      "axell:hp.219": {
+        "minecraft:health": {
+          "value": 2190,
+          "max": 2190
+        }
+      },
+      "axell:hp.220": {
+        "minecraft:health": {
+          "value": 2200,
+          "max": 2200
+        }
+      },
+      "axell:hp.221": {
+        "minecraft:health": {
+          "value": 2210,
+          "max": 2210
+        }
+      },
+      "axell:hp.222": {
+        "minecraft:health": {
+          "value": 2220,
+          "max": 2220
+        }
+      },
+      "axell:hp.223": {
+        "minecraft:health": {
+          "value": 2230,
+          "max": 2230
+        }
+      },
+      "axell:hp.224": {
+        "minecraft:health": {
+          "value": 2240,
+          "max": 2240
+        }
+      },
+      "axell:hp.225": {
+        "minecraft:health": {
+          "value": 2250,
+          "max": 2250
+        }
+      },
+      "axell:hp.226": {
+        "minecraft:health": {
+          "value": 2260,
+          "max": 2260
+        }
+      },
+      "axell:hp.227": {
+        "minecraft:health": {
+          "value": 2270,
+          "max": 2270
+        }
+      },
+      "axell:hp.228": {
+        "minecraft:health": {
+          "value": 2280,
+          "max": 2280
+        }
+      },
+      "axell:hp.229": {
+        "minecraft:health": {
+          "value": 2290,
+          "max": 2290
+        }
+      },
+      "axell:hp.230": {
+        "minecraft:health": {
+          "value": 2300,
+          "max": 2300
+        }
+      },
+      "axell:hp.231": {
+        "minecraft:health": {
+          "value": 2310,
+          "max": 2310
+        }
+      },
+      "axell:hp.232": {
+        "minecraft:health": {
+          "value": 2320,
+          "max": 2320
+        }
+      },
+      "axell:hp.233": {
+        "minecraft:health": {
+          "value": 2330,
+          "max": 2330
+        }
+      },
+      "axell:hp.234": {
+        "minecraft:health": {
+          "value": 2340,
+          "max": 2340
+        }
+      },
+      "axell:hp.235": {
+        "minecraft:health": {
+          "value": 2350,
+          "max": 2350
+        }
+      },
+      "axell:hp.236": {
+        "minecraft:health": {
+          "value": 2360,
+          "max": 2360
+        }
+      },
+      "axell:hp.237": {
+        "minecraft:health": {
+          "value": 2370,
+          "max": 2370
+        }
+      },
+      "axell:hp.238": {
+        "minecraft:health": {
+          "value": 2380,
+          "max": 2380
+        }
+      },
+      "axell:hp.239": {
+        "minecraft:health": {
+          "value": 2390,
+          "max": 2390
+        }
+      },
+      "axell:hp.240": {
+        "minecraft:health": {
+          "value": 2400,
+          "max": 2400
+        }
+      },
+      "axell:hp.241": {
+        "minecraft:health": {
+          "value": 2410,
+          "max": 2410
+        }
+      },
+      "axell:hp.242": {
+        "minecraft:health": {
+          "value": 2420,
+          "max": 2420
+        }
+      },
+      "axell:hp.243": {
+        "minecraft:health": {
+          "value": 2430,
+          "max": 2430
+        }
+      },
+      "axell:hp.244": {
+        "minecraft:health": {
+          "value": 2440,
+          "max": 2440
+        }
+      },
+      "axell:hp.245": {
+        "minecraft:health": {
+          "value": 2450,
+          "max": 2450
+        }
+      },
+      "axell:hp.246": {
+        "minecraft:health": {
+          "value": 2460,
+          "max": 2460
+        }
+      },
+      "axell:hp.247": {
+        "minecraft:health": {
+          "value": 2470,
+          "max": 2470
+        }
+      },
+      "axell:hp.248": {
+        "minecraft:health": {
+          "value": 2480,
+          "max": 2480
+        }
+      },
+      "axell:hp.249": {
+        "minecraft:health": {
+          "value": 2490,
+          "max": 2490
+        }
+      },
+      "axell:hp.250": {
+        "minecraft:health": {
+          "value": 2500,
+          "max": 2500
+        }
+      },
+      "axell:hp.251": {
+        "minecraft:health": {
+          "value": 2510,
+          "max": 2510
+        }
+      },
+      "axell:hp.252": {
+        "minecraft:health": {
+          "value": 2520,
+          "max": 2520
+        }
+      },
+      "axell:hp.253": {
+        "minecraft:health": {
+          "value": 2530,
+          "max": 2530
+        }
+      },
+      "axell:hp.254": {
+        "minecraft:health": {
+          "value": 2540,
+          "max": 2540
+        }
+      },
+      "axell:hp.255": {
+        "minecraft:health": {
+          "value": 2550,
+          "max": 2550
+        }
+      },
+      "axell:hp.256": {
+        "minecraft:health": {
+          "value": 2560,
+          "max": 2560
+        }
+      },
+      "axell:hp.257": {
+        "minecraft:health": {
+          "value": 2570,
+          "max": 2570
+        }
+      },
+      "axell:hp.258": {
+        "minecraft:health": {
+          "value": 2580,
+          "max": 2580
+        }
+      },
+      "axell:hp.259": {
+        "minecraft:health": {
+          "value": 2590,
+          "max": 2590
+        }
+      },
+      "axell:hp.260": {
+        "minecraft:health": {
+          "value": 2600,
+          "max": 2600
+        }
+      },
+      "axell:hp.261": {
+        "minecraft:health": {
+          "value": 2610,
+          "max": 2610
+        }
+      },
+      "axell:hp.262": {
+        "minecraft:health": {
+          "value": 2620,
+          "max": 2620
+        }
+      },
+      "axell:hp.263": {
+        "minecraft:health": {
+          "value": 2630,
+          "max": 2630
+        }
+      },
+      "axell:hp.264": {
+        "minecraft:health": {
+          "value": 2640,
+          "max": 2640
+        }
+      },
+      "axell:hp.265": {
+        "minecraft:health": {
+          "value": 2650,
+          "max": 2650
+        }
+      },
+      "axell:hp.266": {
+        "minecraft:health": {
+          "value": 2660,
+          "max": 2660
+        }
+      },
+      "axell:hp.267": {
+        "minecraft:health": {
+          "value": 2670,
+          "max": 2670
+        }
+      },
+      "axell:hp.268": {
+        "minecraft:health": {
+          "value": 2680,
+          "max": 2680
+        }
+      },
+      "axell:hp.269": {
+        "minecraft:health": {
+          "value": 2690,
+          "max": 2690
+        }
+      },
+      "axell:hp.270": {
+        "minecraft:health": {
+          "value": 2700,
+          "max": 2700
+        }
+      },
+      "axell:hp.271": {
+        "minecraft:health": {
+          "value": 2710,
+          "max": 2710
+        }
+      },
+      "axell:hp.272": {
+        "minecraft:health": {
+          "value": 2720,
+          "max": 2720
+        }
+      },
+      "axell:hp.273": {
+        "minecraft:health": {
+          "value": 2730,
+          "max": 2730
+        }
+      },
+      "axell:hp.274": {
+        "minecraft:health": {
+          "value": 2740,
+          "max": 2740
+        }
+      },
+      "axell:hp.275": {
+        "minecraft:health": {
+          "value": 2750,
+          "max": 2750
+        }
+      },
+      "axell:hp.276": {
+        "minecraft:health": {
+          "value": 2760,
+          "max": 2760
+        }
+      },
+      "axell:hp.277": {
+        "minecraft:health": {
+          "value": 2770,
+          "max": 2770
+        }
+      },
+      "axell:hp.278": {
+        "minecraft:health": {
+          "value": 2780,
+          "max": 2780
+        }
+      },
+      "axell:hp.279": {
+        "minecraft:health": {
+          "value": 2790,
+          "max": 2790
+        }
+      },
+      "axell:hp.280": {
+        "minecraft:health": {
+          "value": 2800,
+          "max": 2800
+        }
+      },
+      "axell:hp.281": {
+        "minecraft:health": {
+          "value": 2810,
+          "max": 2810
+        }
+      },
+      "axell:hp.282": {
+        "minecraft:health": {
+          "value": 2820,
+          "max": 2820
+        }
+      },
+      "axell:hp.283": {
+        "minecraft:health": {
+          "value": 2830,
+          "max": 2830
+        }
+      },
+      "axell:hp.284": {
+        "minecraft:health": {
+          "value": 2840,
+          "max": 2840
+        }
+      },
+      "axell:hp.285": {
+        "minecraft:health": {
+          "value": 2850,
+          "max": 2850
+        }
+      },
+      "axell:hp.286": {
+        "minecraft:health": {
+          "value": 2860,
+          "max": 2860
+        }
+      },
+      "axell:hp.287": {
+        "minecraft:health": {
+          "value": 2870,
+          "max": 2870
+        }
+      },
+      "axell:hp.288": {
+        "minecraft:health": {
+          "value": 2880,
+          "max": 2880
+        }
+      },
+      "axell:hp.289": {
+        "minecraft:health": {
+          "value": 2890,
+          "max": 2890
+        }
+      },
+      "axell:hp.290": {
+        "minecraft:health": {
+          "value": 2900,
+          "max": 2900
+        }
+      },
+      "axell:hp.291": {
+        "minecraft:health": {
+          "value": 2910,
+          "max": 2910
+        }
+      },
+      "axell:hp.292": {
+        "minecraft:health": {
+          "value": 2920,
+          "max": 2920
+        }
+      },
+      "axell:hp.293": {
+        "minecraft:health": {
+          "value": 2930,
+          "max": 2930
+        }
+      },
+      "axell:hp.294": {
+        "minecraft:health": {
+          "value": 2940,
+          "max": 2940
+        }
+      },
+      "axell:hp.295": {
+        "minecraft:health": {
+          "value": 2950,
+          "max": 2950
+        }
+      },
+      "axell:hp.296": {
+        "minecraft:health": {
+          "value": 2960,
+          "max": 2960
+        }
+      },
+      "axell:hp.297": {
+        "minecraft:health": {
+          "value": 2970,
+          "max": 2970
+        }
+      },
+      "axell:hp.298": {
+        "minecraft:health": {
+          "value": 2980,
+          "max": 2980
+        }
+      },
+      "axell:hp.299": {
+        "minecraft:health": {
+          "value": 2990,
+          "max": 2990
+        }
+      },
+      "axell:hp.300": {
+        "minecraft:health": {
+          "value": 3000,
+          "max": 3000
+        }
+      },
+      "axell:hp.301": {
+        "minecraft:health": {
+          "value": 3010,
+          "max": 3010
+        }
+      },
+      "axell:hp.302": {
+        "minecraft:health": {
+          "value": 3020,
+          "max": 3020
+        }
+      },
+      "axell:hp.303": {
+        "minecraft:health": {
+          "value": 3030,
+          "max": 3030
+        }
+      },
+      "axell:hp.304": {
+        "minecraft:health": {
+          "value": 3040,
+          "max": 3040
+        }
+      },
+      "axell:hp.305": {
+        "minecraft:health": {
+          "value": 3050,
+          "max": 3050
+        }
+      },
+      "axell:hp.306": {
+        "minecraft:health": {
+          "value": 3060,
+          "max": 3060
+        }
+      },
+      "axell:hp.307": {
+        "minecraft:health": {
+          "value": 3070,
+          "max": 3070
+        }
+      },
+      "axell:hp.308": {
+        "minecraft:health": {
+          "value": 3080,
+          "max": 3080
+        }
+      },
+      "axell:hp.309": {
+        "minecraft:health": {
+          "value": 3090,
+          "max": 3090
+        }
+      },
+      "axell:hp.310": {
+        "minecraft:health": {
+          "value": 3100,
+          "max": 3100
+        }
+      },
+      "axell:hp.311": {
+        "minecraft:health": {
+          "value": 3110,
+          "max": 3110
+        }
+      },
+      "axell:hp.312": {
+        "minecraft:health": {
+          "value": 3120,
+          "max": 3120
+        }
+      },
+      "axell:hp.313": {
+        "minecraft:health": {
+          "value": 3130,
+          "max": 3130
+        }
+      },
+      "axell:hp.314": {
+        "minecraft:health": {
+          "value": 3140,
+          "max": 3140
+        }
+      },
+      "axell:hp.315": {
+        "minecraft:health": {
+          "value": 3150,
+          "max": 3150
+        }
+      },
+      "axell:hp.316": {
+        "minecraft:health": {
+          "value": 3160,
+          "max": 3160
+        }
+      },
+      "axell:hp.317": {
+        "minecraft:health": {
+          "value": 3170,
+          "max": 3170
+        }
+      },
+      "axell:hp.318": {
+        "minecraft:health": {
+          "value": 3180,
+          "max": 3180
+        }
+      },
+      "axell:hp.319": {
+        "minecraft:health": {
+          "value": 3190,
+          "max": 3190
+        }
+      },
+      "axell:hp.320": {
+        "minecraft:health": {
+          "value": 3200,
+          "max": 3200
+        }
+      },
+      "axell:hp.321": {
+        "minecraft:health": {
+          "value": 3210,
+          "max": 3210
+        }
+      },
+      "axell:hp.322": {
+        "minecraft:health": {
+          "value": 3220,
+          "max": 3220
+        }
+      },
+      "axell:hp.323": {
+        "minecraft:health": {
+          "value": 3230,
+          "max": 3230
+        }
+      },
+      "axell:hp.324": {
+        "minecraft:health": {
+          "value": 3240,
+          "max": 3240
+        }
+      },
+      "axell:hp.325": {
+        "minecraft:health": {
+          "value": 3250,
+          "max": 3250
+        }
+      },
+      "axell:hp.326": {
+        "minecraft:health": {
+          "value": 3260,
+          "max": 3260
+        }
+      },
+      "axell:hp.327": {
+        "minecraft:health": {
+          "value": 3270,
+          "max": 3270
+        }
+      },
+      "axell:hp.328": {
+        "minecraft:health": {
+          "value": 3280,
+          "max": 3280
+        }
+      },
+      "axell:hp.329": {
+        "minecraft:health": {
+          "value": 3290,
+          "max": 3290
+        }
+      },
+      "axell:hp.330": {
+        "minecraft:health": {
+          "value": 3300,
+          "max": 3300
+        }
+      },
+      "axell:hp.331": {
+        "minecraft:health": {
+          "value": 3310,
+          "max": 3310
+        }
+      },
+      "axell:hp.332": {
+        "minecraft:health": {
+          "value": 3320,
+          "max": 3320
+        }
+      },
+      "axell:hp.333": {
+        "minecraft:health": {
+          "value": 3330,
+          "max": 3330
+        }
+      },
+      "axell:hp.334": {
+        "minecraft:health": {
+          "value": 3340,
+          "max": 3340
+        }
+      },
+      "axell:hp.335": {
+        "minecraft:health": {
+          "value": 3350,
+          "max": 3350
+        }
+      },
+      "axell:hp.336": {
+        "minecraft:health": {
+          "value": 3360,
+          "max": 3360
+        }
+      },
+      "axell:hp.337": {
+        "minecraft:health": {
+          "value": 3370,
+          "max": 3370
+        }
+      },
+      "axell:hp.338": {
+        "minecraft:health": {
+          "value": 3380,
+          "max": 3380
+        }
+      },
+      "axell:hp.339": {
+        "minecraft:health": {
+          "value": 3390,
+          "max": 3390
+        }
+      },
+      "axell:hp.340": {
+        "minecraft:health": {
+          "value": 3400,
+          "max": 3400
+        }
+      },
+      "axell:hp.341": {
+        "minecraft:health": {
+          "value": 3410,
+          "max": 3410
+        }
+      },
+      "axell:hp.342": {
+        "minecraft:health": {
+          "value": 3420,
+          "max": 3420
+        }
+      },
+      "axell:hp.343": {
+        "minecraft:health": {
+          "value": 3430,
+          "max": 3430
+        }
+      },
+      "axell:hp.344": {
+        "minecraft:health": {
+          "value": 3440,
+          "max": 3440
+        }
+      },
+      "axell:hp.345": {
+        "minecraft:health": {
+          "value": 3450,
+          "max": 3450
+        }
+      },
+      "axell:hp.346": {
+        "minecraft:health": {
+          "value": 3460,
+          "max": 3460
+        }
+      },
+      "axell:hp.347": {
+        "minecraft:health": {
+          "value": 3470,
+          "max": 3470
+        }
+      },
+      "axell:hp.348": {
+        "minecraft:health": {
+          "value": 3480,
+          "max": 3480
+        }
+      },
+      "axell:hp.349": {
+        "minecraft:health": {
+          "value": 3490,
+          "max": 3490
+        }
+      },
+      "axell:hp.350": {
+        "minecraft:health": {
+          "value": 3500,
+          "max": 3500
+        }
+      },
+      "axell:hp.351": {
+        "minecraft:health": {
+          "value": 3510,
+          "max": 3510
+        }
+      },
+      "axell:hp.352": {
+        "minecraft:health": {
+          "value": 3520,
+          "max": 3520
+        }
+      },
+      "axell:hp.353": {
+        "minecraft:health": {
+          "value": 3530,
+          "max": 3530
+        }
+      },
+      "axell:hp.354": {
+        "minecraft:health": {
+          "value": 3540,
+          "max": 3540
+        }
+      },
+      "axell:hp.355": {
+        "minecraft:health": {
+          "value": 3550,
+          "max": 3550
+        }
+      },
+      "axell:hp.356": {
+        "minecraft:health": {
+          "value": 3560,
+          "max": 3560
+        }
+      },
+      "axell:hp.357": {
+        "minecraft:health": {
+          "value": 3570,
+          "max": 3570
+        }
+      },
+      "axell:hp.358": {
+        "minecraft:health": {
+          "value": 3580,
+          "max": 3580
+        }
+      },
+      "axell:hp.359": {
+        "minecraft:health": {
+          "value": 3590,
+          "max": 3590
+        }
+      },
+      "axell:hp.360": {
+        "minecraft:health": {
+          "value": 3600,
+          "max": 3600
+        }
+      },
+      "axell:hp.361": {
+        "minecraft:health": {
+          "value": 3610,
+          "max": 3610
+        }
+      },
+      "axell:hp.362": {
+        "minecraft:health": {
+          "value": 3620,
+          "max": 3620
+        }
+      },
+      "axell:hp.363": {
+        "minecraft:health": {
+          "value": 3630,
+          "max": 3630
+        }
+      },
+      "axell:hp.364": {
+        "minecraft:health": {
+          "value": 3640,
+          "max": 3640
+        }
+      },
+      "axell:hp.365": {
+        "minecraft:health": {
+          "value": 3650,
+          "max": 3650
+        }
+      },
+      "axell:hp.366": {
+        "minecraft:health": {
+          "value": 3660,
+          "max": 3660
+        }
+      },
+      "axell:hp.367": {
+        "minecraft:health": {
+          "value": 3670,
+          "max": 3670
+        }
+      },
+      "axell:hp.368": {
+        "minecraft:health": {
+          "value": 3680,
+          "max": 3680
+        }
+      },
+      "axell:hp.369": {
+        "minecraft:health": {
+          "value": 3690,
+          "max": 3690
+        }
+      },
+      "axell:hp.370": {
+        "minecraft:health": {
+          "value": 3700,
+          "max": 3700
+        }
+      },
+      "axell:hp.371": {
+        "minecraft:health": {
+          "value": 3710,
+          "max": 3710
+        }
+      },
+      "axell:hp.372": {
+        "minecraft:health": {
+          "value": 3720,
+          "max": 3720
+        }
+      },
+      "axell:hp.373": {
+        "minecraft:health": {
+          "value": 3730,
+          "max": 3730
+        }
+      },
+      "axell:hp.374": {
+        "minecraft:health": {
+          "value": 3740,
+          "max": 3740
+        }
+      },
+      "axell:hp.375": {
+        "minecraft:health": {
+          "value": 3750,
+          "max": 3750
+        }
+      },
+      "axell:hp.376": {
+        "minecraft:health": {
+          "value": 3760,
+          "max": 3760
+        }
+      },
+      "axell:hp.377": {
+        "minecraft:health": {
+          "value": 3770,
+          "max": 3770
+        }
+      },
+      "axell:hp.378": {
+        "minecraft:health": {
+          "value": 3780,
+          "max": 3780
+        }
+      },
+      "axell:hp.379": {
+        "minecraft:health": {
+          "value": 3790,
+          "max": 3790
+        }
+      },
+      "axell:hp.380": {
+        "minecraft:health": {
+          "value": 3800,
+          "max": 3800
+        }
+      },
+      "axell:hp.381": {
+        "minecraft:health": {
+          "value": 3810,
+          "max": 3810
+        }
+      },
+      "axell:hp.382": {
+        "minecraft:health": {
+          "value": 3820,
+          "max": 3820
+        }
+      },
+      "axell:hp.383": {
+        "minecraft:health": {
+          "value": 3830,
+          "max": 3830
+        }
+      },
+      "axell:hp.384": {
+        "minecraft:health": {
+          "value": 3840,
+          "max": 3840
+        }
+      },
+      "axell:hp.385": {
+        "minecraft:health": {
+          "value": 3850,
+          "max": 3850
+        }
+      },
+      "axell:hp.386": {
+        "minecraft:health": {
+          "value": 3860,
+          "max": 3860
+        }
+      },
+      "axell:hp.387": {
+        "minecraft:health": {
+          "value": 3870,
+          "max": 3870
+        }
+      },
+      "axell:hp.388": {
+        "minecraft:health": {
+          "value": 3880,
+          "max": 3880
+        }
+      },
+      "axell:hp.389": {
+        "minecraft:health": {
+          "value": 3890,
+          "max": 3890
+        }
+      },
+      "axell:hp.390": {
+        "minecraft:health": {
+          "value": 3900,
+          "max": 3900
+        }
+      },
+      "axell:hp.391": {
+        "minecraft:health": {
+          "value": 3910,
+          "max": 3910
+        }
+      },
+      "axell:hp.392": {
+        "minecraft:health": {
+          "value": 3920,
+          "max": 3920
+        }
+      },
+      "axell:hp.393": {
+        "minecraft:health": {
+          "value": 3930,
+          "max": 3930
+        }
+      },
+      "axell:hp.394": {
+        "minecraft:health": {
+          "value": 3940,
+          "max": 3940
+        }
+      },
+      "axell:hp.395": {
+        "minecraft:health": {
+          "value": 3950,
+          "max": 3950
+        }
+      },
+      "axell:hp.396": {
+        "minecraft:health": {
+          "value": 3960,
+          "max": 3960
+        }
+      },
+      "axell:hp.397": {
+        "minecraft:health": {
+          "value": 3970,
+          "max": 3970
+        }
+      },
+      "axell:hp.398": {
+        "minecraft:health": {
+          "value": 3980,
+          "max": 3980
+        }
+      },
+      "axell:hp.399": {
+        "minecraft:health": {
+          "value": 3990,
+          "max": 3990
+        }
+      },
+      "axell:hp.400": {
+        "minecraft:health": {
+          "value": 4000,
+          "max": 4000
+        }
+      },
+			"minecraft:add_bad_omen": {
+				"minecraft:spell_effects": {
+					"add_effects": [
+						{
+							"effect": "bad_omen",
+							"duration": 6000,
+							"display_on_screen_animation": true
+						}
+					]
+				},
+				"minecraft:timer": {
+					"time": [
+						0,
+						0
+					],
+					"looping": false,
+					"time_down_event": {
+						"event": "minecraft:clear_add_bad_omen",
+						"target": "self"
+					}
+				}
+			},
+			"minecraft:clear_bad_omen_spell_effect": {
+				"minecraft:spell_effects": {}
+			},
+			"minecraft:raid_trigger": {
+				"minecraft:raid_trigger": {
+					"triggered_event": {
+						"event": "minecraft:remove_raid_trigger",
+						"target": "self"
+					}
+				},
+				"minecraft:spell_effects": {
+					"remove_effects": "bad_omen"
+				}
+			}
+		},
+		"components": {
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"event": "axell:damaged",
+							"target": "self"
+						}
+					}
+				]
+			},
+			"minecraft:experience_reward": {
+				"on_death": "math.min(query.player_level*7,100)"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:can_climb": {},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 1
+			},
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 0,
+				"max": 4
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": -1,
+				"inhale_time": 3.75,
+				"generates_bubbles": false
+			},
+			"minecraft:nameable": {
+				"always_show": true,
+				"allow_name_tag_renaming": false
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:insomnia": {
+				"days_until_insomnia": 3
+			},
+			"minecraft:rideable": {
+				"seat_count": 2,
+				"family_types": [
+					"parrot_tame"
+				],
+				"pull_in_entities": true,
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 0,
+						"max_rider_count": 0,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							-0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 1,
+						"max_rider_count": 2,
+						"lock_rider_rotation": 0
+					}
+				]
+			},
+			"minecraft:scaffolding_climber": {},
+			"minecraft:environment_sensor": [
+				{
+					"triggers": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_mob_effect",
+									"subject": "self",
+									"value": "bad_omen"
+								},
+								{
+									"test": "is_in_village",
+									"subject": "self",
+									"value": true
+								}
+							]
+						},
+						"event": "minecraft:trigger_raid"
+					}
+				}
+			]
+		},
+		"events": {
+			"skin:padoru": {
+				"set_property": {
+					"property:customskins": 1
+				}
+			},
+			"skin:default": {
+				"set_property": {
+					"property:customskins": 0
+				}
+			},
+      "swordskin:default": {
+        "set_property": {
+          "property:swordskin": 0
+        }
+      },
+      "swordskin:mist": {
+        "set_property": {
+          "property:swordskin": 1
+        }
+      },
+      "swordskin:mussou": {
+        "set_property": {
+          "property:swordskin": 2
+        }
+      },
+			"trail:thunder": {
+				"set_property": {
+					"property:trail": 1
+				}
+			},
+			"bda:no": {
+				"set_property": {
+					"property:demon": 0
+				}
+			},
+			"bda:start": {
+				"set_property": {
+					"property:demon": 1
+				}
+			},
+			"bda:start1": {
+				"set_property": {
+					"property:demon": 2
+				}
+			},
+			"sword:no": {
+				"set_property": {
+					"property:combat": 0
+				}
+			},
+			"sword:seeth": {
+				"set_property": {
+					"property:combat": 1
+				}
+			},
+			"sword:out": {
+				"set_property": {
+					"property:combat": 2
+				}
+			},
+			"sword:out1": {
+				"set_property": {
+					"property:combat": 3
+				}
+			},
+			"sword:out2": {
+				"set_property": {
+					"property:combat": 4
+				}
+			},
+			"sword:out3": {
+				"set_property": {
+					"property:combat": 3
+				}
+			},
+			"sword:out4": {
+				"set_property": {
+					"property:combat": 3
+				}
+			},
+			"sword:out5": {
+				"set_property": {
+					"property:combat": 5
+				}
+			},
+			"sword:out6": {
+				"set_property": {
+					"property:combat": 6
+				}
+			},
+			"sword:out7": {
+				"set_property": {
+					"property:combat": 7
+				}
+			},
+			"sword:out8": {
+				"set_property": {
+					"property:combat": 8
+				}
+			},
+      
+			"axell:katana": {
+				"set_property": {
+					"property:dual": 0
+				}
+			},
+			"axell:dual": {
+				"set_property": {
+					"property:dual": 1
+				}
+			},
+			"axell:dualC": {
+				"set_property": {
+					"property:dual": 2
+				}
+			},
+			"axell:handle1": {
+				"set_property": {
+					"property:handle": 1
+				}
+			},
+			"axell:handle2": {
+				"set_property": {
+					"property:handle": 2
+				}
+			},
+			"axell:handle3": {
+				"set_property": {
+					"property:handle": 3
+				}
+			},
+			"axell:handle4": {
+				"set_property": {
+					"property:handle": 4
+				}
+			},
+			"axell:handle5": {
+				"set_property": {
+					"property:handle": 5
+				}
+			},
+			"axell:handle6": {
+				"set_property": {
+					"property:handle": 6
+				}
+			},
+			"axell:handle7": {
+				"set_property": {
+					"property:handle": 7
+				}
+			},
+			"axell:handle8": {
+				"set_property": {
+					"property:handle": 8
+				}
+			},
+			"axell:handle9": {
+				"set_property": {
+					"property:handle": 9
+				}
+			},
+			"axell:handle10": {
+				"set_property": {
+					"property:handle": 10
+				}
+			},
+			"axell:handle11": {
+				"set_property": {
+					"property:handle": 11
+				}
+			},
+			"axell:handle12": {
+				"set_property": {
+					"property:handle": 12
+				}
+			},
+			"axell:handle13": {
+				"set_property": {
+					"property:handle": 13
+				}
+			},
+			"axell:handle14": {
+				"set_property": {
+					"property:handle": 14
+				}
+			},
+			"axell:blade1": {
+				"set_property": {
+					"property:blade": 1
+				}
+			},
+			"axell:blade2": {
+				"set_property": {
+					"property:blade": 2
+				}
+			},
+			"axell:blade3": {
+				"set_property": {
+					"property:blade": 3
+				}
+			},
+			"axell:blade4": {
+				"set_property": {
+					"property:blade": 4
+				}
+			},
+			"axell:blade5": {
+				"set_property": {
+					"property:blade": 5
+				}
+			},
+			"axell:blade6": {
+				"set_property": {
+					"property:blade": 6
+				}
+			},
+			"axell:blade7": {
+				"set_property": {
+					"property:blade": 7
+				}
+			},
+			"axell:blade8": {
+				"set_property": {
+					"property:blade": 8
+				}
+			},
+			"axell:blade9": {
+				"set_property": {
+					"property:blade": 9
+				}
+			},
+			"axell:blade10": {
+				"set_property": {
+					"property:blade": 10
+				}
+			},
+			"axell:blade11": {
+				"set_property": {
+					"property:blade": 11
+				}
+			},
+			"axell:blade12": {
+				"set_property": {
+					"property:blade": 12
+				}
+			},
+			"axell:blade13": {
+				"set_property": {
+					"property:blade": 13
+				}
+			},
+			"axell:blade14": {
+				"set_property": {
+					"property:blade": 14
+				}
+			},
+			"axell:blade15": {
+				"set_property": {
+					"property:blade": 15
+				}
+			},
+			"axell:blades1": {
+				"set_property": {
+					"property:blades": 0
+				}
+			},
+			"axell:blades2": {
+				"set_property": {
+					"property:blades": 1
+				}
+			},
+			"axell:blades3": {
+				"set_property": {
+					"property:blades": 2
+				}
+			},
+			"axell:blades4": {
+				"set_property": {
+					"property:blades": 3
+				}
+			},
+			"axell:tsuba1": {
+				"set_property": {
+					"property:tsuba": 1
+				}
+			},
+			"axell:tsuba2": {
+				"set_property": {
+					"property:tsuba": 2
+				}
+			},
+			"axell:tsuba3": {
+				"set_property": {
+					"property:tsuba": 3
+				}
+			},
+			"axell:tsuba4": {
+				"set_property": {
+					"property:tsuba": 4
+				}
+			},
+			"axell:tsuba5": {
+				"set_property": {
+					"property:tsuba": 5
+				}
+			},
+			"axell:tsuba6": {
+				"set_property": {
+					"property:tsuba": 6
+				}
+			},
+			"axell:tsuba7": {
+				"set_property": {
+					"property:tsuba": 7
+				}
+			},
+			"axell:tsuba8": {
+				"set_property": {
+					"property:tsuba": 8
+				}
+			},
+			"axell:tsuba9": {
+				"set_property": {
+					"property:tsuba": 9
+				}
+			},
+			"axell:tsuba10": {
+				"set_property": {
+					"property:tsuba": 10
+				}
+			},
+			"axell:tsuba11": {
+				"set_property": {
+					"property:tsuba": 11
+				}
+			},
+			"axell:tsuba12": {
+				"set_property": {
+					"property:tsuba": 12
+				}
+			},
+			"axell:tsuba13": {
+				"set_property": {
+					"property:tsuba": 13
+				}
+			},
+			"axell:tsuba14": {
+				"set_property": {
+					"property:tsuba": 14
+				}
+			},
+			"axell:terbang": {
+				"add": {
+					"component_groups": [
+						"axell:ng"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"axell:g"
+					]
+				}
+			},
+			"axell:jatuh": {
+				"remove": {
+					"component_groups": [
+						"axell:ng"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"axell:g"
+					]
+				}
+			},
+			"axell:hp.1": {
+        "add": {
+          "component_groups": [
+            "axell:hp.1"
+          ]
+        }
+      },
+      "axell:hp.2": {
+        "add": {
+          "component_groups": [
+            "axell:hp.2"
+          ]
+        }
+      },
+      "axell:hp.3": {
+        "add": {
+          "component_groups": [
+            "axell:hp.3"
+          ]
+        }
+      },
+      "axell:hp.4": {
+        "add": {
+          "component_groups": [
+            "axell:hp.4"
+          ]
+        }
+      },
+      "axell:hp.5": {
+        "add": {
+          "component_groups": [
+            "axell:hp.5"
+          ]
+        }
+      },
+      "axell:hp.6": {
+        "add": {
+          "component_groups": [
+            "axell:hp.6"
+          ]
+        }
+      },
+      "axell:hp.7": {
+        "add": {
+          "component_groups": [
+            "axell:hp.7"
+          ]
+        }
+      },
+      "axell:hp.8": {
+        "add": {
+          "component_groups": [
+            "axell:hp.8"
+          ]
+        }
+      },
+      "axell:hp.9": {
+        "add": {
+          "component_groups": [
+            "axell:hp.9"
+          ]
+        }
+      },
+      "axell:hp.10": {
+        "add": {
+          "component_groups": [
+            "axell:hp.10"
+          ]
+        }
+      },
+      "axell:hp.11": {
+        "add": {
+          "component_groups": [
+            "axell:hp.11"
+          ]
+        }
+      },
+      "axell:hp.12": {
+        "add": {
+          "component_groups": [
+            "axell:hp.12"
+          ]
+        }
+      },
+      "axell:hp.13": {
+        "add": {
+          "component_groups": [
+            "axell:hp.13"
+          ]
+        }
+      },
+      "axell:hp.14": {
+        "add": {
+          "component_groups": [
+            "axell:hp.14"
+          ]
+        }
+      },
+      "axell:hp.15": {
+        "add": {
+          "component_groups": [
+            "axell:hp.15"
+          ]
+        }
+      },
+      "axell:hp.16": {
+        "add": {
+          "component_groups": [
+            "axell:hp.16"
+          ]
+        }
+      },
+      "axell:hp.17": {
+        "add": {
+          "component_groups": [
+            "axell:hp.17"
+          ]
+        }
+      },
+      "axell:hp.18": {
+        "add": {
+          "component_groups": [
+            "axell:hp.18"
+          ]
+        }
+      },
+      "axell:hp.19": {
+        "add": {
+          "component_groups": [
+            "axell:hp.19"
+          ]
+        }
+      },
+      "axell:hp.20": {
+        "add": {
+          "component_groups": [
+            "axell:hp.20"
+          ]
+        }
+      },
+      "axell:hp.21": {
+        "add": {
+          "component_groups": [
+            "axell:hp.21"
+          ]
+        }
+      },
+      "axell:hp.22": {
+        "add": {
+          "component_groups": [
+            "axell:hp.22"
+          ]
+        }
+      },
+      "axell:hp.23": {
+        "add": {
+          "component_groups": [
+            "axell:hp.23"
+          ]
+        }
+      },
+      "axell:hp.24": {
+        "add": {
+          "component_groups": [
+            "axell:hp.24"
+          ]
+        }
+      },
+      "axell:hp.25": {
+        "add": {
+          "component_groups": [
+            "axell:hp.25"
+          ]
+        }
+      },
+      "axell:hp.26": {
+        "add": {
+          "component_groups": [
+            "axell:hp.26"
+          ]
+        }
+      },
+      "axell:hp.27": {
+        "add": {
+          "component_groups": [
+            "axell:hp.27"
+          ]
+        }
+      },
+      "axell:hp.28": {
+        "add": {
+          "component_groups": [
+            "axell:hp.28"
+          ]
+        }
+      },
+      "axell:hp.29": {
+        "add": {
+          "component_groups": [
+            "axell:hp.29"
+          ]
+        }
+      },
+      "axell:hp.30": {
+        "add": {
+          "component_groups": [
+            "axell:hp.30"
+          ]
+        }
+      },
+      "axell:hp.31": {
+        "add": {
+          "component_groups": [
+            "axell:hp.31"
+          ]
+        }
+      },
+      "axell:hp.32": {
+        "add": {
+          "component_groups": [
+            "axell:hp.32"
+          ]
+        }
+      },
+      "axell:hp.33": {
+        "add": {
+          "component_groups": [
+            "axell:hp.33"
+          ]
+        }
+      },
+      "axell:hp.34": {
+        "add": {
+          "component_groups": [
+            "axell:hp.34"
+          ]
+        }
+      },
+      "axell:hp.35": {
+        "add": {
+          "component_groups": [
+            "axell:hp.35"
+          ]
+        }
+      },
+      "axell:hp.36": {
+        "add": {
+          "component_groups": [
+            "axell:hp.36"
+          ]
+        }
+      },
+      "axell:hp.37": {
+        "add": {
+          "component_groups": [
+            "axell:hp.37"
+          ]
+        }
+      },
+      "axell:hp.38": {
+        "add": {
+          "component_groups": [
+            "axell:hp.38"
+          ]
+        }
+      },
+      "axell:hp.39": {
+        "add": {
+          "component_groups": [
+            "axell:hp.39"
+          ]
+        }
+      },
+      "axell:hp.40": {
+        "add": {
+          "component_groups": [
+            "axell:hp.40"
+          ]
+        }
+      },
+      "axell:hp.41": {
+        "add": {
+          "component_groups": [
+            "axell:hp.41"
+          ]
+        }
+      },
+      "axell:hp.42": {
+        "add": {
+          "component_groups": [
+            "axell:hp.42"
+          ]
+        }
+      },
+      "axell:hp.43": {
+        "add": {
+          "component_groups": [
+            "axell:hp.43"
+          ]
+        }
+      },
+      "axell:hp.44": {
+        "add": {
+          "component_groups": [
+            "axell:hp.44"
+          ]
+        }
+      },
+      "axell:hp.45": {
+        "add": {
+          "component_groups": [
+            "axell:hp.45"
+          ]
+        }
+      },
+      "axell:hp.46": {
+        "add": {
+          "component_groups": [
+            "axell:hp.46"
+          ]
+        }
+      },
+      "axell:hp.47": {
+        "add": {
+          "component_groups": [
+            "axell:hp.47"
+          ]
+        }
+      },
+      "axell:hp.48": {
+        "add": {
+          "component_groups": [
+            "axell:hp.48"
+          ]
+        }
+      },
+      "axell:hp.49": {
+        "add": {
+          "component_groups": [
+            "axell:hp.49"
+          ]
+        }
+      },
+      "axell:hp.50": {
+        "add": {
+          "component_groups": [
+            "axell:hp.50"
+          ]
+        }
+      },
+      "axell:hp.51": {
+        "add": {
+          "component_groups": [
+            "axell:hp.51"
+          ]
+        }
+      },
+      "axell:hp.52": {
+        "add": {
+          "component_groups": [
+            "axell:hp.52"
+          ]
+        }
+      },
+      "axell:hp.53": {
+        "add": {
+          "component_groups": [
+            "axell:hp.53"
+          ]
+        }
+      },
+      "axell:hp.54": {
+        "add": {
+          "component_groups": [
+            "axell:hp.54"
+          ]
+        }
+      },
+      "axell:hp.55": {
+        "add": {
+          "component_groups": [
+            "axell:hp.55"
+          ]
+        }
+      },
+      "axell:hp.56": {
+        "add": {
+          "component_groups": [
+            "axell:hp.56"
+          ]
+        }
+      },
+      "axell:hp.57": {
+        "add": {
+          "component_groups": [
+            "axell:hp.57"
+          ]
+        }
+      },
+      "axell:hp.58": {
+        "add": {
+          "component_groups": [
+            "axell:hp.58"
+          ]
+        }
+      },
+      "axell:hp.59": {
+        "add": {
+          "component_groups": [
+            "axell:hp.59"
+          ]
+        }
+      },
+      "axell:hp.60": {
+        "add": {
+          "component_groups": [
+            "axell:hp.60"
+          ]
+        }
+      },
+      "axell:hp.61": {
+        "add": {
+          "component_groups": [
+            "axell:hp.61"
+          ]
+        }
+      },
+      "axell:hp.62": {
+        "add": {
+          "component_groups": [
+            "axell:hp.62"
+          ]
+        }
+      },
+      "axell:hp.63": {
+        "add": {
+          "component_groups": [
+            "axell:hp.63"
+          ]
+        }
+      },
+      "axell:hp.64": {
+        "add": {
+          "component_groups": [
+            "axell:hp.64"
+          ]
+        }
+      },
+      "axell:hp.65": {
+        "add": {
+          "component_groups": [
+            "axell:hp.65"
+          ]
+        }
+      },
+      "axell:hp.66": {
+        "add": {
+          "component_groups": [
+            "axell:hp.66"
+          ]
+        }
+      },
+      "axell:hp.67": {
+        "add": {
+          "component_groups": [
+            "axell:hp.67"
+          ]
+        }
+      },
+      "axell:hp.68": {
+        "add": {
+          "component_groups": [
+            "axell:hp.68"
+          ]
+        }
+      },
+      "axell:hp.69": {
+        "add": {
+          "component_groups": [
+            "axell:hp.69"
+          ]
+        }
+      },
+      "axell:hp.70": {
+        "add": {
+          "component_groups": [
+            "axell:hp.70"
+          ]
+        }
+      },
+      "axell:hp.71": {
+        "add": {
+          "component_groups": [
+            "axell:hp.71"
+          ]
+        }
+      },
+      "axell:hp.72": {
+        "add": {
+          "component_groups": [
+            "axell:hp.72"
+          ]
+        }
+      },
+      "axell:hp.73": {
+        "add": {
+          "component_groups": [
+            "axell:hp.73"
+          ]
+        }
+      },
+      "axell:hp.74": {
+        "add": {
+          "component_groups": [
+            "axell:hp.74"
+          ]
+        }
+      },
+      "axell:hp.75": {
+        "add": {
+          "component_groups": [
+            "axell:hp.75"
+          ]
+        }
+      },
+      "axell:hp.76": {
+        "add": {
+          "component_groups": [
+            "axell:hp.76"
+          ]
+        }
+      },
+      "axell:hp.77": {
+        "add": {
+          "component_groups": [
+            "axell:hp.77"
+          ]
+        }
+      },
+      "axell:hp.78": {
+        "add": {
+          "component_groups": [
+            "axell:hp.78"
+          ]
+        }
+      },
+      "axell:hp.79": {
+        "add": {
+          "component_groups": [
+            "axell:hp.79"
+          ]
+        }
+      },
+      "axell:hp.80": {
+        "add": {
+          "component_groups": [
+            "axell:hp.80"
+          ]
+        }
+      },
+      "axell:hp.81": {
+        "add": {
+          "component_groups": [
+            "axell:hp.81"
+          ]
+        }
+      },
+      "axell:hp.82": {
+        "add": {
+          "component_groups": [
+            "axell:hp.82"
+          ]
+        }
+      },
+      "axell:hp.83": {
+        "add": {
+          "component_groups": [
+            "axell:hp.83"
+          ]
+        }
+      },
+      "axell:hp.84": {
+        "add": {
+          "component_groups": [
+            "axell:hp.84"
+          ]
+        }
+      },
+      "axell:hp.85": {
+        "add": {
+          "component_groups": [
+            "axell:hp.85"
+          ]
+        }
+      },
+      "axell:hp.86": {
+        "add": {
+          "component_groups": [
+            "axell:hp.86"
+          ]
+        }
+      },
+      "axell:hp.87": {
+        "add": {
+          "component_groups": [
+            "axell:hp.87"
+          ]
+        }
+      },
+      "axell:hp.88": {
+        "add": {
+          "component_groups": [
+            "axell:hp.88"
+          ]
+        }
+      },
+      "axell:hp.89": {
+        "add": {
+          "component_groups": [
+            "axell:hp.89"
+          ]
+        }
+      },
+      "axell:hp.90": {
+        "add": {
+          "component_groups": [
+            "axell:hp.90"
+          ]
+        }
+      },
+      "axell:hp.91": {
+        "add": {
+          "component_groups": [
+            "axell:hp.91"
+          ]
+        }
+      },
+      "axell:hp.92": {
+        "add": {
+          "component_groups": [
+            "axell:hp.92"
+          ]
+        }
+      },
+      "axell:hp.93": {
+        "add": {
+          "component_groups": [
+            "axell:hp.93"
+          ]
+        }
+      },
+      "axell:hp.94": {
+        "add": {
+          "component_groups": [
+            "axell:hp.94"
+          ]
+        }
+      },
+      "axell:hp.95": {
+        "add": {
+          "component_groups": [
+            "axell:hp.95"
+          ]
+        }
+      },
+      "axell:hp.96": {
+        "add": {
+          "component_groups": [
+            "axell:hp.96"
+          ]
+        }
+      },
+      "axell:hp.97": {
+        "add": {
+          "component_groups": [
+            "axell:hp.97"
+          ]
+        }
+      },
+      "axell:hp.98": {
+        "add": {
+          "component_groups": [
+            "axell:hp.98"
+          ]
+        }
+      },
+      "axell:hp.99": {
+        "add": {
+          "component_groups": [
+            "axell:hp.99"
+          ]
+        }
+      },
+      "axell:hp.100": {
+        "add": {
+          "component_groups": [
+            "axell:hp.100"
+          ]
+        }
+      },
+      "axell:hp.101": {
+        "add": {
+          "component_groups": [
+            "axell:hp.101"
+          ]
+        }
+      },
+      "axell:hp.102": {
+        "add": {
+          "component_groups": [
+            "axell:hp.102"
+          ]
+        }
+      },
+      "axell:hp.103": {
+        "add": {
+          "component_groups": [
+            "axell:hp.103"
+          ]
+        }
+      },
+      "axell:hp.104": {
+        "add": {
+          "component_groups": [
+            "axell:hp.104"
+          ]
+        }
+      },
+      "axell:hp.105": {
+        "add": {
+          "component_groups": [
+            "axell:hp.105"
+          ]
+        }
+      },
+      "axell:hp.106": {
+        "add": {
+          "component_groups": [
+            "axell:hp.106"
+          ]
+        }
+      },
+      "axell:hp.107": {
+        "add": {
+          "component_groups": [
+            "axell:hp.107"
+          ]
+        }
+      },
+      "axell:hp.108": {
+        "add": {
+          "component_groups": [
+            "axell:hp.108"
+          ]
+        }
+      },
+      "axell:hp.109": {
+        "add": {
+          "component_groups": [
+            "axell:hp.109"
+          ]
+        }
+      },
+      "axell:hp.110": {
+        "add": {
+          "component_groups": [
+            "axell:hp.110"
+          ]
+        }
+      },
+      "axell:hp.111": {
+        "add": {
+          "component_groups": [
+            "axell:hp.111"
+          ]
+        }
+      },
+      "axell:hp.112": {
+        "add": {
+          "component_groups": [
+            "axell:hp.112"
+          ]
+        }
+      },
+      "axell:hp.113": {
+        "add": {
+          "component_groups": [
+            "axell:hp.113"
+          ]
+        }
+      },
+      "axell:hp.114": {
+        "add": {
+          "component_groups": [
+            "axell:hp.114"
+          ]
+        }
+      },
+      "axell:hp.115": {
+        "add": {
+          "component_groups": [
+            "axell:hp.115"
+          ]
+        }
+      },
+      "axell:hp.116": {
+        "add": {
+          "component_groups": [
+            "axell:hp.116"
+          ]
+        }
+      },
+      "axell:hp.117": {
+        "add": {
+          "component_groups": [
+            "axell:hp.117"
+          ]
+        }
+      },
+      "axell:hp.118": {
+        "add": {
+          "component_groups": [
+            "axell:hp.118"
+          ]
+        }
+      },
+      "axell:hp.119": {
+        "add": {
+          "component_groups": [
+            "axell:hp.119"
+          ]
+        }
+      },
+      "axell:hp.120": {
+        "add": {
+          "component_groups": [
+            "axell:hp.120"
+          ]
+        }
+      },
+      "axell:hp.121": {
+        "add": {
+          "component_groups": [
+            "axell:hp.121"
+          ]
+        }
+      },
+      "axell:hp.122": {
+        "add": {
+          "component_groups": [
+            "axell:hp.122"
+          ]
+        }
+      },
+      "axell:hp.123": {
+        "add": {
+          "component_groups": [
+            "axell:hp.123"
+          ]
+        }
+      },
+      "axell:hp.124": {
+        "add": {
+          "component_groups": [
+            "axell:hp.124"
+          ]
+        }
+      },
+      "axell:hp.125": {
+        "add": {
+          "component_groups": [
+            "axell:hp.125"
+          ]
+        }
+      },
+      "axell:hp.126": {
+        "add": {
+          "component_groups": [
+            "axell:hp.126"
+          ]
+        }
+      },
+      "axell:hp.127": {
+        "add": {
+          "component_groups": [
+            "axell:hp.127"
+          ]
+        }
+      },
+      "axell:hp.128": {
+        "add": {
+          "component_groups": [
+            "axell:hp.128"
+          ]
+        }
+      },
+      "axell:hp.129": {
+        "add": {
+          "component_groups": [
+            "axell:hp.129"
+          ]
+        }
+      },
+      "axell:hp.130": {
+        "add": {
+          "component_groups": [
+            "axell:hp.130"
+          ]
+        }
+      },
+      "axell:hp.131": {
+        "add": {
+          "component_groups": [
+            "axell:hp.131"
+          ]
+        }
+      },
+      "axell:hp.132": {
+        "add": {
+          "component_groups": [
+            "axell:hp.132"
+          ]
+        }
+      },
+      "axell:hp.133": {
+        "add": {
+          "component_groups": [
+            "axell:hp.133"
+          ]
+        }
+      },
+      "axell:hp.134": {
+        "add": {
+          "component_groups": [
+            "axell:hp.134"
+          ]
+        }
+      },
+      "axell:hp.135": {
+        "add": {
+          "component_groups": [
+            "axell:hp.135"
+          ]
+        }
+      },
+      "axell:hp.136": {
+        "add": {
+          "component_groups": [
+            "axell:hp.136"
+          ]
+        }
+      },
+      "axell:hp.137": {
+        "add": {
+          "component_groups": [
+            "axell:hp.137"
+          ]
+        }
+      },
+      "axell:hp.138": {
+        "add": {
+          "component_groups": [
+            "axell:hp.138"
+          ]
+        }
+      },
+      "axell:hp.139": {
+        "add": {
+          "component_groups": [
+            "axell:hp.139"
+          ]
+        }
+      },
+      "axell:hp.140": {
+        "add": {
+          "component_groups": [
+            "axell:hp.140"
+          ]
+        }
+      },
+      "axell:hp.141": {
+        "add": {
+          "component_groups": [
+            "axell:hp.141"
+          ]
+        }
+      },
+      "axell:hp.142": {
+        "add": {
+          "component_groups": [
+            "axell:hp.142"
+          ]
+        }
+      },
+      "axell:hp.143": {
+        "add": {
+          "component_groups": [
+            "axell:hp.143"
+          ]
+        }
+      },
+      "axell:hp.144": {
+        "add": {
+          "component_groups": [
+            "axell:hp.144"
+          ]
+        }
+      },
+      "axell:hp.145": {
+        "add": {
+          "component_groups": [
+            "axell:hp.145"
+          ]
+        }
+      },
+      "axell:hp.146": {
+        "add": {
+          "component_groups": [
+            "axell:hp.146"
+          ]
+        }
+      },
+      "axell:hp.147": {
+        "add": {
+          "component_groups": [
+            "axell:hp.147"
+          ]
+        }
+      },
+      "axell:hp.148": {
+        "add": {
+          "component_groups": [
+            "axell:hp.148"
+          ]
+        }
+      },
+      "axell:hp.149": {
+        "add": {
+          "component_groups": [
+            "axell:hp.149"
+          ]
+        }
+      },
+      "axell:hp.150": {
+        "add": {
+          "component_groups": [
+            "axell:hp.150"
+          ]
+        }
+      },
+      "axell:hp.151": {
+        "add": {
+          "component_groups": [
+            "axell:hp.151"
+          ]
+        }
+      },
+      "axell:hp.152": {
+        "add": {
+          "component_groups": [
+            "axell:hp.152"
+          ]
+        }
+      },
+      "axell:hp.153": {
+        "add": {
+          "component_groups": [
+            "axell:hp.153"
+          ]
+        }
+      },
+      "axell:hp.154": {
+        "add": {
+          "component_groups": [
+            "axell:hp.154"
+          ]
+        }
+      },
+      "axell:hp.155": {
+        "add": {
+          "component_groups": [
+            "axell:hp.155"
+          ]
+        }
+      },
+      "axell:hp.156": {
+        "add": {
+          "component_groups": [
+            "axell:hp.156"
+          ]
+        }
+      },
+      "axell:hp.157": {
+        "add": {
+          "component_groups": [
+            "axell:hp.157"
+          ]
+        }
+      },
+      "axell:hp.158": {
+        "add": {
+          "component_groups": [
+            "axell:hp.158"
+          ]
+        }
+      },
+      "axell:hp.159": {
+        "add": {
+          "component_groups": [
+            "axell:hp.159"
+          ]
+        }
+      },
+      "axell:hp.160": {
+        "add": {
+          "component_groups": [
+            "axell:hp.160"
+          ]
+        }
+      },
+      "axell:hp.161": {
+        "add": {
+          "component_groups": [
+            "axell:hp.161"
+          ]
+        }
+      },
+      "axell:hp.162": {
+        "add": {
+          "component_groups": [
+            "axell:hp.162"
+          ]
+        }
+      },
+      "axell:hp.163": {
+        "add": {
+          "component_groups": [
+            "axell:hp.163"
+          ]
+        }
+      },
+      "axell:hp.164": {
+        "add": {
+          "component_groups": [
+            "axell:hp.164"
+          ]
+        }
+      },
+      "axell:hp.165": {
+        "add": {
+          "component_groups": [
+            "axell:hp.165"
+          ]
+        }
+      },
+      "axell:hp.166": {
+        "add": {
+          "component_groups": [
+            "axell:hp.166"
+          ]
+        }
+      },
+      "axell:hp.167": {
+        "add": {
+          "component_groups": [
+            "axell:hp.167"
+          ]
+        }
+      },
+      "axell:hp.168": {
+        "add": {
+          "component_groups": [
+            "axell:hp.168"
+          ]
+        }
+      },
+      "axell:hp.169": {
+        "add": {
+          "component_groups": [
+            "axell:hp.169"
+          ]
+        }
+      },
+      "axell:hp.170": {
+        "add": {
+          "component_groups": [
+            "axell:hp.170"
+          ]
+        }
+      },
+      "axell:hp.171": {
+        "add": {
+          "component_groups": [
+            "axell:hp.171"
+          ]
+        }
+      },
+      "axell:hp.172": {
+        "add": {
+          "component_groups": [
+            "axell:hp.172"
+          ]
+        }
+      },
+      "axell:hp.173": {
+        "add": {
+          "component_groups": [
+            "axell:hp.173"
+          ]
+        }
+      },
+      "axell:hp.174": {
+        "add": {
+          "component_groups": [
+            "axell:hp.174"
+          ]
+        }
+      },
+      "axell:hp.175": {
+        "add": {
+          "component_groups": [
+            "axell:hp.175"
+          ]
+        }
+      },
+      "axell:hp.176": {
+        "add": {
+          "component_groups": [
+            "axell:hp.176"
+          ]
+        }
+      },
+      "axell:hp.177": {
+        "add": {
+          "component_groups": [
+            "axell:hp.177"
+          ]
+        }
+      },
+      "axell:hp.178": {
+        "add": {
+          "component_groups": [
+            "axell:hp.178"
+          ]
+        }
+      },
+      "axell:hp.179": {
+        "add": {
+          "component_groups": [
+            "axell:hp.179"
+          ]
+        }
+      },
+      "axell:hp.180": {
+        "add": {
+          "component_groups": [
+            "axell:hp.180"
+          ]
+        }
+      },
+      "axell:hp.181": {
+        "add": {
+          "component_groups": [
+            "axell:hp.181"
+          ]
+        }
+      },
+      "axell:hp.182": {
+        "add": {
+          "component_groups": [
+            "axell:hp.182"
+          ]
+        }
+      },
+      "axell:hp.183": {
+        "add": {
+          "component_groups": [
+            "axell:hp.183"
+          ]
+        }
+      },
+      "axell:hp.184": {
+        "add": {
+          "component_groups": [
+            "axell:hp.184"
+          ]
+        }
+      },
+      "axell:hp.185": {
+        "add": {
+          "component_groups": [
+            "axell:hp.185"
+          ]
+        }
+      },
+      "axell:hp.186": {
+        "add": {
+          "component_groups": [
+            "axell:hp.186"
+          ]
+        }
+      },
+      "axell:hp.187": {
+        "add": {
+          "component_groups": [
+            "axell:hp.187"
+          ]
+        }
+      },
+      "axell:hp.188": {
+        "add": {
+          "component_groups": [
+            "axell:hp.188"
+          ]
+        }
+      },
+      "axell:hp.189": {
+        "add": {
+          "component_groups": [
+            "axell:hp.189"
+          ]
+        }
+      },
+      "axell:hp.190": {
+        "add": {
+          "component_groups": [
+            "axell:hp.190"
+          ]
+        }
+      },
+      "axell:hp.191": {
+        "add": {
+          "component_groups": [
+            "axell:hp.191"
+          ]
+        }
+      },
+      "axell:hp.192": {
+        "add": {
+          "component_groups": [
+            "axell:hp.192"
+          ]
+        }
+      },
+      "axell:hp.193": {
+        "add": {
+          "component_groups": [
+            "axell:hp.193"
+          ]
+        }
+      },
+      "axell:hp.194": {
+        "add": {
+          "component_groups": [
+            "axell:hp.194"
+          ]
+        }
+      },
+      "axell:hp.195": {
+        "add": {
+          "component_groups": [
+            "axell:hp.195"
+          ]
+        }
+      },
+      "axell:hp.196": {
+        "add": {
+          "component_groups": [
+            "axell:hp.196"
+          ]
+        }
+      },
+      "axell:hp.197": {
+        "add": {
+          "component_groups": [
+            "axell:hp.197"
+          ]
+        }
+      },
+      "axell:hp.198": {
+        "add": {
+          "component_groups": [
+            "axell:hp.198"
+          ]
+        }
+      },
+      "axell:hp.199": {
+        "add": {
+          "component_groups": [
+            "axell:hp.199"
+          ]
+        }
+      },
+      "axell:hp.200": {
+        "add": {
+          "component_groups": [
+            "axell:hp.200"
+          ]
+        }
+      },
+      "axell:hp.201": {
+        "add": {
+          "component_groups": [
+            "axell:hp.201"
+          ]
+        }
+      },
+      "axell:hp.202": {
+        "add": {
+          "component_groups": [
+            "axell:hp.202"
+          ]
+        }
+      },
+      "axell:hp.203": {
+        "add": {
+          "component_groups": [
+            "axell:hp.203"
+          ]
+        }
+      },
+      "axell:hp.204": {
+        "add": {
+          "component_groups": [
+            "axell:hp.204"
+          ]
+        }
+      },
+      "axell:hp.205": {
+        "add": {
+          "component_groups": [
+            "axell:hp.205"
+          ]
+        }
+      },
+      "axell:hp.206": {
+        "add": {
+          "component_groups": [
+            "axell:hp.206"
+          ]
+        }
+      },
+      "axell:hp.207": {
+        "add": {
+          "component_groups": [
+            "axell:hp.207"
+          ]
+        }
+      },
+      "axell:hp.208": {
+        "add": {
+          "component_groups": [
+            "axell:hp.208"
+          ]
+        }
+      },
+      "axell:hp.209": {
+        "add": {
+          "component_groups": [
+            "axell:hp.209"
+          ]
+        }
+      },
+      "axell:hp.210": {
+        "add": {
+          "component_groups": [
+            "axell:hp.210"
+          ]
+        }
+      },
+      "axell:hp.211": {
+        "add": {
+          "component_groups": [
+            "axell:hp.211"
+          ]
+        }
+      },
+      "axell:hp.212": {
+        "add": {
+          "component_groups": [
+            "axell:hp.212"
+          ]
+        }
+      },
+      "axell:hp.213": {
+        "add": {
+          "component_groups": [
+            "axell:hp.213"
+          ]
+        }
+      },
+      "axell:hp.214": {
+        "add": {
+          "component_groups": [
+            "axell:hp.214"
+          ]
+        }
+      },
+      "axell:hp.215": {
+        "add": {
+          "component_groups": [
+            "axell:hp.215"
+          ]
+        }
+      },
+      "axell:hp.216": {
+        "add": {
+          "component_groups": [
+            "axell:hp.216"
+          ]
+        }
+      },
+      "axell:hp.217": {
+        "add": {
+          "component_groups": [
+            "axell:hp.217"
+          ]
+        }
+      },
+      "axell:hp.218": {
+        "add": {
+          "component_groups": [
+            "axell:hp.218"
+          ]
+        }
+      },
+      "axell:hp.219": {
+        "add": {
+          "component_groups": [
+            "axell:hp.219"
+          ]
+        }
+      },
+      "axell:hp.220": {
+        "add": {
+          "component_groups": [
+            "axell:hp.220"
+          ]
+        }
+      },
+      "axell:hp.221": {
+        "add": {
+          "component_groups": [
+            "axell:hp.221"
+          ]
+        }
+      },
+      "axell:hp.222": {
+        "add": {
+          "component_groups": [
+            "axell:hp.222"
+          ]
+        }
+      },
+      "axell:hp.223": {
+        "add": {
+          "component_groups": [
+            "axell:hp.223"
+          ]
+        }
+      },
+      "axell:hp.224": {
+        "add": {
+          "component_groups": [
+            "axell:hp.224"
+          ]
+        }
+      },
+      "axell:hp.225": {
+        "add": {
+          "component_groups": [
+            "axell:hp.225"
+          ]
+        }
+      },
+      "axell:hp.226": {
+        "add": {
+          "component_groups": [
+            "axell:hp.226"
+          ]
+        }
+      },
+      "axell:hp.227": {
+        "add": {
+          "component_groups": [
+            "axell:hp.227"
+          ]
+        }
+      },
+      "axell:hp.228": {
+        "add": {
+          "component_groups": [
+            "axell:hp.228"
+          ]
+        }
+      },
+      "axell:hp.229": {
+        "add": {
+          "component_groups": [
+            "axell:hp.229"
+          ]
+        }
+      },
+      "axell:hp.230": {
+        "add": {
+          "component_groups": [
+            "axell:hp.230"
+          ]
+        }
+      },
+      "axell:hp.231": {
+        "add": {
+          "component_groups": [
+            "axell:hp.231"
+          ]
+        }
+      },
+      "axell:hp.232": {
+        "add": {
+          "component_groups": [
+            "axell:hp.232"
+          ]
+        }
+      },
+      "axell:hp.233": {
+        "add": {
+          "component_groups": [
+            "axell:hp.233"
+          ]
+        }
+      },
+      "axell:hp.234": {
+        "add": {
+          "component_groups": [
+            "axell:hp.234"
+          ]
+        }
+      },
+      "axell:hp.235": {
+        "add": {
+          "component_groups": [
+            "axell:hp.235"
+          ]
+        }
+      },
+      "axell:hp.236": {
+        "add": {
+          "component_groups": [
+            "axell:hp.236"
+          ]
+        }
+      },
+      "axell:hp.237": {
+        "add": {
+          "component_groups": [
+            "axell:hp.237"
+          ]
+        }
+      },
+      "axell:hp.238": {
+        "add": {
+          "component_groups": [
+            "axell:hp.238"
+          ]
+        }
+      },
+      "axell:hp.239": {
+        "add": {
+          "component_groups": [
+            "axell:hp.239"
+          ]
+        }
+      },
+      "axell:hp.240": {
+        "add": {
+          "component_groups": [
+            "axell:hp.240"
+          ]
+        }
+      },
+      "axell:hp.241": {
+        "add": {
+          "component_groups": [
+            "axell:hp.241"
+          ]
+        }
+      },
+      "axell:hp.242": {
+        "add": {
+          "component_groups": [
+            "axell:hp.242"
+          ]
+        }
+      },
+      "axell:hp.243": {
+        "add": {
+          "component_groups": [
+            "axell:hp.243"
+          ]
+        }
+      },
+      "axell:hp.244": {
+        "add": {
+          "component_groups": [
+            "axell:hp.244"
+          ]
+        }
+      },
+      "axell:hp.245": {
+        "add": {
+          "component_groups": [
+            "axell:hp.245"
+          ]
+        }
+      },
+      "axell:hp.246": {
+        "add": {
+          "component_groups": [
+            "axell:hp.246"
+          ]
+        }
+      },
+      "axell:hp.247": {
+        "add": {
+          "component_groups": [
+            "axell:hp.247"
+          ]
+        }
+      },
+      "axell:hp.248": {
+        "add": {
+          "component_groups": [
+            "axell:hp.248"
+          ]
+        }
+      },
+      "axell:hp.249": {
+        "add": {
+          "component_groups": [
+            "axell:hp.249"
+          ]
+        }
+      },
+      "axell:hp.250": {
+        "add": {
+          "component_groups": [
+            "axell:hp.250"
+          ]
+        }
+      },
+      "axell:hp.251": {
+        "add": {
+          "component_groups": [
+            "axell:hp.251"
+          ]
+        }
+      },
+      "axell:hp.252": {
+        "add": {
+          "component_groups": [
+            "axell:hp.252"
+          ]
+        }
+      },
+      "axell:hp.253": {
+        "add": {
+          "component_groups": [
+            "axell:hp.253"
+          ]
+        }
+      },
+      "axell:hp.254": {
+        "add": {
+          "component_groups": [
+            "axell:hp.254"
+          ]
+        }
+      },
+      "axell:hp.255": {
+        "add": {
+          "component_groups": [
+            "axell:hp.255"
+          ]
+        }
+      },
+      "axell:hp.256": {
+        "add": {
+          "component_groups": [
+            "axell:hp.256"
+          ]
+        }
+      },
+      "axell:hp.257": {
+        "add": {
+          "component_groups": [
+            "axell:hp.257"
+          ]
+        }
+      },
+      "axell:hp.258": {
+        "add": {
+          "component_groups": [
+            "axell:hp.258"
+          ]
+        }
+      },
+      "axell:hp.259": {
+        "add": {
+          "component_groups": [
+            "axell:hp.259"
+          ]
+        }
+      },
+      "axell:hp.260": {
+        "add": {
+          "component_groups": [
+            "axell:hp.260"
+          ]
+        }
+      },
+      "axell:hp.261": {
+        "add": {
+          "component_groups": [
+            "axell:hp.261"
+          ]
+        }
+      },
+      "axell:hp.262": {
+        "add": {
+          "component_groups": [
+            "axell:hp.262"
+          ]
+        }
+      },
+      "axell:hp.263": {
+        "add": {
+          "component_groups": [
+            "axell:hp.263"
+          ]
+        }
+      },
+      "axell:hp.264": {
+        "add": {
+          "component_groups": [
+            "axell:hp.264"
+          ]
+        }
+      },
+      "axell:hp.265": {
+        "add": {
+          "component_groups": [
+            "axell:hp.265"
+          ]
+        }
+      },
+      "axell:hp.266": {
+        "add": {
+          "component_groups": [
+            "axell:hp.266"
+          ]
+        }
+      },
+      "axell:hp.267": {
+        "add": {
+          "component_groups": [
+            "axell:hp.267"
+          ]
+        }
+      },
+      "axell:hp.268": {
+        "add": {
+          "component_groups": [
+            "axell:hp.268"
+          ]
+        }
+      },
+      "axell:hp.269": {
+        "add": {
+          "component_groups": [
+            "axell:hp.269"
+          ]
+        }
+      },
+      "axell:hp.270": {
+        "add": {
+          "component_groups": [
+            "axell:hp.270"
+          ]
+        }
+      },
+      "axell:hp.271": {
+        "add": {
+          "component_groups": [
+            "axell:hp.271"
+          ]
+        }
+      },
+      "axell:hp.272": {
+        "add": {
+          "component_groups": [
+            "axell:hp.272"
+          ]
+        }
+      },
+      "axell:hp.273": {
+        "add": {
+          "component_groups": [
+            "axell:hp.273"
+          ]
+        }
+      },
+      "axell:hp.274": {
+        "add": {
+          "component_groups": [
+            "axell:hp.274"
+          ]
+        }
+      },
+      "axell:hp.275": {
+        "add": {
+          "component_groups": [
+            "axell:hp.275"
+          ]
+        }
+      },
+      "axell:hp.276": {
+        "add": {
+          "component_groups": [
+            "axell:hp.276"
+          ]
+        }
+      },
+      "axell:hp.277": {
+        "add": {
+          "component_groups": [
+            "axell:hp.277"
+          ]
+        }
+      },
+      "axell:hp.278": {
+        "add": {
+          "component_groups": [
+            "axell:hp.278"
+          ]
+        }
+      },
+      "axell:hp.279": {
+        "add": {
+          "component_groups": [
+            "axell:hp.279"
+          ]
+        }
+      },
+      "axell:hp.280": {
+        "add": {
+          "component_groups": [
+            "axell:hp.280"
+          ]
+        }
+      },
+      "axell:hp.281": {
+        "add": {
+          "component_groups": [
+            "axell:hp.281"
+          ]
+        }
+      },
+      "axell:hp.282": {
+        "add": {
+          "component_groups": [
+            "axell:hp.282"
+          ]
+        }
+      },
+      "axell:hp.283": {
+        "add": {
+          "component_groups": [
+            "axell:hp.283"
+          ]
+        }
+      },
+      "axell:hp.284": {
+        "add": {
+          "component_groups": [
+            "axell:hp.284"
+          ]
+        }
+      },
+      "axell:hp.285": {
+        "add": {
+          "component_groups": [
+            "axell:hp.285"
+          ]
+        }
+      },
+      "axell:hp.286": {
+        "add": {
+          "component_groups": [
+            "axell:hp.286"
+          ]
+        }
+      },
+      "axell:hp.287": {
+        "add": {
+          "component_groups": [
+            "axell:hp.287"
+          ]
+        }
+      },
+      "axell:hp.288": {
+        "add": {
+          "component_groups": [
+            "axell:hp.288"
+          ]
+        }
+      },
+      "axell:hp.289": {
+        "add": {
+          "component_groups": [
+            "axell:hp.289"
+          ]
+        }
+      },
+      "axell:hp.290": {
+        "add": {
+          "component_groups": [
+            "axell:hp.290"
+          ]
+        }
+      },
+      "axell:hp.291": {
+        "add": {
+          "component_groups": [
+            "axell:hp.291"
+          ]
+        }
+      },
+      "axell:hp.292": {
+        "add": {
+          "component_groups": [
+            "axell:hp.292"
+          ]
+        }
+      },
+      "axell:hp.293": {
+        "add": {
+          "component_groups": [
+            "axell:hp.293"
+          ]
+        }
+      },
+      "axell:hp.294": {
+        "add": {
+          "component_groups": [
+            "axell:hp.294"
+          ]
+        }
+      },
+      "axell:hp.295": {
+        "add": {
+          "component_groups": [
+            "axell:hp.295"
+          ]
+        }
+      },
+      "axell:hp.296": {
+        "add": {
+          "component_groups": [
+            "axell:hp.296"
+          ]
+        }
+      },
+      "axell:hp.297": {
+        "add": {
+          "component_groups": [
+            "axell:hp.297"
+          ]
+        }
+      },
+      "axell:hp.298": {
+        "add": {
+          "component_groups": [
+            "axell:hp.298"
+          ]
+        }
+      },
+      "axell:hp.299": {
+        "add": {
+          "component_groups": [
+            "axell:hp.299"
+          ]
+        }
+      },
+      "axell:hp.300": {
+        "add": {
+          "component_groups": [
+            "axell:hp.300"
+          ]
+        }
+      },
+      "axell:hp.301": {
+        "add": {
+          "component_groups": [
+            "axell:hp.301"
+          ]
+        }
+      },
+      "axell:hp.302": {
+        "add": {
+          "component_groups": [
+            "axell:hp.302"
+          ]
+        }
+      },
+      "axell:hp.303": {
+        "add": {
+          "component_groups": [
+            "axell:hp.303"
+          ]
+        }
+      },
+      "axell:hp.304": {
+        "add": {
+          "component_groups": [
+            "axell:hp.304"
+          ]
+        }
+      },
+      "axell:hp.305": {
+        "add": {
+          "component_groups": [
+            "axell:hp.305"
+          ]
+        }
+      },
+      "axell:hp.306": {
+        "add": {
+          "component_groups": [
+            "axell:hp.306"
+          ]
+        }
+      },
+      "axell:hp.307": {
+        "add": {
+          "component_groups": [
+            "axell:hp.307"
+          ]
+        }
+      },
+      "axell:hp.308": {
+        "add": {
+          "component_groups": [
+            "axell:hp.308"
+          ]
+        }
+      },
+      "axell:hp.309": {
+        "add": {
+          "component_groups": [
+            "axell:hp.309"
+          ]
+        }
+      },
+      "axell:hp.310": {
+        "add": {
+          "component_groups": [
+            "axell:hp.310"
+          ]
+        }
+      },
+      "axell:hp.311": {
+        "add": {
+          "component_groups": [
+            "axell:hp.311"
+          ]
+        }
+      },
+      "axell:hp.312": {
+        "add": {
+          "component_groups": [
+            "axell:hp.312"
+          ]
+        }
+      },
+      "axell:hp.313": {
+        "add": {
+          "component_groups": [
+            "axell:hp.313"
+          ]
+        }
+      },
+      "axell:hp.314": {
+        "add": {
+          "component_groups": [
+            "axell:hp.314"
+          ]
+        }
+      },
+      "axell:hp.315": {
+        "add": {
+          "component_groups": [
+            "axell:hp.315"
+          ]
+        }
+      },
+      "axell:hp.316": {
+        "add": {
+          "component_groups": [
+            "axell:hp.316"
+          ]
+        }
+      },
+      "axell:hp.317": {
+        "add": {
+          "component_groups": [
+            "axell:hp.317"
+          ]
+        }
+      },
+      "axell:hp.318": {
+        "add": {
+          "component_groups": [
+            "axell:hp.318"
+          ]
+        }
+      },
+      "axell:hp.319": {
+        "add": {
+          "component_groups": [
+            "axell:hp.319"
+          ]
+        }
+      },
+      "axell:hp.320": {
+        "add": {
+          "component_groups": [
+            "axell:hp.320"
+          ]
+        }
+      },
+      "axell:hp.321": {
+        "add": {
+          "component_groups": [
+            "axell:hp.321"
+          ]
+        }
+      },
+      "axell:hp.322": {
+        "add": {
+          "component_groups": [
+            "axell:hp.322"
+          ]
+        }
+      },
+      "axell:hp.323": {
+        "add": {
+          "component_groups": [
+            "axell:hp.323"
+          ]
+        }
+      },
+      "axell:hp.324": {
+        "add": {
+          "component_groups": [
+            "axell:hp.324"
+          ]
+        }
+      },
+      "axell:hp.325": {
+        "add": {
+          "component_groups": [
+            "axell:hp.325"
+          ]
+        }
+      },
+      "axell:hp.326": {
+        "add": {
+          "component_groups": [
+            "axell:hp.326"
+          ]
+        }
+      },
+      "axell:hp.327": {
+        "add": {
+          "component_groups": [
+            "axell:hp.327"
+          ]
+        }
+      },
+      "axell:hp.328": {
+        "add": {
+          "component_groups": [
+            "axell:hp.328"
+          ]
+        }
+      },
+      "axell:hp.329": {
+        "add": {
+          "component_groups": [
+            "axell:hp.329"
+          ]
+        }
+      },
+      "axell:hp.330": {
+        "add": {
+          "component_groups": [
+            "axell:hp.330"
+          ]
+        }
+      },
+      "axell:hp.331": {
+        "add": {
+          "component_groups": [
+            "axell:hp.331"
+          ]
+        }
+      },
+      "axell:hp.332": {
+        "add": {
+          "component_groups": [
+            "axell:hp.332"
+          ]
+        }
+      },
+      "axell:hp.333": {
+        "add": {
+          "component_groups": [
+            "axell:hp.333"
+          ]
+        }
+      },
+      "axell:hp.334": {
+        "add": {
+          "component_groups": [
+            "axell:hp.334"
+          ]
+        }
+      },
+      "axell:hp.335": {
+        "add": {
+          "component_groups": [
+            "axell:hp.335"
+          ]
+        }
+      },
+      "axell:hp.336": {
+        "add": {
+          "component_groups": [
+            "axell:hp.336"
+          ]
+        }
+      },
+      "axell:hp.337": {
+        "add": {
+          "component_groups": [
+            "axell:hp.337"
+          ]
+        }
+      },
+      "axell:hp.338": {
+        "add": {
+          "component_groups": [
+            "axell:hp.338"
+          ]
+        }
+      },
+      "axell:hp.339": {
+        "add": {
+          "component_groups": [
+            "axell:hp.339"
+          ]
+        }
+      },
+      "axell:hp.340": {
+        "add": {
+          "component_groups": [
+            "axell:hp.340"
+          ]
+        }
+      },
+      "axell:hp.341": {
+        "add": {
+          "component_groups": [
+            "axell:hp.341"
+          ]
+        }
+      },
+      "axell:hp.342": {
+        "add": {
+          "component_groups": [
+            "axell:hp.342"
+          ]
+        }
+      },
+      "axell:hp.343": {
+        "add": {
+          "component_groups": [
+            "axell:hp.343"
+          ]
+        }
+      },
+      "axell:hp.344": {
+        "add": {
+          "component_groups": [
+            "axell:hp.344"
+          ]
+        }
+      },
+      "axell:hp.345": {
+        "add": {
+          "component_groups": [
+            "axell:hp.345"
+          ]
+        }
+      },
+      "axell:hp.346": {
+        "add": {
+          "component_groups": [
+            "axell:hp.346"
+          ]
+        }
+      },
+      "axell:hp.347": {
+        "add": {
+          "component_groups": [
+            "axell:hp.347"
+          ]
+        }
+      },
+      "axell:hp.348": {
+        "add": {
+          "component_groups": [
+            "axell:hp.348"
+          ]
+        }
+      },
+      "axell:hp.349": {
+        "add": {
+          "component_groups": [
+            "axell:hp.349"
+          ]
+        }
+      },
+      "axell:hp.350": {
+        "add": {
+          "component_groups": [
+            "axell:hp.350"
+          ]
+        }
+      },
+      "axell:hp.351": {
+        "add": {
+          "component_groups": [
+            "axell:hp.351"
+          ]
+        }
+      },
+      "axell:hp.352": {
+        "add": {
+          "component_groups": [
+            "axell:hp.352"
+          ]
+        }
+      },
+      "axell:hp.353": {
+        "add": {
+          "component_groups": [
+            "axell:hp.353"
+          ]
+        }
+      },
+      "axell:hp.354": {
+        "add": {
+          "component_groups": [
+            "axell:hp.354"
+          ]
+        }
+      },
+      "axell:hp.355": {
+        "add": {
+          "component_groups": [
+            "axell:hp.355"
+          ]
+        }
+      },
+      "axell:hp.356": {
+        "add": {
+          "component_groups": [
+            "axell:hp.356"
+          ]
+        }
+      },
+      "axell:hp.357": {
+        "add": {
+          "component_groups": [
+            "axell:hp.357"
+          ]
+        }
+      },
+      "axell:hp.358": {
+        "add": {
+          "component_groups": [
+            "axell:hp.358"
+          ]
+        }
+      },
+      "axell:hp.359": {
+        "add": {
+          "component_groups": [
+            "axell:hp.359"
+          ]
+        }
+      },
+      "axell:hp.360": {
+        "add": {
+          "component_groups": [
+            "axell:hp.360"
+          ]
+        }
+      },
+      "axell:hp.361": {
+        "add": {
+          "component_groups": [
+            "axell:hp.361"
+          ]
+        }
+      },
+      "axell:hp.362": {
+        "add": {
+          "component_groups": [
+            "axell:hp.362"
+          ]
+        }
+      },
+      "axell:hp.363": {
+        "add": {
+          "component_groups": [
+            "axell:hp.363"
+          ]
+        }
+      },
+      "axell:hp.364": {
+        "add": {
+          "component_groups": [
+            "axell:hp.364"
+          ]
+        }
+      },
+      "axell:hp.365": {
+        "add": {
+          "component_groups": [
+            "axell:hp.365"
+          ]
+        }
+      },
+      "axell:hp.366": {
+        "add": {
+          "component_groups": [
+            "axell:hp.366"
+          ]
+        }
+      },
+      "axell:hp.367": {
+        "add": {
+          "component_groups": [
+            "axell:hp.367"
+          ]
+        }
+      },
+      "axell:hp.368": {
+        "add": {
+          "component_groups": [
+            "axell:hp.368"
+          ]
+        }
+      },
+      "axell:hp.369": {
+        "add": {
+          "component_groups": [
+            "axell:hp.369"
+          ]
+        }
+      },
+      "axell:hp.370": {
+        "add": {
+          "component_groups": [
+            "axell:hp.370"
+          ]
+        }
+      },
+      "axell:hp.371": {
+        "add": {
+          "component_groups": [
+            "axell:hp.371"
+          ]
+        }
+      },
+      "axell:hp.372": {
+        "add": {
+          "component_groups": [
+            "axell:hp.372"
+          ]
+        }
+      },
+      "axell:hp.373": {
+        "add": {
+          "component_groups": [
+            "axell:hp.373"
+          ]
+        }
+      },
+      "axell:hp.374": {
+        "add": {
+          "component_groups": [
+            "axell:hp.374"
+          ]
+        }
+      },
+      "axell:hp.375": {
+        "add": {
+          "component_groups": [
+            "axell:hp.375"
+          ]
+        }
+      },
+      "axell:hp.376": {
+        "add": {
+          "component_groups": [
+            "axell:hp.376"
+          ]
+        }
+      },
+      "axell:hp.377": {
+        "add": {
+          "component_groups": [
+            "axell:hp.377"
+          ]
+        }
+      },
+      "axell:hp.378": {
+        "add": {
+          "component_groups": [
+            "axell:hp.378"
+          ]
+        }
+      },
+      "axell:hp.379": {
+        "add": {
+          "component_groups": [
+            "axell:hp.379"
+          ]
+        }
+      },
+      "axell:hp.380": {
+        "add": {
+          "component_groups": [
+            "axell:hp.380"
+          ]
+        }
+      },
+      "axell:hp.381": {
+        "add": {
+          "component_groups": [
+            "axell:hp.381"
+          ]
+        }
+      },
+      "axell:hp.382": {
+        "add": {
+          "component_groups": [
+            "axell:hp.382"
+          ]
+        }
+      },
+      "axell:hp.383": {
+        "add": {
+          "component_groups": [
+            "axell:hp.383"
+          ]
+        }
+      },
+      "axell:hp.384": {
+        "add": {
+          "component_groups": [
+            "axell:hp.384"
+          ]
+        }
+      },
+      "axell:hp.385": {
+        "add": {
+          "component_groups": [
+            "axell:hp.385"
+          ]
+        }
+      },
+      "axell:hp.386": {
+        "add": {
+          "component_groups": [
+            "axell:hp.386"
+          ]
+        }
+      },
+      "axell:hp.387": {
+        "add": {
+          "component_groups": [
+            "axell:hp.387"
+          ]
+        }
+      },
+      "axell:hp.388": {
+        "add": {
+          "component_groups": [
+            "axell:hp.388"
+          ]
+        }
+      },
+      "axell:hp.389": {
+        "add": {
+          "component_groups": [
+            "axell:hp.389"
+          ]
+        }
+      },
+      "axell:hp.390": {
+        "add": {
+          "component_groups": [
+            "axell:hp.390"
+          ]
+        }
+      },
+      "axell:hp.391": {
+        "add": {
+          "component_groups": [
+            "axell:hp.391"
+          ]
+        }
+      },
+      "axell:hp.392": {
+        "add": {
+          "component_groups": [
+            "axell:hp.392"
+          ]
+        }
+      },
+      "axell:hp.393": {
+        "add": {
+          "component_groups": [
+            "axell:hp.393"
+          ]
+        }
+      },
+      "axell:hp.394": {
+        "add": {
+          "component_groups": [
+            "axell:hp.394"
+          ]
+        }
+      },
+      "axell:hp.395": {
+        "add": {
+          "component_groups": [
+            "axell:hp.395"
+          ]
+        }
+      },
+      "axell:hp.396": {
+        "add": {
+          "component_groups": [
+            "axell:hp.396"
+          ]
+        }
+      },
+      "axell:hp.397": {
+        "add": {
+          "component_groups": [
+            "axell:hp.397"
+          ]
+        }
+      },
+      "axell:hp.398": {
+        "add": {
+          "component_groups": [
+            "axell:hp.398"
+          ]
+        }
+      },
+      "axell:hp.399": {
+        "add": {
+          "component_groups": [
+            "axell:hp.399"
+          ]
+        }
+      },
+      "axell:hp.400": {
+        "add": {
+          "component_groups": [
+            "axell:hp.400"
+          ]
+        }
+      },
+			"axell:damaged": {
+				"queue_command": {
+					"command": [
+						"tag @s add damaged"
+					]
+				}
+			},
+			"parried": {
+				"queue_command": {
+					"command": [
+						"scriptevent axell:parry"
+					]
+				}
+			},
+      "blocked": {
+        "queue_command": {
+          "command": [
+            "scriptevent axell:block"
+          ]
+        }
+      },
+			"axell:parry": {
+                "add": {
+                    "component_groups": [
+                        "axell_parry"
+                    ]
+                }
+            },
+      "axell:blocking": {
+        "add": {
+          "component_groups": [
+            "axell_blocking"
+          ]
+        }
+      },
+			"minecraft:gain_bad_omen": {
+				"add": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				}
+			},
+			"minecraft:clear_add_bad_omen": {
+				"remove": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:clear_bad_omen_spell_effect"
+					]
+				}
+			},
+			"minecraft:trigger_raid": {
+				"add": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"minecraft:remove_raid_trigger": {
+				"remove": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "dcb:basic_demon",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/basic_demon"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom"
+      },
+      "render_controllers": ["controller.render.axell"],
+      "spawn_egg": {
+        "base_color": "#5D0000",
+        "overlay_color": "#004261"
+      },
+      "scripts": {
+        "animate": [
+          { "run": "query.is_moving" },
+          { "attack": "variable.attack_time > 0" }
+        ]
+      },
+      "animations": {
+          "run": "animation.demon.run",
+          "attack": "animation.demon.attack"
+      },
+      "enable_attachables": true
+    }
+  }
+}

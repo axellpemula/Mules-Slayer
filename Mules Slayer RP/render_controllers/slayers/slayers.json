@@ -1,0 +1,30 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.slayer": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ]
+    },
+    "controller.render.slayerBlade": {
+      "geometry": "Geometry.blade",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.blade" ]
+    },
+    "controller.render.slayerTsuba": {
+      "geometry": "Geometry.tsuba",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.tsuba" ]
+    },
+    "controller.render.slayerHandle": {
+      "geometry": "Geometry.handle",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.handle" ]
+    },
+    "controller.render.slayerScabbard": {
+      "geometry": "Geometry.scabbard",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.scabbard" ]
+    }
+  }
+}

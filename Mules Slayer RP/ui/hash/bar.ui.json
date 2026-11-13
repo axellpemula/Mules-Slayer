@@ -1,0 +1,3871 @@
+{
+  "namespace": "bar_ui",
+  "panel": {
+    "type": "panel",
+    "$prefix|default": "bar_ui:",
+    "$texture|default": "textures/nothing",
+    "$background_texture|default": "textures/nothing",
+    "$anchor_from|default": "center",
+    "$anchor_to|default": "center",
+    "$layer|default": 1,
+    "$offset|default": [0,0],
+    "$size|default": [0,0],
+    "$clip_direction|default": "left",
+    "controls": [
+      {
+        "background": {
+          "type": "image",
+          "texture": "$background_texture",
+          "anchor_from": "$anchor_from",
+          "anchor_to": "$anchor_to",
+          "layer": "($layer - 1)",
+          "size": "$size",
+          "$cortar": 0.000009,
+          "clip_ratio": "$cortar",
+          "clip_direction": "$clip_direction",
+          "offset": "$offset"
+        }
+      },
+      {
+        "0@bar_ui.0": {}
+      },
+      {
+        "1@bar_ui.1": {}
+      },
+      {
+        "2@bar_ui.2": {}
+      },
+      {
+        "3@bar_ui.3": {}
+      },
+      {
+        "4@bar_ui.4": {}
+      },
+      {
+        "5@bar_ui.5": {}
+      },
+      {
+        "6@bar_ui.6": {}
+      },
+      {
+        "7@bar_ui.7": {}
+      },
+      {
+        "8@bar_ui.8": {}
+      },
+      {
+        "9@bar_ui.9": {}
+      },
+      {
+        "10@bar_ui.10": {}
+      },
+      {
+        "11@bar_ui.11": {}
+      },
+      {
+        "12@bar_ui.12": {}
+      },
+      {
+        "13@bar_ui.13": {}
+      },
+      {
+        "14@bar_ui.14": {}
+      },
+      {
+        "15@bar_ui.15": {}
+      },
+      {
+        "16@bar_ui.16": {}
+      },
+      {
+        "17@bar_ui.17": {}
+      },
+      {
+        "18@bar_ui.18": {}
+      },
+      {
+        "19@bar_ui.19": {}
+      },
+      {
+        "20@bar_ui.20": {}
+      },
+      {
+        "21@bar_ui.21": {}
+      },
+      {
+        "22@bar_ui.22": {}
+      },
+      {
+        "23@bar_ui.23": {}
+      },
+      {
+        "24@bar_ui.24": {}
+      },
+      {
+        "25@bar_ui.25": {}
+      },
+      {
+        "26@bar_ui.26": {}
+      },
+      {
+        "27@bar_ui.27": {}
+      },
+      {
+        "28@bar_ui.28": {}
+      },
+      {
+        "29@bar_ui.29": {}
+      },
+      {
+        "30@bar_ui.30": {}
+      },
+      {
+        "31@bar_ui.31": {}
+      },
+      {
+        "32@bar_ui.32": {}
+      },
+      {
+        "33@bar_ui.33": {}
+      },
+      {
+        "34@bar_ui.34": {}
+      },
+      {
+        "35@bar_ui.35": {}
+      },
+      {
+        "36@bar_ui.36": {}
+      },
+      {
+        "37@bar_ui.37": {}
+      },
+      {
+        "38@bar_ui.38": {}
+      },
+      {
+        "39@bar_ui.39": {}
+      },
+      {
+        "40@bar_ui.40": {}
+      },
+      {
+        "41@bar_ui.41": {}
+      },
+      {
+        "42@bar_ui.42": {}
+      },
+      {
+        "43@bar_ui.43": {}
+      },
+      {
+        "44@bar_ui.44": {}
+      },
+      {
+        "45@bar_ui.45": {}
+      },
+      {
+        "46@bar_ui.46": {}
+      },
+      {
+        "47@bar_ui.47": {}
+      },
+      {
+        "48@bar_ui.48": {}
+      },
+      {
+        "49@bar_ui.49": {}
+      },
+      {
+        "50@bar_ui.50": {}
+      },
+      {
+        "51@bar_ui.51": {}
+      },
+      {
+        "52@bar_ui.52": {}
+      },
+      {
+        "53@bar_ui.53": {}
+      },
+      {
+        "54@bar_ui.54": {}
+      },
+      {
+        "55@bar_ui.55": {}
+      },
+      {
+        "56@bar_ui.56": {}
+      },
+      {
+        "57@bar_ui.57": {}
+      },
+      {
+        "58@bar_ui.58": {}
+      },
+      {
+        "59@bar_ui.59": {}
+      },
+      {
+        "60@bar_ui.60": {}
+      },
+      {
+        "61@bar_ui.61": {}
+      },
+      {
+        "62@bar_ui.62": {}
+      },
+      {
+        "63@bar_ui.63": {}
+      },
+      {
+        "64@bar_ui.64": {}
+      },
+      {
+        "65@bar_ui.65": {}
+      },
+      {
+        "66@bar_ui.66": {}
+      },
+      {
+        "67@bar_ui.67": {}
+      },
+      {
+        "68@bar_ui.68": {}
+      },
+      {
+        "69@bar_ui.69": {}
+      },
+      {
+        "70@bar_ui.70": {}
+      },
+      {
+        "71@bar_ui.71": {}
+      },
+      {
+        "72@bar_ui.72": {}
+      },
+      {
+        "73@bar_ui.73": {}
+      },
+      {
+        "74@bar_ui.74": {}
+      },
+      {
+        "75@bar_ui.75": {}
+      },
+      {
+        "76@bar_ui.76": {}
+      },
+      {
+        "77@bar_ui.77": {}
+      },
+      {
+        "78@bar_ui.78": {}
+      },
+      {
+        "79@bar_ui.79": {}
+      },
+      {
+        "80@bar_ui.80": {}
+      },
+      {
+        "81@bar_ui.81": {}
+      },
+      {
+        "82@bar_ui.82": {}
+      },
+      {
+        "83@bar_ui.83": {}
+      },
+      {
+        "84@bar_ui.84": {}
+      },
+      {
+        "85@bar_ui.85": {}
+      },
+      {
+        "86@bar_ui.86": {}
+      },
+      {
+        "87@bar_ui.87": {}
+      },
+      {
+        "88@bar_ui.88": {}
+      },
+      {
+        "89@bar_ui.89": {}
+      },
+      {
+        "90@bar_ui.90": {}
+      },
+      {
+        "91@bar_ui.91": {}
+      },
+      {
+        "92@bar_ui.92": {}
+      },
+      {
+        "93@bar_ui.93": {}
+      },
+      {
+        "94@bar_ui.94": {}
+      },
+      {
+        "95@bar_ui.95": {}
+      },
+      {
+        "96@bar_ui.96": {}
+      },
+      {
+        "97@bar_ui.97": {}
+      },
+      {
+        "98@bar_ui.98": {}
+      },
+      {
+        "99@bar_ui.99": {}
+      },
+      {
+        "100@bar_ui.100": {}
+      }
+    ]
+  },
+  
+  //issoÉLouco:0
+  "100": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '100')",
+    "$cortar": 0.000009,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "99": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '99')",
+    "$cortar": 0.01,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "98": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '98')",
+    "$cortar": 0.02,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "97": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '97')",
+    "$cortar": 0.03,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "96": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '96')",
+    "$cortar": 0.04,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "95": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '95')",
+    "$cortar": 0.05,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "94": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '94')",
+    "$cortar": 0.06,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "93": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '93')",
+    "$cortar": 0.07,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "92": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '92')",
+    "$cortar": 0.08,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "91": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '91')",
+    "$cortar": 0.09,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "90": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '90')",
+    "$cortar": 0.10,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "89": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '89')",
+    "$cortar": 0.11,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "88": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '88')",
+    "$cortar": 0.12,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "87": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '87')",
+    "$cortar": 0.13,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "86": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '86')",
+    "$cortar": 0.14,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "85": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '85')",
+    "$cortar": 0.15,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "84": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '84')",
+    "$cortar": 0.16,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "83": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '83')",
+    "$cortar": 0.17,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "82": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '82')",
+    "$cortar": 0.18,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "81": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '81')",
+    "$cortar": 0.19,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "80": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '80')",
+    "$cortar": 0.20,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "79": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '79')",
+    "$cortar": 0.21,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "78": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '78')",
+    "$cortar": 0.22,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "77": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '77')",
+    "$cortar": 0.23,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "76": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '76')",
+    "$cortar": 0.24,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "75": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '75')",
+    "$cortar": 0.25,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "74": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '74')",
+    "$cortar": 0.26,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "73": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '73')",
+    "$cortar": 0.27,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "72": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '72')",
+    "$cortar": 0.28,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "71": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '71')",
+    "$cortar": 0.29,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "70": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '70')",
+    "$cortar": 0.30,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "69": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '69')",
+    "$cortar": 0.31,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "68": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '68')",
+    "$cortar": 0.32,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "67": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '67')",
+    "$cortar": 0.33,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "66": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '66')",
+    "$cortar": 0.34,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "65": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '65')",
+    "$cortar": 0.35,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "64": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '64')",
+    "$cortar": 0.36,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "63": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '63')",
+    "$cortar": 0.37,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "62": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '62')",
+    "$cortar": 0.38,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "61": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '61')",
+    "$cortar": 0.39,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "60": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '60')",
+    "$cortar": 0.40,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "59": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '59')",
+    "$cortar": 0.41,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "58": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '58')",
+    "$cortar": 0.42,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "57": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '57')",
+    "$cortar": 0.43,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "56": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '56')",
+    "$cortar": 0.44,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "55": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '55')",
+    "$cortar": 0.45,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "54": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '54')",
+    "$cortar": 0.46,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "53": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '53')",
+    "$cortar": 0.47,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "52": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '52')",
+    "$cortar": 0.48,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "51": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '51')",
+    "$cortar": 0.49,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "50": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '50')",
+    "$cortar": 0.50,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "49": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '49')",
+    "$cortar": 0.51,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "48": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '48')",
+    "$cortar": 0.52,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "47": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '47')",
+    "$cortar": 0.53,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "46": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '46')",
+    "$cortar": 0.54,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "45": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '45')",
+    "$cortar": 0.55,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "44": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '44')",
+    "$cortar": 0.56,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "43": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '43')",
+    "$cortar": 0.57,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "42": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '42')",
+    "$cortar": 0.58,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "41": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '41')",
+    "$cortar": 0.59,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "40": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '40')",
+    "$cortar": 0.60,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "39": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '39')",
+    "$cortar": 0.61,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "38": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '38')",
+    "$cortar": 0.62,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "37": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '37')",
+    "$cortar": 0.63,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "36": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '36')",
+    "$cortar": 0.64,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "35": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '35')",
+    "$cortar": 0.65,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "34": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '34')",
+    "$cortar": 0.66,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "33": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '33')",
+    "$cortar": 0.67,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "32": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '32')",
+    "$cortar": 0.68,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "31": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '31')",
+    "$cortar": 0.69,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "30": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '30')",
+    "$cortar": 0.70,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "29": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '29')",
+    "$cortar": 0.71,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "28": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '28')",
+    "$cortar": 0.72,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "27": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '27')",
+    "$cortar": 0.73,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "26": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '26')",
+    "$cortar": 0.74,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "25": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '25')",
+    "$cortar": 0.75,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "24": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '24')",
+    "$cortar": 0.76,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "23": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '23')",
+    "$cortar": 0.77,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "22": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '22')",
+    "$cortar": 0.78,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "21": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '21')",
+    "$cortar": 0.79,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "20": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '20')",
+    "$cortar": 0.80,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "19": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '19')",
+    "$cortar": 0.81,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "18": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '18')",
+    "$cortar": 0.82,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "17": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '17')",
+    "$cortar": 0.83,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "16": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '16')",
+    "$cortar": 0.84,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "15": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '15')",
+    "$cortar": 0.85,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "14": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '14')",
+    "$cortar": 0.86,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "13": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '13')",
+    "$cortar": 0.87,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "12": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '12')",
+    "$cortar": 0.88,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "11": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '11')",
+    "$cortar": 0.89,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "10": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '10')",
+    "$cortar": 0.90,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "9": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '9')",
+    "$cortar": 0.91,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "8": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '8')",
+    "$cortar": 0.92,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "7": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '7')",
+    "$cortar": 0.93,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "6": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '6')",
+    "$cortar": 0.94,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "5": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '5')",
+    "$cortar": 0.95,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "4": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '4')",
+    "$cortar": 0.96,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "3": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '3')",
+    "$cortar": 0.97,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "2": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '2')",
+    "$cortar": 0.98,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "1": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '1')",
+    "$cortar": 0.99,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "0": {
+    "type": "image",
+    "texture": "$texture",
+    "anchor_from": "$anchor_from",
+    "anchor_to": "$anchor_to",
+    "layer": "$layer",
+    "size": "$size",
+    "uv": "$uv",
+    "uv_size": "$uv_size",
+    "$uv|default": [
+      0,
+      0
+    ],
+    "$uv_size|default": [
+      0,
+      0
+    ],
+    //condition
+    "$value": "($prefix + '0')",
+    "$cortar": 1.0,
+    //
+    "clip_ratio": "$cortar",
+    "clip_direction": "$clip_direction",
+    "offset": "$offset",
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#hud_title_text_string - $value) = #hud_title_text_string))",
+        "target_property_name": "#visible"
+      }
+    ]
+  }
+}

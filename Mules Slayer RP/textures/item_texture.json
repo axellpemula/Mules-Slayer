@@ -1,0 +1,242 @@
+{
+	"texture_data": {
+		"nichirin": {
+			"textures": "textures/items/nichirin.png"
+		},
+		"cancel": {
+			"textures": "textures/items/cancel.png"
+		},
+		"bda": {
+			"textures": "textures/items/bda.png"
+		},
+		"skibidi": {
+			"textures": "textures/items/stats"
+		},
+		"water": {
+			"textures": [
+				"textures/items/breathings/book_water"
+			]
+		},
+		"flame": {
+			"textures": [
+				"textures/items/breathings/book_flame"
+			]
+		},
+		"sun": {
+			"textures": [
+				"textures/items/breathings/book_sun"
+			]
+		},
+		"mist": {
+			"textures": [
+				"textures/items/breathings/book_mist"
+			]
+		},
+		"moon": {
+			"textures": [
+				"textures/items/breathings/book_moon"
+			]
+		},
+		"wind": {
+			"textures": [
+				"textures/items/breathings/book_wind"
+			]
+		},
+		"thunder": {
+			"textures": [
+				"textures/items/breathings/book_thunder"
+			]
+		},
+		"sound": {
+			"textures": [
+				"textures/items/breathings/book_flame"
+			]
+		},
+		"giyuu_haori": {
+			"textures": [
+				"textures/items/armors/giyuu_haori"
+			]
+		},
+		"giyuu_haori1": {
+			"textures": [
+				"textures/items/haoris/giyuu/frost"
+			]
+		},
+		"giyuu_haori2": {
+			"textures": [
+				"textures/items/haoris/giyuu/inferno"
+			]
+		},
+		"giyuu_haori3": {
+			"textures": [
+				"textures/items/haoris/giyuu/shadow"
+			]
+		},
+		"giyuu_haori4": {
+			"textures": [
+				"textures/items/haoris/giyuu/storm"
+			]
+		},
+		"rengoku_haori": {
+			"textures": [
+				"textures/items/armors/rengoku_haori"
+			]
+		},
+		"rengoku_haori1": {
+			"textures": [
+				"textures/items/haoris/rengoku/blue"
+			]
+		},
+		"rengoku_haori2": {
+			"textures": [
+				"textures/items/haoris/rengoku/gold"
+			]
+		},
+		"rengoku_haori3": {
+			"textures": [
+				"textures/items/haoris/rengoku/white"
+			]
+		},
+		"rengoku_haori4": {
+			"textures": [
+				"textures/items/haoris/rengoku/black"
+			]
+		},
+		"rengoku_haori5": {
+			"textures": [
+				"textures/items/haoris/rengoku/crimson"
+			]
+		},
+		"tanjiro_haori": {
+			"textures": [
+				"textures/items/armors/tanjiro_haori"
+			]
+		},
+		"tanjiro_haori1": {
+			"textures": [
+				"textures/items/haoris/tanjiro/red"
+			]
+		},
+		"tanjiro_haori2": {
+			"textures": [
+				"textures/items/haoris/tanjiro/blue"
+			]
+		},
+		"tanjiro_haori3": {
+			"textures": [
+				"textures/items/haoris/tanjiro/purple"
+			]
+		},
+		"tanjiro_haori4": {
+			"textures": [
+				"textures/items/haoris/tanjiro/gold"
+			]
+		},
+		"tanjiro_haori5": {
+			"textures": [
+				"textures/items/haoris/tanjiro/gray"
+			]
+		},
+		"tanjiro_haori6": {
+			"textures": [
+				"textures/items/haoris/tanjiro/black"
+			]
+		},
+		"tanjiro_haori7": {
+			"textures": [
+				"textures/items/haoris/tanjiro/dark"
+			]
+		},
+		"shinazugawa_haori": {
+			"textures": [
+				"textures/items/armors/shinazugawa_haori"
+			]
+		},
+		"zenitsu_haori": {
+			"textures": [
+				"textures/items/armors/zenitsu_haori"
+			]
+		},
+		"zenitsu_haori1": {
+			"textures": [
+				"textures/items/haoris/zenitsu/storm"
+			]
+		},
+		"zenitsu_haori2": {
+			"textures": [
+				"textures/items/haoris/zenitsu/twilight"
+			]
+		},
+		"zenitsu_haori3": {
+			"textures": [
+				"textures/items/haoris/zenitsu/inferno"
+			]
+		},
+		"zenitsu_haori4": {
+			"textures": [
+				"textures/items/haoris/zenitsu/void"
+			]
+		},
+		"kokushibo_haori": {
+			"textures": [
+				"textures/items/armors/kokushibo_haori"
+			]
+		},
+		"tokito_haori": {
+			"textures": [
+				"textures/items/armors/tokito_haori"
+			]
+		},
+		"michikatsu_haori": {
+			"textures": [
+				"textures/items/armors/michikatsu_haori"
+			]
+		},
+		"yorichi_haori": {
+			"textures": [
+				"textures/items/armors/yorichi_haori"
+			]
+		},
+		"kocho_haori": {
+			"textures": [
+				"textures/items/armors/kocho_haori"
+			]
+		},
+		"kocho_haori1": {
+			"textures": [
+				"textures/items/haoris/kocho/venom"
+			]
+		},
+		"kocho_haori2": {
+			"textures": [
+				"textures/items/haoris/kocho/blossom"
+			]
+		},
+		"kocho_haori3": {
+			"textures": [
+				"textures/items/haoris/kocho/aurora"
+			]
+		},
+		"uniform": {
+			"textures": [
+				"textures/items/armors/uniform"
+			]
+		},
+		"haori_cloud": {
+			"textures": [
+				"textures/items/armors/haori_cloud"
+			]
+		},
+        "scarlet_iron_ore": {
+            "textures": "textures/items/scarlet_iron_ore"
+        },
+        "dna": {
+            "textures": "textures/items/dna"
+        },
+        "scarlet_iron_ingot": {
+            "textures": "textures/items/scarlet_iron_ingot"
+        }
+	},
+	"resource_pack_name": "onani_master69",
+	"texture_name": "atlas.items"
+}

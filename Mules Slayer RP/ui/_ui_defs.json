@@ -1,0 +1,10 @@
+{
+    "ui_defs": [
+        "ui/hash/lib.ui.json",
+        "ui/hash/bar.ui.json",
+        "ui/hash/number_ui.json",
+
+        "ui/gb_form1.json",
+        "ui/gb_form2.json"
+    ]
+}

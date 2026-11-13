@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "insect:dragonfly",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/particle/insect/dragonfly"
+      },
+      "geometry": {
+        "default": "geometry.insectdragonfly"
+      },
+      "scripts": {
+      "animate": [
+      { "facing": "(1.0)" }
+    ]},
+    "animations": {
+      "facing": "animation.insect.bee"
+    },
+      "render_controllers": [
+        "controller.render.axell"
+      ],
+      "spawn_egg": {
+        "texture": "icikiwir"
+      }
+    }
+  }
+}

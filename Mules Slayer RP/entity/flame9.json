@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "flame:rengoku9",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/particle/flame/rengoku9"
+      },
+      "geometry": {
+        "default": "geometry.rengoku9"
+      },
+      "render_controllers": [
+        "controller.render.axell"
+      ]
+    }
+  }
+}

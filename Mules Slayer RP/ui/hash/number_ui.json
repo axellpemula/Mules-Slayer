@@ -1,0 +1,107 @@
+{
+  "namespace":"number_ui",
+  "panel": {
+    "type": "label",
+    "text": "#text",
+    "$font_size|default": "normal",
+    "font_size": "$font_size",
+    "$text_alignment|default": "center",
+    "text_alignment": "$text_alignment",
+    "$line_padding|default": -2.5,
+    "line_padding": "$line_padding",
+    "$shadow|default": false,
+    "shadow": "$shadow",
+    "$font_scale_factor|default": 1,
+    "font_scale_factor": "$font_scale_factor",
+    "$anchor_from|default": "center",
+    "anchor_from": "$anchor_from",
+    "$anchor_to|default": "center",
+    "anchor_to": "$anchor_to",
+    "$layer|default": 1,
+    "layer": "$layer",
+    "$offset|default": [
+      0,
+      0
+    ],
+    "offset": "$offset",
+    "$update_string|default":"number_ui:",
+    "controls": [{
+      "data_control": {
+        "type": "panel",
+        "size": [0,
+          0],
+        "bindings": [{
+          "binding_name": "#hud_subtitle_text_string"
+        },
+          {
+            "binding_name": "#hud_subtitle_text_string",
+            "binding_name_override": "#preserved_text",
+            "binding_condition": "visibility_changed"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "(not (#hud_subtitle_text_string = #preserved_text) and not ((#hud_subtitle_text_string - $update_string) = #hud_subtitle_text_string))",
+            "target_property_name": "#visible"
+          }]
+      }
+    }],
+    "bindings": [{
+      "binding_type": "view",
+      "source_control_name": "data_control",
+      "source_property_name": "(#preserved_text - $update_string)",
+      "target_property_name": "#text"
+    }]
+  },
+  "panel2": {
+    "type": "label",
+    "text": "#text",
+    "$font_size|default": "normal",
+    "font_size": "$font_size",
+    "$text_alignment|default": "center",
+    "text_alignment": "$text_alignment",
+    "$line_padding|default": -2.5,
+    "line_padding": "$line_padding",
+    "$shadow|default": false,
+    "shadow": "$shadow",
+    "$font_scale_factor|default": 1,
+    "font_scale_factor": "$font_scale_factor",
+    "$anchor_from|default": "center",
+    "anchor_from": "$anchor_from",
+    "$anchor_to|default": "center",
+    "anchor_to": "$anchor_to",
+    "$layer|default": 1,
+    "layer": "$layer",
+    "$offset|default": [
+      0,
+      0
+    ],
+    "offset": "$offset",
+    "$update_string|default":"number_ui:",
+    "controls": [{
+      "data_control2": {
+        "type": "panel",
+        "size": [0,
+          0],
+        "bindings": [{
+          "binding_name": "#hud_subtitle_text_string"
+        },
+          {
+            "binding_name": "#hud_subtitle_text_string",
+            "binding_name_override": "#preserved_text2",
+            "binding_condition": "visibility_changed"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "(not (#hud_subtitle_text_string = #preserved_text2) and not ((#hud_subtitle_text_string - $update_string) = #hud_subtitle_text_string))",
+            "target_property_name": "#visible"
+          }]
+      }
+    }],
+    "bindings": [{
+      "binding_type": "view",
+      "source_control_name": "data_control2",
+      "source_property_name": "(#preserved_text2 - $update_string)",
+      "target_property_name": "#text"
+    }]
+  }
+}

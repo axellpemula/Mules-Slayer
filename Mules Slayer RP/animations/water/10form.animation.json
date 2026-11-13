@@ -1,0 +1,15 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.deadcalm.start": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 10,
+			"override_previous_animation": true,
+			"bones": {
+				"sar": {
+					"position": [0, 38450, 0]
+				}
+			}
+		}
+	}
+}

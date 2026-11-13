@@ -1,0 +1,158 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "dcb:basic_demon",
+      "is_summonable": true,
+      "is_spawnable": true,
+      "spawn_event": "dcb:roll_hp"
+    },
+
+    "component_groups": {
+      "hp50":   { "minecraft:health": { "value": 50,   "max": 50   } },
+      "hp100":  { "minecraft:health": { "value": 55,  "max": 55  } },
+      "hp150":  { "minecraft:health": { "value": 60,  "max": 60  } },
+      "hp200":  { "minecraft:health": { "value": 65,  "max": 65  } },
+      "hp250":  { "minecraft:health": { "value": 70,  "max": 70  } },
+      "hp300":  { "minecraft:health": { "value": 75,  "max": 75  } },
+      "hp350":  { "minecraft:health": { "value": 80,  "max": 80  } },
+      "hp400":  { "minecraft:health": { "value": 85,  "max": 85  } },
+      "hp450":  { "minecraft:health": { "value": 90,  "max": 90  } },
+      "hp500":  { "minecraft:health": { "value": 95,  "max": 95  } },
+      "hp550":  { "minecraft:health": { "value": 100,  "max": 100  } },
+      "hp600":  { "minecraft:health": { "value": 105,  "max": 105  } },
+      "hp650":  { "minecraft:health": { "value": 110,  "max": 110  } },
+      "hp700":  { "minecraft:health": { "value": 115,  "max": 115  } },
+      "hp750":  { "minecraft:health": { "value": 120,  "max": 120  } },
+      "hp800":  { "minecraft:health": { "value": 125,  "max": 125  } },
+      "hp850":  { "minecraft:health": { "value": 130,  "max": 130  } },
+      "hp900":  { "minecraft:health": { "value": 135,  "max": 135  } },
+      "hp950":  { "minecraft:health": { "value": 140,  "max": 140  } },
+      "hp1000": { "minecraft:health": { "value": 145, "max": 145 } }
+    },
+
+    "components": {
+      "minecraft:health": { "value": 50, "max": 50 },
+      "minecraft:type_family": { "family": ["mob", "monster", "demon"] },
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": { "is_pushable": true, "is_pushable_by_piston": true },
+      "minecraft:collision_box": { "width": 0.6, "height": 1.9 },
+      "minecraft:behavior.flee_sun": {
+          "priority": 1,
+          "speed_multiplier": 1.25
+      },
+      "minecraft:burns_in_daylight": {},
+      "minecraft:movement": { "value": 0.35 },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+
+      "minecraft:attack": { "damage": 15 },
+
+      "minecraft:navigation.walk": {
+        "is_amphibious": false,
+        "avoid_water": true,
+        "can_walk": true,
+        "can_pass_doors": true
+      },
+
+      "minecraft:breathable": {
+        "breathes_air": true,
+        "breathes_water": false,
+        "generates_bubbles": true
+      },
+      "minecraft:behavior.float_wants_surface": { "priority": 0 },
+
+      "minecraft:behavior.hurt_by_target": { "priority": 1 },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": false,
+        "reselect_targets": true,
+        "within_radius": 30.0,
+        "entity_types": [
+          { "filters": { "test": "is_family", "subject": "other", "operator": "==", "value": "player" }, "max_dist": 35, "must_see": false },
+          { "filters": { "test": "is_family", "subject": "other", "value": "villager" }, "max_dist": 35, "must_see": false },
+          { "filters": { "test": "is_family", "subject": "other", "value": "slayer" }, "max_dist": 35, "must_see": false },
+          { "filters": { "test": "is_family", "subject": "other", "value": "irongolem" }, "max_dist": 35 }
+        ]
+      },
+      "minecraft:behavior.melee_attack": { "priority": 3 },
+
+      "minecraft:behavior.random_stroll": { "priority": 6 },
+      "minecraft:behavior.random_look_around": { "priority": 7 },
+      "minecraft:behavior.look_at_player": { "priority": 8 },
+
+      "minecraft:on_death": {
+        "event": "xq:credit_nearest_15",
+        "target": "self"
+      }
+    },
+
+    "events": {
+      "dcb:roll_hp": {
+        "randomize": [
+          { "weight": 70, "event": "dcb:roll_low" },
+          { "weight": 30, "event": "dcb:roll_high" }
+        ]
+      },
+      "dcb:roll_low": {
+        "randomize": [
+          { "weight": 1, "event": "set_hp_50" },
+          { "weight": 1, "event": "set_hp_100" },
+          { "weight": 1, "event": "set_hp_150" },
+          { "weight": 1, "event": "set_hp_200" },
+          { "weight": 1, "event": "set_hp_250" }
+        ]
+      },
+      "dcb:roll_high": {
+        "randomize": [
+          { "weight": 18, "event": "set_hp_300" },
+          { "weight": 16, "event": "set_hp_350" },
+          { "weight": 14, "event": "set_hp_400" },
+          { "weight": 12, "event": "set_hp_450" },
+          { "weight": 10, "event": "set_hp_500" },
+          { "weight": 8, "event": "set_hp_550" },
+          { "weight": 6, "event": "set_hp_600" },
+          { "weight": 5, "event": "set_hp_650" },
+          { "weight": 4, "event": "set_hp_700" },
+          { "weight": 3, "event": "set_hp_750" },
+          { "weight": 2, "event": "set_hp_800" },
+          { "weight": 2, "event": "set_hp_850" },
+          { "weight": 1, "event": "set_hp_900" },
+          { "weight": 1, "event": "set_hp_950" },
+          { "weight": 1, "event": "set_hp_1000" }
+        ]
+      },
+
+      "xq:credit_nearest_15": {
+        "queue_command": {
+          "command": [
+            "execute unless entity @s[tag=sun_burn] run scoreboard players add @p[r=15,c=1] killd 0"
+          ]
+        }
+      },
+
+      "set_hp_50":   { "add": { "component_groups": ["hp50"] } },
+      "set_hp_100":  { "add": { "component_groups": ["hp100"] } },
+      "set_hp_150":  { "add": { "component_groups": ["hp150"] } },
+      "set_hp_200":  { "add": { "component_groups": ["hp200"] } },
+      "set_hp_250":  { "add": { "component_groups": ["hp250"] } },
+      "set_hp_300":  { "add": { "component_groups": ["hp300"] } },
+      "set_hp_350":  { "add": { "component_groups": ["hp350"] } },
+      "set_hp_400":  { "add": { "component_groups": ["hp400"] } },
+      "set_hp_450":  { "add": { "component_groups": ["hp450"] } },
+      "set_hp_500":  { "add": { "component_groups": ["hp500"] } },
+      "set_hp_550":  { "add": { "component_groups": ["hp550"] } },
+      "set_hp_600":  { "add": { "component_groups": ["hp600"] } },
+      "set_hp_650":  { "add": { "component_groups": ["hp650"] } },
+      "set_hp_700":  { "add": { "component_groups": ["hp700"] } },
+      "set_hp_750":  { "add": { "component_groups": ["hp750"] } },
+      "set_hp_800":  { "add": { "component_groups": ["hp800"] } },
+      "set_hp_850":  { "add": { "component_groups": ["hp850"] } },
+      "set_hp_900":  { "add": { "component_groups": ["hp900"] } },
+      "set_hp_950":  { "add": { "component_groups": ["hp950"] } },
+      "set_hp_1000": { "add": { "component_groups": ["hp1000"] } }
+    }
+  }
+}
+

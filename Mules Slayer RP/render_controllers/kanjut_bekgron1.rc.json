@@ -1,0 +1,16 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+                "controller.render.kanjut_bekgron1": {
+            "textures": ["Texture.default"],
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+			],
+			"ignore_lighting" : true,
+      "light_color_multiplier": 1
+        }
+    }
+}

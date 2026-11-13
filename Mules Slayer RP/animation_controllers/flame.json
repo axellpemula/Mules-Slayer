@@ -1,0 +1,84 @@
+{
+    "format_version": "1.19.0",
+    "animation_controllers": {
+        "controller.animation.flameac": {
+            "initial_state": "idle",
+            "states": {
+                "idle": {
+                    "animations": [
+                        "nichirin_idle",
+                        "nichirin_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "walking": "q.ground_speed > 0.5 && q.modified_move_speed && !q.is_sneaking"
+                        },
+                        {
+                            "sneaking": "q.is_sneaking"
+                        }
+                    ],
+                    "blend_transition": 0.2
+                },
+                "walking": {
+                    "animations": [
+                        "axell_walk",
+                        "nichirin_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "idle": "q.ground_speed < 0.5 && !q.is_sneaking"
+                        },
+                        {
+                            "sneaking": "q.is_sneaking"
+                        },
+                        {
+                            "Running": "q.modified_move_speed && q.is_sprinting"
+                        }
+                    ],
+                    "blend_transition": 0.2
+                },
+                "Running": {
+                    "animations": [
+                        "axell_run"
+                    ],
+                    "transitions": [
+                        {
+                            "walking": "q.ground_speed < 3.9 && !q.is_sprinting"
+                        },
+                        {
+                            "sneaking": "q.is_sneaking"
+                        }
+                    ],
+                    "blend_transition": 0.4
+                },
+                "sneaking": {
+                    "animations": ["nichirin_sneak"],
+                    "transitions": [
+                        {
+                            "idle": "q.ground_speed < 0.4 && !q.is_sneaking"
+                        },
+                        {
+                            "jongwalking": "q.ground_speed > 0.4 && q.modified_move_speed"
+                        }
+                    ],
+                    "blend_transition": 0.2
+                },
+                "jongwalking": {
+                    "animations": ["nichirin_sneak_walk"],
+                    "transitions": [
+                        {
+                            "idle": "q.ground_speed < 0.4 && !q.is_sneaking"
+                        },
+                                                {
+                            "Running": "q.modified_move_speed && q.is_sprinting"
+                        },
+                        {
+                            "walking": "q.ground_speed > 0.5 && !q.is_sneaking"
+                        }
+                    ],
+                    "blend_transition": 0.2
+                }
+            }
+        }
+    }
+}

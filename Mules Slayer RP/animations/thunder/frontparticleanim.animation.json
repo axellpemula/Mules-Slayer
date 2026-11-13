@@ -1,0 +1,167 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.flame.form4P": {
+			"loop": "hold_on_last_frame",
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [75, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "form4",
+						"locator": "beam"
+					},
+					{
+						"effect": "form4b",
+						"locator": "beam"
+					}
+				]
+			}
+		},
+		"animation.frontparticle_default": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": ["query.target_x_rotation", "query.target_y_rotation", 0]
+				},
+				"beam_bone": {
+					"rotation": [-90, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "thunderform1",
+					"locator": "beam"
+				}
+			}
+		},
+		"animation.mist.form3P": {
+			"loop": "hold_on_last_frame",
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [75, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "form3c",
+						"locator": "beam"
+					},
+					{
+						"effect": "form3",
+						"locator": "beam"
+					},
+					{
+						"effect": "form3b",
+						"locator": "beam"
+					}
+				]
+			}
+		},
+		"animation.sun.hekira": {
+			"loop": "hold_on_last_frame",
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [75, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "hekiranoten3",
+						"locator": "beam"
+					},
+					{
+						"effect": "hekiranoten",
+						"locator": "beam"
+					},
+					{
+						"effect": "hekiranoten2",
+						"locator": "beam"
+					}
+				]
+			}
+		},
+		"animation.sun.flower": {
+			"loop": "hold_on_last_frame",
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [-75, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "sunflower2",
+						"locator": "beam"
+					},
+					{
+						"effect": "sunflower",
+						"locator": "beam"
+					}
+				]
+			}
+		},
+		"animation.sun.solar": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [83.88822, -2.44041, 270.90515],
+					"position": [1, 0, -22]
+				},
+				"beam2": {
+					"rotation": [-90, 0, 0],
+					"position": [0, 0, -72]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "solar2",
+						"locator": "beam"
+					},
+					{
+						"effect": "solar1",
+						"locator": "beam"
+					}
+				],
+				"0.6667": {
+					"effect": "solar3",
+					"locator": "locator"
+				}
+			}
+		},
+		"animation.sun.bbss": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 2,
+			"override_previous_animation": true,
+			"bones": {
+				"beam_bone": {
+					"rotation": [102.5, 0, 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "bbss2",
+						"locator": "beam"
+					},
+					{
+						"effect": "bbss",
+						"locator": "beam"
+					}
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,358 @@
+{
+  "format_version": "1.20.50",
+    "minecraft:entity":  {
+        "description":  {
+            "identifier":  "axell:giyuu",
+            "is_spawnable":  true,
+            "is_summonable":  true,
+            "is_experimental":  false
+        },
+        "component_groups": {
+			"axell:ng": {
+				"minecraft:physics": {
+				"has_gravity": false
+				}
+			},
+			"axell:g": {
+				"minecraft:physics": {
+				"has_gravity": true
+				}
+			}
+        },
+        "components":  {
+            "minecraft:type_family":  {
+                "family":  [
+                    "boss", "hashira", "slayer", "mob"
+                ]
+            },
+            "minecraft:breathable":  {
+                "totalSupply":  150,
+                "suffocateTime":  12
+            },
+            "minecraft:health":  {
+                "value":  275,
+                "max":  275
+            },
+            "minecraft:collision_box":  {
+                "height":  1.8,
+                "width":  0.5
+            },
+            "minecraft:movement":  {
+                "value":  0.35
+            },
+            "minecraft:navigation.walk":  {
+                "is_amphibious":  true,
+                "can_path_over_water":  true,
+                "can_pass_doors":  true,
+                "can_open_doors":  true,
+                "can_walk":  true,
+                "avoid_water":  true
+            },
+            "minecraft:annotation.open_door":  {
+                
+            },
+            "minecraft:movement.basic":  {
+                
+            },
+            "minecraft:jump.static":  {
+                
+            },
+            "minecraft:can_climb":  {
+                
+            },
+            "minecraft:damage_sensor": {
+                "triggers": [
+                  {
+                    "on_damage": {
+                      "event": "giyuu:hit",
+                      "target": "self"
+                    }
+                  }
+                ]
+              },
+            "minecraft:behavior.float":  {
+                "priority":  0
+            },
+            "minecraft:behavior.avoid_mob_type":  {
+                "priority":  3,
+                "entity_types":  [
+                    {
+                        "filters":  {
+                            "any_of":  [
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "zombie"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "zombie_villager"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "zombie_pigman"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "illager"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "vex"
+                                }
+                            ],
+                            "other_with_families":  [
+                                
+                            ]
+                        },
+                        "max_dist":  1,
+                        "walk_speed_multiplier":  0.7,
+                        "sprint_speed_multiplier":  0.7
+                    }
+                ]
+            },
+            "minecraft:behavior.move_indoors":  {
+                "priority":  4,
+                "speed_multiplier":  0.8
+            },
+            "minecraft:follow_range": {
+                "value": 300
+            },
+            "minecraft:behavior.restrict_open_door":  {
+                "priority":  5
+            },
+            "minecraft:behavior.open_door":  {
+                "priority":  6,
+                "close_door_after":  true
+            },
+            "minecraft:behavior.move_towards_restriction":  {
+                "priority":  7,
+                "speed_multiplier":  0.6
+            },
+            "minecraft:behavior.share_items":  {
+                "priority":  8,
+                "max_dist":  3,
+                "goal_radius":  2,
+                "speed_multiplier":  0.5,
+                "entity_types":  [
+                    {
+                        "filters":  {
+                            "test":  "is_family",
+                            "subject":  "other",
+                            "value":  "villager"
+                        }
+                    }
+                ]
+            },
+            "minecraft:behavior.random_stroll":  {
+                "priority":  11,
+                "speed_multiplier":  0.5
+            },
+            "minecraft:behavior.look_at_player":  {
+                "priority":  12,
+                "look_distance":  8,
+                "probability":  0.02
+            },
+            "minecraft:physics":  {
+                
+            },
+            "minecraft:experience_reward":  {
+                "on_death":  "query.last_hit_by_player ? 1000 : 0"
+            },
+            "minecraft:underwater_movement":  {
+                "value":  0.5
+            },
+            "minecraft:scale":  {
+                "value":  1
+            },
+            "minecraft:attack":  {
+                "damage":  0
+            },
+            "minecraft:behavior.melee_attack":  {
+                "priority":  1,
+                "speed_multiplier":  0.9,
+                "target_dist":  300,
+                "max_dist":  300,
+                "random_stop_interval":  1,
+                "track_target":  true,
+                "reach_multiplier":  0.1
+            },
+            "minecraft:behavior.nearest_attackable_target":  {
+                "priority":  1,
+                "within_radius":  300,
+                "must_reach":  false,
+                "entity_types":  [
+                    {
+                        "filters":  {
+                            "any_of":  [
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "demon"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "villager"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "irongolem"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "snowgolem"
+                                },
+                                {
+                                    "test":  "is_family",
+                                    "subject":  "other",
+                                    "value":  "kizuki"
+                                }
+                            ]
+                        },
+                        "max_dist":  300,
+                        "must_see":  false
+                    }
+                ]
+            },
+            "minecraft:behavior.hurt_by_target":  {
+                "priority":  3
+            },
+            "minecraft:behavior.owner_hurt_by_target":  {
+                "priority":  1
+            },
+            "minecraft:behavior.owner_hurt_target":  {
+                "priority":  2
+            },
+            "minecraft:behavior.leap_at_target":  {
+                "priority":  3,
+                "yd":  0.4,
+                "must_be_on_ground":  false,
+                "target_dist":  2,
+                "speed_multiplier":  1
+            },
+            "minecraft:fall_damage":  {
+                "value":  1
+            },
+            "minecraft:boss":  {
+                "should_darken_sky":  true,
+                "hud_range":  30,
+                "name":  "§l§gGiyuu Tomioka"
+            },
+            "minecraft:behavior.avoid_block":  {
+                "priority":  9,
+                "tick_interval":  10000,
+                "search_range":  1,
+                "search_height":  1,
+                "sprint_speed_modifier":  1.0,
+                "target_selection_method":  "nearest",
+                "target_blocks":  [
+                    "minecraft:water"
+                ],
+                "avoid_block_sound":  "retreat",
+                "sound_interval":  {
+                    "range_min":  1,
+                    "range_max":  1
+                }
+            },
+            "minecraft:equip_item":  {
+                
+            },
+            "minecraft:loot": {
+				"table": "loot_tables/entities/giyuu.json"
+			},
+            "minecraft:timer":  {
+                "looping":  true,
+                "time":  3,
+                "time_down_event":  {
+                    "event":  "giyuu:ab"
+                }
+                
+            },
+            
+            "minecraft:on_target_acquired":  {
+                "event":  "giyuu:fight",
+                "target":  "self"
+            },
+            "minecraft:on_target_escape":  {
+                "event":  "giyuu:run",
+                "target":  "self"
+      },
+      "minecraft:on_death": {
+        "event": "giyuu:death",
+        "target": "self"
+            },
+            "minecraft:interact": {
+                "interactions": [
+                    {
+                        "interact_text": "Talk",
+                        "cooldown": 0.75
+                    }
+                ]
+            }
+        },
+        "events":  {
+        "axell:jatuh": {
+				"remove": {
+					"component_groups": [
+						"axell:ng"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"axell:g"
+					]
+				}
+			},
+            "giyuu:death": {
+               "queue_command": {
+                   "command": [
+                      "execute as @s at @s run function boss/giyuu/death"
+                        
+                    ]
+                }
+            },
+            "giyuu:fight":  {
+                "queue_command":  {
+                    "command":  [
+                        "tag @s add giyuubossstart", "scoreboard players add @s moveboss 0"
+                    ]
+                }
+            },
+            "giyuu:run":  {
+                "queue_command":  {
+                    "command":  [
+                        "tag @s remove giyuubossstart", "function boss/giyuu/run"
+                    ]
+                }
+            },
+            "giyuu:hit":  {
+                "queue_command":  {
+                    "command":  [
+                        "execute as @s[scores={parry=1..}] run scriptevent axell:parry"
+                    ]
+                }
+            },
+            "giyuu:ab":  {
+                "queue_command":  {
+                    "command":  [
+                        "execute as @s[tag=!stun] at @s run function boss/giyuu/move"
+                    ]
+                }
+            }
+        }
+    }
+}
+
+      
+      
+     
+      
+      
+      

@@ -1,0 +1,101 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "translucence:entity_alphatest": {},
+
+    "outline:entity_static": {
+      "+states": ["InvertCulling"],
+      "+defines": ["ALPHA_TEST", "USE_OVERLAY"]
+    },
+
+    "outline2:entity_emissive_alpha": {
+      "+states": ["InvertCulling"],
+      "+defines": ["ALPHA_TEST", "USE_OVERLAY"]
+    },
+
+    "cellshade:entity_alphablend": {
+      "+states": [
+        "InvertCulling",
+      "DisableDepthWrite"
+      ],
+      "+defines": [
+        "ALPHA_TEST",
+        "USE_OVERLAY"
+      ]
+    },
+    "asu:entity_alphablend": {
+      "+states": [
+      "DisableDepthWrite"
+      ],
+      "-defines": [
+        "FANCY","ENABLE_FOG","ENABLE_LIGHT"
+      ],
+      "+defines": [
+        "ALPHA_TEST",
+        "USE_OVERLAY"
+      ]
+    },
+
+    "cellshade2:entity_beam_additive": {
+      "+states": [
+        "InvertCulling",
+      "DisableDepthWrite"
+      ],
+      "+defines": [
+        "ALPHA_TEST",
+        "USE_OVERLAY"
+      ]
+    },
+    "impact_frame1:entity_emissive_alpha": {
+      "+defines": ["ALPHA_TEST"],
+      "depthFunc": "GreaterEqual",
+      "-defines": ["FANCY","ENABLE_FOG","ENABLE_LIGHT"],
+      "+states": ["Blending", "EnableStencilTest", "StencilWrite","DisableDepthWrite"],
+      "frontFace": {
+        "stencilFunc": "NotEqual"
+      },
+      "backFace": {
+        "stencilFunc": "NotEqual"
+      },
+      "stencilRef": 1
+    },
+  "void_material:entity_alphatest": {
+    "+states": [
+      "DisableDepthTest",
+      "DisableDepthWrite"
+    ],
+      "-defines": [
+        "FANCY","ENABLE_FOG","ENABLE_LIGHT"
+      ],
+    "depthFunc": "Always"
+  },
+  "void_material2:entity_alphatest": {
+      "-defines": [
+        "FANCY","ENABLE_FOG","ENABLE_LIGHT"
+      ],
+    "depthFunc": "Always"
+  },
+  "void_material3:entity_alphatest": {
+      "+states": ["InvertCulling"],
+      "-defines": [
+        "FANCY","ENABLE_FOG","ENABLE_LIGHT"
+      ],
+    "depthFunc": "Always"
+  },
+    "impact_frame2:entity_alphatest": {
+      "+states": [
+        "EnableStencilTest","StencilWrite","DisableDepthWrite","InvertCulling"
+      ],
+      "depthFunc": "Always",
+      "-states": [
+        "DisableCulling"
+      ],
+      "-defines": [
+        "FANCY","ENABLE_FOG","ENABLE_LIGHT"
+      ],
+      "stencilRef": 1,
+      "stencilReadMask": 1
+    }
+  }
+}

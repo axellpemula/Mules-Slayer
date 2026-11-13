@@ -1,0 +1,19 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.tengenarms": {
+      "geometry": "Geometry.tengenarms",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ],
+            	"part_visibility": [
+        {
+			"head": "!variable.is_first_person",
+			"body": "!variable.is_first_person",
+			"leftLeg": "!variable.is_first_person",
+			"rightLeg": "!variable.is_first_person",
+			"leftArm": "!variable.is_first_person"
+		}
+		]
+    }
+  }
+}

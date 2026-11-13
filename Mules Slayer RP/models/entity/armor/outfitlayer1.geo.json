@@ -1,0 +1,167 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.outfitlayer1",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 24.6, 0],
+					"binding": "q.item_slot_to_bone_name(c.item_slot)"
+				},
+				{
+					"name": "head",
+					"parent": "root",
+					"pivot": [0, 24.6, 0]
+				},
+				{
+					"name": "hat",
+					"parent": "root",
+					"pivot": [0, 24.6, 0]
+				},
+				{
+					"name": "rightArm",
+					"parent": "root",
+					"pivot": [-5, 22.55, 0],
+					"cubes": [
+						{
+							"origin": [-8.275, 12.505, -2.35],
+							"size": [4.55, 12.14625, 4.7],
+							"uv": {
+								"north": {"uv": [44, 20], "uv_size": [4, 12]},
+								"east": {"uv": [40, 20], "uv_size": [4, 12]},
+								"south": {"uv": [52, 20], "uv_size": [4, 12]},
+								"west": {"uv": [48, 20], "uv_size": [4, 12]},
+								"up": {"uv": [44, 16], "uv_size": [4, 4]},
+								"down": {"uv": [48, 20], "uv_size": [4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "rightSleeve",
+					"parent": "rightArm",
+					"pivot": [-5, 22.55, 0]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15.375, 1]
+				},
+				{
+					"name": "leftArm",
+					"parent": "root",
+					"pivot": [5, 22.55, 0],
+					"cubes": [
+						{
+							"origin": [3.725, 12.505, -2.35],
+							"size": [4.55, 12.14625, 4.7],
+							"uv": {
+								"north": {"uv": [48, 20], "uv_size": [-4, 12]},
+								"east": {"uv": [52, 20], "uv_size": [-4, 12]},
+								"south": {"uv": [56, 20], "uv_size": [-4, 12]},
+								"west": {"uv": [44, 20], "uv_size": [-4, 12]},
+								"up": {"uv": [48, 16], "uv_size": [-4, 4]},
+								"down": {"uv": [52, 20], "uv_size": [-4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "leftSleeve",
+					"parent": "leftArm",
+					"pivot": [5, 22.55, 0]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6, 15.375, 1]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-1.9, 12.3, 0],
+					"cubes": [
+						{
+							"origin": [-4.3, -0.1025, -2.375],
+							"size": [4.7, 12.8125, 4.75],
+							"uv": {
+								"north": {"uv": [4, 20.25], "uv_size": [4, 12]},
+								"east": {"uv": [0.25, 20.25], "uv_size": [3.75, 12]},
+								"south": {"uv": [12, 20.25], "uv_size": [4, 12]},
+								"west": {"uv": [8, 20.25], "uv_size": [4, 12]},
+								"up": {"uv": [4, 17.25], "uv_size": [4, 3]},
+								"down": {"uv": [8, 20.25], "uv_size": [4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "rightPants",
+					"parent": "rightLeg",
+					"pivot": [-1.9, 12.3, 0]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [1.9, 12.3, 0],
+					"cubes": [
+						{
+							"origin": [-0.4, -0.1025, -2.375],
+							"size": [4.7, 12.8125, 4.75],
+							"uv": {
+								"north": {"uv": [8, 20.25], "uv_size": [-4, 12]},
+								"east": {"uv": [12, 20.25], "uv_size": [-4, 12]},
+								"south": {"uv": [16, 20.25], "uv_size": [-4, 12]},
+								"west": {"uv": [4, 20.25], "uv_size": [-3.75, 12]},
+								"up": {"uv": [8, 17.25], "uv_size": [-4, 3]},
+								"down": {"uv": [12, 20.25], "uv_size": [-4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "leftPants",
+					"parent": "leftLeg",
+					"pivot": [1.9, 12.3, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12.3, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24.6, 0],
+					"cubes": [
+						{
+							"origin": [-4.225, 12.06938, -2.45],
+							"size": [8.425, 12.73062, 4.775],
+							"uv": {
+								"north": {"uv": [20, 20], "uv_size": [8, 12]},
+								"east": {"uv": [16.25, 20], "uv_size": [3.75, 12]},
+								"south": {"uv": [32, 20], "uv_size": [8, 12]},
+								"west": {"uv": [28, 20], "uv_size": [4, 12]},
+								"up": {"uv": [20, 16], "uv_size": [8, 4]},
+								"down": {"uv": [28, 20], "uv_size": [8, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "jacket",
+					"parent": "body",
+					"pivot": [0, 24.6, 0]
+				}
+			]
+		}
+	]
+}

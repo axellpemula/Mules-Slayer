@@ -1,0 +1,53 @@
+{
+	"format_version": "1.10.0",
+	"particle_effect": {
+		"description": {
+			"identifier": "water:formb5",
+			"basic_render_parameters": {
+				"material": "particles_blend",
+				"texture": "textures/particle/water/formb"
+			}
+		},
+		"components": {
+			"minecraft:emitter_rate_instant": {
+				"num_particles": 3
+			},
+			"minecraft:emitter_lifetime_once": {
+				"active_time": 1
+			},
+			"minecraft:emitter_shape_sphere": {
+				"offset": [0, 1, 0],
+				"radius": 1,
+				"surface_only": true,
+				"direction": "inwards"
+			},
+			"minecraft:particle_lifetime_expression": {
+				"max_lifetime": "math.random(0.3,1)"
+			},
+			"minecraft:particle_initial_spin": {
+				"rotation": "math.random(-180, 180)"
+			},
+			"minecraft:particle_initial_speed": 1,
+			"minecraft:particle_motion_dynamic": {},
+			"minecraft:particle_appearance_billboard": {
+				"size": ["1.5+v.particle_random_2*1.5", "1.5+v.particle_random_2*1.5"],
+				"facing_camera_mode": "direction_z",
+				"uv": {
+					"texture_width": 8000,
+					"texture_height": 450,
+					"flipbook": {
+						"base_UV": [0, 0],
+						"size_UV": [500, 450],
+						"step_UV": [500, 0],
+						"frames_per_second": 12,
+						"max_frame": 17,
+						"stretch_to_lifetime": true
+					}
+				}
+			},
+			"minecraft:particle_appearance_tinting": {
+				"color": [1, 1, 1, 1]
+			}
+		}
+	}
+}

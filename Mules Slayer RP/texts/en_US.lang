@@ -1,0 +1,508 @@
+axell:itemGroup.name.breathings=§dBook of Breathing
+axell:itemGroup.name.haoris=§bHaoris
+axell:itemGroup.name.uniform=§6Uniforms
+
+item.spawn_egg.entity.axell:akaza.name=Akaza Spawn Egg
+item.spawn_egg.entity.axell:giyuu.name=Giyuu Spawn Egg
+item.spawn_egg.entity.axell:kocho.name=Kocho Spawn Egg
+item.spawn_egg.entity.axell:rengoku.name=Rengoku Spawn Egg
+item.spawn_egg.entity.axell:sanemi.name=Sanemi Spawn Egg
+item.spawn_egg.entity.axell:tengen.name=Tengen Spawn Egg
+item.spawn_egg.entity.axell:tokito.name=Tokito Spawn Egg
+item.spawn_egg.entity.axell:tanjiro.name=Tanjiro Spawn Egg
+item.spawn_egg.entity.axell:dontol.name=Dontol Spawn Egg
+
+
+text.axell:selectform=Select Forms to display or enhance:
+text.axell:back=§4Back
+text.axell:cooldown=§4On Cooldown
+text.axell:noenergy=§cNot Enough Energy
+text.learned=§aYou Have Learned 
+
+text.stats:cycle=Change into Cycle mode
+text.stats:manual=Change into Manual mode
+
+text.haganezuka:chat1=I see you're a Demon Slayer.
+text.haganezuka:chat2=Let me help you customize your sword.
+text.haganezuka:chat3=A well-forged blade can make the difference between life and death.
+text.haganezuka:chat4=Now, show me your sword!
+
+item.axell:heavenly_dna=§dHeavenly DNA
+item.item:scarlet_iron_ingot=§eScarlet Iron Ingot
+item.item:raw_scarlet_iron=§eRaw Scarlet Iron
+
+entity.dcb:basic_demon.name=Basic Demon
+item.spawn_egg.entity.dcb:basic_demon.name=Basic Demon Spawn Egg
+
+entity.axell:haganezuka.name=Haganezuka
+item.spawn_egg.entity.axell:haganezuka.name=§eHaganezuka Spawn Egg
+
+item.axell:stats=§aAttribues and stats
+item.breathings:cancel=§cReset breathings
+item.breathings:mist=§bBook of Mist Breathing
+item.breathings:flame=§6Book of Flame Breathing
+item.breathings:water=§9Book of Water Breathing
+item.breathings:thunder=§eBook of Thunder Breathing
+item.breathings:wind=§2Book of Wind Breathing
+item.breathings:sound=§gBook of Sound Breathing
+item.breathings:insect=§dBook of Insect Breathing
+item.breathings:beast=§3Book of Beast Breathing
+item.breathings:flower=§5Book of Flower Breathing
+item.breathings:love=§cBook of Love Breathing
+item.breathings:serpent=§aBook of Serpent Breathing
+item.breathings:stone=§8Book of Stone Breathing
+item.breathings:sun=§4Book of Sun Breathing
+item.breathings:moon=§7Book of Moon Breathing
+
+
+item.ds:uniform=§eDemon Slayer Uniform
+item.ds:haori_cloud=§eCloud Haori
+item.ds:giyuu_haori=§eTomioka's Haori
+item.ds:kocho_haori=§eShinobu's Haori
+item.ds:michikatsu_haori=§eMichikatsu's Haori
+item.ds:rengoku_haori=§eRengoku's Haori
+item.ds:shinazugawa_haori=§eShinazugawa's Haori
+item.ds:tanjiro_haori=§eTanjiro's Haori
+item.ds:tokito_haori=§eMuichiro's Uniform
+item.ds:yorichi_haori=§eYoriichi's Haori
+item.ds:zenitsu_haori=§eZenitsu's Haori
+
+item.axell:nichirin=§6Nichirin Sword
+item.axell:bda=§cBlood Demon Art
+
+text.axell:m1=§4Normal Attack
+text.axell:m1b=§l§6Normal Attack
+§y§rtext.axell:m1=Normal Attack
+
+§g§rtext.stats:stats=Stats
+text.stats:family=§sFamily
+text.stats:breathing=§6Breathing Style
+text.stats:bda=§cBlood Demon Art
+text.stats:convertsp=§aConvert SP
+
+#breathings
+§y§rtext.breathings:mist=Mist Breathing
+§y§rtext.breathings:flame=Flame Breathing
+§y§rtext.breathings:water=Water Breathing
+§y§rtext.breathings:wind=Wind Breathing
+§y§rtext.breathings:sound=Sound Breathing
+§y§rtext.breathings:thunder=Thunder Breathing
+§y§rtext.breathings:beast=Beast Breathing
+§y§rtext.breathings:flower=Flower Breathing
+§y§rtext.breathings:love=Love Breathing
+§y§rtext.breathings:serpent=Serpent Breathing
+§y§rtext.breathings:stone=Stone Breathing
+§y§rtext.breathings:insect=Insect Breathing
+§y§rtext.breathings:sun=Sun Breathing
+§y§rtext.breathings:moon=Moon Breathing
+
+
+#breathings color
+text.breathings:mist=§bMist Breathing
+text.breathings:flame=§6Flame Breathing
+text.breathings:water=§9Water Breathing
+text.breathings:wind=§2Wind Breathing
+text.breathings:sound=§gSound Breathing
+text.breathings:thunder=§eThunder Breathing
+text.breathings:beast=§3Beast Breathing
+text.breathings:flower=§5Flower Breathing
+text.breathings:love=§cLove Breathing
+text.breathings:serpent=§aSerpent Breathing
+text.breathings:stone=§8Stone Breathing
+text.breathings:insect=§dInsect Breathing
+text.breathings:sun=§4Sun Breathing
+text.breathings:moon=§7Moon Breathing
+
+#mist
+text.mist:form1=§4 Low Clouds, Distant Haze\n§0(Locked)
+text.mist:form2=§4 Eight-Layered Mist\n§0(Locked)
+text.mist:form3=§4 Scattering Mist Splash\n§0(Locked)
+text.mist:form4=§4 Sea of Clouds and Haze\n§0(Locked)
+text.mist:form5=§4 Shifting Flow Slash\n§0(Locked)
+text.mist:form6=§4 Lunar Dispersing Mist\n§0(Locked)
+text.mist:form7=§4 Oboro\n§0(Locked)
+
+text.mist:form1b=§l§6Low Clouds, Distant Haze
+text.mist:form2b=§l§6Eight-Layered Mist
+text.mist:form3b=§l§6Scattering Mist Splash
+text.mist:form4b=§l§6Shifting Flow Slash
+text.mist:form5b=§l§6Sea of Clouds and Haze
+text.mist:form6b=§l§6Lunar Dispersing Mist
+text.mist:form7b=§l§6Oboro
+
+§y§rtext.mist:form1=Low Clouds, Distant Haze
+§y§rtext.mist:form2=Eight-Layered Mist
+§y§rtext.mist:form3=Scattering Mist Splash
+§y§rtext.mist:form4=Shifting Flow Slash
+§y§rtext.mist:form5=Sea of Clouds and Haze
+§y§rtext.mist:form6=Lunar Dispersing Mist
+§y§rtext.mist:form7=Oboro
+
+#flame
+text.flame:form1=§4 Unknowing Fire\n§0(Locked)
+text.flame:form2=§4 Rising Scorching Sun\n§0(Locked)
+text.flame:form4=§4 Blooming Flame Undulation\n§0(Locked)
+text.flame:form5=§4 Flame Tiger\n§0(Locked)
+text.flame:form3=§4 Blazing Universe\n§0(Locked)
+text.flame:form9=§4 Rengoku\n§0(Locked)
+
+text.flame:form1b=§l§6Unknowing Fire
+text.flame:form2b=§l§6Rising Scorching Sun
+text.flame:form4b=§l§6Blooming Flame Undulation
+text.flame:form3b=§l§6Blazing Universe
+text.flame:form5b=§l§6Flame Tiger
+text.flame:form9b=§l§6Rengoku
+
+§y§rtext.flame:form1=Unknowing Fire
+§y§rtext.flame:form2=Rising Scorching Sun
+§y§rtext.flame:form3=Blazing Universe
+§y§rtext.flame:form4=Blooming Flame Undulation
+§y§rtext.flame:form5=Flame Tiger
+§y§rtext.flame:form9=Rengoku
+
+#water
+text.water:form1=§4 Water Surface Slash\n§0(Locked)
+text.water:form2=§4 Water Wheel\n§0(Locked)
+text.water:form3=§4 Flowing Dance\n§0(Locked)
+text.water:form4=§4 Striking Tide\n§0(Locked)
+text.water:form5=§4 Blessed Rain After the Drought\n§0(Locked)
+text.water:form6=§4 Whirlpool\n§0(Locked)
+text.water:form7=§4 Drop Ripple Thrust\n§0(Locked)
+text.water:form8=§4 Waterfall Basin\n§0(Locked)
+text.water:form9=§4 Splashing Water Flow, Turbulent\n§0(Locked)
+text.water:form10=§4 Constant Flux\n§0(Locked)
+text.water:form11=§4 Dead Calm\n§0(Locked)
+
+
+text.water:form1b=§l§6Water Surface Slash
+text.water:form2b=§l§6Water Wheel
+text.water:form3b=§l§6Flowing Dance
+text.water:form4b=§l§6Striking Tide
+text.water:form5b=§l§6Blessed Rain After the Drought
+text.water:form6b=§l§6Whirlpool
+text.water:form7b=§l§6Drop Ripple Thrust
+text.water:form8b=§l§6Waterfall Basin
+text.water:form9b=§l§6Splashing Water Flow, Turbulent
+text.water:form10b=§l§6Constant Flux
+text.water:form11b=§l§6Dead Calm
+
+§y§rtext.water:form1=Water Surface Slash
+§y§rtext.water:form2=Water Wheel
+§y§rtext.water:form3=Flowing Dance
+§y§rtext.water:form4=Striking Tide
+§y§rtext.water:form5=Blessed Rain After the Drought
+§y§rtext.water:form6=Whirlpool
+§y§rtext.water:form7=Drop Ripple Thrust
+§y§rtext.water:form8=Waterfall Basin
+§y§rtext.water:form9=Splashing Water Flow, Turbulent
+§y§rtext.water:form10=Constant Flux
+§y§rtext.water:form11=Dead Calm
+
+#wind
+text.wind:form1=§4 Dust Whirlwind Cutter\n§0(Locked)
+text.wind:form2=§4 Claws, Purifying Wind\n§0(Locked)
+text.wind:form3=§4 Clean Storm Wind Tree\n§0(Locked)
+text.wind:form4=§4 Rising Dust Storm\n§0(Locked)
+text.wind:form5=§4 Cold Mountain Wind\n§0(Locked)
+text.wind:form6=§4 Black Wind Mountain Storm\n§0(Locked)
+text.wind:form7=§4 Neck Wind, Tengu Wind\n§0(Locked)
+text.wind:form8=§4 First Gale Slash\n§0(Locked)
+text.wind:form9=§4 Idaten Typhoon\n§0(Locked)
+
+text.wind:form1b=§l§6Dust Whirlwind Cutter
+text.wind:form2b=§l§6Claws, Purifying Wind
+text.wind:form3b=§l§6Clean Storm Wind Tree
+text.wind:form4b=§l§6Rising Dust Storm
+text.wind:form5b=§l§6Cold Mountain Wind
+text.wind:form6b=§l§6Black Wind Mountain Storm
+text.wind:form7b=§l§6Neck Wind, Tengu Wind
+text.wind:form8b=§l§6First Gale Slash
+text.wind:form9b=§l§6Idaten Typhoon
+
+§y§rtext.wind:form1=Dust Whirlwind Cutter
+§y§rtext.wind:form2=Claws, Purifying Wind
+§y§rtext.wind:form3=Clean Storm Wind Tree
+§y§rtext.wind:form4=Rising Dust Storm
+§y§rtext.wind:form5=Cold Mountain Wind
+§y§rtext.wind:form6=Black Wind Mountain Storm
+§y§rtext.wind:form7=Neck Wind, Tengu Wind
+§y§rtext.wind:form8=First Gale Slash
+§y§rtext.wind:form9=Idaten Typhoon
+
+#sound
+text.sound:form1=§4 Roar\n§0(Locked)
+text.sound:form2=§4 Roaring\n§0(Locked)
+text.sound:form3=§4 Echoing Slash\n§0(Locked)
+text.sound:form4=§4 Constant Resounding Slashes\n§0(Locked)
+text.sound:form5=§4 String Performance\n§0(Locked)
+
+text.sound:form1b=§l§6Roar
+text.sound:form2b=§l§6Roaring
+text.sound:form3b=§l§6Echoing Slash
+text.sound:form4b=§l§6Constant Resounding Slashes
+text.sound:form5b=§l§6String Performance
+
+§y§rtext.sound:form1=Roar
+§y§rtext.sound:form2=Roaring
+§y§rtext.sound:form3=Echoing Slash
+§y§rtext.sound:form4=Constant Resounding Slashes
+§y§rtext.sound:form5=String Performance
+
+#thunder
+text.thunder:form1=§4 Thunderclap and Flash\n§0(Locked)
+text.thunder:form2=§4 Rice Spirit\n§0(Locked)
+text.thunder:form3=§4 Thunder Swarm\n§0(Locked)
+text.thunder:form4=§4 Distant Thunder\n§0(Locked)
+text.thunder:form5=§4 Heat Lightning\n§0(Locked)
+text.thunder:form6=§4 Rumble and Flash\n§0(Locked)
+
+text.thunder:form1b=§l§6Thunderclap and Flash
+text.thunder:form2b=§l§6Rice Spirit
+text.thunder:form3b=§l§6Thunder Swarm
+text.thunder:form4b=§l§6Distant Thunder
+text.thunder:form5b=§l§6Heat Lightning
+text.thunder:form6b=§l§6Rumble and Flash
+
+§y§rtext.thunder:form1=Thunderclap and Flash
+§y§rtext.thunder:form2=Rice Spirit
+§y§rtext.thunder:form3=Thunder Swarm
+§y§rtext.thunder:form4=Distant Thunder
+§y§rtext.thunder:form5=Heat Lightning
+§y§rtext.thunder:form6=Rumble and Flash
+
+#beast
+text.beast:form1=§4Pierce\n§0(Locked)
+text.beast:form2=§4Slice and Dice\n§0(Locked)
+text.beast:form3=§4Devouring Slash\n§0(Locked)
+text.beast:form4=§4Cave Slash\n§0(Locked)
+text.beast:form5=§4Mad Cleave\n§0(Locked)
+text.beast:form6=§4Biting Fangs of Brutality\n§0(Locked)
+text.beast:form7=§4Spatial Awareness\n§0(Locked)
+text.beast:form8=§4Explosive Rush\n§0(Locked)
+text.beast:form9=§4Sudden Throwing Strike\n§0(Locked)
+text.beast:form10=§4Circular Fang Spinning Fang\n§0(Locked)
+
+text.beast:form1b=§l§6Pierce
+text.beast:form2b=§l§6Slice and Dice
+text.beast:form3b=§l§6Devouring Slash
+text.beast:form4b=§l§6Cave Slash
+text.beast:form5b=§l§6Mad Cleave
+text.beast:form6b=§l§6Biting Fangs of Brutality
+text.beast:form7b=§l§6Spatial Awareness
+text.beast:form8b=§l§6Explosive Rush
+text.beast:form9b=§l§6Sudden Throwing Strike
+text.beast:form10b=§l§6Circular Fang Spinning Fang
+
+§y§rtext.beast:form1=Pierce
+§y§rtext.beast:form2=Slice and Dice
+§y§rtext.beast:form3=Devouring Slash
+§y§rtext.beast:form4=Cave Slash
+§y§rtext.beast:form5=Mad Cleave
+§y§rtext.beast:form6=Biting Fangs of Brutality
+§y§rtext.beast:form7=Spatial Awareness
+§y§rtext.beast:form8=Explosive Rush
+§y§rtext.beast:form9=Sudden Throwing Strike
+§y§rtext.beast:form10=Circular Fang Spinning Fang
+
+#sun
+text.sun:form1=§4Dance\n§0(Locked)
+text.sun:form2=§4Clear Blue Sky\n§0(Locked)
+text.sun:form3=§4Raging Sun\n§0(Locked)
+text.sun:form4=§4Burning Bones, Summer Sun\n§0(Locked)
+text.sun:form5=§4Setting Sun Transformation\n§0(Locked)
+text.sun:form6=§4Solar Heat Haze\n§0(Locked)
+text.sun:form7=§4Beneficent Radiance\n§0(Locked)
+text.sun:form8=§4Sunflower Thrust\n§0(Locked)
+text.sun:form9=§4Sun Halo Dragon Head Dance\n§0(Locked)
+text.sun:form10=§4Fire Wheel\n§0(Locked)
+text.sun:form11=§4Fake Rainbow\n§0(Locked)
+text.sun:form12=§4Flame Dance\n§0(Locked)
+text.sun:form13=§4Thirteenth Form\n§0(Locked)
+
+text.sun:form1b=§l§6Dance
+text.sun:form2b=§l§6Clear Blue Sky
+text.sun:form3b=§l§6Raging Sun
+text.sun:form4b=§l§6Burning Bones, Summer Sun
+text.sun:form5b=§l§6Setting Sun Transformation
+text.sun:form6b=§l§6Solar Heat Haze
+text.sun:form7b=§l§6Beneficent Radiance
+text.sun:form8b=§l§6Sunflower Thrust
+text.sun:form9b=§l§6Sun Halo Dragon Head Dance
+text.sun:form10b=§l§6Fire Wheel
+text.sun:form11b=§l§6Fake Rainbow
+text.sun:form12b=§l§6Flame Dance
+text.sun:form13b=§l§6Thirteenth Form
+
+§y§rtext.sun:form1=Dance
+§y§rtext.sun:form2=Clear Blue Sky
+§y§rtext.sun:form3=Raging Sun
+§y§rtext.sun:form4=Burning Bones, Summer Sun
+§y§rtext.sun:form5=Setting Sun Transformation
+§y§rtext.sun:form6=Solar Heat Haze
+§y§rtext.sun:form7=Beneficent Radiance
+§y§rtext.sun:form8=Sunflower Thrust
+§y§rtext.sun:form9=Sun Halo Dragon Head Dance
+§y§rtext.sun:form10=Fire Wheel
+§y§rtext.sun:form11=Fake Rainbow
+§y§rtext.sun:form12=Flame Dance
+§y§rtext.sun:form13=Thirteenth Form
+
+#moon
+text.moon:form1=§4Dark Moon, Evening Palace\n§0(Locked)
+text.moon:form2=§4Pearl Flower Moongazing\n§0(Locked)
+text.moon:form3=§4Loathsome Moon, Chains\n§0(Locked)
+text.moon:form4=§4Moonlit Illusion, Frosty Dawn\n§0(Locked)
+text.moon:form5=§4Moon Spirit Calamitous Eddy\n§0(Locked)
+text.moon:form6=§4Everlasting Moon, Infinite\n§0(Locked)
+text.moon:form7=§4Mirror of Misfortune, Moonlit\n§0(Locked)
+text.moon:form8=§4Moon-Dragon Ringtail\n§0(Locked)
+text.moon:form9=§4Waning Moonswaths\n§0(Locked)
+text.moon:form10=§4Moonlit Incessant Illumination\n§0(Locked)
+text.moon:form11=§4Moonbow, Half Moon\n§0(Locked)
+text.moon:form12=§4Upper Moon Illumination\n§0(Locked)
+text.moon:form13=§4Moon Eclipse\n§0(Locked)
+text.moon:form14=§4Catastrophic Moon, Continuous Cuts\n§0(Locked)
+text.moon:form15=§4Endless Moon, Tranquility\n§0(Locked)
+text.moon:form16=§4Vanishing Illusory Moons\n§0(Locked)
+
+text.moon:form1b=§l§6Dark Moon, Evening Palace
+text.moon:form2b=§l§6Pearl Flower Moongazing
+text.moon:form3b=§l§6Loathsome Moon, Chains
+text.moon:form4b=§l§6Moonlit Illusion, Frosty Dawn
+text.moon:form5b=§l§6Moon Spirit Calamitous Eddy
+text.moon:form6b=§l§6Everlasting Moon, Infinite
+text.moon:form7b=§l§6Mirror of Misfortune, Moonlit
+text.moon:form8b=§l§6Moon-Dragon Ringtail
+text.moon:form9b=§l§6Waning Moonswaths
+text.moon:form10b=§l§6Moonlit Incessant Illumination
+text.moon:form11b=§l§6Moonbow, Half Moon
+text.moon:form12b=§l§6Upper Moon Illumination
+text.moon:form13b=§l§6Moon Eclipse
+text.moon:form14b=§l§6Catastrophic Moon, Continuous Cuts
+text.moon:form15b=§l§6Endless Moon, Tranquility
+text.moon:form16b=§l§6Vanishing Illusory Moons
+
+§y§rtext.moon:form1=Dark Moon, Evening Palace
+§y§rtext.moon:form2=Pearl Flower Moongazing
+§y§rtext.moon:form3=Loathsome Moon, Chains
+§y§rtext.moon:form4=Moonlit Illusion, Frosty Dawn
+§y§rtext.moon:form5=Moon Spirit Calamitous Eddy
+§y§rtext.moon:form6=Everlasting Moon, Infinite
+§y§rtext.moon:form7=Mirror of Misfortune, Moonlit
+§y§rtext.moon:form8=Moon-Dragon Ringtail
+§y§rtext.moon:form9=Waning Moonswaths
+§y§rtext.moon:form10=Moonlit Incessant Illumination
+§y§rtext.moon:form11=Moonbow, Half Moon
+§y§rtext.moon:form12=Upper Moon Illumination
+§y§rtext.moon:form13=Moon Eclipse
+§y§rtext.moon:form14=Catastrophic Moon, Continuous Cuts
+§y§rtext.moon:form15=Endless Moon, Tranquility
+§y§rtext.moon:form16=Vanishing Illusory Moons
+
+#serpent
+text.serpent:form1=§4Whirling Serpent Slash\n§0(Locked)
+text.serpent:form2=§4Venom Fangs of the Narrow Head\n§0(Locked)
+text.serpent:form3=§4Coiling Bind\n§0(Locked)
+text.serpent:form4=§4Twin-Headed Reptile\n§0(Locked)
+text.serpent:form5=§4Slithering Serpent\n§0(Locked)
+
+text.serpent:form1b=§l§6Whirling Serpent Slash
+text.serpent:form2b=§l§6Venom Fangs of the Narrow Head
+text.serpent:form3b=§l§6Coiling Bind
+text.serpent:form4b=§l§6Twin-Headed Reptile
+text.serpent:form5b=§l§6Slithering Serpent
+
+§y§rtext.serpent:form1=Whirling Serpent Slash
+§y§rtext.serpent:form2=Venom Fangs of the Narrow Head
+§y§rtext.serpent:form3=Coiling Bind
+§y§rtext.serpent:form4=Twin-Headed Reptile
+§y§rtext.serpent:form5=Slithering Serpent
+
+#love
+text.love:form1=§4Shivers of First Love\n§0(Locked)
+text.love:form2=§4Love Pangs\n§0(Locked)
+text.love:form3=§4Catlove Shower\n§0(Locked)
+text.love:form5=§4Swaying Love, Wildclaw\n§0(Locked)
+text.love:form6=§4Love Wind, Flashing Claw\n§0(Locked)
+text.love:form7=§4Cat-Legged Flying Kick\n§0(Locked)
+
+text.love:form1b=§l§6Shivers of First Love
+text.love:form2b=§l§6Love Pangs
+text.love:form3b=§l§6Catlove Shower
+text.love:form5b=§l§6Swaying Love, Wildclaw
+text.love:form6b=§l§6Love Wind, Flashing Claw
+text.love:form7b=§l§6Cat-Legged Flying Kick
+
+§y§rtext.love:form1=Shivers of First Love
+§y§rtext.love:form2=Love Pangs
+§y§rtext.love:form3=Catlove Shower
+§y§rtext.love:form5=Swaying Love, Wildclaw
+§y§rtext.love:form6=Love Wind, Flashing Claw
+§y§rtext.love:form7=Cat-Legged Flying Kick
+
+#stone
+text.stone:form1=§4Serpentinite Bipolar\n§0(Locked)
+text.stone:form2=§4Upper Smash\n§0(Locked)
+text.stone:form3=§4Stone Skin\n§0(Locked)
+text.stone:form4=§4Volcanic Rock, Rapid Conquest\n§0(Locked)
+text.stone:form5=§4Arcs of Justice\n§0(Locked)
+
+text.stone:form1b=§l§6Serpentinite Bipolar
+text.stone:form2b=§l§6Upper Smash
+text.stone:form3b=§l§6Stone Skin
+text.stone:form4b=§l§6Volcanic Rock, Rapid Conquest
+text.stone:form5b=§l§6Arcs of Justice
+
+§y§rtext.stone:form1=Serpentinite Bipolar
+§y§rtext.stone:form2=Upper Smash
+§y§rtext.stone:form3=Stone Skin
+§y§rtext.stone:form4=Volcanic Rock, Rapid Conquest
+§y§rtext.stone:form5=Arcs of Justice
+
+#insect
+text.insect:form1=§4Butterfly Dance: Caprice\n§0(Locked)
+text.insect:form2=§4Beetle Dance: True Flutter\n§0(Locked)
+text.insect:form3=§4Dragonfly Dance: Compound Eye Hexagon\n§0(Locked)
+text.insect:form4=§4Centipede Dance: Hundred-Legged Zigzag\n§0(Locked)
+
+text.insect:form1b=§l§6Butterfly Dance: Caprice
+text.insect:form2b=§l§6Beetle Dance: True Flutter
+text.insect:form3b=§l§6Dragonfly Dance: Compound Eye Hexagon
+text.insect:form4b=§l§6Centipede Dance: Hundred-Legged Zigzag
+
+§y§rtext.insect:form1=Butterfly Dance: Caprice
+§y§rtext.insect:form2=Beetle Dance: True Flutter
+§y§rtext.insect:form3=Dragonfly Dance: Compound Eye Hexagon
+§y§rtext.insect:form4=Centipede Dance: Hundred-Legged Zigzag
+
+#Custom Armor / haoris
+item.ds:uniform_red=§eDemon Slayer Uniform - §cRed
+item.ds:uniform_tengen=§eDemon Slayer Uniform - §6Sleeveless
+
+item.ds:giyuu_haori1=§eHanhan Haori - §sCyan
+item.ds:giyuu_haori2=§eHanhan Haori - §6Orange
+item.ds:giyuu_haori3=§eHanhan Haori - §5Purple
+item.ds:giyuu_haori4=§eHanhan Haori - §1Blue
+
+item.ds:kocho_haori1=§eInsect Haori - §aGreen
+item.ds:kocho_haori2=§eInsect Haori - §dPink
+item.ds:kocho_haori3=§eInsect Haori - §bBlue
+
+item.ds:rengoku_haori1=§eFlaming Haori - §bBlue
+item.ds:rengoku_haori2=§eFlaming Haori - §6Yellow
+item.ds:rengoku_haori3=§eFlaming Haori - §rWhite
+item.ds:rengoku_haori5=§eFlaming Haori - §cRed
+item.ds:xeno_haori=§eXeno's Haori
+
+item.ds:tanjiro_haori1=§eChecker Haori - §cRed
+item.ds:tanjiro_haori2=§eChecker Haori - §1Blue
+item.ds:tanjiro_haori3=§eChecker Haori - §5Purple
+item.ds:tanjiro_haori4=§eChecker Haori - §6Brown
+item.ds:tanjiro_haori5=§eChecker Haori - §7Gray
+item.ds:tanjiro_haori6=§eChecker Haori - §0Black
+item.ds:tanjiro_haori7=§eChecker Haori - §2Forest
+
+item.ds:zenitsu_haori1=§eTriangle Haori - §9Blue
+item.ds:zenitsu_haori1=§eTriangle Haori - §dPurple
+item.ds:zenitsu_haori1=§eTriangle Haori - §6Orange
+item.ds:zenitsu_haori1=§eTriangle Haori - §cBrown

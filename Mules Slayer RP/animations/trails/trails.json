@@ -1,0 +1,35 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.trails.thunder": {
+			"loop": true,
+			"animation_length": 0.0000000000000000000000000000000000000000001,
+			"loop_delay": 0.0000000000000000000000000000000000000000001,
+			"particle_effects": {
+				"0.0": {
+					"effect": "trailthunder1",
+					"locator": "skill3"
+				},
+				"0.0000000000000000000000000000000000000000001": {
+					"effect": "trailthunder1",
+					"locator": "skill3"
+				}
+			}
+		},
+		"animation.trails.thunder2": {
+			"loop": true,
+			"animation_length": 0.000000001,
+			"loop_delay": 0.000000001,
+			"particle_effects": {
+				"0.0": {
+					"effect": "trailthunder2",
+					"locator": "skill3"
+				},
+				"0.000000001": {
+					"effect": "trailthunder2",
+					"locator": "skill3"
+				}
+			}
+		}
+	}
+}

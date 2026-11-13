@@ -1,0 +1,26 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.axell.fpp": {
+			"loop": true,
+			"bones": {
+				"waist": {
+					"rotation": [0,180,0],
+					"position": [-5,-2,-3]
+				},
+        "rightitem": {
+          "position": [
+            0,
+            5,0
+            
+          ],
+          "rotation": [
+            -5,
+            62,
+            -51
+          ]
+        }
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "scarlet_iron_ingot_recipe"
+    },
+    "tags": [ "furnace" ],
+    "input": {
+      "item": "item:raw_scarlet_iron",
+      "data": 0
+    },
+    "output": {
+      "item": "item:scarlet_iron_ingot",
+      "data": 0
+    }
+  }
+}

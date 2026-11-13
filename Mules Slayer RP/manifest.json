@@ -1,0 +1,36 @@
+{
+    "format_version": 2,
+    "metadata": {
+        "authors": [
+            "axell"
+        ]
+    },
+    "header": {
+        "name": "Demon Slayer: Mules Slayer [RP]",
+        "description": "Demon Slayer addon made by axell, featuring epic battles and immersive experiences.",
+        "min_engine_version": [
+            1,
+            20,
+            60
+        ],
+        "uuid": "ce6a21e7-c4c8-42d9-8f2c-3d6c6830df81",
+        "version": [15,0,1]
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "uuid": "4869f4aa-ba9c-4d8b-8ec4-b439895a0dec",
+            "version": [
+                15,
+                0,
+                1
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "29317deb-0333-4bd9-9cad-47dbaf2c0864",
+            "version": [15,0,1]
+        }
+    ]
+}
